@@ -1,4 +1,5 @@
 * text=auto !eol
 /pom.xml -text
+src/main/java/com/baxter/config/model/1.txt -text
 src/main/webapp/WEB-INF/web.xml -text
 src/main/webapp/index.jsp -text
