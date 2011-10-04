@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<properties version="1.1" xmlns="http://baxter.com/config">
+    
+    <pretag key="host1">localhost</pretag>
+    <pretag key="host2">localhost</pretag>
+    <pretag key="host3">localhost</pretag>
+    <pretag key="host4">localhost</pretag>
+
+    <pretag key="port1">4001</pretag>
+    <pretag key="port2">4002</pretag>
+    <pretag key="port3">4003</pretag>
+
+
+    <pretag key="userName1">anonymous</pretag>
+    <pretag key="userName2">anonymous</pretag>
+    <pretag key="userName3">anonymous</pretag>
+
+    <pretag key="password1"/>
+    <pretag key="password2"/>
+    <pretag key="password3"/>
+    <!--
+        
+        <pretag key="userName1">testUser1</pretag>
+        <pretag key="userName2">testUser2</pretag>
+        <pretag key="userName3">testUser3</pretag>
+        
+        <pretag key="password1">test1</pretag>
+        <pretag key="password2">test2</pretag>
+        <pretag key="password3">test3</pretag>
+        
+        <pretag key="host1">test03</pretag>
+        <pretag key="host2">test03</pretag>
+        <pretag key="host3">test03</pretag>
+        <pretag key="host4">test03</pretag>
+        
+        <pretag key="port1">7222</pretag>
+        <pretag key="port2">7223</pretag>
+        <pretag key="port3">7224</pretag>
+        <pretag key="port4">7224</pretag>
+    -->
+
+    <pretag key="router1">router1</pretag>
+    <pretag key="router2">router2</pretag>
+    <pretag key="router3">router3</pretag>
+    <pretag key="router4">router4</pretag>
+    <pretag key="numberOfBroadcastNodes">1</pretag>
+    <pretag key="broadcastNodeHost">localhost</pretag>
+    <pretag key="broadcastNodeHost2">localhost</pretag>
+    <pretag key="broadcastNodePricePort">7104</pretag>
+    <pretag key="broadcastNodePricePort2">7770</pretag>
+    <pretag key="broadcastNodeChannelPort">7106</pretag>
+    <pretag key="broadcastNodeChannelPort2">7781</pretag>
+    <pretag key="vendorHost">localhost</pretag>
+    <pretag key="vendorPricePort">7100</pretag>
+    <pretag key="peHome">c:\projects\pe</pretag>
+    <pretag key="peConf"
+        >/home/user/Projects/Baxter/price-engine/price-engine-devel/target/config\</pretag>
+    <pretag key="xmlUserId">m</pretag>
+
+    <group key="toDb">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="QRouter" pretag="router1"/>
+        <entry key="QName">DBRequest</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="broadcast">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="RouterLogin" pretag="routerLogin2"/>
+        <entry key="RouterPassword" pretag="routerLogin2"/>
+        <entry key="TName">DBBroadcast</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="trade2Db">
+        <entry key="Host" pretag="host3"/>
+        <entry key="Port" pretag="port3"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="QRouter" pretag="router3"/>
+        <entry key="QName">Trade2DB</entry>
+        <entry key="UserName" pretag="userName3"/>
+        <entry key="Password" pretag="password3"/>
+    </group>
+
+    <group key="vendor2validator">
+        <entry key="Host" pretag="host2"/>
+        <entry key="Port" pretag="port2"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="TName">Vendors2Validator</entry>
+        <entry key="UserName" pretag="userName2"/>
+        <entry key="Password" pretag="password2"/>
+    </group>
+
+    <group key="validator2tws">
+        <entry key="Host" pretag="host2"/>
+        <entry key="Port" pretag="port2"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="TName">Validator2TWS</entry>
+        <entry key="UserName" pretag="userName2"/>
+        <entry key="Password" pretag="password2"/>
+    </group>
+
+    <group key="tws2manufacturer">
+        <entry key="Host" pretag="host2"/>
+        <entry key="Port" pretag="port2"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="TName">TWS2Manufacturer</entry>
+        <entry key="UserName" pretag="userName2"/>
+        <entry key="Password" pretag="password2"/>
+    </group>
+
+    <group key="twc2tws">
+        <entry key="Host" pretag="host2"/>
+        <entry key="Port" pretag="port2"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="QRouter" pretag="router2"/>
+        <entry key="QName">TWC2Server</entry>
+        <entry key="UserName" pretag="userName2"/>
+        <entry key="Password" pretag="password2"/>
+    </group>
+
+    <group key="tws2twc">
+        <entry key="Host" pretag="host2"/>
+        <entry key="Port" pretag="port2"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="TName">TWS2Client</entry>
+        <entry key="UserName" pretag="userName2"/>
+        <entry key="Password" pretag="password2"/>
+    </group>
+
+    <group key="vendor2fwdctrl">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="TName">FwdSource2Controller</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="vendor2fwdirctrl">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="TName">FwdIRSource2Controller</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="fwdmon2fwdctrl">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="QRouter" pretag="router1"/>
+        <entry key="QName">C2SFwdReq</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="fwdctrl2fwdmon">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="TName">S2CFwdReq</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="fwdctrl2publisher">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="TName">FwdController2Publisher</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="fwdIRctrl2publisher">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="TName">FwdIRController2Publisher</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="blotterTrade">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="QRouter" pretag="router1"/>
+        <entry key="QName">BlotterTrade</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="blotterServer2Client">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="TName">BlotterS2C</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="blotterPrice">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="TName">BlotterPrice</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="client2BlotterServer">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="TName">BlotterC2S</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="xmlManager">
+        <group key="structurales2DB">
+            <entry key="Host" pretag="host1"/>
+            <entry key="Port" pretag="port1"/>
+            <entry key="Host2">null</entry>
+            <entry key="Port2">0</entry>
+            <entry key="QRouter" pretag="router1"/>
+            <entry key="QName">Structurales2DB</entry>
+            <entry key="UserName" pretag="userName1"/>
+            <entry key="Password" pretag="password1"/>
+        </group>
+
+        <group key="structuralesUser">
+            <entry key="xmlUserId" pretag="xmlUserId"/>
+        </group>
+
+        <group key="db2Structurales">
+            <entry key="Host" pretag="host1"/>
+            <entry key="Port" pretag="port1"/>
+            <entry key="Host2">null</entry>
+            <entry key="Port2">0</entry>
+            <entry key="QRouter" pretag="router1"/>
+            <entry key="QName">DB2Structurales</entry>
+            <entry key="UserName" pretag="userName1"/>
+            <entry key="Password" pretag="password1"/>
+        </group>
+    </group>
+
+    <group key="positionManager">
+        <entry key="aLGOEngineClassName">com.baxter.genius.positionmanager.DefaultALGOEngine</entry>
+        <group key="client2PositionManagerServer">
+            <entry key="Host" pretag="host2"/>
+            <entry key="Host2">null</entry>
+            <entry key="Port" pretag="port2"/>
+            <entry key="Port2">0</entry>
+            <entry key="QName">Client2PositionManagerServer</entry>
+            <entry key="QRouter">router2</entry>
+            <entry key="UserName" pretag="userName2"/>
+            <entry key="Password" pretag="password2"/>
+        </group>
+        <group key="positionManagerServer2Client">
+            <entry key="Host" pretag="host2"/>
+            <entry key="Host2">null</entry>
+            <entry key="Port" pretag="port2"/>
+            <entry key="Port2">0</entry>
+            <entry key="TName">PositionManagerServer2Client</entry>
+            <entry key="UserName" pretag="userName2"/>
+            <entry key="Password" pretag="password2"/>
+        </group>
+        <group key="positionManagerServer2TW">
+            <entry key="Host" pretag="host2"/>
+            <entry key="Host2">null</entry>
+            <entry key="Port" pretag="port2"/>
+            <entry key="Port2">0</entry>
+            <entry key="TName">PositionManagerServer2TW</entry>
+            <entry key="UserName" pretag="userName2"/>
+            <entry key="Password" pretag="password2"/>
+        </group>
+        <group key="HedgeClientMessaging">
+            <entry key="Host" pretag="host2"/>
+            <entry key="Host2"/>
+            <entry key="Port" pretag="port2"/>
+            <entry key="Port2">0</entry>
+            <entry key="QName">BlotterServer2HedgeClientMessaging</entry>
+            <entry key="QRouter">router2</entry>
+            <entry key="UserName" pretag="userName2"/>
+            <entry key="Password" pretag="password2"/>
+        </group>
+    </group>
+
+    <group key="toSender">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Port2">0</entry>
+        <entry key="TName">FWDSVSender</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="fromReceiver">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Port2">0</entry>
+        <entry key="TName">FWDSVReceiver</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="DI2Upstream">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="TName">DI2Upstream</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="Upstream2DI">
+        <entry key="Host" pretag="host1"/>
+        <entry key="Port" pretag="port1"/>
+        <entry key="Host2">null</entry>
+        <entry key="Port2">0</entry>
+        <entry key="TName">Upstream2DI</entry>
+        <entry key="UserName" pretag="userName1"/>
+        <entry key="Password" pretag="password1"/>
+    </group>
+
+    <group key="Vendor2DOBAlgo">
+        <entry key="Host" pretag="host3"/>
+        <entry key="Port" pretag="port3"/>
+        <entry key="Host2"/>
+        <entry key="Port2">0</entry>
+        <entry key="QName">Vendor2DOBAlgo</entry>
+        <entry key="QRouter" pretag="router3"/>
+        <entry key="UserName" pretag="userName3"/>
+        <entry key="Password" pretag="password3"/>
+    </group>
+
+    <entry key="GlobalJMSUserName">swiftadmin</entry>
+    <entry key="GlobalJMSPassword">adminadmin</entry>
+
+
+    <group key="dbConnection">
+        <entry key="dbDriver">oracle.jdbc.driver.OracleDriver</entry>
+        <entry key="dbAddress">jdbc:oracle:thin:@oraclexp.n-ix.com.ua:1521:BAXTERFX</entry>
+        <entry key="dbPasswdFile">/home/ykryshchuk/Projects/Baxter/database.pwd</entry>
+        <entry key="dbDriver2">oracle.jdbc.driver.OracleDriver</entry>
+        <entry key="dbAddress2">jdbc:oracle:thin:@oraclexp.n-ix.com.ua:1521:BAXTERFX</entry>
+        <entry key="dbPasswdFile2"
+            >/home/user/Projects/Baxter/price-engine/price-engine-devel/target/config/database.pwd</entry>
+    </group>
+
+    <!--group key="dbConnection">
+        <entry key="dbDriver">com.jnetdirect.jsql.JSQLDriver</entry>
+        <entry key="dbAddress">jdbc:JSQLConnect://192.168.9.229:1166</entry>
+        <entry key="dbPasswdFile">c:\projects\database_xpdev19.pwd</entry>
+        </group-->
+
+    <group key="toffile">
+        <entry key="primary" pretag="peHome"/>
+        <entry key="secondary" pretag="peHome"/>
+    </group>
+
+    <entry key="dbUDPPort">-1</entry>
+    <entry key="deleteLogins">true</entry>
+
+
+    <!-- group key="ldapConnection">
+        <entry key="loginModule">com.sun.security.auth.module.LdapLoginModule</entry>
+        <entry key="controlFlag">REQUIRED</entry>
+        <group key="internal">
+        <entry key="userProvider">ldap://192.168.9.221:389/dc=users,dc=internal,dc=priceengine,dc=baxtersol,dc=bit</entry>
+        <entry key="userFilter">uid={USERNAME}</entry>
+        <entry key="useSSL">false</entry>
+        <entry key="debug">true</entry>
+        </group>
+        <group key="external">
+        <entry key="userProvider">ldap://192.168.9.221:389/dc=users,dc=external,dc=priceengine,dc=baxtersol,dc=bit</entry>
+        <entry key="userFilter">uid={USERNAME}</entry>
+        <entry key="useSSL">false</entry>
+        <entry key="debug">true</entry>
+        </group>
+        </group-->
+</properties>
