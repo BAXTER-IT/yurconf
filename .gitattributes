@@ -15,6 +15,7 @@ src/main/webapp/console/index.jsp -text
 src/main/webapp/console/jms/index.jsp -text
 src/main/webapp/console/log/index.jsp -text
 src/main/webapp/index.jsp -text
+src/main/webapp/test/go.jsp -text
 src/main/webapp/test/index.jsp -text
 src/test/java/com/baxter/config/model/PropertiesTest.java -text
 src/test/resources/large-sample1.xml -text

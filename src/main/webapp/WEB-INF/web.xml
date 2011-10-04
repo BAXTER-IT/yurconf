@@ -14,7 +14,7 @@
  <security-constraint>
   <web-resource-collection>
    <web-resource-name>Protected JMS Resources</web-resource-name>
-   <url-pattern>console/jms/*</url-pattern>
+   <url-pattern>/console/jms/*</url-pattern>
    <http-method>GET</http-method>
    <http-method>POST</http-method>
   </web-resource-collection>
@@ -25,7 +25,7 @@
  <security-constraint>
   <web-resource-collection>
    <web-resource-name>Protected Logging Resources</web-resource-name>
-   <url-pattern>console/log/*</url-pattern>
+   <url-pattern>/console/log/*</url-pattern>
    <http-method>GET</http-method>
    <http-method>POST</http-method>
   </web-resource-collection>

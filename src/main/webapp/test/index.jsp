@@ -5,10 +5,16 @@
 <!--
 table.input {
 	background-color: #202020;
+  border: none;
 }
 
 table.input td {
 	background-color: #CFCFCF;
+  padding: 5px;
+}
+
+table.input th {
+    color: #CFCFCF;
 }
 //
 -->
@@ -16,7 +22,7 @@ table.input td {
 </head>
 <body>
   <form action="go.jsp" method="get" target="_blank">
-    <table cellspacing="1" border="0" class="input">
+    <table class="input">
       <tr>
         <th>Configuration type</th>
         <th>Component ID</th>
