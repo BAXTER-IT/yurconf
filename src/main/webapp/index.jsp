@@ -1,1 +1,1 @@
-<% response.sendRedirect("console/"); %>
+<% response.sendRedirect("test/"); %>
