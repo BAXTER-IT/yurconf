@@ -23,4 +23,19 @@ public class Properties extends AbstractContainer
 	return version;
   }
 
+  public int getJMSInstancesCount()
+  {
+	return 3;
+  }
+
+  public String getLoadFrom()
+  {
+	return null;
+  }
+
+  public void setLoadFrom(final String where)
+  {
+	System.out.println("Loading from " + where);
+  }
+
 }

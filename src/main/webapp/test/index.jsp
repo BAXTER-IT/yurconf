@@ -1,33 +1,27 @@
 <html>
 <head>
-<title>Baxter Config test Page</title>
+<title>Test - Baxter Config</title>
 <style>
 <!--
 table.input {
 	background-color: #202020;
-  border: none;
+	border: none;
 }
 
-table.input td {
+table.input td,table.input th {
 	background-color: #CFCFCF;
-  padding: 5px;
-}
-
-table.input th {
-    color: #CFCFCF;
+	padding: 5px;
 }
 //
 -->
 </style>
 </head>
 <body>
+  <h1>Test - Baxter Config</h1>
   <form action="go.jsp" method="get" target="_blank">
     <table class="input">
       <tr>
         <th>Configuration type</th>
-        <th>Component ID</th>
-      </tr>
-      <tr>
         <td><select name="configType" size="1">
             <option value="properties">Properties</option>
             <option value="log4j">Log4J</option>
@@ -35,6 +29,9 @@ table.input th {
             <option value="custom">Custom</option>
         </select>
         </td>
+      </tr>
+      <tr>
+        <th>Component ID</th>
         <td><input type="text" size="30" name="componentId" />
         </td>
       </tr>
