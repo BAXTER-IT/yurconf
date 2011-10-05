@@ -2,6 +2,7 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5">
  <display-name>Baxter Configuration Web Application</display-name>
+ 
  <welcome-file-list>
   <welcome-file>index.jsp</welcome-file>
  </welcome-file-list>
@@ -34,5 +35,20 @@
    <role-name>log-manager</role-name>
   </auth-constraint>
  </security-constraint>
- -->
+  -->
+
+	<listener>
+    	<listener-class>com.baxter.config.servlet.RestServletContextListener</listener-class>
+  	</listener>
+
+	<servlet>
+	 	<servlet-name>RestServlet</servlet-name>
+	    <servlet-class>com.baxter.config.servlet.RestServlet</servlet-class>
+	</servlet>
+	    
+	<servlet-mapping><servlet-name>RestServlet</servlet-name>
+	    <url-pattern>/rest/properties/*</url-pattern>
+	    <url-pattern>/rest/log4j/*</url-pattern>
+	</servlet-mapping>
+ 
 </web-app>

@@ -12,6 +12,8 @@ src/main/java/com/baxter/config/model/Properties.java -text
 src/main/java/com/baxter/config/model/QueueGroup.java -text
 src/main/java/com/baxter/config/model/TopicGroup.java -text
 src/main/java/com/baxter/config/servlet/PropertiesPersister.java -text
+src/main/java/com/baxter/config/servlet/RestServletContextListener.java -text
+src/main/java/com/baxter/config/servlet/StoreManager.java -text
 src/main/webapp/META-INF/context.xml -text
 src/main/webapp/WEB-INF/web.xml -text
 src/main/webapp/console/inc-menu.jsp -text
