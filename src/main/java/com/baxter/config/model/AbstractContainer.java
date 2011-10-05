@@ -81,6 +81,16 @@ public abstract class AbstractContainer
 	}
 	throw new NoSuchElementException("no entry for key " + key);
   }
+  
+  public List<Group> getChannels() {
+	final List<Group> channels = new ArrayList<Group>();
+	for ( Group g : this.groups ) {
+	  if ( g.getChannelType() != null ) {
+		channels.add(g);
+	  }
+	}
+	return channels;
+  }
 
   protected <G extends Group> G addGroup(final G g)
   {

@@ -3,6 +3,8 @@
  */
 package com.baxter.config.model;
 
+import java.util.NoSuchElementException;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,7 +27,34 @@ public class Properties extends AbstractContainer
 
   public int getJMSInstancesCount()
   {
-	return 3;
+	int count = 0;
+	try
+	{
+	  while (true)
+	  {
+		final int index = count + 1;
+		getAlias("Host" + index);
+		getAlias("Port" + index);
+		getAlias("Router" + index);
+		getAlias("UserName" + index);
+		getAlias("Password" + index);
+		count++;
+	  }
+	}
+	catch (final NoSuchElementException e)
+	{
+	  // no more aliases found
+	  return count;
+	}
+  }
+  
+  public void addNewJmsInstance( final String host, final String port, final String router, final String username, final String password ) {
+	final int newIdx = getJMSInstancesCount() + 1;
+	addAlias("Host"+newIdx, host);
+	addAlias("Port"+newIdx, port);
+	addAlias("Router"+newIdx, router);
+	addAlias("UserName"+newIdx, username);
+	addAlias("Password"+newIdx, password);
   }
 
   public String getLoadFrom()
