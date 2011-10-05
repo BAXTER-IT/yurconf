@@ -38,7 +38,7 @@
   -->
 
 	<listener>
-    	<listener-class>com.baxter.config.servlet.RestServletContextListener</listener-class>
+    	<listener-class>com.baxter.config.servlet.StoreManagerInit</listener-class>
   	</listener>
 
 	<servlet>

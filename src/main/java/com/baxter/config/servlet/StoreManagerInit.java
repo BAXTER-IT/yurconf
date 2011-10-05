@@ -4,15 +4,15 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 /**
- * Application Lifecycle Listener implementation class RestServletContextListener
+ * Application Lifecycle Listener implementation class StoreManagerInit
  *
  */
-public class RestServletContextListener implements ServletContextListener {
+public class StoreManagerInit implements ServletContextListener {
 
     /**
      * Default constructor. 
      */
-    public RestServletContextListener() {
+    public StoreManagerInit() {
         // TODO Auto-generated constructor stub
     }
 
@@ -21,7 +21,7 @@ public class RestServletContextListener implements ServletContextListener {
      */
     public void contextInitialized(ServletContextEvent sce) {
         // TODO Auto-generated method stub
-      sce.getServletContext().setAttribute("StoreManager", new StoreManager());
+      sce.getServletContext().setAttribute("storeManager", new StoreManager());
     }
 
 	/**
