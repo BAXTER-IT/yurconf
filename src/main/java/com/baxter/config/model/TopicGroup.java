@@ -22,5 +22,11 @@ public class TopicGroup extends AbstractChannelGroup
   {
 	return getEntry("TName");
   }
+  
+  @Override
+  public void setChannelName(String name)
+  {
+    addEntryWithValue("TName", name);
+  }
 
 }

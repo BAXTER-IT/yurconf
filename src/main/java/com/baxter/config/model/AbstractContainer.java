@@ -69,6 +69,11 @@ public abstract class AbstractContainer
 	}
 	throw new NoSuchElementException("no alias for key " + key);
   }
+  
+  public void removeAlias( final String key ) {
+	final Alias alias = getAlias(key);
+	this.aliases.remove(alias);
+  }
 
   public Entry getEntry(final String key) throws NoSuchElementException
   {

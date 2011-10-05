@@ -27,5 +27,16 @@ public class QueueGroup extends AbstractChannelGroup
   {
 	return getEntry("QName");
   }
+  
+  public void setJMS( final int index ) {
+	super.setJMS(index);
+	addEntryWithAlias("QRouter", "router"+index);
+  }
+  
+  @Override
+  public void setChannelName(String name)
+  {
+    addEntryWithValue("QName", name);
+  }
 
 }

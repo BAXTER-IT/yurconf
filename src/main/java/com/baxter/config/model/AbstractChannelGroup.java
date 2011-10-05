@@ -43,4 +43,13 @@ public abstract class AbstractChannelGroup extends Group
 	return getEntry("Password");
   }
   
+  public abstract void setChannelName( final String name );
+  
+  public void setJMS( final int index ) {
+	addEntryWithAlias("Host", "host"+index);
+	addEntryWithAlias("Port", "port"+index);
+	addEntryWithAlias("UserName", "userName"+index);
+	addEntryWithAlias("Password", "password"+index);
+  }
+  
 }

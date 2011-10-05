@@ -8,6 +8,9 @@ import java.util.NoSuchElementException;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.baxter.config.bean.NewChannelBean;
+import com.baxter.config.bean.NewJmsBean;
+
 /**
  * @author ykryshchuk
  * 
@@ -47,14 +50,43 @@ public class Properties extends AbstractContainer
 	  return count;
 	}
   }
-  
-  public void addNewJmsInstance( final String host, final String port, final String router, final String username, final String password ) {
+
+  public void deleteLastJMS()
+  {
+	final int index = getJMSInstancesCount();
+	if (index != 0)
+	{
+	  removeAlias("Host" + index);
+	  removeAlias("Port" + index);
+	  removeAlias("Router" + index);
+	  removeAlias("UserName" + index);
+	  removeAlias("Password" + index);
+	}
+  }
+
+  public void addNewJmsInstance(final NewJmsBean newJms)
+  {
 	final int newIdx = getJMSInstancesCount() + 1;
-	addAlias("Host"+newIdx, host);
-	addAlias("Port"+newIdx, port);
-	addAlias("Router"+newIdx, router);
-	addAlias("UserName"+newIdx, username);
-	addAlias("Password"+newIdx, password);
+	addAlias("Host" + newIdx, newJms.getHost());
+	addAlias("Port" + newIdx, String.valueOf(newJms.getPort()));
+	addAlias("Router" + newIdx, newJms.getRouter());
+	addAlias("UserName" + newIdx, newJms.getUsername());
+	addAlias("Password" + newIdx, newJms.getPassword());
+  }
+
+  public void addNewChannel(final NewChannelBean newChannel)
+  {
+	final AbstractChannelGroup channel;
+	if ("T".equals(newChannel.getType()))
+	{
+	  channel = addTopic(newChannel.getAlias());
+	}
+	else
+	{
+	  channel = addQueue(newChannel.getAlias());
+	}
+	channel.setJMS(newChannel.getJmsIndex());
+	channel.setChannelName(newChannel.getName());
   }
 
   public String getLoadFrom()
