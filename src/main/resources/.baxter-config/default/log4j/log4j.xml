@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="false">
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<!-- <param name="ConversionPattern" value="%d{ISO8601} %-5p [thread: 
+				%-12t] %c{4} - %n%m%n"/> -->
+			<param name="ConversionPattern" value="%d{ISO8601} %-5p [THREAD: %t] %c{4} %n%m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ASYNC_Bloomberg" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_Bloomberg" />
+	</appender>
+
+	<appender name="FILE_Bloomberg" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/Bloomberg_messages.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ASYNC_SonicLoginSpiImpl" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_SonicLoginSpiImpl" />
+	</appender>
+
+	<appender name="FILE_SonicLoginSpiImpl" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/SonicLoginSpiImpl.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ASYNC_JBossMQ" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_JBossMQ" />
+	</appender>
+
+	<appender name="FILE_JBossMQ" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/JBossMQ.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ASYNC_JNP" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_JNP" />
+	</appender>
+
+	<appender name="FILE_JNP" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/JNP.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ASYNC_Integral" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_Integral" />
+	</appender>
+
+	<appender name="FILE_Integral" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/Integral_messages.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] - %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="com.baxter.genius.publishing.BloombergClientMessaging">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_Bloomberg" />
+	</logger>
+
+	<logger name="com.baxter.genius.publishing.IntegralClientMessaging">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_Integral" />
+	</logger>
+
+	<logger name="com.ssgm.glml.integration.sonic.SonicLoginSpiImpl">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_SonicLoginSpiImpl" />
+	</logger>
+
+	<logger name="org.jboss">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_JBossMQ" />
+	</logger>
+
+	<logger name="org.jnp">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_JNP" />
+	</logger>
+
+</log4j:configuration>

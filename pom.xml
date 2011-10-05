@@ -7,7 +7,12 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>Baxter Configuration Web Application</name>
 	<build>
-
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 
 		<pluginManagement>
 			<plugins>

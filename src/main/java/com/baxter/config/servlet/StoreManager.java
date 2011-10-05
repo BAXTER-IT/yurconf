@@ -95,7 +95,7 @@ public class StoreManager
   public String getConfigurationURL(String configType, String componentId)
   {
 	final StringBuilder path = new StringBuilder(this.configRoot.getAbsolutePath());
-	path.append("/");
+	path.append("/default/");
 	path.append(configType).append("/");
 	path.append(configType);
 	path.append(".xml");
