@@ -3,6 +3,8 @@
  */
 package com.baxter.config.bean;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import com.baxter.config.model.Properties;
 import com.baxter.config.servlet.StoreManager;
@@ -23,7 +26,7 @@ public class PropertiesPersister
 {
 
   private static final String PROPS_BEAN_NAME = "props";
-  
+
   private StoreManager storeManager;
 
   private String tag;
@@ -57,12 +60,12 @@ public class PropertiesPersister
 
   public StoreManager getStoreManager()
   {
-    return storeManager;
+	return storeManager;
   }
 
   public void setStoreManager(StoreManager storeManager)
   {
-    this.storeManager = storeManager;
+	this.storeManager = storeManager;
   }
 
   public void save(final HttpSession session, final Messages msg)
@@ -71,16 +74,18 @@ public class PropertiesPersister
 	try
 	{
 	  final Marshaller mProps = createMarshaller(Properties.class);
-	  final StringWriter writerProps = new StringWriter();
+	  final OutputStream streamProps = storeManager.getOutputStream("properties.xml");
 	  try
 	  {
-		mProps.marshal(props, writerProps);
-		writerProps.flush();
-		System.out.println("Props: \n" + writerProps.toString());
+		mProps.marshal(props, streamProps);
 	  }
 	  finally
 	  {
-		writerProps.close();
+		streamProps.close();
+	  }
+	  if (!tag.isEmpty() && !"default".equals(tag))
+	  {
+		this.storeManager.tag(tag, msg);
 	  }
 	}
 	catch (final Exception e)
@@ -91,8 +96,27 @@ public class PropertiesPersister
 
   public void load(final HttpSession session, final Messages msg)
   {
-	final Properties props = null;
-	session.setAttribute(PROPS_BEAN_NAME, props);
+	storeManager.untag(storedTag, msg);
+	try
+	{
+	  final JAXBContext jaxb = JAXBContext.newInstance(Properties.class);
+	  final Unmarshaller um = jaxb.createUnmarshaller();
+
+	  final InputStream streamProps = this.storeManager.getInputStream("properties.xml");
+	  try
+	  {
+		final Properties props = Properties.class.cast(um.unmarshal(streamProps));
+		session.setAttribute(PROPS_BEAN_NAME, props);
+	  }
+	  finally
+	  {
+		streamProps.close();
+	  }
+	}
+	catch (final Exception e)
+	{
+	  msg.add(e);
+	}
   }
 
   private Marshaller createMarshaller(final Class<?> type) throws JAXBException

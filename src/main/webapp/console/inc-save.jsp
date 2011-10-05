@@ -27,7 +27,7 @@ table.save {
 //
 -->
 </style>
-<form>
+<form method="post">
   <table class="save">
     <tr>
       <td>Please save your changes to make the configuration effective. You can also provide a tag for current

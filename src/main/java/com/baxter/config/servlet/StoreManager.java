@@ -1,7 +1,12 @@
 package com.baxter.config.servlet;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,6 +27,26 @@ public class StoreManager
 	this.configRoot = ensureDirExists(new File(userHome, ".baxter-config"));
 	this.defaultTag = ensureDirExists(new File(this.configRoot, "default"));
   }
+  
+  public void untag(final String tag, final Messages msg)
+  {
+	final File tagDir = new File(this.configRoot, tag);
+	if (! tagDir.exists())
+	{
+	  msg.add("Tag not found");
+	}
+	else
+	{
+	  try
+	  {
+		FileUtils.copyDirectory(tagDir, defaultTag);
+	  }
+	  catch (final IOException e)
+	  {
+		msg.add(e);
+	  }
+	}
+  }
 
   public void tag(final String tag, final Messages msg)
   {
@@ -41,6 +66,25 @@ public class StoreManager
 		msg.add(e);
 	  }
 	}
+  }
+
+  public InputStream getInputStream(final String resource) throws IOException
+  {
+	final File resourceFile = new File(defaultTag, resource);
+	if (resourceFile.isFile())
+	{
+	  return new FileInputStream(resourceFile);
+	}
+	else
+	{
+	  throw new FileNotFoundException("No such resource");
+	}
+  }
+
+  public OutputStream getOutputStream(final String resource) throws IOException
+  {
+	final File resourceFile = new File(this.defaultTag, resource);
+	return new FileOutputStream(resourceFile);
   }
 
   public List<String> getStoredTags()
