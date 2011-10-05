@@ -1,7 +1,9 @@
 * text=auto !eol
 /pom.xml -text
+src/main/java/com/baxter/config/bean/Messages.java -text
 src/main/java/com/baxter/config/bean/NewChannelBean.java -text
 src/main/java/com/baxter/config/bean/NewJmsBean.java -text
+src/main/java/com/baxter/config/bean/PropertiesPersister.java -text
 src/main/java/com/baxter/config/model/AbstractChannelGroup.java -text
 src/main/java/com/baxter/config/model/AbstractContainer.java -text
 src/main/java/com/baxter/config/model/AbstractValue.java -text
@@ -11,12 +13,12 @@ src/main/java/com/baxter/config/model/Group.java -text
 src/main/java/com/baxter/config/model/Properties.java -text
 src/main/java/com/baxter/config/model/QueueGroup.java -text
 src/main/java/com/baxter/config/model/TopicGroup.java -text
-src/main/java/com/baxter/config/servlet/PropertiesPersister.java -text
 src/main/java/com/baxter/config/servlet/StoreManager.java -text
 src/main/java/com/baxter/config/servlet/StoreManagerInit.java -text
 src/main/webapp/META-INF/context.xml -text
 src/main/webapp/WEB-INF/web.xml -text
 src/main/webapp/console/inc-menu.jsp -text
+src/main/webapp/console/inc-messages.jsp -text
 src/main/webapp/console/inc-save.jsp -text
 src/main/webapp/console/index.jsp -text
 src/main/webapp/console/jms/index.jsp -text

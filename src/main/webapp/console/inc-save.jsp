@@ -1,15 +1,21 @@
 <jsp:useBean id="props" class="com.baxter.config.model.Properties" scope="session">
   <jsp:setProperty name="props" property="loadFrom" value="default" />
 </jsp:useBean>
-<jsp:useBean id="persister" class="com.baxter.config.servlet.PropertiesPersister" scope="page" />
+<jsp:useBean id="storeManager" class="com.baxter.config.servlet.StoreManager" scope="application" />
+<jsp:useBean id="persister" class="com.baxter.config.bean.PropertiesPersister" scope="page">
+  <jsp:setProperty name="persister" property="storeManager" value="<%= storeManager %>" />
+</jsp:useBean>
+<jsp:useBean id="msg" class="com.baxter.config.bean.Messages" scope="request" />
 <%
   if ( "Save".equals(request.getParameter("action") ) ) {
-	%><jsp:setProperty name="persister" property="properties" value="<%= props %>" />
-<jsp:setProperty name="persister" property="*" />
+	%><jsp:setProperty name="persister" property="*" />
 <%
+    persister.save( session, msg );
   }
 if ( "Load".equals(request.getParameter("action") ) ) {
-  
+  %><jsp:setProperty name="persister" property="*" />
+<%
+  persister.load( session, msg );
 }
 %>
 <style>
@@ -34,7 +40,12 @@ table.save {
       <td>You can also select one of previously stored configuration to make it default.</td>
       <td>Stored Tag:</td>
       <td><select name="storedTag" size="1">
-
+          <%
+      for ( String tag: persister.getStoredTags() ) {
+     %><option value="<%= tag %>"><%= tag %></option>
+          <% 
+      }
+    %>
       </select></td>
       <td><input type="submit" name="action" value="Load" /></td>
     </tr>
