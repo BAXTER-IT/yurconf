@@ -1,8 +1,13 @@
 package com.baxter.config.servlet;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+
+import com.baxter.config.bean.Messages;
 
 public class StoreManager
 {
@@ -18,9 +23,24 @@ public class StoreManager
 	this.defaultTag = ensureDirExists(new File(this.configRoot, "default"));
   }
 
-  public void tag(final String tag)
+  public void tag(final String tag, final Messages msg)
   {
-
+	final File tagDir = new File(this.configRoot, tag);
+	if (tagDir.exists())
+	{
+	  msg.add("Tag already used");
+	}
+	else
+	{
+	  try
+	  {
+		FileUtils.copyDirectory(defaultTag, tagDir);
+	  }
+	  catch (final IOException e)
+	  {
+		msg.add(e);
+	  }
+	}
   }
 
   public List<String> getStoredTags()
@@ -48,10 +68,10 @@ public class StoreManager
 		{
 		  throw new IllegalStateException("Could not renew directory " + dir.getAbsolutePath());
 		}
-		if (!dir.mkdirs())
-		{
-		  throw new IllegalStateException("Could not create directory " + dir.getAbsolutePath());
-		}
+	  }
+	  if (!dir.mkdirs())
+	  {
+		throw new IllegalStateException("Could not create directory " + dir.getAbsolutePath());
 	  }
 	}
 	return dir;

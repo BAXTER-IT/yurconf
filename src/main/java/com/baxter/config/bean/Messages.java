@@ -28,5 +28,9 @@ public class Messages
   {
 	this.items.add(String.valueOf(true));
   }
+  
+  public void add( final String text ) {
+	this.items.add(text);
+  }
 
 }
