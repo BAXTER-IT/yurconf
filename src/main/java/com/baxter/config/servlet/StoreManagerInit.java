@@ -8,13 +8,12 @@ import java.net.URL;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.apache.commons.io.CopyUtils;
+import org.apache.commons.io.IOUtils;
 
 /**
  * Application Lifecycle Listener implementation class StoreManagerInit
  *
  */
-@SuppressWarnings("deprecation")
 public class StoreManagerInit implements ServletContextListener
 {
   private static final String BAXTER_CONFIG_DIR = "/.baxter-config";
@@ -75,7 +74,7 @@ public class StoreManagerInit implements ServletContextListener
 	if (!destination.exists() && source.isFile())
 	{
 	  destination.createNewFile();
-	  CopyUtils.copy(StoreManagerInit.class.getResourceAsStream(path), new FileOutputStream(destination));
+	  IOUtils.copy(StoreManagerInit.class.getResourceAsStream(path), new FileOutputStream(destination));
 	}
 
   }

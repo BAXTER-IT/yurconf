@@ -8,13 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.CopyUtils;
+import org.apache.commons.io.IOUtils;
 
 /**
  * Servlet implementation class MyTestServlet
  */
 
-@SuppressWarnings("deprecation")
 public class RestServlet extends HttpServlet
 {
  
@@ -56,6 +55,6 @@ public class RestServlet extends HttpServlet
 	}
 	final StoreManager  storeManager = (StoreManager) getServletContext().getAttribute("storeManager");
 	final String pathToConfig = storeManager.getConfigurationURL(tokenizedURI[3], tokenizedURI[4]);
-	CopyUtils.copy(new FileInputStream(pathToConfig), response.getOutputStream());
+	IOUtils.copy(new FileInputStream(pathToConfig), response.getOutputStream());
   }
 }
