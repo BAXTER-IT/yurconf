@@ -13,6 +13,17 @@ src/main/java/com/baxter/config/model/Group.java -text
 src/main/java/com/baxter/config/model/Properties.java -text
 src/main/java/com/baxter/config/model/QueueGroup.java -text
 src/main/java/com/baxter/config/model/TopicGroup.java -text
+src/main/java/com/baxter/config/model/log4j/AbstractLogger.java -text
+src/main/java/com/baxter/config/model/log4j/AbstractParametrized.java -text
+src/main/java/com/baxter/config/model/log4j/Appender.java -text
+src/main/java/com/baxter/config/model/log4j/AppenderRef.java -text
+src/main/java/com/baxter/config/model/log4j/Category.java -text
+src/main/java/com/baxter/config/model/log4j/Configuration.java -text
+src/main/java/com/baxter/config/model/log4j/Layout.java -text
+src/main/java/com/baxter/config/model/log4j/Level.java -text
+src/main/java/com/baxter/config/model/log4j/Logger.java -text
+src/main/java/com/baxter/config/model/log4j/Param.java -text
+src/main/java/com/baxter/config/model/log4j/Root.java -text
 src/main/java/com/baxter/config/servlet/RestServlet.java -text
 src/main/java/com/baxter/config/servlet/StoreManager.java -text
 src/main/java/com/baxter/config/servlet/StoreManagerInit.java -text
@@ -32,5 +43,8 @@ src/main/webapp/console/log/index.jsp -text
 src/main/webapp/index.jsp -text
 src/main/webapp/test/go.jsp -text
 src/main/webapp/test/index.jsp -text
+src/test/java/com/baxter/config/model/AbstractJaxbTest.java -text
+src/test/java/com/baxter/config/model/Log4JConfigurationTest.java -text
 src/test/java/com/baxter/config/model/PropertiesTest.java -text
 src/test/resources/large-sample1.xml -text
+src/test/resources/log4j-sample1.xml -text

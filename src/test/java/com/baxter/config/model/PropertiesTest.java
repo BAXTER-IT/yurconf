@@ -5,14 +5,7 @@ package com.baxter.config.model;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 
 import org.junit.Test;
 
@@ -20,7 +13,7 @@ import org.junit.Test;
  * @author ykryshchuk
  * 
  */
-public class PropertiesTest
+public class PropertiesTest extends AbstractJaxbTest
 {
 
   @Test
@@ -53,39 +46,13 @@ public class PropertiesTest
 	final InputStream largeSample1 = Thread.currentThread().getContextClassLoader().getResourceAsStream("large-sample1.xml");
 	try
 	{
-	  final Properties p = deserializeFromStream(largeSample1);
+	  final Properties p = Properties.class.cast(deserializeFromStream(largeSample1));
 	  assertEquals("localhost", p.getAlias("host4").getValue());
 	  assertEquals("-1", p.getEntry("dbUDPPort").getValue());
 	}
 	finally
 	{
 	  largeSample1.close();
-	}
-  }
-
-  private Properties deserializeFromStream(final InputStream stream) throws JAXBException
-  {
-	final JAXBContext jaxb = JAXBContext.newInstance(Properties.class);
-	final Unmarshaller um = jaxb.createUnmarshaller();
-	return Properties.class.cast(um.unmarshal(stream));
-  }
-
-  private String serializeToString(final Properties p) throws JAXBException, IOException
-  {
-	final JAXBContext jaxb = JAXBContext.newInstance(Properties.class);
-	final Marshaller m = jaxb.createMarshaller();
-	m.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-	m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-	final StringWriter writer = new StringWriter();
-	try
-	{
-	  m.marshal(p, writer);
-	  writer.flush();
-	  return writer.toString();
-	}
-	finally
-	{
-	  writer.close();
 	}
   }
 
