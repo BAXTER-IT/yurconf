@@ -5,8 +5,6 @@ package com.baxter.config.bean;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -74,7 +72,7 @@ public class PropertiesPersister
 	try
 	{
 	  final Marshaller mProps = createMarshaller(Properties.class);
-	  final OutputStream streamProps = storeManager.getOutputStream("properties.xml");
+	  final OutputStream streamProps = storeManager.getOutputStream("properties.xml", false);
 	  try
 	  {
 		mProps.marshal(props, streamProps);
@@ -134,12 +132,14 @@ public class PropertiesPersister
 	m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 	return m;
   }
-  
-  public HttpSession getLoadFromSession() {
+
+  public HttpSession getLoadFromSession()
+  {
 	return null;
   }
-  
-  public void setLoadFromSession( final HttpSession session ) {
+
+  public void setLoadFromSession(final HttpSession session)
+  {
 	load(session, null);
   }
 

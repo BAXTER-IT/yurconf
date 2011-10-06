@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -100,9 +99,13 @@ public class StoreManager
 	}
   }
 
-  public OutputStream getOutputStream(final String resource) throws IOException
+  public OutputStream getOutputStream(final String resource, final boolean failOnExists) throws IOException
   {
 	final File resourceFile = new File(this.defaultTag, resource);
+	if (failOnExists && resourceFile.exists())
+	{
+	  throw new IOException("File exists");
+	}
 	return new FileOutputStream(resourceFile);
   }
 
@@ -111,49 +114,40 @@ public class StoreManager
 	return Arrays.asList(this.configRoot.list());
   }
 
-  public String getConfigurationURL(final String configType, final String componentId)
+  public void copyFileStructure()
   {
-	final StringBuilder path = new StringBuilder(this.configRoot.getAbsolutePath());
-	path.append("/default/");
-	path.append(configType);
-	if (configType.equals("log4j"))
+	try
 	{
-	  path.append("_").append(componentId);
+	  copyConfigFile("properties.xml");
+	  copyConfigFile("log4j_DBServer.xml");
+	  copyConfigFile("log4j_Broadcast.xml");
+	  copyConfigFile("log4j_BlotterServer.xml");
+	  copyConfigFile("log4j_BlotterClient.xml");
 	}
-	path.append(".xml");
-	return path.toString();
-  }
-
-  public void copyFileStructure() throws IOException
-  {
-	copyConfigFile("properties.xml");
-	copyConfigFile("log4j_DBServer.xml");
-	copyConfigFile("log4j_Broadcast.xml");
-	copyConfigFile("log4j_BlotterServer.xml");
-	copyConfigFile("log4j_BlotterClient.xml");
+	catch (final IOException e)
+	{
+	  e.printStackTrace();
+	}
   }
 
   private void copyConfigFile(final String fileName) throws IOException
   {
-	final URL url = StoreManager.class.getResource("/.baxter-config/default/" + fileName);
-	final File destination = new File(defaultTag, fileName);
-	if (!destination.exists())
+	final OutputStream os = getOutputStream(fileName, true);
+	try
 	{
-	  destination.createNewFile();
-	  OutputStream os = null;
-	  InputStream is = null;
+	  final InputStream is = StoreManager.class.getResourceAsStream(fileName);
 	  try
 	  {
-		is = url.openStream();
-		os = new FileOutputStream(destination);
 		IOUtils.copy(is, os);
 	  }
 	  finally
 	  {
-		os.close();
 		is.close();
 	  }
-
+	}
+	finally
+	{
+	  os.close();
 	}
   }
 

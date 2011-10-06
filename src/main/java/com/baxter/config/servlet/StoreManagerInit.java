@@ -1,7 +1,5 @@
 package com.baxter.config.servlet;
 
-import java.io.IOException;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -26,15 +24,7 @@ public class StoreManagerInit implements ServletContextListener
   {
 	final StoreManager storeManager = new StoreManager();
 	sce.getServletContext().setAttribute("storeManager", storeManager);
-	try
-	{
-	  storeManager.copyFileStructure();
-	}
-	catch (IOException e)
-	{
-	  e.printStackTrace();
-	}
-
+	storeManager.copyFileStructure();
   }
 
   /**
