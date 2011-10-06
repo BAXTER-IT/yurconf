@@ -27,8 +27,7 @@ tr.even td {
 	padding: 3px;
 	background-color: #CFCFCF;
 }
-//
--->
+//-->
 </style>
 </head>
 <body>

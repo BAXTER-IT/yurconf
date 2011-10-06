@@ -119,14 +119,21 @@ public class StoreManager
 	try
 	{
 	  copyConfigFile("properties.xml");
-	  copyConfigFile("log4j_DBServer.xml");
-	  copyConfigFile("log4j_Broadcast.xml");
-	  copyConfigFile("log4j_BlotterServer.xml");
-	  copyConfigFile("log4j_BlotterClient.xml");
 	}
 	catch (final IOException e)
 	{
 	  e.printStackTrace();
+	}
+	for (Component comp : Component.values())
+	{
+	  try
+	  {
+		copyConfigFile(comp.getFileName(ConfigurationType.log4j));
+	  }
+	  catch (final IOException e)
+	  {
+		e.printStackTrace();
+	  }
 	}
   }
 
@@ -136,13 +143,20 @@ public class StoreManager
 	try
 	{
 	  final InputStream is = StoreManager.class.getResourceAsStream(fileName);
-	  try
+	  if (is == null)
 	  {
-		IOUtils.copy(is, os);
+		System.err.println("Could not find initial resource " + fileName);
 	  }
-	  finally
+	  else
 	  {
-		is.close();
+		try
+		{
+		  IOUtils.copy(is, os);
+		}
+		finally
+		{
+		  is.close();
+		}
 	  }
 	}
 	finally

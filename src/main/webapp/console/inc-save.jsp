@@ -1,5 +1,5 @@
 <jsp:useBean id="storeManager" class="com.baxter.config.servlet.StoreManager" scope="application" />
-<jsp:useBean id="persister" class="com.baxter.config.bean.PropertiesPersister" scope="page">
+<jsp:useBean id="persister" class="com.baxter.config.bean.ConfigPersister" scope="page">
   <jsp:setProperty name="persister" property="storeManager" value="<%= storeManager %>" />
   <jsp:setProperty name="persister" property="loadFromSession" value="<%= session %>" />
 </jsp:useBean>

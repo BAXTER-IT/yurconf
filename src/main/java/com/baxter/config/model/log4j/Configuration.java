@@ -35,6 +35,26 @@ public class Configuration
 	return appenders;
   }
 
+  public List<Appender> getTargetAppenders()
+  {
+	final List<Appender> taps = new ArrayList<Appender>();
+	for (Appender app : this.appenders)
+	{
+	  if (app.getAppenderRefs().isEmpty())
+	  {
+		taps.add(app);
+	  }
+	}
+	return taps;
+  }
+  
+  public List<Logger> getAllLoggers() {
+	final List<Logger> all = new ArrayList<Logger>();
+	all.addAll(loggers);
+	all.addAll(categories);
+	return all;
+  }
+
   public List<Logger> getLoggers()
   {
 	return loggers;

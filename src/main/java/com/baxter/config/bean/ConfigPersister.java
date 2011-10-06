@@ -14,17 +14,22 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import com.baxter.config.model.log4j.Configuration;
 import com.baxter.config.model.properties.Properties;
+import com.baxter.config.servlet.Component;
+import com.baxter.config.servlet.ConfigurationType;
 import com.baxter.config.servlet.StoreManager;
 
 /**
  * @author ykryshchuk
  * 
  */
-public class PropertiesPersister
+public class ConfigPersister
 {
 
   private static final String PROPS_BEAN_NAME = "props";
+
+  private static final String LOGS_BEAN_NAME = "logs";
 
   private StoreManager storeManager;
 
@@ -71,18 +76,36 @@ public class PropertiesPersister
 
   public void save(final HttpSession session, final Messages msg)
   {
-	final Properties props = (Properties) session.getAttribute(PROPS_BEAN_NAME);
 	try
 	{
-	  final Marshaller mProps = createMarshaller(Properties.class);
-	  final OutputStream streamProps = storeManager.getOutputStream("properties.xml", false);
-	  try
 	  {
-		mProps.marshal(props, streamProps);
+		final Properties props = (Properties) session.getAttribute(PROPS_BEAN_NAME);
+		final Marshaller mProps = createMarshaller(Properties.class);
+		final OutputStream streamProps = storeManager.getOutputStream("properties.xml", false);
+		try
+		{
+		  mProps.marshal(props, streamProps);
+		}
+		finally
+		{
+		  streamProps.close();
+		}
 	  }
-	  finally
 	  {
-		streamProps.close();
+		final LogsProvider logs = (LogsProvider) session.getAttribute(LOGS_BEAN_NAME);
+		final Marshaller mLogs = createMarshaller(Configuration.class);
+		for (Component comp : Component.values())
+		{
+		  final OutputStream streamLogs = storeManager.getOutputStream(comp.getFileName(ConfigurationType.log4j), false);
+		  try
+		  {
+			mLogs.marshal(logs.get(comp), streamLogs);
+		  }
+		  finally
+		  {
+			streamLogs.close();
+		  }
+		}
 	  }
 	  if (!tag.isEmpty() && !"default".equals(tag))
 	  {
@@ -100,18 +123,46 @@ public class PropertiesPersister
 	storeManager.untag(storedTag, msg);
 	try
 	{
-	  final JAXBContext jaxb = JAXBContext.newInstance(Properties.class);
+	  final JAXBContext jaxb = JAXBContext.newInstance(Properties.class, Configuration.class);
 	  final Unmarshaller um = jaxb.createUnmarshaller();
 
-	  final InputStream streamProps = this.storeManager.getInputStream("properties.xml");
-	  try
 	  {
-		final Properties props = Properties.class.cast(um.unmarshal(streamProps));
-		session.setAttribute(PROPS_BEAN_NAME, props);
+		final InputStream streamProps = this.storeManager.getInputStream("properties.xml");
+		try
+		{
+		  final Properties props = Properties.class.cast(um.unmarshal(streamProps));
+		  session.setAttribute(PROPS_BEAN_NAME, props);
+		}
+		finally
+		{
+		  streamProps.close();
+		}
 	  }
-	  finally
 	  {
-		streamProps.close();
+		final LogsProvider existingLogs = (LogsProvider) session.getAttribute(LOGS_BEAN_NAME);
+		final LogsProvider logs;
+		if (existingLogs == null)
+		{
+		  logs = new LogsProvider();
+		  session.setAttribute(LOGS_BEAN_NAME, logs);
+		}
+		else
+		{
+		  logs = existingLogs;
+		}
+		for (Component comp : Component.values())
+		{
+		  final InputStream streamLogs = this.storeManager.getInputStream(comp.getFileName(ConfigurationType.log4j));
+		  try
+		  {
+			final Configuration config = Configuration.class.cast(um.unmarshal(streamLogs));
+			logs.put(comp, config);
+		  }
+		  finally
+		  {
+			streamLogs.close();
+		  }
+		}
 	  }
 	}
 	catch (final Exception e)
@@ -143,7 +194,7 @@ public class PropertiesPersister
 
   public void setLoadFromSession(final HttpSession session)
   {
-	if (session.getAttribute(PROPS_BEAN_NAME) == null)
+	if (session.getAttribute(PROPS_BEAN_NAME) == null || session.getAttribute(LOGS_BEAN_NAME) == null)
 	{
 	  load(session, null);
 	}

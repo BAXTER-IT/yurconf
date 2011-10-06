@@ -9,7 +9,7 @@ public class Logger extends AbstractLogger
   private String name;
 
   @XmlAttribute(name = "additivity")
-  private boolean additivity;
+  private boolean additivity = true;
 
   public String getName()
   {

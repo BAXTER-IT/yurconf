@@ -53,7 +53,7 @@ public class RestServlet extends HttpServlet
 	  return;
 	}
 	final String requestConfigType = devidedUrl[1];
-	final String requestComponnentId = devidedUrl[2];
+	final String requestComponentId = devidedUrl[2];
 	final ConfigurationType configurationType;
 	try
 	{
@@ -64,9 +64,19 @@ public class RestServlet extends HttpServlet
 	  response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong configuration type <" + requestConfigType + ">");
 	  return;
 	}
+	final Component component;
+	try
+	{
+	  component = Component.valueOf(requestComponentId);
+	}
+	catch (final IllegalArgumentException e)
+	{
+	  response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong component id " + requestComponentId);
+	  return;
+	}
 	response.setContentType(configurationType.getContentType());
 	final StoreManager storeManager = (StoreManager) getServletContext().getAttribute("storeManager");
-	final InputStream is = storeManager.getInputStream(configurationType.getFileName(requestComponnentId));
+	final InputStream is = storeManager.getInputStream(component.getFileName(configurationType));
 	try
 	{
 	  IOUtils.copy(is, response.getOutputStream());
