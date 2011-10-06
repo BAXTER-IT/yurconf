@@ -27,23 +27,66 @@ public abstract class AbstractContainer
 
   public Alias addAlias(final String key, final String value)
   {
-	final Alias alias = new Alias(key, value);
-	this.aliases.add(alias);
-	return alias;
+	final Alias oldAlias = getAlias(key);
+	try
+	{
+	  oldAlias.setValue(value);
+	  return oldAlias;
+	}
+	catch (final NoSuchElementException e)
+	{
+	  final Alias alias = new Alias(key, value);
+	  this.aliases.add(alias);
+	  return alias;
+	}
   }
 
   public Entry addEntryWithValue(final String key, final String value)
   {
-	final Entry entry = Entry.forValue(key, value);
-	this.entries.add(entry);
-	return entry;
+	final Entry oldEntry = getEntry(key);
+	try
+	{
+	  oldEntry.setAlias(null);
+	  oldEntry.setValue(value);
+	  return oldEntry;
+	}
+	catch (final NoSuchElementException e)
+	{
+	  final Entry entry = Entry.forValue(key, value);
+	  this.entries.add(entry);
+	  return entry;
+	}
   }
 
   public Entry addEntryWithAlias(final String key, final String alias)
   {
-	final Entry entry = Entry.forAlias(key, alias);
-	this.entries.add(entry);
-	return entry;
+	final Entry oldEntry = getEntry(key);
+	try
+	{
+	  oldEntry.setAlias(alias);
+	  oldEntry.setValue(null);
+	  return oldEntry;
+	}
+	catch (final NoSuchElementException e)
+	{
+	  final Entry entry = Entry.forAlias(key, alias);
+	  this.entries.add(entry);
+	  return entry;
+	}
+  }
+
+  Group replaceGroup(final Group originalGroup, final Group newGroup)
+  {
+	final int idx = this.groups.indexOf(originalGroup);
+	if (idx >= 0)
+	{
+	  this.groups.set(idx, newGroup);
+	}
+	else
+	{
+	  this.groups.add(newGroup);
+	}
+	return newGroup;
   }
 
   public Group getGroup(final String key) throws NoSuchElementException
@@ -69,8 +112,9 @@ public abstract class AbstractContainer
 	}
 	throw new NoSuchElementException("no alias for key " + key);
   }
-  
-  public void removeAlias( final String key ) {
+
+  public void removeAlias(final String key)
+  {
 	final Alias alias = getAlias(key);
 	this.aliases.remove(alias);
   }
@@ -86,11 +130,14 @@ public abstract class AbstractContainer
 	}
 	throw new NoSuchElementException("no entry for key " + key);
   }
-  
-  public List<Group> getChannels() {
+
+  public List<Group> getChannels()
+  {
 	final List<Group> channels = new ArrayList<Group>();
-	for ( Group g : this.groups ) {
-	  if ( g.getChannelType() != null ) {
+	for (Group g : this.groups)
+	{
+	  if (g.getChannelType() != null)
+	  {
 		channels.add(g);
 	  }
 	}
@@ -106,7 +153,15 @@ public abstract class AbstractContainer
   public Group addGroup(final String key)
   {
 	final Group g = new Group(key);
-	return addGroup(g);
+	try
+	{
+	  final Group oldGroup = getGroup(key);
+	  return replaceGroup(oldGroup, g);
+	}
+	catch (final NoSuchElementException e)
+	{
+	  return addGroup(g);
+	}
   }
 
   public QueueGroup addQueue(final String key)
@@ -119,6 +174,13 @@ public abstract class AbstractContainer
   {
 	final TopicGroup g = new TopicGroup(key);
 	return addGroup(g);
+  }
+
+  void copyFrom(final AbstractContainer container)
+  {
+	this.aliases = container.aliases;
+	this.entries = container.entries;
+	this.groups = container.groups;
   }
 
 }

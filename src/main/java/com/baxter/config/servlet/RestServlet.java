@@ -52,16 +52,16 @@ public class RestServlet extends HttpServlet
 	  throw new ServletException("Wrong url");
 	}
 	final StoreManager storeManager = (StoreManager) getServletContext().getAttribute("storeManager");
-	final String pathToConfig = storeManager.getConfigurationURL(tokenizedURI[3], tokenizedURI[4]);
-	InputStream is = null;
-	try
-	{
-	  is = new FileInputStream(pathToConfig);
-	  IOUtils.copy(is, response.getOutputStream());
-	}
-	finally
-	{
-	  is.close();
-	}
+//	final String pathToConfig = storeManager.getConfigurationURL(tokenizedURI[3], tokenizedURI[4]);
+//	InputStream is = null;
+//	try
+//	{
+//	  is = new FileInputStream(pathToConfig);
+//	  IOUtils.copy(is, response.getOutputStream());
+//	}
+//	finally
+//	{
+//	  is.close();
+//	}
   }
 }

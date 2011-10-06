@@ -65,5 +65,18 @@ public class Group extends AbstractContainer
 	  return null;
 	}
   }
+  
+  public AbstractChannelGroup toChannel() {
+	final AbstractChannelGroup channel;
+	if ( "Topic".equals(getChannelType()) ) {
+	  channel = new TopicGroup(getKey());
+	} else if ("Queue".equals(getChannelType())) {
+	  channel = new QueueGroup(getKey());
+	} else {
+	  return null;
+	}
+	channel.copyFrom(this);
+	return channel;
+  }
 
 }

@@ -40,6 +40,10 @@ public abstract class AbstractValue
 	return value;
   }
   
+  void setValue( final String value ) {
+	this.value = value;
+  }
+  
   @Override
   public String toString()
   {

@@ -31,36 +31,36 @@ public class StoreManager
 
   public void untag(final String tag, final Messages msg)
   {
-	final File tagDir = new File(this.configRoot, tag == null ? "default" : tag);
-	if (!tagDir.exists())
+	if (tag != null && !"default".equals(tag))
 	{
-	  if (msg != null)
-	  {
-		msg.add("Tag not found");
-	  }
-	  else
-	  {
-		System.err.println("Tag not found");
-	  }
-	}
-	else
-	{
-	  try
-	  {
-		if (!tagDir.equals(defaultTag))
-		{
-		  FileUtils.copyDirectory(tagDir, defaultTag);
-		}
-	  }
-	  catch (final IOException e)
+	  final File tagDir = new File(this.configRoot, tag);
+	  if (!tagDir.exists())
 	  {
 		if (msg != null)
 		{
-		  msg.add(e);
+		  msg.add("Tag not found");
 		}
 		else
 		{
-		  e.printStackTrace();
+		  System.err.println("Tag not found");
+		}
+	  }
+	  else
+	  {
+		try
+		{
+		  FileUtils.copyDirectory(tagDir, defaultTag);
+		}
+		catch (final IOException e)
+		{
+		  if (msg != null)
+		  {
+			msg.add(e);
+		  }
+		  else
+		  {
+			e.printStackTrace();
+		  }
 		}
 	  }
 	}

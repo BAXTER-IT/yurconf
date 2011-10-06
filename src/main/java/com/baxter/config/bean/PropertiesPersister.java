@@ -5,6 +5,7 @@ package com.baxter.config.bean;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -53,7 +54,9 @@ public class PropertiesPersister
 
   public List<String> getStoredTags()
   {
-	return storeManager.getStoredTags();
+	final List<String> tags = new ArrayList<String>(storeManager.getStoredTags());
+	tags.remove("default");
+	return tags;
   }
 
   public StoreManager getStoreManager()
@@ -140,7 +143,10 @@ public class PropertiesPersister
 
   public void setLoadFromSession(final HttpSession session)
   {
-	load(session, null);
+	if (session.getAttribute(PROPS_BEAN_NAME) == null)
+	{
+	  load(session, null);
+	}
   }
 
 }

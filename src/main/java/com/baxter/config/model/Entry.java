@@ -41,6 +41,10 @@ public class Entry extends AbstractValue
   {
 	return alias;
   }
+  
+  void setAlias( final String alias ) {
+	this.alias = alias;
+  }
 
   @Override
   public String toString()

@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.baxter.config.bean.NewChannelBean;
 import com.baxter.config.bean.NewJmsBean;
-import com.baxter.config.bean.PropertiesPersister;
 
 /**
  * @author ykryshchuk
@@ -37,11 +36,11 @@ public class Properties extends AbstractContainer
 	  while (true)
 	  {
 		final int index = count + 1;
-		getAlias("Host" + index);
-		getAlias("Port" + index);
-		getAlias("Router" + index);
-		getAlias("UserName" + index);
-		getAlias("Password" + index);
+		getAlias("host" + index);
+		getAlias("port" + index);
+		getAlias("router" + index);
+		getAlias("userName" + index);
+		getAlias("password" + index);
 		count++;
 	  }
 	}
@@ -57,22 +56,22 @@ public class Properties extends AbstractContainer
 	final int index = getJMSInstancesCount();
 	if (index != 0)
 	{
-	  removeAlias("Host" + index);
-	  removeAlias("Port" + index);
-	  removeAlias("Router" + index);
-	  removeAlias("UserName" + index);
-	  removeAlias("Password" + index);
+	  removeAlias("host" + index);
+	  removeAlias("port" + index);
+	  removeAlias("router" + index);
+	  removeAlias("userName" + index);
+	  removeAlias("password" + index);
 	}
   }
 
   public void addNewJmsInstance(final NewJmsBean newJms)
   {
 	final int newIdx = getJMSInstancesCount() + 1;
-	addAlias("Host" + newIdx, newJms.getHost());
-	addAlias("Port" + newIdx, String.valueOf(newJms.getPort()));
-	addAlias("Router" + newIdx, newJms.getRouter());
-	addAlias("UserName" + newIdx, newJms.getUsername());
-	addAlias("Password" + newIdx, newJms.getPassword());
+	addAlias("host" + newIdx, newJms.getHost());
+	addAlias("port" + newIdx, String.valueOf(newJms.getPort()));
+	addAlias("router" + newIdx, newJms.getRouter());
+	addAlias("userName" + newIdx, newJms.getUsername());
+	addAlias("password" + newIdx, newJms.getPassword());
   }
 
   public void addNewChannel(final NewChannelBean newChannel)
@@ -88,6 +87,20 @@ public class Properties extends AbstractContainer
 	}
 	channel.setJMS(newChannel.getJmsIndex());
 	channel.setChannelName(newChannel.getName());
+  }
+
+  public void arrangeChannel(final Group channel, final int jmsIndex)
+  {
+	final AbstractChannelGroup channelGroup;
+	if (AbstractChannelGroup.class.isInstance(channel))
+	{
+	  channelGroup = AbstractChannelGroup.class.cast(channel);
+	}
+	else
+	{
+	  channelGroup = channel.toChannel();
+	}
+	channelGroup.setJMS(jmsIndex);
   }
 
 }
