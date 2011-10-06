@@ -27,23 +27,40 @@ public class StoreManager
 	this.configRoot = ensureDirExists(new File(userHome, ".baxter-config"));
 	this.defaultTag = ensureDirExists(new File(this.configRoot, "default"));
   }
-  
+
   public void untag(final String tag, final Messages msg)
   {
-	final File tagDir = new File(this.configRoot, tag);
-	if (! tagDir.exists())
+	final File tagDir = new File(this.configRoot, tag == null ? "default" : tag);
+	if (!tagDir.exists())
 	{
-	  msg.add("Tag not found");
+	  if (msg != null)
+	  {
+		msg.add("Tag not found");
+	  }
+	  else
+	  {
+		System.err.println("Tag not found");
+	  }
 	}
 	else
 	{
 	  try
 	  {
-		FileUtils.copyDirectory(tagDir, defaultTag);
+		if (!tagDir.equals(defaultTag))
+		{
+		  FileUtils.copyDirectory(tagDir, defaultTag);
+		}
 	  }
 	  catch (final IOException e)
 	  {
-		msg.add(e);
+		if (msg != null)
+		{
+		  msg.add(e);
+		}
+		else
+		{
+		  e.printStackTrace();
+		}
 	  }
 	}
   }

@@ -15,6 +15,18 @@ public class NewJmsBean
   private String username = "[new-user]";
   private String password = "";
 
+  private Messages messages;
+
+  public Messages getMessages()
+  {
+	return messages;
+  }
+
+  public void setMessages(Messages messages)
+  {
+	this.messages = messages;
+  }
+
   public String getHost()
   {
 	return host;
@@ -32,11 +44,30 @@ public class NewJmsBean
 
   public void setPort(String port)
   {
-	this.port = Integer.parseInt(port);
+	try
+	{
+	  this.port = Integer.parseInt(port);
+	}
+	catch (final Exception e)
+	{
+	  if (messages != null)
+	  {
+		messages.add(e);
+	  }
+	  if (RuntimeException.class.isInstance(e))
+	  {
+		throw RuntimeException.class.cast(e);
+	  }
+	  else
+	  {
+		throw new RuntimeException(e);
+	  }
+	}
   }
-  
-  public int getPortNumber() {
-	return this.port; 
+
+  public int getPortNumber()
+  {
+	return this.port;
   }
 
   public String getRouter()

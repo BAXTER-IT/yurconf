@@ -26,7 +26,7 @@ public class Messages
 
   public void add(final Throwable t)
   {
-	this.items.add(String.valueOf(true));
+	this.items.add(String.valueOf(t));
   }
   
   public void add( final String text ) {

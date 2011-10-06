@@ -115,7 +115,14 @@ public class PropertiesPersister
 	}
 	catch (final Exception e)
 	{
-	  msg.add(e);
+	  if (msg != null)
+	  {
+		msg.add(e);
+	  }
+	  else
+	  {
+		e.printStackTrace();
+	  }
 	}
   }
 
@@ -126,6 +133,14 @@ public class PropertiesPersister
 	m.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 	m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 	return m;
+  }
+  
+  public HttpSession getLoadFromSession() {
+	return null;
+  }
+  
+  public void setLoadFromSession( final HttpSession session ) {
+	load(session, null);
   }
 
 }

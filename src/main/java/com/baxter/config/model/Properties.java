@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.baxter.config.bean.NewChannelBean;
 import com.baxter.config.bean.NewJmsBean;
+import com.baxter.config.bean.PropertiesPersister;
 
 /**
  * @author ykryshchuk
@@ -87,16 +88,6 @@ public class Properties extends AbstractContainer
 	}
 	channel.setJMS(newChannel.getJmsIndex());
 	channel.setChannelName(newChannel.getName());
-  }
-
-  public String getLoadFrom()
-  {
-	return null;
-  }
-
-  public void setLoadFrom(final String where)
-  {
-	System.out.println("Loading from " + where);
   }
 
 }

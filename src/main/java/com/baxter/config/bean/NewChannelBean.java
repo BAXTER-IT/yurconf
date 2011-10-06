@@ -5,7 +5,7 @@ package com.baxter.config.bean;
 
 /**
  * @author ykryshchuk
- *
+ * 
  */
 public class NewChannelBean
 {
@@ -14,37 +14,57 @@ public class NewChannelBean
   private String name = "[new-name]";
   private String alias = "[new-alias]";
   private int jmsIndex = 1;
+
+  private Messages messages;
+
+  public Messages getMessages()
+  {
+	return messages;
+  }
+
+  public void setMessages(Messages messages)
+  {
+	this.messages = messages;
+  }
+
   public String getType()
   {
-    return type;
+	return type;
   }
+
   public void setType(String type)
   {
-    this.type = type;
+	this.type = type;
   }
+
   public String getName()
   {
-    return name;
+	return name;
   }
+
   public void setName(String name)
   {
-    this.name = name;
+	this.name = name;
   }
+
   public String getAlias()
   {
-    return alias;
+	return alias;
   }
+
   public void setAlias(String alias)
   {
-    this.alias = alias;
+	this.alias = alias;
   }
+
   public int getJmsIndex()
   {
-    return jmsIndex;
+	return jmsIndex;
   }
+
   public void setJmsIndex(int jmsIndex)
   {
-    this.jmsIndex = jmsIndex;
+	this.jmsIndex = jmsIndex;
   }
-  
+
 }

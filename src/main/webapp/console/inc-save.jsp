@@ -1,9 +1,7 @@
-<jsp:useBean id="props" class="com.baxter.config.model.Properties" scope="session">
-  <jsp:setProperty name="props" property="loadFrom" value="default" />
-</jsp:useBean>
 <jsp:useBean id="storeManager" class="com.baxter.config.servlet.StoreManager" scope="application" />
 <jsp:useBean id="persister" class="com.baxter.config.bean.PropertiesPersister" scope="page">
   <jsp:setProperty name="persister" property="storeManager" value="<%= storeManager %>" />
+  <jsp:setProperty name="persister" property="loadFromSession" value="<%= session %>" />
 </jsp:useBean>
 <jsp:useBean id="msg" class="com.baxter.config.bean.Messages" scope="request" />
 <%

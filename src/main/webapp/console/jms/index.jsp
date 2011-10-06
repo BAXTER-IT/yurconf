@@ -36,27 +36,37 @@ tr.even td {
   <jsp:include page="../inc-menu.jsp" />
   <jsp:include page="../inc-save.jsp" />
   <hr />
-  <jsp:useBean id="props" class="com.baxter.config.model.Properties" scope="session">
-    <jsp:setProperty name="props" property="loadFrom" value="default" />
+  <jsp:useBean id="props" class="com.baxter.config.model.Properties" scope="session" />
+  <jsp:useBean id="msg" class="com.baxter.config.bean.Messages" scope="request" />
+  <jsp:useBean id="newJms" class="com.baxter.config.bean.NewJmsBean" scope="request">
+    <jsp:setProperty name="newJms" property="messages" value="<%= msg %>" />
   </jsp:useBean>
-  <jsp:useBean id="newJms" class="com.baxter.config.bean.NewJmsBean" scope="request" />
-  <jsp:useBean id="newChannel" class="com.baxter.config.bean.NewChannelBean" scope="request" />
+  <jsp:useBean id="newChannel" class="com.baxter.config.bean.NewChannelBean" scope="request">
+    <jsp:setProperty name="newChannel" property="messages" value="<%= msg %>" />
+  </jsp:useBean>
   <%
-    if ("Delete JMS".equals(request.getParameter("action")))
+    try
     {
-  		props.deleteLastJMS();
-    }
-    if ("Add JMS".equals(request.getParameter("action")))
-    {
+  		if ("Delete JMS".equals(request.getParameter("action")))
+  		{
+  		  props.deleteLastJMS();
+  		}
+  		if ("Add JMS".equals(request.getParameter("action")))
+  		{
   %><jsp:setProperty name="newJms" property="*" />
   <%
     props.addNewJmsInstance(newJms);
-    }
-    if ("Add Channel".equals(request.getParameter("action")))
-    {
+  		}
+  		if ("Add Channel".equals(request.getParameter("action")))
+  		{
   %><jsp:setProperty name="newChannel" property="*" />
   <%
     props.addNewChannel(newChannel);
+  		}
+    }
+    catch (Exception e)
+    {
+  		msg.add("Failed to perform requested action, see previous errors");
     }
   %>
   <jsp:include page="../inc-messages.jsp" />
@@ -89,8 +99,7 @@ tr.even td {
             if (i == props.getJMSInstancesCount())
           		{
           %>
-          <td><input type="submit" value="Delete JMS" name="action" />
-          </td>
+          <td><input type="submit" value="Delete JMS" name="action" /></td>
           <%
             }
           		else
@@ -113,16 +122,12 @@ tr.even td {
           <td><input type="text" size="6" name="port" value="<jsp:getProperty name="newJms" property="port" />" />
           </td>
           <td><input type="text" size="10" name="router"
-            value="<jsp:getProperty name="newJms" property="router" />" />
-          </td>
+            value="<jsp:getProperty name="newJms" property="router" />" /></td>
           <td><input type="text" size="20" name="username"
-            value="<jsp:getProperty name="newJms" property="username" />" />
-          </td>
+            value="<jsp:getProperty name="newJms" property="username" />" /></td>
           <td><input type="password" size="20" name="password"
-            value="<jsp:getProperty name="newJms" property="password" />" />
-          </td>
-          <td><input type="submit" value="Add JMS" name="action" />
-          </td>
+            value="<jsp:getProperty name="newJms" property="password" />" /></td>
+          <td><input type="submit" value="Add JMS" name="action" /></td>
         </tr>
       </tfoot>
     </table>
@@ -162,7 +167,8 @@ tr.even td {
           %>
           <td><input type="radio" name="channel_<%=channel.getKey()%>" value="<%=i%>"
             <%if (i == channel.getJMSIndex())
-		  {%> checked="true" <%}%> /></td>
+		  {%> checked="true" <%}%> />
+          </td>
           <%
             }
           %>
@@ -179,18 +185,22 @@ tr.even td {
 	  {%> selected <%}%>>Topic</option>
               <option value="Q" <%if ("Q".equals(newChannel.getType()))
 	  {%> selected <%}%>>Queue</option>
-          </select></td>
+          </select>
+          </td>
           <td><input type="text" name="name" size="20"
-            value="<jsp:getProperty name="newChannel" property="name" />" /></td>
+            value="<jsp:getProperty name="newChannel" property="name" />" />
+          </td>
           <td><input type="text" name="alias" size="20"
-            value="<jsp:getProperty name="newChannel" property="alias" />" /></td>
+            value="<jsp:getProperty name="newChannel" property="alias" />" />
+          </td>
           <%
             for (int i = 1; i <= props.getJMSInstancesCount(); i++)
             {
           %>
           <td><input type="radio" name="jmsIndex" value="<%=i%>" <%if (i == newChannel.getJmsIndex())
 		{%> checked
-            <%}%> /></td>
+            <%}%> />
+          </td>
           <%
             }
           %>
