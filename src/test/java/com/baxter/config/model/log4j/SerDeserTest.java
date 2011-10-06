@@ -1,4 +1,4 @@
-package com.baxter.config.model;
+package com.baxter.config.model.log4j;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,9 +6,10 @@ import java.io.InputStream;
 
 import org.junit.Test;
 
+import com.baxter.config.model.AbstractJaxbTest;
 import com.baxter.config.model.log4j.Configuration;
 
-public class Log4JConfigurationTest extends AbstractJaxbTest
+public class SerDeserTest extends AbstractJaxbTest
 {
 
   @Test

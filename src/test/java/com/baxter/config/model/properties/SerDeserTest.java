@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.baxter.config.model;
+package com.baxter.config.model.properties;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,11 +9,13 @@ import java.io.InputStream;
 
 import org.junit.Test;
 
+import com.baxter.config.model.AbstractJaxbTest;
+
 /**
  * @author ykryshchuk
  * 
  */
-public class PropertiesTest extends AbstractJaxbTest
+public class SerDeserTest extends AbstractJaxbTest
 {
 
   @Test

@@ -14,7 +14,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import com.baxter.config.model.Properties;
+import com.baxter.config.model.properties.Properties;
 import com.baxter.config.servlet.StoreManager;
 
 /**

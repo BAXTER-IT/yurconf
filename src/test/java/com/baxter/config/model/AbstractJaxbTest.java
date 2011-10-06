@@ -10,8 +10,9 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import com.baxter.config.model.log4j.Configuration;
+import com.baxter.config.model.properties.Properties;
 
-abstract class AbstractJaxbTest
+public abstract class AbstractJaxbTest
 {
 
   private JAXBContext createJaxb(final Object source) throws JAXBException

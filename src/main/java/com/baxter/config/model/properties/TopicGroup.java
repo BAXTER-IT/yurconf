@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.baxter.config.model;
+package com.baxter.config.model.properties;
 
 /**
  * @author ykryshchuk

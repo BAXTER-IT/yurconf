@@ -1,8 +1,8 @@
 <html>
-<%@page import="com.baxter.config.model.Group"%>
-<%@page import="com.baxter.config.model.AbstractChannelGroup"%>
-<%@page import="com.baxter.config.model.QueueGroup"%>
-<%@page import="com.baxter.config.model.TopicGroup"%>
+<%@page import="com.baxter.config.model.properties.Group"%>
+<%@page import="com.baxter.config.model.properties.AbstractChannelGroup"%>
+<%@page import="com.baxter.config.model.properties.QueueGroup"%>
+<%@page import="com.baxter.config.model.properties.TopicGroup"%>
 <head>
 <title>JMS - Baxter Config</title>
 <style>
@@ -36,7 +36,7 @@ tr.even td {
   <jsp:include page="../inc-menu.jsp" />
   <jsp:include page="../inc-save.jsp" />
   <hr />
-  <jsp:useBean id="props" class="com.baxter.config.model.Properties" scope="session" />
+  <jsp:useBean id="props" class="com.baxter.config.model.properties.Properties" scope="session" />
   <jsp:useBean id="msg" class="com.baxter.config.bean.Messages" scope="request" />
   <jsp:useBean id="newJms" class="com.baxter.config.bean.NewJmsBean" scope="request">
     <jsp:setProperty name="newJms" property="messages" value="<%= msg %>" />

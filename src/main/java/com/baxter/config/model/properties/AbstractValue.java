@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.baxter.config.model;
+package com.baxter.config.model.properties;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
