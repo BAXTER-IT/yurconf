@@ -2,6 +2,7 @@ package com.baxter.config.servlet;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +17,7 @@ import org.apache.commons.io.IOUtils;
 
 public class RestServlet extends HttpServlet
 {
- 
+
   private static final long serialVersionUID = 1L;
 
   /**
@@ -28,8 +29,7 @@ public class RestServlet extends HttpServlet
   }
 
   /**
-   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-   *      response)
+   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
   {
@@ -37,12 +37,10 @@ public class RestServlet extends HttpServlet
   }
 
   /**
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-   *      response)
+   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
    */
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
   {
-	invoke(request, response);
   }
 
   private void invoke(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -53,8 +51,17 @@ public class RestServlet extends HttpServlet
 	{
 	  throw new ServletException("Wrong url");
 	}
-	final StoreManager  storeManager = (StoreManager) getServletContext().getAttribute("storeManager");
+	final StoreManager storeManager = (StoreManager) getServletContext().getAttribute("storeManager");
 	final String pathToConfig = storeManager.getConfigurationURL(tokenizedURI[3], tokenizedURI[4]);
-	IOUtils.copy(new FileInputStream(pathToConfig), response.getOutputStream());
+	InputStream is = null;
+	try
+	{
+	  is = new FileInputStream(pathToConfig);
+	  IOUtils.copy(is, response.getOutputStream());
+	}
+	finally
+	{
+	  is.close();
+	}
   }
 }

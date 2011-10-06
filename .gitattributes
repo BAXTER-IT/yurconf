@@ -16,7 +16,6 @@ src/main/java/com/baxter/config/model/TopicGroup.java -text
 src/main/java/com/baxter/config/servlet/RestServlet.java -text
 src/main/java/com/baxter/config/servlet/StoreManager.java -text
 src/main/java/com/baxter/config/servlet/StoreManagerInit.java -text
-src/main/resources/.baxter-config/default/log4j.xml -text
 src/main/resources/.baxter-config/default/log4j_BlotterClient.xml -text
 src/main/resources/.baxter-config/default/log4j_BlotterServer.xml -text
 src/main/resources/.baxter-config/default/log4j_Broadcast.xml -text

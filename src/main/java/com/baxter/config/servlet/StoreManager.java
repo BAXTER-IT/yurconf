@@ -7,10 +7,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 import com.baxter.config.bean.Messages;
 
@@ -109,14 +111,50 @@ public class StoreManager
 	return Arrays.asList(this.configRoot.list());
   }
 
-  public String getConfigurationURL(String configType, String componentId)
+  public String getConfigurationURL(final String configType, final String componentId)
   {
 	final StringBuilder path = new StringBuilder(this.configRoot.getAbsolutePath());
 	path.append("/default/");
-	path.append(configType).append("/");
 	path.append(configType);
+	if (configType.equals("log4j"))
+	{
+	  path.append("_").append(componentId);
+	}
 	path.append(".xml");
 	return path.toString();
+  }
+
+  public void copyFileStructure() throws IOException
+  {
+	copyConfigFile("properties.xml");
+	copyConfigFile("log4j_DBServer.xml");
+	copyConfigFile("log4j_Broadcast.xml");
+	copyConfigFile("log4j_BlotterServer.xml");
+	copyConfigFile("log4j_BlotterClient.xml");
+  }
+
+  private void copyConfigFile(final String fileName) throws IOException
+  {
+	final URL url = StoreManager.class.getResource("/.baxter-config/default/" + fileName);
+	final File destination = new File(defaultTag, fileName);
+	if (!destination.exists())
+	{
+	  destination.createNewFile();
+	  OutputStream os = null;
+	  InputStream is = null;
+	  try
+	  {
+		is = url.openStream();
+		os = new FileOutputStream(destination);
+		IOUtils.copy(is, os);
+	  }
+	  finally
+	  {
+		os.close();
+		is.close();
+	  }
+
+	}
   }
 
   private static File ensureDirExists(final File dir)
@@ -137,5 +175,4 @@ public class StoreManager
 	}
 	return dir;
   }
-
 }

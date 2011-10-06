@@ -47,8 +47,7 @@
 	</servlet>
 	    
 	<servlet-mapping><servlet-name>RestServlet</servlet-name>
-	    <url-pattern>/rest/properties/*</url-pattern>
-	    <url-pattern>/rest/log4j/*</url-pattern>
+	    <url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
  
 </web-app>
