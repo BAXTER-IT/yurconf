@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="BlotterX %c{1} [%d{ISO8601}] %m%n" />
+        </layout>
+    </appender>
+   
+   
+	<appender name="FILE_Blotter" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/BlotterClient.log" />
+		<param name="MaxFileSize" value="5MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="BlotterX[%d{ISO8601}][%p] - %m%n" />
+		</layout>
+	</appender>		
+	<appender name="FILE_DealerTradingTool" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/DealerTradingTool.log" />
+		<param name="MaxFileSize" value="5MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="TradingTool[%d{ISO8601}][%p] - %m%n" />
+		</layout>
+	</appender>
+	
+	<logger name="com.baxter.genius.blotterX.Blotter" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="FILE_Blotter" />
+	</logger>
+	
+	<logger name="com.baxter.genius.blotterX.PriceDisplayX" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="FILE_Blotter" />
+	</logger>
+	
+	<logger name="com.baxter.genius.dealertradingtool" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="FILE_DealerTradingTool" />
+	</logger>
+	
+	<logger name="com.baxter">
+        <level value="TRACE"/>
+		<appender-ref ref="CONSOLE" />
+    </logger>
+    
+	
+    
+</log4j:configuration>

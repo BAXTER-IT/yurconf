@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" >
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%C]%c{1} [%d{ISO8601}] %m%n" />
+        </layout>
+    </appender>
+   
+   
+	<appender name="FILE_BlotterServer" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/BlotterServer.log" />
+		<param name="MaxFileSize" value="5MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="BlotterServer[%d{ISO8601}][%p] - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="FILE_BlotterServer_AbosConnection" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/BlotterServer.log" />
+		<param name="MaxFileSize" value="5MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="AbosConnection[%d{ISO8601}][%p] - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="FILE_BlotterServer_PositionServer" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/BlotterServer.log" />
+		<param name="MaxFileSize" value="5MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%X{HDR}[%d{ISO8601}][%p] - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="FILE_MMMPricesToDB" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/MMMPricesToDB.log" />
+		<param name="MaxFileSize" value="5MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="MMMPricesToDB[%d{ISO8601}][%p] - %m%n" />
+		</layout>
+	</appender>
+				
+	<logger name="com.baxter.genius.BlotterServer" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="FILE_BlotterServer" />
+	</logger>
+	
+	<logger name="com.baxter.genius.positionmanager.AbosConnection" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="FILE_BlotterServer_AbosConnection" />
+	</logger>	
+	<logger name="org.jnp" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="FILE_BlotterServer_AbosConnection" />			
+	</logger>
+	
+	<logger name="com.baxter.genius.positionmanager.PositionManager" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="FILE_BlotterServer_PositionServer" />
+	</logger>
+	<logger name="com.baxter.genius.positionmanager.InstitutionalPortfolio" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="FILE_BlotterServer_PositionServer" />
+	</logger>
+	<logger name="com.baxter.genius.positionmanager.MasterAccountPortfolio" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="FILE_BlotterServer_PositionServer" />
+	</logger>
+	<logger name="com.baxter.genius.positionmanager.RetailBucketingPortfolio" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="FILE_BlotterServer_PositionServer" />
+	</logger>
+	
+	<logger name="com.baxter.genius.mmm" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="FILE_MMMPricesToDB" />			
+	</logger>
+	
+	
+	<logger name="com.baxter">
+        <level value="TRACE"/>
+		<appender-ref ref="CONSOLE" />
+    </logger>
+	
+    
+</log4j:configuration>

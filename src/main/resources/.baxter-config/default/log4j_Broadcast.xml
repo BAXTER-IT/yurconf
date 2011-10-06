@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="BroadcastBase [%C]%c [%d{ISO8601}] %m%n" />
+		</layout>
+	</appender>
+
+
+	<appender name="ASYNC_BroadcastBase" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_BroadcastBase" />
+	</appender>
+
+	<appender name="FILE_BroadcastBase" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/BroadcastBase.log" />
+		<param name="MaxFileSize" value="5MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%c[%d{ISO8601}][%p] - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ASYNC_Bloomberg" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_Bloomberg" />
+	</appender>
+
+	<appender name="FILE_Bloomberg" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/Bloomberg_messages.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] %c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ASYNC_CurrenexAP" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_CurrenexAP" />
+	</appender>
+
+	<appender name="FILE_CurrenexAP" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/currenexap_messages.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] %c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ASYNC_SonicLoginSpiImpl" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_SonicLoginSpiImpl" />
+	</appender>
+
+	<appender name="FILE_SonicLoginSpiImpl" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/SonicLoginSpiImpl.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] %c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ASYNC_JBossMQ" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_JBossMQ" />
+	</appender>
+
+	<appender name="FILE_JBossMQ" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/JBossMQ.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] %c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ASYNC_JNP" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_JNP" />
+	</appender>
+
+	<appender name="FILE_JNP" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/JNP.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] %c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ASYNC_Integral" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_Integral" />
+	</appender>
+
+	<appender name="FILE_Integral" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/Integral_messages.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] %c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ASYNC_FIX44" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_FIX44" />
+	</appender>
+
+	<appender name="FILE_FIX44" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/fix44_messages.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] %c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ASYNC_FIX" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_FIX" />
+	</appender>
+
+	<appender name="FILE_FIX" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/fix_messages.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] %c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ASYNC_Web" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="FILE_Web" />
+	</appender>
+
+	<appender name="FILE_Web" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/web_messages.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] %c - %m%n" />
+		</layout>
+	</appender>
+
+
+	<logger name="com.baxter.genius.publishing.BroadcastBase">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.BroadcastBase$ShutdownHook">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.FXAllClientMessaging">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.WebClientMessaging" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_Web" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.FIX44ClientMessaging" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_FIX44" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.TradeAcceptor">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.CurrenexClientMessaging">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.CurrenexAPClientMessaging" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_CurrenexAP" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.FIXClientMessaging" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_FIX" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.BloombergClientMessaging" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_Bloomberg" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.EBSXMLClientMessaging">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.SimpleClientMessaging">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.HotSpotClientMessaging">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.FXConnectClientMessaging">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.EBSClientMessaging">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.HedgeClientMessaging">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.IntegralClientMessaging" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_Integral" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.JMSClientMessaging">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.MDPIFXAllClientMessaging">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.FIX44MessageCracker" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_FIX44" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.BloombergMessageHandler" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_Bloomberg" />
+	</logger>
+	<logger name="com.baxter.genius.publishing.ForwardCurrenciesHandler">
+		<level value="TRACE" />
+	</logger>
+	<logger name="com.baxter.pe.management.StatisticExposer">
+		<level value="TRACE" />
+	</logger>
+
+	<logger name="com.baxter" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_BroadcastBase" />
+	</logger>
+
+	<logger name="com.ssgm.glml.integration.sonic.SonicLoginSpiImpl" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_SonicLoginSpiImpl" />
+	</logger>
+
+	<logger name="org.jboss" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_JBossMQ" />
+	</logger>
+
+	<logger name="org.jnp" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_JNP" />
+	</logger>
+	
+	<logger name="quickfix.mina" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="ASYNC_FIX44" />
+	</logger>
+	
+	<logger name="fxi.api" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="ASYNC_CurrenexAP" />
+	</logger>
+	
+
+</log4j:configuration>
