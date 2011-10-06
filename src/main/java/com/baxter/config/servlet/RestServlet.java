@@ -1,6 +1,5 @@
 package com.baxter.config.servlet;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -46,22 +45,35 @@ public class RestServlet extends HttpServlet
   private void invoke(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
   {
 	System.out.println(request.getParameter("version"));
-	final String[] tokenizedURI = request.getRequestURI().split("/");
-	if (tokenizedURI.length != 5)
+	final String[] devidedUrl = request.getPathInfo().split("/");
+	if (devidedUrl.length != 3)
 	{
-	  throw new ServletException("Wrong url");
+	  response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong request path.\n Should be: " + request.getContextPath()
+		  + request.getServletPath() + "/<configurationType>/<componnentID>");
+	  return;
 	}
+	final String requestConfigType = devidedUrl[1];
+	final String requestComponnentId = devidedUrl[2];
+	final ConfigurationType configurationType;
+	try
+	{
+	  configurationType = ConfigurationType.valueOf(requestConfigType);
+	}
+	catch (final IllegalArgumentException e)
+	{
+	  response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong configuration type <" + requestConfigType + ">");
+	  return;
+	}
+	response.setContentType(configurationType.getContentType());
 	final StoreManager storeManager = (StoreManager) getServletContext().getAttribute("storeManager");
-//	final String pathToConfig = storeManager.getConfigurationURL(tokenizedURI[3], tokenizedURI[4]);
-//	InputStream is = null;
-//	try
-//	{
-//	  is = new FileInputStream(pathToConfig);
-//	  IOUtils.copy(is, response.getOutputStream());
-//	}
-//	finally
-//	{
-//	  is.close();
-//	}
+	final InputStream is = storeManager.getInputStream(configurationType.getFileName(requestComponnentId));
+	try
+	{
+	  IOUtils.copy(is, response.getOutputStream());
+	}
+	finally
+	{
+	  is.close();
+	}
   }
 }

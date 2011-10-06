@@ -24,6 +24,7 @@ src/main/java/com/baxter/config/model/properties/Group.java -text
 src/main/java/com/baxter/config/model/properties/Properties.java -text
 src/main/java/com/baxter/config/model/properties/QueueGroup.java -text
 src/main/java/com/baxter/config/model/properties/TopicGroup.java -text
+src/main/java/com/baxter/config/servlet/ConfigurationType.java -text
 src/main/java/com/baxter/config/servlet/RestServlet.java -text
 src/main/java/com/baxter/config/servlet/StoreManager.java -text
 src/main/java/com/baxter/config/servlet/StoreManagerInit.java -text
