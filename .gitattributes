@@ -30,6 +30,7 @@ src/main/java/com/baxter/config/servlet/ConfigurationType.java -text
 src/main/java/com/baxter/config/servlet/RestServlet.java -text
 src/main/java/com/baxter/config/servlet/StoreManager.java -text
 src/main/java/com/baxter/config/servlet/StoreManagerInit.java -text
+src/main/java/com/baxter/config/servlet/Version.java -text
 src/main/resources/com/baxter/config/servlet/log4j-admintool.xml -text
 src/main/resources/com/baxter/config/servlet/log4j-blotter.xml -text
 src/main/resources/com/baxter/config/servlet/log4j-blotterserver.xml -text

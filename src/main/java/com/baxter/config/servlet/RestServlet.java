@@ -44,7 +44,22 @@ public class RestServlet extends HttpServlet
 
   private void invoke(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
   {
-	System.out.println(request.getParameter("version"));
+	float version;
+	try
+	{
+	  version = Float.valueOf(request.getParameter("version"));
+	  if (version > Version.getLatestVersion())
+	  {
+		response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED,
+		    "Server does not support version of configuration you requested");
+		return;
+	  }
+	}
+	catch (final NumberFormatException e)
+	{
+	  response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong or missed <version> parameter.");
+	  return;
+	}
 	final String[] devidedUrl = request.getPathInfo().split("/");
 	if (devidedUrl.length != 3)
 	{
