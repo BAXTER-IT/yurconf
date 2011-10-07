@@ -88,10 +88,11 @@ tr.even td {
         		if (comp != component)
         		{
         %>
-        <td><input name="component" value="<%=component%>" type="submit" /></td>
+        <td><input name="component" value="<%=component%>" type="submit" />
+        </td>
         <%
-                }
-	      }
+          }
+          }
         %>
       </tr>
     </table>
@@ -102,10 +103,13 @@ tr.even td {
   %>
   <form method="post">
     <input type="hidden" name="component" value="<%=comp%>" />
-    <h2>Logging for <%=comp%></h2>
+    <h2>
+      Logging for
+      <%=comp%></h2>
     <%
       final Configuration conf = logs.get(comp);
-      if (conf != null) {
+    		if (conf != null)
+    		{
     %>
     <h3>Appenders</h3>
     <table>
@@ -119,24 +123,30 @@ tr.even td {
       <tbody>
         <%
           boolean odd = false;
-          for (Appender appender : conf.getTargetAppenders()) {
+        		  for (Appender appender : conf.getTargetAppenders())
+        		  {
         %>
         <tr class="<%=(odd = !odd) ? "odd" : "even"%>">
           <td><%=appender.getName()%></td>
           <%
-            if (appender.isFileAppender()) {
+            if (appender.isFileAppender())
+          			{
           %>
           <td><input name="appender:<%=appender.getName()%>:File" type="text" size="40"
-            value="<%=appender.getOutput()%>" /></td>
+            value="<%=appender.getOutput()%>" />
+          </td>
           <%
-            } else {
+            }
+          			else
+          			{
           %>
           <td><%=appender.getOutput()%></td>
           <%
             }
           %>
           <td><input name="appender:<%=appender.getName()%>:Pattern" type="text" size="40"
-            value="<%=appender.getLayout().getPattern()%>" /></td>
+            value="<%=appender.getLayout().getPattern()%>" />
+          </td>
         </tr>
         <%
           }
@@ -155,34 +165,46 @@ tr.even td {
       </thead>
       <tbody>
         <%
-        odd = false;
-        for (AbstractLogger logger : conf.getAllLoggers()) {
+          odd = false;
+        		  for (AbstractLogger logger : conf.getAllLoggers())
+        		  {
         %>
         <tr class="<%=(odd = !odd) ? "odd" : "even"%>">
           <td><%=logger.getName()%></td>
           <td><select name="logger:<%=logger.getName()%>:Level" size="1">
               <%
-                for (String level : Level.getValues()) {
+                for (String level : Level.getValues())
+              			{
               %>
-              <option value="<%=level%>"<% if (level.equals(logger.getLevelValue())) {%> selected <%}%>><%=level%></option>
+              <option value="<%=level%>" <%if (level.equals(logger.getLevelValue()))
+			  {%> selected <%}%>><%=level%></option>
               <%
                 }
               %>
-          </select>
+          </select></td>
+          <td>
+            <%
+              if (!logger.isAdditivityIgnored())
+            			{
+            %> <input type="checkbox" name="logger:<%=logger.getName()%>:Additivity" value="true"
+            <%if (logger.isAdditivity())
+			  {%> checked <%}%> /> <%
+   }
+ 			else
+ 			{
+ %> &nbsp; <%
+   }
+ %>
           </td>
           <td>
             <%
-                if (!logger.isAdditivityIgnored()) {
-            %> 
-            <input type="checkbox" name="logger:<%=logger.getName()%>:Additivity" value="true"
-            <%    if (logger.isAdditivity()) {%> 
-                     checked 
-            <%    } %> /> 
-            <%  } else { %>
-            &nbsp;
-            <%  } %>
+              for (String effapp : conf.getEffectiveAppenders(logger))
+            			{
+            %><li><%=effapp%></li>
+            <%
+              }
+            %>
           </td>
-          <td>Appenders list here</td>
         </tr>
         <%
           }

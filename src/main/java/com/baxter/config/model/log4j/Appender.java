@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 public class Appender extends AbstractParametrized implements Serializable
 {
@@ -51,6 +52,7 @@ public class Appender extends AbstractParametrized implements Serializable
 	}
   }
 
+  @XmlTransient
   public String getOutput()
   {
 	try

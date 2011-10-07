@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 public abstract class AbstractLogger
 {
@@ -24,6 +25,7 @@ public abstract class AbstractLogger
 	return appenderRefs;
   }
 
+  @XmlTransient
   public String getLevelValue()
   {
 	if (this.level == null)
@@ -63,6 +65,7 @@ public abstract class AbstractLogger
   
   public abstract boolean isAdditivityIgnored();
 
+  @XmlTransient
   public abstract boolean isAdditivity();
   
   public abstract void setAdditivity( final boolean value);
