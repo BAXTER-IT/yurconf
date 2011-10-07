@@ -180,7 +180,7 @@ tr.even td {
           {
         		channelsExist = true;
         %>
-        <tr class="<%=(odd = !odd) ? "even" : "odd"%>">
+        <tr class="<%=(odd = !odd) ? "odd" : "even"%>">
           <td><%=channel.getChannelType()%></td>
           <td><%=channel.getChannelName()%></td>
           <td><%=channel.getKey()%></td>

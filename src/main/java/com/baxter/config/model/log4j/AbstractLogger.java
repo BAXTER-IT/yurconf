@@ -24,4 +24,47 @@ public abstract class AbstractLogger
 	return appenderRefs;
   }
 
+  public String getLevelValue()
+  {
+	if (this.level == null)
+	{
+	  return null;
+	}
+	else
+	{
+	  return this.level.getValue();
+	}
+  }
+
+  public void setLevelValue(final String value)
+  {
+	final String levelValue = (value == null || value.isEmpty()) ? null : value;
+	if (this.level == null)
+	{
+	  if (levelValue != null)
+	  {
+		this.level = new Level(levelValue);
+	  }
+	}
+	else
+	{
+	  if (levelValue == null)
+	  {
+		this.level = null;
+	  }
+	  else
+	  {
+		this.level.setValue(levelValue);
+	  }
+	}
+  }
+
+  public abstract String getName();
+  
+  public abstract boolean isAdditivityIgnored();
+
+  public abstract boolean isAdditivity();
+  
+  public abstract void setAdditivity( final boolean value);
+
 }

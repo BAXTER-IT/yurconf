@@ -19,6 +19,7 @@ public class Logger extends AbstractLogger implements Serializable
   @XmlAttribute(name = "additivity")
   private boolean additivity = true;
 
+  @Override
   public String getName()
   {
 	return name;
@@ -27,6 +28,18 @@ public class Logger extends AbstractLogger implements Serializable
   public boolean isAdditivity()
   {
 	return additivity;
+  }
+  
+  @Override
+  public void setAdditivity(boolean value)
+  {
+    this.additivity = value;
+  }
+  
+  @Override
+  public boolean isAdditivityIgnored()
+  {
+    return false;
   }
 
 }

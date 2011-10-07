@@ -29,4 +29,8 @@ public class Param implements Serializable
     return value;
   }
   
+  void setValue( final String value ) {
+	this.value = value;
+  }
+  
 }
