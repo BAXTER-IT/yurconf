@@ -43,9 +43,9 @@ public abstract class AbstractContainer
 
   public Entry addEntryWithValue(final String key, final String value)
   {
-	final Entry oldEntry = getEntry(key);
 	try
 	{
+	  final Entry oldEntry = getEntry(key);
 	  oldEntry.setAlias(null);
 	  oldEntry.setValue(value);
 	  return oldEntry;
