@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBException;
 
 import org.apache.commons.io.IOUtils;
 
@@ -101,6 +102,11 @@ public class RestServlet extends HttpServlet
 	final InputStream is = storeManager.getInputStream(component.getFileName(configurationType));
 	try
 	{
+	  BaxterConfigIOUtils.copy(is, response.getOutputStream(), configurationType, component);
+	}
+	catch (JAXBException e)
+	{
+	  e.printStackTrace();
 	  IOUtils.copy(is, response.getOutputStream());
 	}
 	finally

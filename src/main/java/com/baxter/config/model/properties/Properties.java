@@ -4,9 +4,12 @@
 package com.baxter.config.model.properties;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.baxter.config.bean.NewChannelBean;
@@ -24,15 +27,34 @@ public class Properties extends AbstractContainer implements Serializable
    */
   private static final long serialVersionUID = 1L;
 
-
   static final String NS = "http://baxter.com/config";
 
   @XmlAttribute(name = "version")
   private String version = "1.1";
 
+  @XmlElement(name = "import", namespace = Properties.NS)
+  private List<Import> importElemList;
+
   public String getVersion()
   {
 	return version;
+  }
+
+  public void removeImportElem(Import elem)
+  {
+	if (importElemList != null)
+	{
+	  importElemList.remove(elem);
+	}
+  }
+
+  public void addImportElem(Import elem)
+  {
+	if (importElemList == null)
+	{
+	  importElemList = new ArrayList<Import>();
+	}
+	importElemList.add(elem);
   }
 
   public int getJMSInstancesCount()

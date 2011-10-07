@@ -11,41 +11,48 @@ public enum Component
 {
 
   // Server
-  dbserver
+  dbserver(true)
   {
   },
-  broadcast
+  broadcast(true)
   {
   },
-  blotterserver
+  blotterserver(true)
   {
   },
-  validator
+  validator(true)
   {
   },
-  twserver
+  twserver(true)
   {
   },
-  fwdcontroller
+  fwdcontroller(true)
   {
   },
-  fwdircontroller
+  fwdircontroller(true)
   {
   },
   // Client
-  admintool
+  admintool(false)
   {
   },
-  blotter
+  blotter(false)
   {
   },
-  trackwheel
+  trackwheel(false)
   {
   },
-  fwdmonitor
+  fwdmonitor(false)
   {
   },
   ;
+
+  private boolean isServer;
+
+  private Component(boolean isServer)
+  {
+	this.isServer = isServer;
+  }
 
   public String getFileName(final ConfigurationType type)
   {
@@ -58,5 +65,10 @@ public enum Component
 	default:
 	  throw new IllegalArgumentException("Unsupported config type");
 	}
+  }
+
+  public boolean isServer()
+  {
+	return isServer;
   }
 }
