@@ -44,29 +44,14 @@ public class RestServlet extends HttpServlet
 
   private void invoke(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
   {
-	float version;
-	try
-	{
-	  version = Float.valueOf(request.getParameter("version"));
-	  if (version > Version.getLatestVersion())
-	  {
-		response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED,
-		    "Server does not support version of configuration you requested");
-		return;
-	  }
-	}
-	catch (final NumberFormatException e)
-	{
-	  response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong or missed <version> parameter.");
-	  return;
-	}
 	final String[] devidedUrl = request.getPathInfo().split("/");
 	if (devidedUrl.length != 3)
 	{
-	  response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong request path.\n Should be: " + request.getContextPath()
+	  response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong request path. Should be: " + request.getContextPath()
 		  + request.getServletPath() + "/<configurationType>/<componnentID>");
 	  return;
 	}
+
 	final String requestConfigType = devidedUrl[1];
 	final String requestComponentId = devidedUrl[2];
 	final ConfigurationType configurationType;
@@ -76,9 +61,30 @@ public class RestServlet extends HttpServlet
 	}
 	catch (final IllegalArgumentException e)
 	{
-	  response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong configuration type <" + requestConfigType + ">");
+	  response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong configuration type " + requestConfigType);
 	  return;
 	}
+
+	if (configurationType.isVersionAddicted())
+	{
+	  try
+	  {
+		if (!Version.isVersionSupported(request.getParameter("version")))
+		{
+		  response.sendError(
+			  HttpServletResponse.SC_NOT_IMPLEMENTED,
+			  "Server does not support version of configuration you requested. Highest supported version is "
+			      + Version.getLatestVersion());
+		  return;
+		}
+	  }
+	  catch (final NumberFormatException e)
+	  {
+		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong or missed version parameter.");
+		return;
+	  }
+	}
+
 	final Component component;
 	try
 	{
@@ -89,6 +95,7 @@ public class RestServlet extends HttpServlet
 	  response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong component id " + requestComponentId);
 	  return;
 	}
+
 	response.setContentType(configurationType.getContentType());
 	final StoreManager storeManager = (StoreManager) getServletContext().getAttribute("storeManager");
 	final InputStream is = storeManager.getInputStream(component.getFileName(configurationType));
