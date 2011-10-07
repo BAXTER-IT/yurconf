@@ -27,9 +27,9 @@ public abstract class AbstractContainer
 
   public Alias addAlias(final String key, final String value)
   {
-	final Alias oldAlias = getAlias(key);
 	try
 	{
+	  final Alias oldAlias = getAlias(key);
 	  oldAlias.setValue(value);
 	  return oldAlias;
 	}

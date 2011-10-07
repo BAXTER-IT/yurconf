@@ -104,7 +104,7 @@ public class StoreManager
 	final File resourceFile = new File(this.defaultTag, resource);
 	if (failOnExists && resourceFile.exists())
 	{
-	  throw new IOException("File exists");
+	  throw new FileAlreadyExistsException(resourceFile);
 	}
 	return new FileOutputStream(resourceFile);
   }
@@ -119,49 +119,49 @@ public class StoreManager
 	try
 	{
 	  copyConfigFile("properties.xml");
+	  for (Component comp : Component.values())
+	  {
+		copyConfigFile(comp.getFileName(ConfigurationType.log4j));
+	  }
 	}
 	catch (final IOException e)
 	{
 	  e.printStackTrace();
 	}
-	for (Component comp : Component.values())
-	{
-	  try
-	  {
-		copyConfigFile(comp.getFileName(ConfigurationType.log4j));
-	  }
-	  catch (final IOException e)
-	  {
-		e.printStackTrace();
-	  }
-	}
   }
 
   private void copyConfigFile(final String fileName) throws IOException
   {
-	final OutputStream os = getOutputStream(fileName, true);
 	try
 	{
-	  final InputStream is = StoreManager.class.getResourceAsStream(fileName);
-	  if (is == null)
+	  final OutputStream os = getOutputStream(fileName, true);
+	  try
 	  {
-		System.err.println("Could not find initial resource " + fileName);
+		final InputStream is = StoreManager.class.getResourceAsStream(fileName);
+		if (is == null)
+		{
+		  System.err.println("Could not find initial resource " + fileName);
+		}
+		else
+		{
+		  try
+		  {
+			IOUtils.copy(is, os);
+		  }
+		  finally
+		  {
+			is.close();
+		  }
+		}
 	  }
-	  else
+	  finally
 	  {
-		try
-		{
-		  IOUtils.copy(is, os);
-		}
-		finally
-		{
-		  is.close();
-		}
+		os.close();
 	  }
 	}
-	finally
+	catch (final FileAlreadyExistsException e)
 	{
-	  os.close();
+	  System.out.println(e.getMessage());
 	}
   }
 
@@ -183,4 +183,20 @@ public class StoreManager
 	}
 	return dir;
   }
+
+  private class FileAlreadyExistsException extends IOException
+  {
+
+	/**
+     * 
+     */
+	private static final long serialVersionUID = 1L;
+
+	public FileAlreadyExistsException(final File file)
+	{
+	  super("File " + file.getAbsolutePath() + " already exists");
+	}
+
+  }
+
 }
