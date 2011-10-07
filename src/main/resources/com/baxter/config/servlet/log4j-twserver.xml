@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<!-- As different TWServer components may log to the same console, we 
+				should have possibility to distinguish between different processes, so, using 
+				the prefix -->
+			<param name="ConversionPattern" value="TWServer${TWS.cpCode} %c{1} [%d{ISO8601}] %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="FILE_TWServer" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${pe.devel.logs.dir}/TWServer${TWS.cpCode}.log" />
+		<param name="MaxFileSize" value="50MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="TWServer${TWS.cpCode}[%d{ISO8601}][%p] - %m%n" />
+		</layout>
+	</appender>
+
+	<category name="TrackwheelServer" additivity="false">
+		<level value="TRACE" />
+		<appender-ref ref="FILE_TWServer" />
+	</category>
+
+	<category name="com.baxter">
+		<level value="INFO" />
+	</category>
+
+	<root>
+		<level value="WARN" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+</log4j:configuration>
