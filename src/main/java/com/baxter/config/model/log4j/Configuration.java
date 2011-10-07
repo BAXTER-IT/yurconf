@@ -3,6 +3,7 @@
  */
 package com.baxter.config.model.log4j;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  */
 @XmlRootElement(name = "configuration", namespace = Configuration.NS)
-public class Configuration
+public class Configuration implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   static final String NS = "http://jakarta.apache.org/log4j/";
 
   @XmlElement(name = "appender")

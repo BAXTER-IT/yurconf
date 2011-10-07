@@ -3,15 +3,19 @@
  */
 package com.baxter.config.model.properties;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * @author ykryshchuk
  * 
  */
-@XmlRootElement(name = "pretag", namespace = Properties.NS)
-public class Alias extends AbstractValue
+public class Alias extends AbstractValue implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   public Alias()
   {
   }

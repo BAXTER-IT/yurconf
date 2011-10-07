@@ -60,9 +60,9 @@ public abstract class AbstractContainer
 
   public Entry addEntryWithAlias(final String key, final String alias)
   {
-	final Entry oldEntry = getEntry(key);
 	try
 	{
+	  final Entry oldEntry = getEntry(key);
 	  oldEntry.setAlias(alias);
 	  oldEntry.setValue(null);
 	  return oldEntry;

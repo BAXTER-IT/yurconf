@@ -3,12 +3,20 @@
  */
 package com.baxter.config.model.properties;
 
+import java.io.Serializable;
+
 /**
  * @author ykryshchuk
  * 
  */
-public class QueueGroup extends AbstractChannelGroup
+public class QueueGroup extends AbstractChannelGroup implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
+
   
   public QueueGroup() {
 	

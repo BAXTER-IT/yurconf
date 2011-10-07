@@ -3,12 +3,18 @@
  */
 package com.baxter.config.model.properties;
 
+
 /**
  * @author ykryshchuk
  *
  */
 public abstract class AbstractChannelGroup extends Group 
 {
+
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
 
   protected AbstractChannelGroup()
   {

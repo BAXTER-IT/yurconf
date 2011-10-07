@@ -3,16 +3,22 @@
  */
 package com.baxter.config.model.properties;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author ykryshchuk
  * 
  */
-@XmlRootElement(name = "entry", namespace = Properties.NS)
-public class Entry extends AbstractValue
+public class Entry extends AbstractValue implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
+
 
   @XmlAttribute(name = "pretag")
   private String alias;

@@ -3,6 +3,7 @@
  */
 package com.baxter.config.model.properties;
 
+import java.io.Serializable;
 import java.util.NoSuchElementException;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -16,8 +17,14 @@ import com.baxter.config.bean.NewJmsBean;
  * 
  */
 @XmlRootElement(name = "properties", namespace = Properties.NS)
-public class Properties extends AbstractContainer
+public class Properties extends AbstractContainer implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
+
   static final String NS = "http://baxter.com/config";
 
   @XmlAttribute(name = "version")

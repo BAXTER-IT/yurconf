@@ -3,18 +3,23 @@
  */
 package com.baxter.config.model.properties;
 
+import java.io.Serializable;
 import java.util.NoSuchElementException;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author ykryshchuk
  * 
  */
-@XmlRootElement(name = "group", namespace=Properties.NS)
-public class Group extends AbstractContainer
+public class Group extends AbstractContainer implements Serializable
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
+
 
   @XmlAttribute(name = "key")
   private String key;
