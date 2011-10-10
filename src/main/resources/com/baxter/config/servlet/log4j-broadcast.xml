@@ -14,7 +14,7 @@
 	</appender>
 
 	<appender name="FILE_BroadcastBase" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/BroadcastBase.log" />
+		<param name="File" value="${logs.dir}/BroadcastBase.log" />
 		<param name="MaxFileSize" value="5MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -27,7 +27,7 @@
 	</appender>
 
 	<appender name="FILE_Bloomberg" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/Bloomberg_messages.log" />
+		<param name="File" value="${logs.dir}/Bloomberg_messages.log" />
 		<param name="MaxFileSize" value="100MB" />
 		<param name="MaxBackupIndex" value="5" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -40,7 +40,7 @@
 	</appender>
 
 	<appender name="FILE_CurrenexAP" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/currenexap_messages.log" />
+		<param name="File" value="${logs.dir}/currenexap_messages.log" />
 		<param name="MaxFileSize" value="100MB" />
 		<param name="MaxBackupIndex" value="5" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -53,7 +53,7 @@
 	</appender>
 
 	<appender name="FILE_SonicLoginSpiImpl" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/SonicLoginSpiImpl.log" />
+		<param name="File" value="${logs.dir}/SonicLoginSpiImpl.log" />
 		<param name="MaxFileSize" value="100MB" />
 		<param name="MaxBackupIndex" value="5" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -66,7 +66,7 @@
 	</appender>
 
 	<appender name="FILE_JBossMQ" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/JBossMQ.log" />
+		<param name="File" value="${logs.dir}/JBossMQ.log" />
 		<param name="MaxFileSize" value="100MB" />
 		<param name="MaxBackupIndex" value="5" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -79,7 +79,7 @@
 	</appender>
 
 	<appender name="FILE_JNP" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/JNP.log" />
+		<param name="File" value="${logs.dir}/JNP.log" />
 		<param name="MaxFileSize" value="100MB" />
 		<param name="MaxBackupIndex" value="5" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -92,7 +92,7 @@
 	</appender>
 
 	<appender name="FILE_Integral" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/Integral_messages.log" />
+		<param name="File" value="${logs.dir}/Integral_messages.log" />
 		<param name="MaxFileSize" value="100MB" />
 		<param name="MaxBackupIndex" value="5" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -105,7 +105,7 @@
 	</appender>
 
 	<appender name="FILE_FIX44" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/fix44_messages.log" />
+		<param name="File" value="${logs.dir}/fix44_messages.log" />
 		<param name="MaxFileSize" value="100MB" />
 		<param name="MaxBackupIndex" value="5" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -118,7 +118,7 @@
 	</appender>
 
 	<appender name="FILE_FIX" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/fix_messages.log" />
+		<param name="File" value="${logs.dir}/fix_messages.log" />
 		<param name="MaxFileSize" value="100MB" />
 		<param name="MaxBackupIndex" value="5" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -131,7 +131,7 @@
 	</appender>
 
 	<appender name="FILE_Web" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/web_messages.log" />
+		<param name="File" value="${logs.dir}/web_messages.log" />
 		<param name="MaxFileSize" value="100MB" />
 		<param name="MaxBackupIndex" value="5" />
 		<layout class="org.apache.log4j.PatternLayout">

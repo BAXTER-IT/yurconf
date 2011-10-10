@@ -9,7 +9,7 @@
    
    
 	<appender name="FILE_BlotterServer" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/BlotterServer.log" />
+		<param name="File" value="${logs.dir}/BlotterServer.log" />
 		<param name="MaxFileSize" value="5MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -18,7 +18,7 @@
 	</appender>
 	
 	<appender name="FILE_BlotterServer_AbosConnection" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/BlotterServer.log" />
+		<param name="File" value="${logs.dir}/BlotterServer.log" />
 		<param name="MaxFileSize" value="5MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -27,7 +27,7 @@
 	</appender>
 	
 	<appender name="FILE_BlotterServer_PositionServer" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/BlotterServer.log" />
+		<param name="File" value="${logs.dir}/BlotterServer.log" />
 		<param name="MaxFileSize" value="5MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -36,7 +36,7 @@
 	</appender>
 	
 	<appender name="FILE_MMMPricesToDB" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/MMMPricesToDB.log" />
+		<param name="File" value="${logs.dir}/MMMPricesToDB.log" />
 		<param name="MaxFileSize" value="5MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">

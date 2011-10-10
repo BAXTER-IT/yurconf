@@ -9,7 +9,7 @@
    
    
 	<appender name="FILE_Blotter" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/BlotterClient.log" />
+		<param name="File" value="${logs.dir}/BlotterClient.log" />
 		<param name="MaxFileSize" value="5MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -17,7 +17,7 @@
 		</layout>
 	</appender>		
 	<appender name="FILE_DealerTradingTool" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/DealerTradingTool.log" />
+		<param name="File" value="${logs.dir}/DealerTradingTool.log" />
 		<param name="MaxFileSize" value="5MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">

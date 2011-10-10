@@ -3,7 +3,6 @@
   <pretag key="host1">localhost</pretag>
   <pretag key="host2">localhost</pretag>
   <pretag key="host3">localhost</pretag>
-  <pretag key="host4">localhost</pretag>
   <pretag key="port1">4001</pretag>
   <pretag key="port2">4002</pretag>
   <pretag key="port3">4003</pretag>
@@ -16,7 +15,6 @@
   <pretag key="router1">router1</pretag>
   <pretag key="router2">router2</pretag>
   <pretag key="router3">router3</pretag>
-  <pretag key="router4">router4</pretag>
   <pretag key="numberOfBroadcastNodes">1</pretag>
   <pretag key="broadcastNodeHost">localhost</pretag>
   <pretag key="broadcastNodeHost2">localhost</pretag>
@@ -362,7 +360,7 @@
     </group>
   </group>
   <entry key="downarrowFile">downarrow.gif</entry>
-  <entry key="resourceDirectory">c:geniusclassescombaxtergeniusblotter;uparrowFile=uparrow.gif</entry>
+  <entry key="resourceDirectory">c:/genius/classes/com/baxter/genius/blotter;uparrowFile=uparrow.gif</entry>
   <entry key="salesBlotter">true</entry>
   <entry key="countDownSeconds">30</entry>
   <entry key="pricedisplay">true</entry>
@@ -439,12 +437,12 @@
   </group>
   <entry key="generateFakeIR">yes</entry>
   <group key="dbConnection">
-    <entry key="dbDriver">${pe.devel.oracle.database.driver}</entry>
-    <entry key="dbAddress">${pe.devel.oracle.database.url}</entry>
-    <entry key="dbPasswdFile">${pe.devel.oracle.database.pwd.file}</entry>
-    <entry key="dbDriver2">${pe.devel.oracle.database.driver}</entry>
-    <entry key="dbAddress2">${pe.devel.oracle.database.url}</entry>
-    <entry key="dbPasswdFile2">${pe.devel.database.pwd}</entry>
+    <entry key="dbDriver">oracle.jdbc.driver.OracleDriver</entry>
+    <entry key="dbAddress">jdbc:oracle:thin:@oraclexp.n-ix.com.ua:1521:BAXTERFX</entry>
+    <entry key="dbPasswdFile">/home/ykryshchuk/Projects/Baxter/database.pwd</entry>
+    <entry key="dbDriver2">oracle.jdbc.driver.OracleDriver</entry>
+    <entry key="dbAddress2">jdbc:oracle:thin:@oraclexp.n-ix.com.ua:1521:BAXTERFX</entry>
+    <entry key="dbPasswdFile2">/home/ykryshchuk/Projects/Baxter/price-engine/price-engine-devel/target/config/database.pwd</entry>
   </group>
   <!--group key="dbConnection">
 		<entry key="dbDriver">com.jnetdirect.jsql.JSQLDriver</entry>

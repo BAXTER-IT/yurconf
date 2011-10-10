@@ -9,7 +9,7 @@
    
    
 	<appender name="FILE_DBServer" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/DBServer.log" />
+		<param name="File" value="${logs.dir}/DBServer.log" />
 		<param name="MaxFileSize" value="5MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -18,7 +18,7 @@
 	</appender>
 	
 	<appender name="FILE_DBServer_JMS" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/DBServer.log" />
+		<param name="File" value="${logs.dir}/DBServerJMS.log" />
 		<param name="MaxFileSize" value="5MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">

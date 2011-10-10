@@ -13,6 +13,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamWriter;
 
 import com.baxter.config.model.log4j.Configuration;
 import com.baxter.config.model.properties.Properties;
@@ -26,6 +28,8 @@ import com.baxter.config.servlet.StoreManager;
  */
 public class ConfigPersister
 {
+  
+  private static final String NS_LOG4J = "http://jakarta.apache.org/log4j/";
 
   private static final String PROPS_BEAN_NAME = "props";
 
@@ -78,6 +82,7 @@ public class ConfigPersister
   {
 	try
 	{
+	  final XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newInstance();
 	  {
 		final Properties props = (Properties) session.getAttribute(PROPS_BEAN_NAME);
 		final Marshaller mProps = createMarshaller(Properties.class);
@@ -99,7 +104,16 @@ public class ConfigPersister
 		  final OutputStream streamLogs = storeManager.getOutputStream(comp.getFileName(ConfigurationType.log4j), false);
 		  try
 		  {
-			mLogs.marshal(logs.get(comp), streamLogs);
+			final XMLStreamWriter xmlWriter = xmlOutputFactory.createXMLStreamWriter(streamLogs);
+			try
+			{
+			  xmlWriter.setPrefix("log4j", NS_LOG4J);
+			  mLogs.marshal(logs.get(comp), streamLogs);
+			}
+			finally
+			{
+			  xmlWriter.close();
+			}
 		  }
 		  finally
 		  {

@@ -9,7 +9,7 @@
    
    
 	<appender name="FILE_TWClient" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/TrackwheelClient.log" />
+		<param name="File" value="${logs.dir}/TrackwheelClient.log" />
 		<param name="MaxFileSize" value="50MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">

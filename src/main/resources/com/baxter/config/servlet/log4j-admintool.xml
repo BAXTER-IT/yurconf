@@ -9,7 +9,7 @@
    
    
 	<appender name="FILE_AdminTool" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/AdminTool.log" />
+		<param name="File" value="${logs.dir}/AdminTool.log" />
 		<param name="MaxFileSize" value="5MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">

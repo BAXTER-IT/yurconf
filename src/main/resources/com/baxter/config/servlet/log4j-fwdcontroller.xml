@@ -8,7 +8,7 @@
     </appender>
    
 	<appender name="FILE_FwdController" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/FwdController${fwdc.ccy}.log" />
+		<param name="File" value="${logs.dir}/FwdController${fwdc.ccy}.log" />
 		<param name="MaxFileSize" value="5MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">

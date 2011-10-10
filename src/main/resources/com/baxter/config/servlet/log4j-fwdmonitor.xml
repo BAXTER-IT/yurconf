@@ -9,7 +9,7 @@
    
    
 	<appender name="FILE_FwdMonitor" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="${pe.devel.logs.dir}/FwdMonitor.log" />
+		<param name="File" value="${logs.dir}/FwdMonitor.log" />
 		<param name="MaxFileSize" value="50MB" />
 		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
