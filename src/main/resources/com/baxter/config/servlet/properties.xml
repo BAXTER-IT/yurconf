@@ -24,7 +24,7 @@
   <pretag key="broadcastNodeChannelPort2">7781</pretag>
   <pretag key="vendorHost">localhost</pretag>
   <pretag key="vendorPricePort">7100</pretag>
-  <pretag key="peHome">c:projectspe</pretag>
+  <pretag key="peHome">c:/projects/pe</pretag>
   <pretag key="peConf">${pe.devel.config.dir}</pretag>
   <pretag key="xmlUserId">m</pretag>
   <group key="toDb">
@@ -439,10 +439,10 @@
   <group key="dbConnection">
     <entry key="dbDriver">oracle.jdbc.driver.OracleDriver</entry>
     <entry key="dbAddress">jdbc:oracle:thin:@oraclexp.n-ix.com.ua:1521:BAXTERFX</entry>
-    <entry key="dbPasswdFile">/home/ykryshchuk/Projects/Baxter/database.pwd</entry>
+    <entry key="dbPasswdFile">c:/Baxter/database.pwd</entry>
     <entry key="dbDriver2">oracle.jdbc.driver.OracleDriver</entry>
     <entry key="dbAddress2">jdbc:oracle:thin:@oraclexp.n-ix.com.ua:1521:BAXTERFX</entry>
-    <entry key="dbPasswdFile2">/home/ykryshchuk/Projects/Baxter/price-engine/price-engine-devel/target/config/database.pwd</entry>
+    <entry key="dbPasswdFile2">c:/Baxter/database.pwd</entry>
   </group>
   <!--group key="dbConnection">
 		<entry key="dbDriver">com.jnetdirect.jsql.JSQLDriver</entry>

@@ -4,7 +4,7 @@ public class Version
 {
   public static String getLatestVersion()
   {
-	return "2.0.1";
+	return "1.0";
   }
 
   public static boolean isVersionSupported(final String requestedVersion) throws NumberFormatException

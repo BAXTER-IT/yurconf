@@ -1,5 +1,6 @@
 * text=auto !eol
 /pom.xml -text
+src/main/cmd/template.cmd -text
 src/main/java/com/baxter/config/bean/ConfigPersister.java -text
 src/main/java/com/baxter/config/bean/LogsProvider.java -text
 src/main/java/com/baxter/config/bean/Messages.java -text
@@ -44,6 +45,7 @@ src/main/resources/com/baxter/config/servlet/log4j-fwdmonitor.xml -text
 src/main/resources/com/baxter/config/servlet/log4j-trackwheel.xml -text
 src/main/resources/com/baxter/config/servlet/log4j-twserver.xml -text
 src/main/resources/com/baxter/config/servlet/log4j-validator.xml -text
+src/main/resources/com/baxter/config/servlet/log4j.dtd -text
 src/main/resources/com/baxter/config/servlet/properties.xml -text
 src/main/webapp/META-INF/context.xml -text
 src/main/webapp/WEB-INF/web.xml -text

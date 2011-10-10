@@ -119,6 +119,7 @@ public class StoreManager
 	try
 	{
 	  copyConfigFile("properties.xml");
+	  copyConfigFile("log4j.dtd");
 	  for (Component comp : Component.values())
 	  {
 		copyConfigFile(comp.getFileName(ConfigurationType.log4j));

@@ -46,7 +46,7 @@ public class RestServlet extends HttpServlet
   private void invoke(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
   {
 	final String[] devidedUrl = request.getPathInfo().split("/");
-	if (devidedUrl.length != 3)
+	if (devidedUrl.length < 3)
 	{
 	  response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong request path. Should be: " + request.getContextPath()
 		  + request.getServletPath() + "/<configurationType>/<componnentID>");
