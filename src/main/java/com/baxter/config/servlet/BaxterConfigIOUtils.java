@@ -64,7 +64,7 @@ public class BaxterConfigIOUtils
 	mProps.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 	mProps.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 	final Properties clientProperties = Properties.class.cast(umProps.unmarshal(inputStream));
-	final Import importElem = new Import("./properties-" + comp + "-w.xml", true);
+	final Import importElem = new Import("../config/properties-" + comp + "-w.xml", true);
 	clientProperties.addImportElem(importElem);
 	mProps.marshal(clientProperties, outputStream);
   }
