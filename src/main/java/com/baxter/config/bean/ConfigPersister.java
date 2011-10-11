@@ -99,7 +99,6 @@ public class ConfigPersister
 	  {
 		final LogsProvider logs = (LogsProvider) session.getAttribute(LOGS_BEAN_NAME);
 		final Marshaller mLogs = createMarshaller(Configuration.class);
-		mLogs.setProperty("com.sun.xml.bind.xmlDeclaration",Boolean.FALSE);
 		for (Component comp : Component.values())
 		{
 		  final OutputStream streamLogs = storeManager.getOutputStream(comp.getFileName(ConfigurationType.log4j), false);
@@ -129,6 +128,7 @@ public class ConfigPersister
 	}
 	catch (final Exception e)
 	{
+	  e.printStackTrace();
 	  msg.add(e);
 	}
   }

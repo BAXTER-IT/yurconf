@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.baxter.config.bean.DBConnectionBean;
+import com.baxter.config.bean.Messages;
 import com.baxter.config.bean.NewChannelBean;
 import com.baxter.config.bean.NewJmsBean;
 
@@ -130,6 +132,24 @@ public class Properties extends AbstractContainer implements Serializable
 	  channelGroup = channel.toChannel();
 	}
 	channelGroup.setJMS(jmsIndex);
+  }
+
+  public void changeDBConnection(final DBConnectionBean dbConnection, final Messages msg)
+  {
+	final Group dbConnectionGroup = getGroup("dbConnection");
+	if ("oracle".equals(dbConnection.getDbFamily()))
+	{
+	  dbConnectionGroup.addEntryWithValue("dbDriver", "oracle.jdbc.driver.OracleDriver");
+	  dbConnectionGroup.addEntryWithValue("dbAddress",
+		  "jdbc:oracle:thin:@" + dbConnection.getDbHost() + ":" + dbConnection.getDbPort() + ":" + dbConnection.getDbName());
+	}
+	else
+	{
+	  dbConnectionGroup.addEntryWithValue("dbDriver", "com.jnetdirect.jsql.JSQLDriver");
+	  dbConnectionGroup.addEntryWithValue("dbAddress",
+		  "jdbc:JSQLConnect://" + dbConnection.getDbHost() + ":" + dbConnection.getDbPort());
+	}
+	dbConnectionGroup.addEntryWithValue("dbPasswdFile", dbConnection.getDbPwd());
   }
 
 }

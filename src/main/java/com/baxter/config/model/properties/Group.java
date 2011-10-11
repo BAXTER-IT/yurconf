@@ -83,5 +83,11 @@ public class Group extends AbstractContainer implements Serializable
 	channel.copyFrom(this);
 	return channel;
   }
+  
+  @Override
+  public String toString()
+  {
+    return "Group " + this.key;
+  }
 
 }

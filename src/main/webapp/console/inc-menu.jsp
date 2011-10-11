@@ -15,6 +15,8 @@ table.menu td {
   <tr>
     <td><a href="../jms/">JMS</a>
     </td>
+    <td><a href="../db/">Database</a>
+    </td>
     <td><a href="../log/">Logging</a>
     </td>
     <td>&nbsp;</td>
