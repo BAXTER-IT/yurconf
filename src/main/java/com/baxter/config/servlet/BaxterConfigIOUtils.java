@@ -25,15 +25,15 @@ public class BaxterConfigIOUtils
   {
 	switch (type)
 	{
+	case log4j:
+	  copyLog4jXml(inputStream, outputStream);
+	  break;
 	case properties:
 	  if (!comp.isServer())
 	  {
 		copyClientProperies(inputStream, outputStream, comp);
+		break;
 	  }
-	  break;
-	case log4j:
-	  copyLog4jXml(inputStream, outputStream);
-	  break;
 	default:
 	  IOUtils.copy(inputStream, outputStream);
 	}
