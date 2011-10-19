@@ -199,7 +199,7 @@ public class ConfigPersister
 	final Marshaller m = jaxb.createMarshaller();
 	m.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 	m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-	m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+//	m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 	return m;
   }
 
