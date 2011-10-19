@@ -38,16 +38,26 @@ public class BaxterConfigIOUtils
 	  IOUtils.copy(inputStream, outputStream);
 	}
   }
-  
-  private static void copyLog4jXml( final InputStream inputStream, final OutputStream outputStream ) throws IOException {
-	final BufferedReader reader = new BufferedReader( new InputStreamReader(inputStream));
+
+  private static void copyLog4jXml(final InputStream inputStream, final OutputStream outputStream) throws IOException
+  {
+	final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 	final OutputStreamWriter writer = new OutputStreamWriter(outputStream);
 	String line;
 	boolean doctypeAdded = false;
-	while ( (line=reader.readLine()) != null ) {
-	  writer.write(line);
+	while ((line = reader.readLine()) != null)
+	{
+	  if (line.contains("ns2"))
+	  {
+		writer.write(line.replace("ns2", "log4j"));
+	  }
+	  else
+	  {
+		writer.write(line);
+	  }
 	  writer.write("\n");
-	  if ( !doctypeAdded && line.indexOf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>") != -1 ) {
+	  if (!doctypeAdded && line.indexOf("<?xml ") != -1)
+	  {
 		writer.write("<!DOCTYPE log4j:configuration SYSTEM \"log4j.dtd\">\n");
 		doctypeAdded = true;
 	  }
