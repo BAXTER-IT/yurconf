@@ -18,10 +18,10 @@
 	</appender>
 			
 	
-	<category name="com.baxter">
+	<root>
         <level value="TRACE"/>
 		<appender-ref ref="CONSOLE" />
-    </category>
+    </root>
     
 	<logger name="com.baxter" additivity="false">
 		<level value="TRACE" />
