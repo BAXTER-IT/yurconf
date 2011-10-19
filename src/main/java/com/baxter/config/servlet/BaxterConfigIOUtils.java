@@ -29,8 +29,8 @@ public class BaxterConfigIOUtils
 	  if (!comp.isServer())
 	  {
 		copyClientProperies(inputStream, outputStream, comp);
-		break;
 	  }
+	  break;
 	case log4j:
 	  copyLog4jXml(inputStream, outputStream);
 	  break;
