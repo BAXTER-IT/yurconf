@@ -18,6 +18,8 @@ import com.baxter.config.bean.Messages;
 public class StoreManager
 {
 
+  public static final String TAG_DEEFAULT = "default";
+
   private final File configRoot;
 
   private final File defaultTag;
@@ -26,12 +28,12 @@ public class StoreManager
   {
 	final File userHome = new File(System.getProperty("user.home"));
 	this.configRoot = ensureDirExists(new File(userHome, ".baxter-config"));
-	this.defaultTag = ensureDirExists(new File(this.configRoot, "default"));
+	this.defaultTag = ensureDirExists(new File(this.configRoot, TAG_DEEFAULT));
   }
 
   public void untag(final String tag, final Messages msg)
   {
-	if (tag != null && !"default".equals(tag))
+	if (tag != null && !TAG_DEEFAULT.equals(tag))
 	{
 	  final File tagDir = new File(this.configRoot, tag);
 	  if (!tagDir.exists())
@@ -189,8 +191,8 @@ public class StoreManager
   {
 
 	/**
-     * 
-     */
+	* 
+	*/
 	private static final long serialVersionUID = 1L;
 
 	public FileAlreadyExistsException(final File file)

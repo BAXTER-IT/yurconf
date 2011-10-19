@@ -28,7 +28,7 @@ import com.baxter.config.servlet.StoreManager;
  */
 public class ConfigPersister
 {
-  
+
   private static final String NS_LOG4J = "http://jakarta.apache.org/log4j/";
 
   private static final String PROPS_BEAN_NAME = "props";
@@ -64,7 +64,7 @@ public class ConfigPersister
   public List<String> getStoredTags()
   {
 	final List<String> tags = new ArrayList<String>(storeManager.getStoredTags());
-	tags.remove("default");
+	tags.remove(StoreManager.TAG_DEEFAULT);
 	return tags;
   }
 
@@ -121,7 +121,7 @@ public class ConfigPersister
 		  }
 		}
 	  }
-	  if (!tag.isEmpty() && !"default".equals(tag))
+	  if (!tag.isEmpty() && !StoreManager.TAG_DEEFAULT.equals(tag))
 	  {
 		this.storeManager.tag(tag, msg);
 	  }
