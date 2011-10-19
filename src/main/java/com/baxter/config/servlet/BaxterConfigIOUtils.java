@@ -47,6 +47,12 @@ public class BaxterConfigIOUtils
 	boolean doctypeAdded = false;
 	while ((line = reader.readLine()) != null)
 	{
+	  if (!doctypeAdded && line.indexOf("<?xml ") != -1)
+	  {
+		writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+		writer.write("<!DOCTYPE log4j:configuration SYSTEM \"log4j.dtd\">\n");
+		doctypeAdded = true;
+	  } else {
 	  if (line.contains("ns2"))
 	  {
 		writer.write(line.replace("ns2", "log4j"));
@@ -56,10 +62,6 @@ public class BaxterConfigIOUtils
 		writer.write(line);
 	  }
 	  writer.write("\n");
-	  if (!doctypeAdded && line.indexOf("<?xml ") != -1)
-	  {
-		writer.write("<!DOCTYPE log4j:configuration SYSTEM \"log4j.dtd\">\n");
-		doctypeAdded = true;
 	  }
 	}
 	writer.flush();
@@ -73,6 +75,7 @@ public class BaxterConfigIOUtils
 	final Marshaller mProps = jaxb.createMarshaller();
 	mProps.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 	mProps.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//	mProps.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 	final Properties clientProperties = Properties.class.cast(umProps.unmarshal(inputStream));
 	final Import importElem = new Import("../config/properties-" + comp + "-w.xml", true);
 	clientProperties.addImportElem(importElem);
