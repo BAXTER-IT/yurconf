@@ -7,6 +7,15 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>Baxter Configuration Web Application</name>
 	<build>
+	
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>1.0-beta-6</version>
+			</extension>
+		</extensions>
+		
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -50,6 +59,26 @@
 			</plugin>
 		</plugins>
 	</reporting>
+
+	<distributionManagement>
+		<repository>
+			<id>release.baxter</id>
+			<name>Baxter Release Repository</name>
+			<url>http://${server.nexus}/nexus/content/repositories/baxter-repository/
+            </url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshot.baxter</id>
+			<name>Baxter Snapshots Repository</name>
+			<url>http://${server.nexus}/nexus/content/repositories/baxter-snapshot/
+            </url>
+			<uniqueVersion>true</uniqueVersion>
+		</snapshotRepository>
+		<site>
+			<id>qa-apache</id>
+			<url>scp://qa/var/www/products/configuration</url>
+		</site>
+	</distributionManagement>
 
 	<dependencyManagement>
 		<dependencies>
