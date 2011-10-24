@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+	<properties>
+		<title>Development Phases</title>
+		<author email="ykryshchuk@n-ix.com.ua">Yuriy Kryshchuk</author>
+	</properties>
+
+	<head>
+		<title>Development Phases</title>
+	</head>
+
+	<body>
+
+		<section name="Development Phases">
+
+			<p>In order to speed up introducing the Baxter Configuration Server
+				in production, it has been decided to implement the application in
+				few phases. Each phase will extend its superior with additional
+				features.
+			</p>
+
+			<subsection name="Phase 1">
+				<p>This phase is targeted to Baxter Price Engine.
+				</p>
+				<p>The goal of first phase is to build the centralized configuration
+					storage for Price Engine components and re-factor those components
+					to use this storage.
+					No management UI is expected. No support for
+					configuration revisions.
+					It should be the simplest solution that
+					allows to avoid the
+					redundancy of configuration sources among the
+					same environment.
+					Operating personal will manage configuration by
+					means of manual
+					editing of files.
+				</p>
+			</subsection>
+
+			<subsection name="Phase 2">
+				<p>This phase is targeted to Baxter Price Engine.
+				</p>
+				<p>The goal of this phase is to develop a graphical UI to manage the
+					configuration.
+					There should be possibility to manage configuration revisions.
+				</p>
+			</subsection>
+
+			<subsection name="Phase 3">
+				<p>This phase extends support of other Baxter products.
+				</p>
+				<p>This phase adds support for other products, like ABOS, CD etc. It
+					includes integration of those products with Baxter Configuration.
+				</p>
+			</subsection>
+
+		</section>
+
+	</body>
+
+</document>

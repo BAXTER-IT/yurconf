@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+	<properties>
+		<title>Features</title>
+		<author email="ykryshchuk@n-ix.com.ua">Yuriy Kryshchuk</author>
+	</properties>
+
+	<head>
+		<title>Features</title>
+	</head>
+
+	<body>
+
+		<section name="Features">
+			<p>The following list has to be reviewed and approved.
+			</p>
+			<p>
+				<map id="feature-map">
+					<table>
+						<caption>Features map</caption>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Description</th>
+								<th>Effort</th>
+								<th>Phase</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<a href="http://jira.baxter.com/jira/browse/CONF-1">CONF-1</a>
+								</td>
+								<td>The configuration client API (Facade) is needed to allow
+									easy integration of client applications with Baxter
+									Configuration.
+								</td>
+								<td>1W</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="http://jira.baxter.com/jira/browse/CONF-2">CONF-2</a>
+								</td>
+								<td>Configuration has to be persisted on local file system.</td>
+								<td>1D</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+								<td>Configuration identification (request protocol). The schema
+									of configuration ID to be used for Rest requests.
+								</td>
+								<td></td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+								<td>Configuration variants (inheritance). Allows creating variants of a
+									configuration with modified base settings.
+								</td>
+								<td></td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+								<td>Rest Servlet. Delivers content for configuration requests.
+								</td>
+								<td></td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+								<td>Tagging configuration sources. The mechanism that allows to
+									compose different configuration sources into the single file to
+									be delivered to client.
+								</td>
+								<td></td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+								<td>Support for Development mode.</td>
+								<td></td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+								<td>Generating Log4J Configuration.</td>
+								<td></td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+								<td>Generating properties.xml files.</td>
+								<td></td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+								<td>Support for license file (constants.xml).</td>
+								<td></td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+								<td>Define persistence schema (files format and layout).</td>
+								<td></td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+								<td>Configuration revisions.</td>
+								<td></td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+								<td>Configuration compatibility (versioning).</td>
+								<td></td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+								<td>Configuration object model.</td>
+								<td></td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+								<td>Configuration access security. Possibility to filter the
+									clients requests to different configurations.</td>
+								<td></td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+								</td>
+								<td>a</td>
+								<td></td>
+								<td>1</td>
+							</tr>
+						</tbody>
+					</table>
+				</map>
+			</p>
+		</section>
+
+	</body>
+
+</document>
