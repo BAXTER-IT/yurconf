@@ -60,6 +60,7 @@ src/main/webapp/console/log/index.jsp -text
 src/main/webapp/index.jsp -text
 src/main/webapp/test/go.jsp -text
 src/main/webapp/test/index.jsp -text
+src/site/apt/index.apt -text
 src/site/resources/images/baxter_logo.png -text
 src/site/site.xml -text
 src/site/xdoc/overview/features.xml -text
