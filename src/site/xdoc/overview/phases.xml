@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
 	<properties>
@@ -11,45 +12,64 @@
 
 		<section name="Development Phases">
 
-			<p>In order to speed up introducing the Baxter Configuration Server
-				in production, it has been decided to implement the application in
-				few phases. Each phase will extend its superior with additional
-				features.
-			</p>
+			<p>In order to speed up introducing the Baxter Configuration Server in production, it
+				has been decided to implement the application in few phases. Each phase will extend
+				its superior with additional features. </p>
+
+			<p> The PoC shown by Yuriy was a working example with current price engine code. It's
+				content was:</p>
+			<ul>
+				<li>basic editor for properties.xml anf log4j.xml</li>
+				<li>basic versioning possibility</li>
+				<li>configuration file delivery to different nodes</li>
+			</ul>
+			<p>Based on ideas highlighted in PoC and discussion we had we defined the first goal to
+				achieve:</p>
+			<ul>
+				<li>Implementing a basic configuration facade (future extensibility)</li>
+				<li>Implementing the configuration file delivery</li>
+				<li>Implementing identification of components (e.g. blotter 1,2,x)</li>
+				<li>Benefits: <ul>
+						<li>One place editing – avoid inconsistency</li>
+						<li>Changes can be easily audited, tracked by using a VCS</li>
+					</ul>
+				</li>
+			</ul>
+
+			<p>Further development possibilities:</p>
+			<ul>
+				<li>Implementing configuration editor</li>
+				<li>Implementing validation of configuration</li>
+				<li>Implementing a unified launcher for components</li>
+			</ul>
+
+			<p>Action points:</p>
+			<ul>
+				<li>Yuiry will create a requirement list based on first declared goal</li>
+				<li>We refine the requirement list, and we estimate the amount of work</li>
+				<li>We implement the soluiton</li>
+			</ul>
 
 			<subsection name="Phase 1">
-				<p>This phase is targeted to Baxter Price Engine.
-				</p>
-				<p>The goal of first phase is to build the centralized configuration
-					storage for Price Engine components and re-factor those components
-					to use this storage.
-					No management UI is expected. No support for
-					configuration revisions.
-					It should be the simplest solution that
-					allows to avoid the
-					redundancy of configuration sources among the
-					same environment.
-					Operating personal will manage configuration by
-					means of manual
-					editing of files.
-				</p>
+				<p>This phase is targeted to Baxter Price Engine. </p>
+				<p>The goal of first phase is to build the centralized configuration storage for
+					Price Engine components and re-factor those components to use this storage. No
+					management UI is expected. No support for configuration revisions. It should be
+					the simplest solution that allows to avoid the redundancy of configuration
+					sources among the same environment. Operating personal will manage configuration
+					by means of manual editing of files. </p>
 			</subsection>
 
 			<subsection name="Phase 2">
-				<p>This phase is targeted to Baxter Price Engine.
-				</p>
-				<p>The goal of this phase is to develop a graphical UI to manage the
-					configuration.
-					There should be possibility to manage configuration revisions.
-				</p>
+				<p>This phase is targeted to Baxter Price Engine. </p>
+				<p>The goal of this phase is to develop a graphical UI to manage the configuration.
+					There should be possibility to manage configuration revisions. </p>
 			</subsection>
 
 			<subsection name="Phase 3">
-				<p>This phase extends support of other Baxter products.
-				</p>
-				<p>This phase adds support for other products, like ABOS, CD etc. It
-					includes integration of those products with Baxter Configuration.
-				</p>
+				<p>This phase extends support of other Baxter products. </p>
+				<p>This phase adds support for other products, like ABOS, CD etc. It includes
+					integration of those products with Baxter Configuration. </p>
 			</subsection>
 
 		</section>
