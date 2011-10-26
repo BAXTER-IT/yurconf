@@ -153,7 +153,7 @@
 									requesting broadcast application. The application may use same
 									strategy to get these files and optionally persist them locally
 									(secondary cache) to deliver to 3-rd party code. The central
-									poit of configuration for plugins is PE database table which
+									point of configuration for plugins is PE database table which
 									references the files via paths on file system. This shall be
 									changed in a way that database points to some coordinates or IDs
 									of configurations.</td>
