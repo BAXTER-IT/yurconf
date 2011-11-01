@@ -15,13 +15,12 @@
 			<p>
 				<map id="feature-map">
 					<table>
-						<caption>Features map</caption>
+						<caption>Features map (Phase 1)</caption>
 						<thead>
 							<tr>
 								<th>#</th>
 								<th>Description</th>
 								<th>Effort</th>
-								<th>Phase</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -41,8 +40,7 @@
 									processing. The only way to manage the configuration by
 									administrator will be the manual editing of files on
 									configuration server file system. </td>
-								<td/>
-								<td>1</td>
+								<td>1d</td>
 							</tr>
 							<tr>
 								<td> </td>
@@ -55,8 +53,7 @@
 									and easy to read and process by application. The files layout
 									should simplify the algorithms of composing single response file
 									for clients from the set of source files.</td>
-								<td/>
-								<td>1</td>
+								<td>3d</td>
 							</tr>
 							<tr>
 								<td> </td>
@@ -70,8 +67,7 @@
 									tagging strategy so the application can choose granular
 									configurations to be composed for a particular requesting
 									component.</td>
-								<td/>
-								<td>1</td>
+								<td>1d</td>
 							</tr>
 							<tr>
 								<td> </td>
@@ -84,8 +80,7 @@
 									defined by configuration store layout). On later phases the
 									Management UI will provide an instrument to upload the
 									file.</td>
-								<td/>
-								<td>1</td>
+								<td>1d</td>
 							</tr>
 							<tr>
 								<td> </td>
@@ -109,8 +104,7 @@
 									sample of a recommendation would be using of ASYNC appenders
 									(that redirect to File Appenders) which may improve the logging
 									in multithreaded application.</td>
-								<td/>
-								<td>1</td>
+								<td>2d</td>
 							</tr>
 							<tr>
 								<td> </td>
@@ -122,8 +116,7 @@
 									on the fly (for instance with XSLT) from the same source. For
 									this reason we have to define the logging configuration source
 									format. </td>
-								<td/>
-								<td>1</td>
+								<td>1d</td>
 							</tr>
 							<tr>
 								<td> </td>
@@ -138,8 +131,7 @@
 									Configuration server should be able to deliver the correct
 									content for properties configuration depending on the request,
 									e.g. proper set up for a particular component. </td>
-								<td/>
-								<td>1</td>
+								<td>3d</td>
 							</tr>
 							<tr>
 								<td> </td>
@@ -157,17 +149,7 @@
 									references the files via paths on file system. This shall be
 									changed in a way that database points to some coordinates or IDs
 									of configurations.</td>
-								<td/>
-								<td>1</td>
-							</tr>
-							<tr>
-								<td/>
-								<td><b>Support for VM/GC configuration.</b><br/> The reason for this
-									feature is to have a centralized overview of JVM setup. Each JVM
-									instance for particular applciation can be configured at one
-									place and then this configuration will be read by an
-									"application launcher" to start java process. That can be either
-									a small separate launcher application or a start script. </td>
+								<td>4d</td>
 							</tr>
 							<tr>
 								<td> </td>
@@ -179,8 +161,7 @@
 									dependencies we can use a sort of configuration references, so
 									one configuration file will point to other configuration that
 									has to be loaded from config server. </td>
-								<td/>
-								<td>1</td>
+								<td>1d</td>
 							</tr>
 							<tr>
 								<td> </td>
@@ -195,8 +176,7 @@
 									setup for such variants. The exact configuration variant will be
 									denoted by a configuration id that includes an advanced variant
 									identifier.</td>
-								<td/>
-								<td>1</td>
+								<td>2d</td>
 							</tr>
 							<tr>
 								<td>
@@ -207,22 +187,7 @@
 									components which allows reading the remote configuration at
 									runtime. This API will allow easy integration with configuration
 									server. </td>
-								<td/>
-								<td>1</td>
-							</tr>
-							<tr>
-								<td> </td>
-								<td><b>Configuration object model.</b><br/> The purpose of creating
-									the configuration object model is to simplify the maintenance
-									and validation of different configuration sources in management
-									UI application. It should be implemented using the pluggability
-									approach, e.g. Price Engine will provide object model for PE
-									specific settings, and other products will provide their own.
-									This may be useful on the configuration facade layer, which will
-									bring some benefits on processing the remote configuration
-									without need to parse it. </td>
-								<td/>
-								<td>2</td>
+								<td>3d</td>
 							</tr>
 							<tr>
 								<td> </td>
@@ -234,8 +199,7 @@
 									Servlet will listen for client configuration requests, determine
 									which configuration and for which component is requested, then
 									build the configuration and deliver it.</td>
-								<td/>
-								<td>1</td>
+								<td>2d</td>
 							</tr>
 							<tr>
 								<td> </td>
@@ -247,8 +211,7 @@
 									configuration by component and variant. There will be exactly
 									one possible content to deliver according to the configuration
 									request. </td>
-								<td/>
-								<td>1</td>
+								<td>2d</td>
 							</tr>
 							<tr>
 								<td> </td>
@@ -271,8 +234,56 @@
 										be lost). There are also backward incompatible changes, for
 										instance, the element attribute has been renamed... </p>
 								</td>
+								<td>1d</td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td><b>Support for Development mode.</b><br/> In order to speed up
+									and simplify the development the configuration client API must
+									provide a way to run applications in development mode, e.g.
+									without the running configuration application. In this case the
+									configuration will be delivered from the local filesystem. This
+									option still has to be investigated, as the configuration server
+									does not require alot of resources and it can be easily run on
+									development environment.</td>
+								<td>4d</td>
+							</tr>
+						</tbody>
+					</table>
+				</map>
+				<map id="feature-map-2">
+					<table>
+						<caption>Features map (Phase 2)</caption>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Description</th>
+								<th>Effort</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
 								<td/>
-								<td>1</td>
+								<td><b>Support for VM/GC configuration.</b><br/> The reason for this
+									feature is to have a centralized overview of JVM setup. Each JVM
+									instance for particular applciation can be configured at one
+									place and then this configuration will be read by an
+									"application launcher" to start java process. That can be either
+									a small separate launcher application or a start script. </td>
+								<td></td>
+							</tr>
+							<tr>
+								<td> </td>
+								<td><b>Configuration object model.</b><br/> The purpose of creating
+									the configuration object model is to simplify the maintenance
+									and validation of different configuration sources in management
+									UI application. It should be implemented using the pluggability
+									approach, e.g. Price Engine will provide object model for PE
+									specific settings, and other products will provide their own.
+									This may be useful on the configuration facade layer, which will
+									bring some benefits on processing the remote configuration
+									without need to parse it. </td>
+								<td></td>
 							</tr>
 							<tr>
 								<td> </td>
@@ -281,8 +292,7 @@
 									the configuration versioning by embedding some VCS into the
 									configuration server. On the first phase the configuration
 									administrator will be responsible for backing up files.</td>
-								<td/>
-								<td>2</td>
+								<td></td>
 							</tr>
 							<tr>
 								<td> </td>
@@ -295,35 +305,19 @@
 									security mechanisms of Apache server (which will be typically
 									used as a wrapper for Tomcat or JBoss container hosting the
 									configuration web application). </td>
-								<td/>
-								<td>2</td>
-							</tr>
-							<tr>
-								<td> </td>
-								<td><b>Support for Development mode.</b><br/> In order to speed up
-									and simplify the development the configuration client API must
-									provide a way to run applications in development mode, e.g.
-									without the running configuration application. In this case the
-									configuration will be delivered from the local filesystem. This
-									option still has to be investigated, as the configuration server
-									does not require alot of resources and it can be easily run on
-									development environment.</td>
-								<td/>
-								<td>1</td>
+								<td></td>
 							</tr>
 							<tr>
 								<td> </td>
 								<td><b>Graphical Management UI.</b><br/> Postponed to next phase as
 									it requires an effort to implement UI.</td>
 								<td/>
-								<td>2</td>
 							</tr>
 							<tr>
 								<td> </td>
 								<td><b>Access roles to Management UI.</b><br/> Postponed to next
 									phase as it depends on <b>Graphical Management UI</b>.</td>
 								<td/>
-								<td>2</td>
 							</tr>
 						</tbody>
 					</table>
