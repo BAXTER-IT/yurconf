@@ -45,14 +45,20 @@
 							<tr>
 								<td> </td>
 								<td><b>Define persistence schema (files format and layout).</b><br/>
-									This feature set defines the schema for files persistence on
-									configuration server. The configuration source will be
-									distributed among a well defined set of source files, that will
-									be read and processed at runtime. The files must conform to a
-									defined format, which will be easy to maintain by administrators
-									and easy to read and process by application. The files layout
-									should simplify the algorithms of composing single response file
-									for clients from the set of source files.</td>
+									<p>This feature set defines the schema for files persistence on
+										configuration server. The configuration source will be
+										distributed among a well defined set of source files, that
+										will be read and processed at runtime. The files must
+										conform to a defined format, which will be easy to maintain
+										by administrators and easy to read and process by
+										application. The files layout should simplify the algorithms
+										of composing single response file for clients from the set
+										of source files.</p>
+									<p>One of proposed ideas is to keep all the configuration in XML
+										formats. This should give the benefit when processing this
+										input. Using the XSLT the input XML can be converted to any
+										other format.</p>
+								</td>
 								<td>3d</td>
 							</tr>
 							<tr>
@@ -270,7 +276,7 @@
 									place and then this configuration will be read by an
 									"application launcher" to start java process. That can be either
 									a small separate launcher application or a start script. </td>
-								<td></td>
+								<td/>
 							</tr>
 							<tr>
 								<td> </td>
@@ -283,7 +289,7 @@
 									This may be useful on the configuration facade layer, which will
 									bring some benefits on processing the remote configuration
 									without need to parse it. </td>
-								<td></td>
+								<td/>
 							</tr>
 							<tr>
 								<td> </td>
@@ -292,7 +298,7 @@
 									the configuration versioning by embedding some VCS into the
 									configuration server. On the first phase the configuration
 									administrator will be responsible for backing up files.</td>
-								<td></td>
+								<td/>
 							</tr>
 							<tr>
 								<td> </td>
@@ -305,7 +311,7 @@
 									security mechanisms of Apache server (which will be typically
 									used as a wrapper for Tomcat or JBoss container hosting the
 									configuration web application). </td>
-								<td></td>
+								<td/>
 							</tr>
 							<tr>
 								<td> </td>
@@ -317,6 +323,24 @@
 								<td> </td>
 								<td><b>Access roles to Management UI.</b><br/> Postponed to next
 									phase as it depends on <b>Graphical Management UI</b>.</td>
+								<td/>
+							</tr>
+							<tr>
+								<td> </td>
+								<td><b>Configuration of JMS nodes.</b><br/>
+									<p>The configuration for JMS Provider (e.g. SwiftMQ) should be
+										specified with Configuration server. This will require
+										integration of Baxter Config with start scripts of JMS.</p>
+									<p>Still has to be investigated.</p></td>
+								<td/>
+							</tr>
+							<tr>
+								<td> </td>
+								<td><b>Hosting of external configurations</b><br/>
+									<p>Baxter Configuration should provide an instrument to host
+										external configurations to be served for other than PE
+										applications.</p>
+									<p>(using Config Client API?)</p></td>
 								<td/>
 							</tr>
 						</tbody>
