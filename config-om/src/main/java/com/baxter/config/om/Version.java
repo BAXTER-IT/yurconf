@@ -3,6 +3,8 @@
  */
 package com.baxter.config.om;
 
+import java.util.Arrays;
+
 /**
  * Version descriptor.
  * @author ykryshchuk
@@ -22,9 +24,26 @@ public class Version implements Comparable<Version>
    * @return the version object
    * @throws IllegalArgumentException if the line does not represent a version string
    */
-  public static Version valueOf( final String line ) {
-	// TODO implement parsing
-	return null;
+  public static Version valueOf(final String line)
+  {
+	String[] splitedVersion = line.split("[.]", -1);
+	int[] parts = new int[splitedVersion.length];
+	if (splitedVersion.length == 0)
+	  throw new IllegalArgumentException(line + " is not a valid version format!");
+
+	try
+	{
+	  for (int i = 0; i < splitedVersion.length; i++)
+	  {
+		parts[i] = Integer.valueOf(splitedVersion[i]);
+	  }
+	}
+	catch (NumberFormatException e)
+	{
+	  throw new IllegalArgumentException(line + " is not a valid version format!", e);
+	}
+
+	return new Version(parts);
   }
 
   @Override
@@ -39,26 +58,44 @@ public class Version implements Comparable<Version>
 	}
 	return this.parts.length - other.parts.length;
   }
-  
-  @Override
-  public boolean equals(final Object obj)
-  {
-    // TODO Auto-generated method stub
-    return super.equals(obj);
-  }
-  
+    
   @Override
   public int hashCode()
   {
-    // TODO Auto-generated method stub
-    return super.hashCode();
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + Arrays.hashCode(parts);
+	return result;
   }
-  
+
+  @Override
+  public boolean equals(Object obj)
+  {
+	if (this == obj)
+	  return true;
+	if (obj == null)
+	  return false;
+	if (getClass() != obj.getClass())
+	  return false;
+	Version other = (Version) obj;
+	if (!Arrays.equals(parts, other.parts))
+	  return false;
+	return true;
+  }
+
   @Override
   public String toString()
   {
-    // TODO Auto-generated method stub
-    return super.toString();
+	StringBuilder sb = new StringBuilder();
+	for(int i = 0; i< parts.length; i++)
+	{
+	  sb.append(parts[i]);
+
+	  if (i < parts.length - 1)
+		sb.append(".");
+	}
+	
+    return sb.toString();
   }
   
   int[] getParts() {

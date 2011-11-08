@@ -24,6 +24,16 @@ public class TestVersion
 	assertEquals(0, v.getParts()[1]);
   }
   
+  @Test(expected=IllegalArgumentException.class)
+  public void testValueOf_1__0() {
+	final Version v = Version.valueOf("1..0");
+  }
+
+  @Test(expected=IllegalArgumentException.class)
+  public void testValueOf_1_0_() {
+	final Version v = Version.valueOf("1.0.");
+  }
+  
   @Test
   public void testValueOf_1_5_3() {
 	final Version v = Version.valueOf("1.5.3");
@@ -40,7 +50,7 @@ public class TestVersion
   
   @Test
   public void testValueOfToString_1_1_0() {
-	final Version v=  Version.valueOf("1.1.0");
+	final Version v =  Version.valueOf("1.1.0");
 	assertEquals("1.1.0", v.toString());
   }
 
