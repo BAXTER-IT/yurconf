@@ -1,9 +1,14 @@
 * text=auto !eol
 config-client/pom.xml -text
-config-client/src/site/apt/index.apt -text
 config-client/src/site/fml/faq.fml -text
 config-client/src/site/site.xml -text
+config-client/src/site/xdoc/index.xml -text
 config-server/pom.xml -text
+config-server/src/main/java/com/baxter/config/servlet/RestfulServlet.java -text
+config-server/src/main/webapp/WEB-INF/web.xml -text
+config-server/src/site/site.xml -text
+config-server/src/site/xdoc/concept.xml -text
+config-server/src/site/xdoc/index.xml -text
 /pom.xml -text
 src/bak/main/cmd/template.cmd -text
 src/bak/main/java/com/baxter/config/bean/ConfigPersister.java -text
@@ -70,8 +75,8 @@ src/bak/test/java/com/baxter/config/model/log4j/SerDeserTest.java -text
 src/bak/test/java/com/baxter/config/model/properties/SerDeserTest.java -text
 src/bak/test/resources/large-sample1.xml -text
 src/bak/test/resources/log4j-sample1.xml -text
-src/site/apt/index.apt -text
+src/site/resources/images/baxter_configuration.png -text
 src/site/resources/images/baxter_logo.png -text
 src/site/site.xml -text
-src/site/xdoc/overview/features.xml -text
+src/site/xdoc/index.xml -text
 src/site/xdoc/overview/phases.xml -text

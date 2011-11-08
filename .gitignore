@@ -3,4 +3,12 @@
 /.project
 /.settings
 /.umlproject
+config-client/.classpath
+config-client/.project
+config-client/.settings
+config-client/target
+config-server/.classpath
+config-server/.project
+config-server/.settings
+config-server/target
 /target

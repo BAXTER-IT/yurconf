@@ -2,10 +2,11 @@
 <project xmlns="http://maven.apache.org/DECORATION/1.1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/DECORATION/1.1.0 http://maven.apache.org/xsd/decoration-1.1.0.xsd"
-	name="Baxter Price Engine">
-
+	name="Baxter Configuration">
+	
 	<bannerLeft>
 		<name>${project.name}</name>
+		<src>images/baxter_configuration.png</src>
 		<alt>${project.artifactId}</alt>
 	</bannerLeft>
 
@@ -21,14 +22,13 @@
 	<version position="right" />
 
 	<body>
-		<menu name="Overview" inherit="top" inheritAsRef="true">
+		<menu name="Baxter Configuration" inherit="top" inheritAsRef="true">
             <item name="Development phases" href="overview/phases.html" />
-			<item name="Feature list" href="overview/features.html" />
 		</menu>
 
-		<menu ref="parent" />
-		<menu ref="modules" />
-		<menu ref="reports" />
+		<menu ref="parent" inherit="bottom" />
+		<menu ref="modules"  inherit="bottom" />
+		<menu ref="reports"  inherit="bottom" />
 	</body>
 
 </project>

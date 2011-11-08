@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+	<properties>
+		<title>Configuration Server Concept</title>
+		<author email="ykryshchuk@n-ix.com.ua">Yuriy Kryshchuk</author>
+	</properties>
+
+	<body>
+
+		<section name="Concept">
+
+			<p> The Configuration Server in its first implementation phase serves as only the
+				provider of configuration files to the clients. All configurations are persisted on
+				local file system as set of XML files. These files are then read by a RestfulServlet
+				and processed into a result file via XSLT. </p>
+
+		</section>
+
+	</body>
+
+</document>
