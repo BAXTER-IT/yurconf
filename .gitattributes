@@ -4,7 +4,9 @@ config-client/src/site/fml/faq.fml -text
 config-client/src/site/site.xml -text
 config-client/src/site/xdoc/index.xml -text
 config-om/pom.xml -text
+config-om/src/main/java/com/baxter/config/om/ConfigID.java -text
 config-om/src/main/java/com/baxter/config/om/Version.java -text
+config-om/src/test/java/com/baxter/config/om/TestConfigID.java -text
 config-om/src/test/java/com/baxter/config/om/TestVersion.java -text
 config-server/pom.xml -text
 config-server/src/main/java/com/baxter/config/servlet/RestfulServlet.java -text

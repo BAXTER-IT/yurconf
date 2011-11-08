@@ -33,7 +33,7 @@
 			<p>In general the URL pattern can be represented as following. All of the URL components
 				will be explained in details below.</p>
 
-			<code>&lt;config-base&gt;/rest/&lt;config-type&gt;/&lt;product-id&gt;/&lt;component-id&gt;[/&lt;variant&gt;][?version=&lt;config-version&gt;]</code>
+			<code>&lt;config-base&gt;/rest/&lt;product-id&gt;/&lt;component-id&gt;[/&lt;variant&gt;]/&lt;config-type&gt;[?version=&lt;config-version&gt;]</code>
 
 			<p>Here are some samples for configuration requests.</p>
 
