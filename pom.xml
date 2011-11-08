@@ -1,21 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>com.baxter.config</groupId>
 	<artifactId>baxter-config</artifactId>
-	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>Baxter Configuration Web Application</name>
+	<packaging>pom</packaging>
+
+	<name>Baxter Configuration</name>
+	<description>
+	  Baxter Configuration project. 
+	  It consists of several modules, which are: Client API, Web Application and Products Connectors.
+	</description>
+
+	<scm>
+		<developerConnection>scm:svn:svn://svn/baxter-config/trunk</developerConnection>
+		<connection>scm:svn:svn://svn/baxter-config/trunk</connection>
+	</scm>
+
 	<build>
-	
-		<extensions>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-ssh</artifactId>
-				<version>1.0-beta-6</version>
-			</extension>
-		</extensions>
-		
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -28,8 +33,19 @@
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>2.5</version>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-scm-plugin</artifactId>
+					<version>1.4</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>2.2</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -48,6 +64,15 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>1.0-beta-6</version>
+			</extension>
+		</extensions>
+
 	</build>
 
 	<reporting>
@@ -80,6 +105,10 @@
 		</site>
 	</distributionManagement>
 
+	<modules>
+		<module>config-client</module>
+	</modules>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -99,20 +128,13 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
 	</dependencies>
+
 </project>
