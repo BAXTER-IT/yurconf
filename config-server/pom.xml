@@ -27,4 +27,8 @@
 		</dependency>
 	</dependencies>
 
+    <properties>
+        <jira.component>${project.artifactId}</jira.component>
+    </properties>
+
 </project>

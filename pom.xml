@@ -159,14 +159,13 @@
 				<artifactId>maven-changes-plugin</artifactId>
 				<version>2.6</version>
 				<configuration>
-					<onlyCurrentVersion>false</onlyCurrentVersion>
+					<onlyCurrentVersion>true</onlyCurrentVersion>
 					<statusIds>Open,In Progress,Reopened,Resolved,Closed</statusIds>
 					<resolutionIds>Unresolved,Fixed,Won't Fix,Duplicate,Incomplete,Cannot Reproduce</resolutionIds>
-					<component>${project.artifactId}</component>
-					<jiraUser>ykryshchuk</jiraUser>
-					<jiraPassword>yuriy99</jiraPassword>
-                    <webUser>ykryshchuk</webUser>
-                    <webPassword>yuriy99</webPassword>
+					<columnNames>Key,Summary,Status,Resolution,Assignee</columnNames>
+					<component>${jira.component}</component>
+					<jiraUser>${jira.username}</jiraUser>
+					<jiraPassword>${jira.password}</jiraPassword>
 				</configuration>
 				<reportSets>
 					<reportSet>
@@ -212,5 +211,9 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	<properties>
+		<jira.component></jira.component>
+	</properties>
 
 </project>
