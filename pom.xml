@@ -182,6 +182,7 @@
 	<modules>
 		<module>config-client</module>
 		<module>config-server</module>
+		<module>config-om</module>
 	</modules>
 
 	<dependencyManagement>
@@ -211,9 +212,9 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+
 	<properties>
-		<jira.component></jira.component>
+		<jira.component />
 	</properties>
 
 </project>

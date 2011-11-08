@@ -9,6 +9,7 @@
 		<menu name="Configuration Server" inherit="top" inheritAsRef="true">
 			<item name="Summary" href="index.html"/>
 			<item name="Concept" href="concept.html"/>
+			<item name="Protocol" href="protocol.html"/>
 		</menu>
 
 	</body>

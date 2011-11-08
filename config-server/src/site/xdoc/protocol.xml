@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+	<properties>
+		<title>Configuration Protocol</title>
+		<author email="ykryshchuk@n-ix.com.ua">Yuriy Kryshchuk</author>
+	</properties>
+
+	<body>
+
+		<section name="Overview">
+
+			<p>The RestfulServlet follows the REST idiom. When the client needs some configuration
+				it builds a request that points to a configuration item on the server. When the
+				request is processed on the server the response file is prepared and delivered to
+				the client. From the client point of view the configuration server is a blackbox.
+				Internally the server hosts configurations in a set of well defined files and uses
+				this files to generate the final configuration file to be delivered.</p>
+
+			<p>Every configuration item on the server can be uniquelly identified by its URL. That
+				is a general rule implemented by Baxter Configuration Server.</p>
+
+		</section>
+
+		<section name="Configuration Items">
+
+			<p>The Configuration Server hosts different configurations. These are formally the files
+				to be delivered to the client. So, each configuration file has its absolute URL or
+				coordinates. </p>
+
+			<p>In general the URL pattern can be represented as following. All of the URL components
+				will be explained in details below.</p>
+
+			<code>&lt;config-base&gt;/rest/&lt;config-type&gt;/&lt;product-id&gt;/&lt;component-id&gt;[/&lt;variant&gt;][?version=&lt;config-version&gt;]</code>
+
+			<p>Here are some samples for configuration requests.</p>
+
+			<ul>
+				<li>http://localhost:8080/config/log4j/com.baxter.pe/price-engine-dbserver?version=1.0</li>
+				<li>http://localhost:8080/config/logback/com.baxter.pe/price-engine-broadcast</li>
+				<li>http://localhost:8080/config/properties/com.baxter.pe/price-engine-blotterserver</li>
+				<li>http://localhost:8080/config/asis/com.baxter.config/some-file-as-is.xml</li>
+			</ul>
+
+			<subsection name="Configuration Base">
+				<code>&lt;config-base&gt;</code>
+				<p>This is a base location of Configuration Web Application. For example,
+						<code>http://config.baxter.com/config</code>. That is a URL to the
+					Configuration web application root context.</p>
+			</subsection>
+
+			<subsection name="Configuration Type">
+				<code>&lt;config-type&gt;</code>
+				<p>Determines what type of configuration is requested. The supported types of the
+					configurations may vary between different products and components. Common types
+					are log4j and logback.</p>
+			</subsection>
+
+			<subsection name="Product ID">
+				<code>&lt;product-id&gt;</code>
+				<p>This is a Baxter Product identifier. It identifies to which product belongs the
+					requested configuration. It should be typically the Maven's groupId of the
+					application. For example, <code>com.baxter.pe</code></p>
+			</subsection>
+
+			<subsection name="Component ID">
+				<code>&lt;component-id&gt;</code>
+				<p>This is a component identifier in a Baxter Product suite. It identifies to which
+					component (application) belongs the requested configuration. It should be
+					typically the Maven's artifactId of the application. For example,
+						<code>price-engine-dbserver</code></p>
+			</subsection>
+
+			<subsection name="Variant">
+				<code>&lt;variant&gt;</code>
+				<p>The Variant is a kind of extension of a typical configuration. It usually
+					inherits all values from a base configuration and just extends or overrides some
+					of them.</p>
+			</subsection>
+
+			<subsection name="Configuration Version">
+				<code>&lt;config-version&gt;</code>
+				<p>The version required by the client. If ommited, then the current version is
+					returned. If specified, then server ensures that delivered configuration version
+					will be same or newer than requested value.</p>
+			</subsection>
+
+		</section>
+
+	</body>
+
+</document>

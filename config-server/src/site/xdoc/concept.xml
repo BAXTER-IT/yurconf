@@ -13,10 +13,15 @@
 		<section name="Concept">
 
 			<p> The Configuration Server in its first implementation phase serves as only the
-				provider of configuration files to the clients. All configurations are persisted on
-				local file system as set of XML files. These files are then read by a RestfulServlet
-				and processed into a result file via XSLT. </p>
+				provider of configuration files to the clients. </p>
 
+			<img src="uml/concept.png" alt="Config Server Concept"/>
+
+			<p>All configurations are persisted on local file system as set of XML files. These
+				files are then read by a RestfulServlet and processed into a result file via XSLT. </p>
+
+			<img src="uml/config-request-processing.png" alt="Config Request Processing"/>
+			
 		</section>
 
 	</body>
