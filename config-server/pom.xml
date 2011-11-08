@@ -25,10 +25,14 @@
 			<artifactId>servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>config-om</artifactId>
+		</dependency>
 	</dependencies>
 
-    <properties>
-        <jira.component>${project.artifactId}</jira.component>
-    </properties>
+	<properties>
+		<jira.component>${project.artifactId}</jira.component>
+	</properties>
 
 </project>

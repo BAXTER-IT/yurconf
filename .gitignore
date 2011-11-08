@@ -7,6 +7,10 @@ config-client/.classpath
 config-client/.project
 config-client/.settings
 config-client/target
+config-om/.classpath
+config-om/.project
+config-om/.settings
+config-om/target
 config-server/.classpath
 config-server/.project
 config-server/.settings
