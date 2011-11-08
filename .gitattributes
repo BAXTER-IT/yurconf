@@ -3,6 +3,7 @@ config-client/pom.xml -text
 config-client/src/site/apt/index.apt -text
 config-client/src/site/fml/faq.fml -text
 config-client/src/site/site.xml -text
+config-server/pom.xml -text
 /pom.xml -text
 src/bak/main/cmd/template.cmd -text
 src/bak/main/java/com/baxter/config/bean/ConfigPersister.java -text
