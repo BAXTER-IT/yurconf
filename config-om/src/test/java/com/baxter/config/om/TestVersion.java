@@ -4,6 +4,7 @@
 package com.baxter.config.om;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -41,6 +42,21 @@ public class TestVersion
   public void testValueOfToString_1_1_0() {
 	final Version v=  Version.valueOf("1.1.0");
 	assertEquals("1.1.0", v.toString());
+  }
+
+  @Test
+  public void testCompare_1_5_and_1_5() {
+	assertTrue( Version.valueOf("1.5").compareTo(Version.valueOf("1.5")) == 0);
+  }
+  
+  @Test
+  public void testCompare_1_5_and_1_6() {
+	assertTrue( Version.valueOf("1.5").compareTo(Version.valueOf("1.6")) < 0);
+  }
+  
+  @Test
+  public void testCompare_1_5_and_1_0() {
+	assertTrue( Version.valueOf("1.5").compareTo(Version.valueOf("1.0")) > 0);
   }
   
 }
