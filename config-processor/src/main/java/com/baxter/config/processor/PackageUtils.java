@@ -6,11 +6,9 @@ import java.io.*;
 
 public class PackageUtils
 {
-  public List<String> getClasseNamesInPackage(String jarName, String packageName) throws FileNotFoundException, IOException
+  public static List<String> getClasseNamesInPackage(String jarName, String packageName) throws FileNotFoundException, IOException
   {
 	List<String> items = new ArrayList<String>();
-
-	packageName = packageName.replaceAll("\\.", "/");
 
 	JarInputStream jarFile = new JarInputStream(new FileInputStream(jarName));
 	JarEntry jarEntry;
@@ -38,7 +36,7 @@ public class PackageUtils
   */
   public static void main(String[] args) throws FileNotFoundException, IOException
   {
-	List<String> list = (new PackageUtils()).getClasseNamesInPackage("d:/Arpi/TestJar\\TestJar.jar", "META-INF.config.default");
+	List<String> list = PackageUtils.getClasseNamesInPackage("d:/Arpi/TestJar\\TestJar.jar", "META-INF/config/default");
 	System.out.println(list);
 
 	Scanner sc = new Scanner(PackageUtils.class.getClass()
