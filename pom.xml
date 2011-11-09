@@ -193,6 +193,11 @@
 				<artifactId>config-om</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>config-processor</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
