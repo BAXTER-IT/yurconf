@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+	<properties>
+		<title>Configuration Processors Packaging</title>
+		<author email="ykryshchuk@n-ix.com.ua">Yuriy Kryshchuk</author>
+	</properties>
+
+	<body>
+
+		<section name="Configuration Processors Packaging">
+			<p>The Configuration Processors are organized as JAR archives with predefined structure.
+				The archive contains processor descriptor file, default XML sources (default
+				configuration), the transformation files (XSLT) and optional classes needed for
+				processing. </p>
+			<p>Following diagram shows a content of the Price Engine Configuration Processor
+				JAR.</p>
+
+			<img src="uml/package-structure.png" alt="Package Structure"/>
+
+			<subsection name="META-INF/services">
+				<p>This directory contains the processor descriptor file
+						<code>com.baxter.config.processor.xml</code>. The configuration factory will
+					run these files in order to load processors.</p>
+			</subsection>
+
+			<subsection name="META-INF/config/default">
+				<p>The directory contains a default configuration for the product. These are set of
+					XML files which conform to the configuration layout for particular product.</p>
+			</subsection>
+
+			<subsection name="META-INF/config/xsl">
+				<p>The set of transformation stylesheets used by processing to build the
+					configurations from XML sources.</p>
+			</subsection>
+
+			<subsection name="com/baxter/config/pe">
+				<p>The root java package for custom classes.</p>
+			</subsection>
+
+		</section>
+
+	</body>
+
+</document>

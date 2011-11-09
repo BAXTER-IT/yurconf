@@ -53,11 +53,11 @@
 			</subsection>
 
 			<subsection name="Processors">
-				<p>When the processor is invoked for the client request the processor already has an
-					information what kind of configuration is needed for a client. The processor is
-					also aware of configuration source layout and schema. So, in simply satying the
-					configuration processor is required to start the parametrized XSLT and return
-					the result for caller.</p>
+				<p> When the processor is invoked for the client request the processor already has
+					an information what kind of configuration is needed for a client. The processor
+					is also aware of configuration source layout and schema. So, in simply satying
+					the configuration processor is required to start the parametrized XSLT and
+					return the result for caller.</p>
 			</subsection>
 
 		</section>

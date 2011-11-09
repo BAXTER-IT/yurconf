@@ -16,8 +16,13 @@ config-processor/src/main/java/com/baxter/config/processor/AbstractProcessor.jav
 config-processor/src/main/java/com/baxter/config/processor/ProcessorContext.java -text
 config-processor/src/main/java/com/baxter/config/processor/ProcessorException.java -text
 config-processor/src/main/java/com/baxter/config/processor/ProcessorFactory.java -text
+config-processor/src/main/java/com/baxter/config/processor/desc/Descriptor.java -text
+config-processor/src/main/java/com/baxter/config/processor/desc/Loader.java -text
+config-processor/src/site/resources/uml/package-structure.png -text
+config-processor/src/site/resources/uml/package-structure.uxf -text
 config-processor/src/site/site.xml -text
 config-processor/src/site/xdoc/index.xml -text
+config-processor/src/site/xdoc/packaging.xml -text
 config-server/pom.xml -text
 config-server/src/main/java/com/baxter/config/servlet/RestfulServlet.java -text
 config-server/src/main/webapp/WEB-INF/web.xml -text

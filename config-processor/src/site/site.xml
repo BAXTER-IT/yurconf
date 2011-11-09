@@ -8,6 +8,7 @@
 
     <menu name="Configuration Processors" inherit="top" inheritAsRef="true">
       <item name="Summary" href="index.html"/>
+      <item name="Packaging" href="packaging.html"/>
     </menu>
 
   </body>

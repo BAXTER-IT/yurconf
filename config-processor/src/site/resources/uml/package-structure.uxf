@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.custom.PackageAggregationHierarchy</type>
+    <coordinates>
+      <x>30</x>
+      <y>30</y>
+      <w>240</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>root
+	META-INF
+		services
+		config
+			default
+			xsl
+	com
+		baxter
+			config
+				pe</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

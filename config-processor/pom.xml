@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>config-processor</artifactId>
-	<name>Configuration Processors Base</name>
+	<name>Configuration Processors</name>
 
 	<dependencies>
 		<dependency>

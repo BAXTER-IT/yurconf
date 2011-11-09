@@ -6,6 +6,13 @@
 
     <display-name>Baxter Configuration Web Application</display-name>
 
+    <!--
+    <context-param>
+        <param-name>com.baxter.config.Repository</param-name>
+        <param-value>~/.baxter-config</param-value>
+    </context-param>
+    -->
+
     <servlet>
         <servlet-name>RestfulServlet</servlet-name>
         <servlet-class>com.baxter.config.servlet.RestfulServlet</servlet-class>

@@ -3,9 +3,11 @@
  */
 package com.baxter.config.servlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +49,31 @@ public class RestfulServlet extends HttpServlet
    */
   private static final String PARAM_VERSION = "version";
 
+  private static final String CTX_PARAM_REPOSITORY = "com.baxter.config.Repository";
+
+  /**
+   * Processor factory reference. This instance is initialized in {@link #init()} method.
+   */
+  private ProcessorFactory processorFactory;
+
+  @Override
+  public void init() throws ServletException
+  {
+	final ServletConfig servletConfig = getServletConfig();
+	final String repositoryParam = servletConfig.getServletContext().getInitParameter(CTX_PARAM_REPOSITORY);
+	LOGGER.debug("Parameter {} = {}", CTX_PARAM_REPOSITORY, repositoryParam);
+	final String repositoryRootPath = (repositoryParam == null) ? System.getProperty("user.home") : repositoryParam;
+	try
+	{
+	  this.processorFactory = ProcessorFactory.getInstance(new File(repositoryRootPath));
+	}
+	catch (final ProcessorException e)
+	{
+	  LOGGER.error("Could not create ProcessorFactory", e);
+	  throw new ServletException(e);
+	}
+  }
+
   @Override
   protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException
   {
@@ -61,7 +88,7 @@ public class RestfulServlet extends HttpServlet
 	  }
 	  final Version version = Version.valueOf(versionParam);
 	  final ConfigID configId = ConfigID.fromURLPath(pathInfo);
-	  final AbstractProcessor processor = ProcessorFactory.getInstance().getProcessor(configId, version);
+	  final AbstractProcessor processor = processorFactory.getProcessor(configId, version);
 	  try
 	  {
 		processor.process(new ProcessorContext()
