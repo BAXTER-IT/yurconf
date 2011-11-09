@@ -3,6 +3,9 @@
  */
 package com.baxter.config.om;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Configuration identifier. According to the Configuration Protocol the URL for configuration item must match the pattern
  * described in {@link http://qa/products/configuration/config-server/protocol.html#Configuration_Items}.
@@ -12,6 +15,8 @@ package com.baxter.config.om;
  */
 public class ConfigID
 {
+
+  private static final Pattern URL_PATH_PATTERN = Pattern.compile("/([^/]+)/([^/]+)/([^/]+)(/([^/]+))?");
 
   private final String productId;
 
@@ -32,16 +37,20 @@ public class ConfigID
    */
   public static ConfigID fromURLPath(final String urlPath)
   {
-	final String[] parts = urlPath.split("/");
-	switch (parts.length)
+	final Matcher m = URL_PATH_PATTERN.matcher(urlPath);
+	if (m.matches())
 	{
-	case 3:
-	  return new ConfigID(parts[0], parts[1], parts[2]);
-	case 4:
-	  return new ConfigID(parts[0], parts[1], parts[2], parts[3]);
-	default:
-	  throw new IllegalArgumentException("Invalid configuration path");
+	  final String lastGroup = m.group(5);
+	  if (lastGroup == null)
+	  {
+		return new ConfigID(m.group(1), m.group(2), m.group(3));
+	  }
+	  else
+	  {
+		return new ConfigID(m.group(1), m.group(2), m.group(3), lastGroup);
+	  }
 	}
+	throw new IllegalArgumentException("Invalid configuration path");
   }
 
   public ConfigID(final String productId, final String componentId, final String type)
@@ -51,9 +60,25 @@ public class ConfigID
 
   public ConfigID(final String productId, final String componentId, final String variant, final String type)
   {
+	if (productId == null || productId.isEmpty())
+	{
+	  throw new IllegalArgumentException("Invalid productId");
+	}
 	this.productId = productId;
+	if (componentId == null || componentId.isEmpty())
+	{
+	  throw new IllegalArgumentException("Invalid componentId");
+	}
 	this.componentId = componentId;
+	if (variant != null && variant.isEmpty())
+	{
+	  throw new IllegalArgumentException("Invalid variant");
+	}
 	this.variant = variant;
+	if (type == null || type.isEmpty())
+	{
+	  throw new IllegalArgumentException("Invalid type");
+	}
 	this.type = type;
   }
 

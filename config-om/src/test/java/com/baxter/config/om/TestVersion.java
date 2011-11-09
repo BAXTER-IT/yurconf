@@ -19,6 +19,14 @@ public class TestVersion
 {
 
   @Test
+  public void testValueOf_100()
+  {
+	final Version v = Version.valueOf("100");
+	assertEquals(1, v.getParts().length);
+	assertEquals(100, v.getParts()[0]);
+  }
+  
+  @Test
   public void testValueOf_1_0()
   {
 	final Version v = Version.valueOf("1.0");

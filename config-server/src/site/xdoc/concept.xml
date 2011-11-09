@@ -21,7 +21,45 @@
 				files are then read by a RestfulServlet and processed into a result file via XSLT. </p>
 
 			<img src="uml/config-request-processing.png" alt="Config Request Processing"/>
-			
+
+			<subsection name="Processing">
+				<p>The actual processing of configuration requests is delegated to Configuration
+					Processors. That is, the RestfulServlet receives the request from a client and
+					preprocesses it. The preprocessing includes parsing the configuration path and
+					version. Then servlet requests the actual processor from the factory which is
+					then called to actually build the configuration and deliver it to the
+					client.</p>
+			</subsection>
+
+			<subsection name="Getting the Processor">
+				<p>Baxter Configuration server is supposed to serve configuration for different
+					products, however, on the first iteration it will be implemented for Price
+					Engine only. In order to achieve a kind of flexibility for supported
+					configurations, the system introduces a <code>domain</code> or
+						<code>processor</code> for a particular product. Each processor is fine
+					tuned to serve the applications from its domain. </p>
+				<p>At runtime all deployed processors are known to the Configuration Server (e.g. to
+					the ProcessorsFactory). So, the target processor can be determined by the input
+					request (as it contains the configuration product, component and type
+					identification).</p>
+				<p>In order to simplify the implementation and deployment of Configuration Server
+					the Processors are organized in separate JAR files that are added to
+					application's classpath. This implies application redeployment if processors
+					change (adde new, changed existing, etc). Later this can be reviewed to support
+					separate deployment of Product Configuration Processors without the need to
+					restart the application. </p>
+				<p>More information on processors structure can be found on <a
+						href="../config-processor/">Processors Project Site</a>. </p>
+			</subsection>
+
+			<subsection name="Processors">
+				<p>When the processor is invoked for the client request the processor already has an
+					information what kind of configuration is needed for a client. The processor is
+					also aware of configuration source layout and schema. So, in simply satying the
+					configuration processor is required to start the parametrized XSLT and return
+					the result for caller.</p>
+			</subsection>
+
 		</section>
 
 	</body>
