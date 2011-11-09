@@ -29,6 +29,10 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>config-om</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>config-processor</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
