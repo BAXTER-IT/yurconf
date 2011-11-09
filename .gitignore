@@ -11,6 +11,9 @@ config-om/.classpath
 config-om/.project
 config-om/.settings
 config-om/target
+config-processor/.project
+config-processor/.settings
+config-processor/target
 config-server/.classpath
 config-server/.project
 config-server/.settings

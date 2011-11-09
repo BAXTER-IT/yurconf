@@ -24,6 +24,7 @@
 	<body>
 		<menu name="Baxter Configuration" inherit="top" inheritAsRef="true">
             <item name="Development phases" href="overview/phases.html" />
+			<item name="Structure" href="structure.html" />
 		</menu>
 
 		<menu ref="parent" inherit="bottom" />

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+	<properties>
+		<title>Baxter Configuration Structure</title>
+		<author email="ykryshchuk@n-ix.com.ua">Yuriy Kryshchuk</author>
+	</properties>
+
+	<body>
+
+		<section name="Structure">
+
+			<p>Baxter Configuration Solution consists of several components which of these has its
+				own purpose.</p>
+
+			<img src="uml/components.png" alt="Components"/>
+
+			<subsection name="Object Model">
+				<p>All common object classes, exceptions and interfaces are grouped in OM module. It
+					is used by all other Configuration components.</p>
+			</subsection>
+
+			<subsection name="Configuration Client">
+				<p>The Client component is used by applciations to access thte Configuration Server
+					at runtime.</p>
+			</subsection>
+
+			<subsection name="Configuration Server">
+				<p>This is a main component of Configuration. The responsibilities of Server are
+					following</p>
+				<ol>
+					<li>Host the configuration sources</li>
+					<li>Deliver the configurations to requesting clients</li>
+					<li>Build the configurations from configuration sources</li>
+					<li>Provide rich Web UI to manage the configuration sources</li>
+				</ol>
+			</subsection>
+
+			<subsection name="Configuration Processor">
+				<p>The processor component defines the API and rules for particular configuration
+					processors. Each Product in Baxter share some common types of configurations
+					(like, logging) but at the same time they require some individual configuration
+					types (like, properties XML in PE). The Processor component defines the Rules
+					and some common functionality for all Product Processors.</p>
+			</subsection>
+
+			<subsection name="Product Processors">
+				<p>These are concrete implementations of processors per Product. The Processor
+					includes a set of XSD, XSL and XML files as long as some trivial Java
+					classes.</p>
+			</subsection>
+
+		</section>
+
+	</body>
+
+</document>
