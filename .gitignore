@@ -11,6 +11,11 @@ config-om/.classpath
 config-om/.project
 config-om/.settings
 config-om/target
+config-processor-demo/.classpath
+config-processor-demo/.project
+config-processor-demo/.settings
+config-processor-demo/src/META-INF
+config-processor-demo/target
 config-processor/.project
 config-processor/.settings
 config-processor/target

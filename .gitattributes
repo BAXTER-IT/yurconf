@@ -11,6 +11,9 @@ config-om/src/site/xdoc/index.xml -text
 config-om/src/test/java/com/baxter/config/om/TestConfigID.java -text
 config-om/src/test/java/com/baxter/config/om/TestVersion.java -text
 config-processor-demo/pom.xml -text
+config-processor-demo/src/main/resources/META-INF/config/default/group1/sample2.xml -text
+config-processor-demo/src/main/resources/META-INF/config/default/sample1.xml -text
+config-processor-demo/src/main/resources/META-INF/services/com.baxter.config.processor.xml -text
 config-processor/.classpath -text
 config-processor/pom.xml -text
 config-processor/src/main/java/com/baxter/config/processor/AbstractProcessor.java -text
