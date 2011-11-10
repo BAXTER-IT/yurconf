@@ -5,6 +5,8 @@ package com.baxter.config.processor;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Enumeration;
 
@@ -15,6 +17,8 @@ import com.baxter.config.om.ConfigID;
 import com.baxter.config.om.Version;
 import com.baxter.config.processor.desc.Descriptor;
 import com.baxter.config.processor.desc.Loader;
+import com.baxter.config.processor.desc.Parameter;
+import com.baxter.config.processor.desc.Processor;
 
 /**
  * Processor Factory that returns a target processor for specified input.
@@ -39,6 +43,11 @@ public class ProcessorFactory
    * Configuration repository root.
    */
   private final File repository;
+
+  /**
+   * Processors cache.
+   */
+  private final ProcessorsCache processorsCache = new ProcessorsCache();
 
   /**
    * Hidden constructor.
@@ -83,30 +92,22 @@ public class ProcessorFactory
    */
   public AbstractProcessor getProcessor(final ConfigID configId, final Version version) throws ProcessorException
   {
-	final AbstractProcessor processor = getProcessor(configId);
-	if (processor.isVersionSupported(version))
+	final AbstractProcessor processor = this.processorsCache.findProcessor(configId);
+	if (processor == null)
 	{
-	  return processor;
+	  throw new ProcessorException("Unsupported configuration");
 	}
 	else
 	{
-	  throw new ProcessorException("Unsupported version");
+	  if (processor.isVersionSupported(version))
+	  {
+		return processor;
+	  }
+	  else
+	  {
+		throw new ProcessorException("Unsupported version");
+	  }
 	}
-  }
-
-  /**
-   * Finds processor candidate for specified configuration identifier.
-   * 
-   * @param configId
-   *          identifier
-   * @return the candidate processor
-   * @throws ProcessorException
-   *           if cannot find appropriate processor
-   */
-  private AbstractProcessor getProcessor(final ConfigID configId) throws ProcessorException
-  {
-	// TODO
-	return null;
   }
 
   /**
@@ -161,6 +162,13 @@ public class ProcessorFactory
 		  // Now check if this descriptor is newer than the descriptor stored in the repository
 		  // if there is no descriptor in repo then just copy default configuration and descriptor to repository
 		  // if this is newer one then apply update
+
+		  // Finally create processor and register it with cache
+		  for (Processor p : descriptor.getProcessors())
+		  {
+			final AbstractProcessor processor = createProcessor(descriptor, p);
+			this.processorsCache.registerProcessor(descriptor.getProductId(), p.getConfigurationType(), processor);
+		  }
 		}
 		catch (final ProcessorException e)
 		{
@@ -171,6 +179,60 @@ public class ProcessorFactory
 	catch (final IOException e)
 	{
 	  LOGGER.error("Failed when looking for descriptors", e);
+	}
+  }
+
+  /**
+   * Instantiates the processor.
+   * 
+   * @param descriptor
+   *          package descriptor
+   * @param processorDescriptor
+   *          process descriptor
+   * @return processor instance
+   * @throws ProcessorException
+   *           if cannot create processor for any reason
+   */
+  private AbstractProcessor createProcessor(final Descriptor descriptor, final Processor processorDescriptor)
+	  throws ProcessorException
+  {
+	try
+	{
+	  final Class<? extends AbstractProcessor> processorClass = Class.forName(processorDescriptor.getClassName()).asSubclass(
+		  AbstractProcessor.class);
+	  final Constructor<? extends AbstractProcessor> processorConstructor = processorClass.getConstructor(Descriptor.class);
+	  final AbstractProcessor processor = processorConstructor.newInstance(descriptor);
+	  processor.setFactory(this);
+	  for (Parameter parameter : processorDescriptor.getParameters())
+	  {
+		processor.setParameter(parameter.getName(), parameter.getValue());
+	  }
+	  return processor;
+	}
+	catch (final ClassNotFoundException e)
+	{
+	  LOGGER.error("Could not find processor class", e);
+	  throw new ProcessorException(e);
+	}
+	catch (final NoSuchMethodException e)
+	{
+	  LOGGER.error("Could not find constructor in processor class", e);
+	  throw new ProcessorException(e);
+	}
+	catch (final InvocationTargetException e)
+	{
+	  LOGGER.error("Processor constructor failed", e);
+	  throw new ProcessorException(e);
+	}
+	catch (final IllegalAccessException e)
+	{
+	  LOGGER.error("Processor constructor not accessible", e);
+	  throw new ProcessorException(e);
+	}
+	catch (final InstantiationException e)
+	{
+	  LOGGER.error("Could not instantiate processor", e);
+	  throw new ProcessorException(e);
 	}
   }
 

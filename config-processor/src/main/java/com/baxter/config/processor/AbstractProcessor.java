@@ -3,6 +3,9 @@
  */
 package com.baxter.config.processor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.baxter.config.om.Version;
 import com.baxter.config.processor.desc.Descriptor;
 
@@ -15,6 +18,8 @@ import com.baxter.config.processor.desc.Descriptor;
 public abstract class AbstractProcessor
 {
 
+  protected final Logger logger;
+
   /**
    * The reference to configuration descriptor.
    */
@@ -25,6 +30,8 @@ public abstract class AbstractProcessor
    */
   private final Version version;
 
+  private ProcessorFactory factory;
+
   /**
    * Initializes processor with descriptor.
    * 
@@ -33,6 +40,7 @@ public abstract class AbstractProcessor
    */
   protected AbstractProcessor(final Descriptor descriptor)
   {
+	this.logger = LoggerFactory.getLogger(getClass());
 	this.descriptor = descriptor;
 	this.version = Version.valueOf(descriptor.getVersion());
   }
@@ -84,6 +92,16 @@ public abstract class AbstractProcessor
   protected Descriptor getDescriptor()
   {
 	return this.descriptor;
+  }
+
+  void setFactory(final ProcessorFactory factory)
+  {
+	this.factory = factory;
+  }
+
+  protected void setParameter(final String name, final String value)
+  {
+	logger.debug("Setting parameter {} = {}", name, value);
   }
 
 }

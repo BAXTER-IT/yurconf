@@ -66,4 +66,14 @@ public class Descriptor
 	return processors;
   }
 
+  void setVersion(String version)
+  {
+    this.version = version;
+  }
+
+  void setProductId(String productId)
+  {
+    this.productId = productId;
+  }
+
 }
