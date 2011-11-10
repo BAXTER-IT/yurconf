@@ -16,6 +16,7 @@ config-processor-demo/.project
 config-processor-demo/.settings
 config-processor-demo/src/META-INF
 config-processor-demo/target
+config-processor/.classpath
 config-processor/.project
 config-processor/.settings
 config-processor/target
