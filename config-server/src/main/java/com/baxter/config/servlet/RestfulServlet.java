@@ -50,6 +50,8 @@ public class RestfulServlet extends HttpServlet
   private static final String PARAM_VERSION = "version";
 
   private static final String CTX_PARAM_REPOSITORY = "com.baxter.config.Repository";
+  
+  private static final String DEFAULT_REPO_PATH = System.getProperty("user.home") + File.separator + ".baxter-configuration-repository";
 
   /**
    * Processor factory reference. This instance is initialized in {@link #init()} method.
@@ -62,7 +64,7 @@ public class RestfulServlet extends HttpServlet
 	final ServletConfig servletConfig = getServletConfig();
 	final String repositoryParam = servletConfig.getServletContext().getInitParameter(CTX_PARAM_REPOSITORY);
 	LOGGER.debug("Parameter {} = {}", CTX_PARAM_REPOSITORY, repositoryParam);
-	final String repositoryRootPath = (repositoryParam == null) ? System.getProperty("user.home") : repositoryParam;
+	final String repositoryRootPath = (repositoryParam == null) ? DEFAULT_REPO_PATH : repositoryParam;
 	try
 	{
 	  this.processorFactory = ProcessorFactory.getInstance(new File(repositoryRootPath));

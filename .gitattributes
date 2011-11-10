@@ -15,7 +15,6 @@ config-processor-demo/src/main/resources/META-INF/config/default/group1/sample2.
 config-processor-demo/src/main/resources/META-INF/config/default/sample1.xml -text
 config-processor-demo/src/main/resources/META-INF/config/xsl/simple.xsl -text
 config-processor-demo/src/main/resources/META-INF/services/com.baxter.config.processor.xml -text
-config-processor/.classpath -text
 config-processor/pom.xml -text
 config-processor/src/main/java/com/baxter/config/processor/AbstractProcessor.java -text
 config-processor/src/main/java/com/baxter/config/processor/AbstractXSLTProcessor.java -text
@@ -37,8 +36,11 @@ config-processor/src/site/xdoc/index.xml -text
 config-processor/src/site/xdoc/packaging.xml -text
 config-processor/src/test/java/com/baxter/config/processor/TestProcessorFactory.java -text
 config-processor/src/test/java/com/baxter/config/processor/desc/TestLoader.java -text
+config-processor/src/test/resources/com/baxter/config/processor/desc/data/test-descriptor-1.xml -text
+config-processor/src/test/resources/log4j.xml -text
 config-server/pom.xml -text
 config-server/src/main/java/com/baxter/config/servlet/RestfulServlet.java -text
+config-server/src/main/resources/log4j.xml -text
 config-server/src/main/webapp/WEB-INF/web.xml -text
 config-server/src/site/resources/uml/concept.png -text
 config-server/src/site/resources/uml/concept.uxf -text
