@@ -2,7 +2,7 @@
 <descriptor xmlns="http://baxter-it.com/config/descriptor" version="1.0" productId="com.baxter.demo">
     <processors>
         <processor class="com.baxter.config.processor.XSLTProcessor" type="proba">
-            <parameter name="xsl">simple.xml</parameter>
+            <parameter name="xsl">simple.xsl</parameter>
         </processor>
         <processor class="com.baxter.config.processor.AsIsProcessor" type="asis"> </processor>
     </processors>
