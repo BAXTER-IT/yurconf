@@ -88,30 +88,44 @@ public class RestfulServlet extends HttpServlet
 	  }
 	  final Version version = Version.valueOf(versionParam);
 	  final ConfigID configId = ConfigID.fromURLPath(pathInfo);
-	  final AbstractProcessor processor = processorFactory.getProcessor(configId, version);
 	  try
 	  {
-		processor.process(new ProcessorContext()
+		final AbstractProcessor processor = processorFactory.getProcessor(configId, version);
+		try
 		{
-
-		  @Override
-		  public void setContentType(final String contentType, final String encoding)
+		  processor.process(new ProcessorContext()
 		  {
-			response.setContentType(contentType + ";charset=" + encoding);
-		  }
 
-		  @Override
-		  public OutputStream getOutputStream() throws IOException
-		  {
-			return response.getOutputStream();
-		  }
+			@Override
+			public void setContentType(final String contentType, final String encoding)
+			{
+			  response.setContentType(contentType + ";charset=" + encoding);
+			}
 
-		});
+			@Override
+			public OutputStream getOutputStream() throws IOException
+			{
+			  return response.getOutputStream();
+			}
+
+			@Override
+			public ConfigID getConfigID()
+			{
+			  return configId;
+			}
+
+		  });
+		}
+		catch (final ProcessorException e)
+		{
+		  LOGGER.error("Processor failed", e);
+		  response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+		}
 	  }
 	  catch (final ProcessorException e)
 	  {
-		LOGGER.error("Processor failed", e);
-		response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+		LOGGER.error("Could not get processor", e);
+		response.sendError(HttpServletResponse.SC_NOT_FOUND, e.getMessage());
 	  }
 	}
 	catch (final IllegalArgumentException e)

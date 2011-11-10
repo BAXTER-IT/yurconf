@@ -11,9 +11,14 @@
 	<body>
 
 		<section name="Overview">
-			<p>Overview here...</p>
+			<p>Configuration processor is a component responsible for building thte configuration
+				file from configuration sources.</p>
+			<p>Each Baxter product provides its own Configuration Processor that is specific for
+				Product configuration domain.</p>
+			<p>Configuration Server also provides the instruments (Java Classes and Transformation
+				Stylesheets) to be reused by Product's Configuration Processors.</p>
 		</section>
-		
+
 	</body>
 
 </document>

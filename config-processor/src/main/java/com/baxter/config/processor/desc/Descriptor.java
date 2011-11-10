@@ -4,9 +4,12 @@
 package com.baxter.config.processor.desc;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -34,6 +37,10 @@ public class Descriptor
   @XmlAttribute(name = "productId", required = true)
   private String productId;
 
+  @XmlElementWrapper(name = "processors", namespace = Descriptor.NS)
+  @XmlElement(name = "processor", namespace = Descriptor.NS)
+  private List<Processor> processors = new ArrayList<Processor>();
+
   public URL getUrl()
   {
 	return url;
@@ -52,6 +59,11 @@ public class Descriptor
   public String getVersion()
   {
 	return version;
+  }
+
+  public List<Processor> getProcessors()
+  {
+	return processors;
   }
 
 }

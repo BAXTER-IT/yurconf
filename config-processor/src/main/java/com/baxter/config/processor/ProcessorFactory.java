@@ -78,13 +78,35 @@ public class ProcessorFactory
    * @param version
    *          configuration version
    * @return the matched processor
-   * @throws IllegalArgumentException
+   * @throws ProcessorException
    *           if cannot match the processor for specified input
    */
-  public AbstractProcessor getProcessor(final ConfigID configId, final Version version)
+  public AbstractProcessor getProcessor(final ConfigID configId, final Version version) throws ProcessorException
+  {
+	final AbstractProcessor processor = getProcessor(configId);
+	if (processor.isVersionSupported(version))
+	{
+	  return processor;
+	}
+	else
+	{
+	  throw new ProcessorException("Unsupported version");
+	}
+  }
+
+  /**
+   * Finds processor candidate for specified configuration identifier.
+   * 
+   * @param configId
+   *          identifier
+   * @return the candidate processor
+   * @throws ProcessorException
+   *           if cannot find appropriate processor
+   */
+  private AbstractProcessor getProcessor(final ConfigID configId) throws ProcessorException
   {
 	// TODO
-	throw new UnsupportedOperationException("not yet implemented");
+	return null;
   }
 
   /**
@@ -135,6 +157,10 @@ public class ProcessorFactory
 		try
 		{
 		  final Descriptor descriptor = Loader.getInstance().load(descriptorUrl);
+		  // TODO
+		  // Now check if this descriptor is newer than the descriptor stored in the repository
+		  // if there is no descriptor in repo then just copy default configuration and descriptor to repository
+		  // if this is newer one then apply update
 		}
 		catch (final ProcessorException e)
 		{
