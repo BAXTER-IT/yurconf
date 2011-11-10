@@ -236,4 +236,17 @@ public class ProcessorFactory
 	}
   }
 
+  /**
+   * Returns the root directory for specified product.
+   * 
+   * @param productId
+   *          product identifier
+   * @return directory
+   */
+  File getProductDirectory(final String productId)
+  {
+	final String productPath = productId.replace('.', File.separatorChar);
+	return new File(this.repository, productPath);
+  }
+
 }

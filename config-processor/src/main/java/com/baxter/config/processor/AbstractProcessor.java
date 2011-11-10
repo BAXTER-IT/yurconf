@@ -98,6 +98,10 @@ public abstract class AbstractProcessor
   {
 	this.factory = factory;
   }
+  
+  protected ProcessorFactory getFactory() {
+	return this.factory;
+  }
 
   protected void setParameter(final String name, final String value)
   {

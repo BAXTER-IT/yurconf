@@ -3,6 +3,7 @@
  */
 package com.baxter.config.processor.desc;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.xml.bind.JAXBContext;
@@ -82,7 +83,15 @@ public class Loader
 	  if (Descriptor.class.isInstance(o))
 	  {
 		final Descriptor descriptor = Descriptor.class.cast(o);
-		descriptor.setUrl(url);
+		try
+		{
+		  descriptor.setUrl(url);
+		}
+		catch (final MalformedURLException e)
+		{
+		  LOGGER.error("Cannot set descriptor URL", e);
+		  throw new ProcessorException("Unable to setup descriptor");
+		}
 		return descriptor;
 	  }
 	  else

@@ -3,6 +3,7 @@
  */
 package com.baxter.config.processor.desc;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,12 @@ public class Descriptor
   @XmlTransient
   private URL url;
 
+  @XmlTransient
+  private URL sourceUrl;
+
+  @XmlTransient
+  private URL xslUrl;
+
   @XmlAttribute(name = "version", required = true)
   private String version;
 
@@ -46,9 +53,21 @@ public class Descriptor
 	return url;
   }
 
-  void setUrl(final URL url)
+  public URL getSourceUrl()
+  {
+	return sourceUrl;
+  }
+
+  public URL getXslUrl()
+  {
+	return xslUrl;
+  }
+
+  void setUrl(final URL url) throws MalformedURLException
   {
 	this.url = url;
+	this.sourceUrl = url == null ? null : new URL(url, "../config/default/");
+	this.xslUrl = url == null ? null : new URL(url, "../config/xsl/");
   }
 
   public String getProductId()
@@ -68,12 +87,12 @@ public class Descriptor
 
   void setVersion(String version)
   {
-    this.version = version;
+	this.version = version;
   }
 
   void setProductId(String productId)
   {
-    this.productId = productId;
+	this.productId = productId;
   }
 
 }

@@ -23,10 +23,15 @@
 			<artifactId>slf4j-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
-    <properties>
-        <jira.component>${project.artifactId}</jira.component>
-    </properties>
-    
+	<properties>
+		<jira.component>${project.artifactId}</jira.component>
+	</properties>
+
 </project>

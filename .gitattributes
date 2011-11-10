@@ -35,6 +35,7 @@ config-processor/src/site/resources/uml/package-structure.uxf -text
 config-processor/src/site/site.xml -text
 config-processor/src/site/xdoc/index.xml -text
 config-processor/src/site/xdoc/packaging.xml -text
+config-processor/src/test/java/com/baxter/config/processor/TestProcessorFactory.java -text
 config-processor/src/test/java/com/baxter/config/processor/desc/TestLoader.java -text
 config-server/pom.xml -text
 config-server/src/main/java/com/baxter/config/servlet/RestfulServlet.java -text
