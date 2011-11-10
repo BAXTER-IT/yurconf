@@ -14,9 +14,81 @@
 			<p>Configuration processor is a component responsible for building thte configuration
 				file from configuration sources.</p>
 			<p>Each Baxter product provides its own Configuration Processor that is specific for
-				Product configuration domain.</p>
+				Product configuration domain. See <a href="packaging.html">packaging rules</a> for
+				processors.</p>
 			<p>Configuration Server also provides the instruments (Java Classes and Transformation
 				Stylesheets) to be reused by Product's Configuration Processors.</p>
+			<p>The format of the processor descriptor can be found <a href="descriptor"
+				>here</a>.</p>
+		</section>
+
+		<section name="Predefined Processors">
+			<p>The Configuration Server provides the implementation for several predefined
+				configuration processors. Each product may use these processors in their descriptors
+				or extend the existing processors.</p>
+
+			<subsection name="As Is Processor">
+
+				<code>com.baxter.config.processor.AsIsProcessor</code>
+
+				<p>The purpose of this processor is to deliver the configuration source as it is,
+					that is, without any transformation or modification. Typical usage of such a
+					processor would be to return the binary configuration files.</p>
+
+				<p>In order to use this processor you define it in descriptor as following: </p>
+				<source> &lt;processor class="com.baxter.config.processor.AsIsProcessor" type="bin"
+					/&gt; </source>
+				<p>Then you can request a configuration file with URL:
+						<code>http://localhost/config/com.baxter.demo/myfile.dat/bin</code> this
+					will return a source <code>myfile.dat</code> without any modifications. </p>
+
+			</subsection>
+
+			<subsection name="XSLT Processor">
+
+				<code>com.baxter.config.processor.XSLTProcessor</code>
+
+				<p>As the name implies it is supposed to transform the input sources with XSLT using
+					the specified XSL template. In the processor package each processor is
+					responsible for some configuration type, e.g. processor for log4j, for logback,
+					for Price Engine Properties XML, etc.</p>
+
+				<p>In order to use this processor you define it in descriptor as following: </p>
+				<source> &lt;processor class="com.baxter.config.processor.XSLTProcessor"
+					type="log4j"&gt; &lt;parameter name="xsl"&gt;log4j.xsl&lt;/parameter&gt;
+					&lt;/processor&gt; </source>
+				<p>Then you can request a configuration file with URL:
+						<code>http://localhost/config/com.baxter.demo/my-component/log4j</code> this
+					will return transformation result obtained with <code>log4j.xsl</code> template. </p>
+				<p>The default implementation of XSLT Processor passes these input parameters to
+					XSLT:</p>
+
+				<ul>
+					<li>configurationProductId</li>
+					<li>configurationVersion</li>
+					<li>configurationComponentId</li>
+					<li>configurationVariant</li>
+				</ul>
+
+				<p>The stylesheet can access these parameters using the XSLT variable syntax
+					${...}.</p>
+
+				<p>The root stylesheet specified for the processor may import other stylesheets from
+					the package, or it may import some predefined stylesheets from default
+					processors implementation, in this case the urls must include protocol
+						<code>baxterxsl</code>, for example, <code>baxterxsl:log4j.xsl</code>.</p>
+
+				<p>Stylesheets may access all files available in the repository. The XSL is
+					responsible for loading the proper file. Custom URI Resolver supports the
+					protocol <code>baxterrepo</code>. For example, when XSL loads a file
+						<code>baxterrepo:jms/nodes.xml</code>, and the current processor belongs to
+					product <code>com.baxter.demo</code>, the file will be resolved to
+						<code>CONFIG_REPO/com/baxter/demo/jms/nodes.xml</code>, where
+						<code>CONFIG_REPO</code> is a path to configuration repository on
+					filesystem.</p>
+
+			</subsection>
+
 		</section>
 
 	</body>
