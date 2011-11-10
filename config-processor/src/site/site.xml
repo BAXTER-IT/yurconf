@@ -9,6 +9,7 @@
     <menu name="Configuration Processors" inherit="top" inheritAsRef="true">
       <item name="Summary" href="index.html"/>
       <item name="Packaging" href="packaging.html"/>
+      <item name="Descriptor" href="descriptor.html"/>
     </menu>
 
   </body>
