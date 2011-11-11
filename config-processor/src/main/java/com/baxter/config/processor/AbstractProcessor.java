@@ -30,6 +30,9 @@ public abstract class AbstractProcessor
    */
   private final Version version;
 
+  /**
+   * Owner factory that created this processor.
+   */
   private ProcessorFactory factory;
 
   /**
@@ -98,14 +101,15 @@ public abstract class AbstractProcessor
   {
 	this.factory = factory;
   }
-  
-  protected ProcessorFactory getFactory() {
+
+  protected ProcessorFactory getFactory()
+  {
 	return this.factory;
   }
 
   protected void setParameter(final String name, final String value)
   {
-	logger.debug("Setting parameter {} = {}", name, value);
+	logger.debug("Ignoring parameter {} = {}", name, value);
   }
 
 }

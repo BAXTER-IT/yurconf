@@ -40,6 +40,9 @@ public class ProcessorFactory
    */
   private static final Logger LOGGER = LoggerFactory.getLogger(ProcessorFactory.class);
 
+  /**
+   * Descriptor file name in repository.
+   */
   private static final String TARGET_DESCRIPTOR_FILENAME = ".descriptor.xml";
 
   /**
@@ -67,9 +70,16 @@ public class ProcessorFactory
    */
   private ProcessorFactory(final File repository) throws ProcessorException
   {
-	LOGGER.info("Creating factory with repository at {}", repository.getAbsolutePath());
+	LOGGER.trace("Creating factory with repository at {}", repository.getAbsolutePath());
 	this.repository = repository;
-	setupRepository();
+	try
+	{
+	  FileUtils.forceMkdir(this.repository);
+	}
+	catch (final IOException e)
+	{
+	  throw new ProcessorException(e);
+	}
 	loadProcessors();
   }
 
@@ -119,31 +129,14 @@ public class ProcessorFactory
   }
 
   /**
-   * Initializes the repository.
-   * 
-   * @throws ProcessorException
-   *           if failed to initialize repository
-   */
-  private void setupRepository() throws ProcessorException
-  {
-	try
-	{
-	  FileUtils.forceMkdir(this.repository);
-	}
-	catch (final IOException e)
-	{
-	  throw new ProcessorException(e);
-	}
-  }
-
-  /**
    * Reads available processor descriptors and loads them.
    */
   private void loadProcessors()
   {
 	try
 	{
-	  final Enumeration<URL> descriptorResources = Thread.currentThread().getContextClassLoader().getResources(DESCRIPTOR_RESOURCE);
+	  final Enumeration<URL> descriptorResources = Thread.currentThread().getContextClassLoader()
+		  .getResources(DESCRIPTOR_RESOURCE);
 	  while (descriptorResources.hasMoreElements())
 	  {
 		final URL descriptorResource = descriptorResources.nextElement();
@@ -182,7 +175,8 @@ public class ProcessorFactory
 		  for (Processor processorDescriptor : descriptor.getProcessors())
 		  {
 			final AbstractProcessor processor = createProcessor(descriptor, processorDescriptor);
-			this.processorsCache.registerProcessor(descriptor.getProductId(), processorDescriptor.getConfigurationType(), processor);
+			this.processorsCache.registerProcessor(descriptor.getProductId(), processorDescriptor.getConfigurationType(),
+			    processor);
 		  }
 
 		}
