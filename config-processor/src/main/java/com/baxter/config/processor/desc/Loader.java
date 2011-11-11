@@ -9,6 +9,7 @@ import java.net.URL;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ import com.baxter.config.processor.ProcessorException;
  * @author ykryshchuk
  * @since ${developmentVersion}
  */
+@XmlTransient
 public class Loader
 {
 
@@ -46,7 +48,7 @@ public class Loader
   {
 	try
 	{
-	  this.jaxbContext = JAXBContext.newInstance(Descriptor.class);
+	  this.jaxbContext = JAXBContext.newInstance(Descriptor.class.getPackage().getName());
 	}
 	catch (final JAXBException e)
 	{
@@ -104,6 +106,15 @@ public class Loader
 	{
 	  throw new ProcessorException(e);
 	}
+  }
+
+  /**
+   * Returns the prepared JAXB Context.
+   * @return JAXB context
+   */
+  JAXBContext getJaxbContext()
+  {
+	return this.jaxbContext;
   }
 
 }

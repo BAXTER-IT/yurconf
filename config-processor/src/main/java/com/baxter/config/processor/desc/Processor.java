@@ -24,7 +24,7 @@ public class Processor
   @XmlAttribute(name = "type")
   private String configurationType;
 
-  @XmlElement(name = "parameter", namespace = Descriptor.NS)
+  @XmlElement(name = "parameter")
   private List<Parameter> parameters = new ArrayList<Parameter>();
 
   public String getClassName()

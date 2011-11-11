@@ -20,14 +20,9 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author ykryshchuk
  * @since ${developmentVersion}
  */
-@XmlRootElement(name = "descriptor", namespace = Descriptor.NS)
+@XmlRootElement(name = "descriptor")
 public class Descriptor
 {
-
-  /**
-   * XML Namespace.
-   */
-  public static final String NS = "http://baxter-it.com/config/descriptor";
 
   @XmlTransient
   private URL url;
@@ -44,8 +39,8 @@ public class Descriptor
   @XmlAttribute(name = "productId", required = true)
   private String productId;
 
-  @XmlElementWrapper(name = "processors", namespace = Descriptor.NS)
-  @XmlElement(name = "processor", namespace = Descriptor.NS)
+  @XmlElementWrapper(name = "processors")
+  @XmlElement(name = "processor")
   private List<Processor> processors = new ArrayList<Processor>();
 
   public URL getUrl()

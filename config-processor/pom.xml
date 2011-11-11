@@ -12,6 +12,59 @@
 	<artifactId>config-processor</artifactId>
 	<name>Configuration Processors</name>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.sun.tools.jxc.maven2</groupId>
+				<artifactId>maven-jaxb-schemagen-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<srcdir>${project.build.sourceDirectory}</srcdir>
+					<destdir>${project.reporting.outputDirectory}/xsd</destdir>
+					<includes>
+						<include>com/baxter/config/processor/desc/*</include>
+					</includes>
+					<schemas>
+						<schema>
+							<namespace>http://baxter-it.com/config/descriptor</namespace>
+							<file>processor.xsd</file>
+						</schema>
+					</schemas>
+					<verbose>true</verbose>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>javax.xml.bind</groupId>
+						<artifactId>jaxb-api</artifactId>
+						<version>2.2</version>
+					</dependency>
+					<dependency>
+						<groupId>com.sun.xml.bind</groupId>
+						<artifactId>jaxb-xjc</artifactId>
+						<version>2.2</version>
+					</dependency>
+					<dependency>
+						<groupId>com.sun.xml.bind</groupId>
+						<artifactId>jaxb-impl</artifactId>
+						<version>2.2</version>
+					</dependency>
+					<dependency>
+						<groupId>com.sun.xml.bind</groupId>
+						<artifactId>jaxb-xjc</artifactId>
+						<version>2.2</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>

@@ -59,12 +59,13 @@ public class TestLoader
 	processors.add(p2);
 	d.getProcessors().add(p2);
 	final String xml = marshal(d);
+	System.out.println("Marshalled Descriptor: " + xml);
 	assertNotNull(xml);
   }
 
   private String marshal(final Descriptor d) throws JAXBException
   {
-	final JAXBContext jaxbContext = JAXBContext.newInstance(Descriptor.class);
+	final JAXBContext jaxbContext = Loader.getInstance().getJaxbContext();
 	final Marshaller m = jaxbContext.createMarshaller();
 	final StringWriter w = new StringWriter();
 	m.marshal(d, w);

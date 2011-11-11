@@ -42,6 +42,57 @@
 
 		</section>
 
+		<section name="Unpacking the package">
+			<p>The Configuration Server hosts all configuration sources in the local configuration
+				repository. The repository location can be specified in web context parameter named
+					<code>com.baxter.config.Repository</code>, if the parameter has not been
+				specified in <code>web.xml</code>, then default location
+					<code>~/.baxter-configuration-repository</code> will be used by a server.</p>
+
+			<p>When the server applciation starts it copies the default configuration from processor
+				package into the repository. Once the default configuration has been copied it will
+				remain there until the new configuration processor is deployed which contains an
+				updated default configuration. This update may include new config sources, changed
+				or extended sources. In order to keep the managed configuration on repository when
+				doing the update, the server application implements different strategies to update
+				existing files to new structure or layout.</p>
+			<p>Here is an example what and how is copied, assume the product id is
+					<code>com.baxter.demo</code>: <map id="default-config-copy">
+					<table>
+						<thead>
+							<tr>
+								<th>Package JAR</th>
+								<th>Configuration Repository</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<code>META-INF/config/default/a.xml</code><br/>
+									<code>META-INF/config/default/b.xml</code><br/>
+									<code>META-INF/config/default/subdir/c.xml</code><br/>
+									<code>META-INF/config/default/other/subdir/d.xml</code>
+								</td>
+								<td>
+									<code>$REPO/com/baxter/demo/a.xml</code><br/>
+									<code>$REPO/com/baxter/demo/b.xml</code><br/>
+									<code>$REPO/com/baxter/demo/subdir/c.xml</code><br/>
+									<code>$REPO/com/baxter/demo/other/subdir/d.xml</code>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</map>
+			</p>
+			<p>In addition to copying the default configuration files from JAR to repository, the
+				descriptor file itself is also persisted in the Product's repository root. So if the
+				product ID is <code>com.baxter.demo</code>, the descriptor will be copied to
+					<code>$REPO/com/baxter/demo/.descriptor.xml</code>. This implies
+				that each product has its own product ID to avoid the collisions between
+				configuration descriptors in repository.</p>
+
+		</section>
+
 	</body>
 
 </document>
