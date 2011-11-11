@@ -4,6 +4,7 @@
     exclude-result-prefixes="xs xd" version="2.0">
     
     <xsl:import href="inc/common-plain.xsl" />
+    <xsl:import href="baxterxsl:log4j.xsl" />
 
     <xsl:output encoding="UTF-8" media-type="text/plain" omit-xml-declaration="yes"/>
 

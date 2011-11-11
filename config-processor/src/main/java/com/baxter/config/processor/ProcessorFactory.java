@@ -145,7 +145,7 @@ public class ProcessorFactory
 			{
 			  // processor in JAR is newer than processor in Repo
 			  LOGGER.info("Processor in repository is old - {}. Will upgrade...", existingDescriptor);
-			  // TODO implement upgrading
+			  // TODO CFG-15 implement upgrading
 			}
 			else
 			{

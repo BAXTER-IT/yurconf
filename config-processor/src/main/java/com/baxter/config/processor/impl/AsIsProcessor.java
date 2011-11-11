@@ -49,7 +49,7 @@ public class AsIsProcessor extends AbstractXSLTProcessor
 	}
 
 	// 2. Determine the content type
-	// TODO
+	// TODO CFG-26
 	// context.setContentType(null, null);
 
 	// 3. Write the source file to stream
