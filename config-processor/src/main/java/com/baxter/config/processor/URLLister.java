@@ -23,12 +23,14 @@ abstract class URLLister
 
   /**
    * Returns the URL Lister appropriate for specified URL.
-   * @param url input url to process
+   * 
+   * @param url
+   *          input url to process
    * @return some implementation of URL Lister
    */
   static URLLister getInstance(final URL url)
   {
-	if (JARURLLister.JAR_URL_PATTERN.matcher(url.toString()).matches())
+	if (JARURLLister.URL_PATTERN.matcher(url.toString()).matches())
 	{
 	  return getJarListerInstance();
 	}
@@ -37,6 +39,7 @@ abstract class URLLister
 
   /**
    * Returns the lister for JAR URLs.
+   * 
    * @return jar lister
    */
   static URLLister getJarListerInstance()
@@ -45,15 +48,19 @@ abstract class URLLister
   }
 
   /**
-   * Returns a list of entries under specified URL. These are the entries paths relative to the input URL. 
-   * @param url input URL
+   * Returns a list of entries under specified URL. These are the entries paths relative to the input URL.
+   * 
+   * @param url
+   *          input URL
    * @return list of string paths
-   * @throws IOException if IO failed during the listing
+   * @throws IOException
+   *           if IO failed during the listing
    */
   abstract List<String> list(final URL url) throws IOException;
 
   /**
    * URL Lister for JAR content.
+   * 
    * @author Arpad Roziczky
    * @since ${developmentVersion}
    */
@@ -63,14 +70,14 @@ abstract class URLLister
 	/**
 	 * RegExp for JAR Entry URL.
 	 */
-	private static final Pattern JAR_URL_PATTERN = Pattern.compile("jar:file:([^!]+)!/(.*)");
+	private static final Pattern URL_PATTERN = Pattern.compile("jar:file:([^!]+)!/(.*)");
 
 	@Override
 	List<String> list(final URL url) throws IOException
 	{
 	  // Now we have a URL which points to something in a JAR
-	  // JAR URL follows the convention  jar:file:<jarFilePath>!<entryPath>
-	  final Matcher m = JAR_URL_PATTERN.matcher(url.toString());
+	  // JAR URL follows the convention jar:file:<jarFilePath>!<entryPath>
+	  final Matcher m = URL_PATTERN.matcher(url.toString());
 	  if (m.matches())
 	  {
 		final String jarFileName = m.group(1);
@@ -84,38 +91,30 @@ abstract class URLLister
 	}
 
 	/**
-	* 
-	* @param jarFileName
-	*  		The path where the jar file can be found
-	* @param pathInJar
-	* 		The package path from where the content will be listed 
-	* @return
-	* 		returns a content of a jar file from a specified directory
-	* @throws IOException
-	*/
+	 * 
+	 * @param jarFileName
+	 *          The path where the jar file can be found
+	 * @param pathInJar
+	 *          The package path from where the content will be listed
+	 * @return returns a content of a jar file from a specified directory
+	 * @throws IOException
+	 */
 	private List<String> listFromJar(final String jarFileName, final String pathInJar) throws IOException
 	{
-	  List<String> items = new ArrayList<String>();
-
-	  JarInputStream jarFile = new JarInputStream(new FileInputStream(jarFileName));
+	  final List<String> items = new ArrayList<String>();
+	  final JarInputStream jarFile = new JarInputStream(new FileInputStream(jarFileName));
+	  final int charsToTrim = pathInJar.length();
 	  try
 	  {
-		JarEntry jarEntry;
-
-		while (true)
+		for (JarEntry entry = jarFile.getNextJarEntry(); entry != null; entry = jarFile.getNextJarEntry())
 		{
-		  jarEntry = jarFile.getNextJarEntry();
-
-		  if (jarEntry == null)
+		  final String entryPath = entry.getName();
+		  if ((entryPath.startsWith(pathInJar)) && !entry.isDirectory())
 		  {
-			break;
+			items.add(entryPath.substring(charsToTrim));
 		  }
-		  if ((jarEntry.getName().startsWith(pathInJar)) && !jarEntry.isDirectory())
-		  {
-			items.add(jarEntry.getName().replaceFirst(pathInJar + "/", ""));
-		  }
+		  jarFile.closeEntry();
 		}
-
 		return items;
 	  }
 	  finally

@@ -90,4 +90,15 @@ public class Descriptor
 	this.productId = productId;
   }
 
+  @Override
+  public String toString()
+  {
+	final StringBuilder str = new StringBuilder("Processor package [");
+	str.append(getProductId());
+	str.append(":");
+	str.append(getVersion());
+	str.append("]");
+	return str.toString();
+  }
+
 }

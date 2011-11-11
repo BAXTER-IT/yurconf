@@ -55,4 +55,15 @@ public class Parameter
 	this.value = value;
   }
 
+  @Override
+  public String toString()
+  {
+	final StringBuilder str = new StringBuilder("Parameter [");
+	str.append(getName());
+	str.append("=");
+	str.append(getValue());
+	str.append("]");
+	return str.toString();
+  }
+
 }

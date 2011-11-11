@@ -20,7 +20,7 @@ public class Processor
 
   @XmlAttribute(name = "class")
   private String className;
-  
+
   @XmlAttribute(name = "type")
   private String configurationType;
 
@@ -44,12 +44,23 @@ public class Processor
 
   public String getConfigurationType()
   {
-    return configurationType;
+	return configurationType;
   }
 
   void setConfigurationType(final String configurationType)
   {
-    this.configurationType = configurationType;
+	this.configurationType = configurationType;
+  }
+
+  @Override
+  public String toString()
+  {
+	final StringBuilder str = new StringBuilder("Processor [");
+	str.append(getClassName());
+	str.append(":");
+	str.append(getConfigurationType());
+	str.append("]");
+	return str.toString();
   }
 
 }
