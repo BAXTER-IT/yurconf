@@ -20,11 +20,11 @@ config-processor/pom.xml -text
 config-processor/src/main/java/com/baxter/config/processor/AbstractProcessor.java -text
 config-processor/src/main/java/com/baxter/config/processor/AbstractXSLTProcessor.java -text
 config-processor/src/main/java/com/baxter/config/processor/AsIsProcessor.java -text
-config-processor/src/main/java/com/baxter/config/processor/PackageUtils.java -text
 config-processor/src/main/java/com/baxter/config/processor/ProcessorContext.java -text
 config-processor/src/main/java/com/baxter/config/processor/ProcessorException.java -text
 config-processor/src/main/java/com/baxter/config/processor/ProcessorFactory.java -text
 config-processor/src/main/java/com/baxter/config/processor/ProcessorsCache.java -text
+config-processor/src/main/java/com/baxter/config/processor/URLLister.java -text
 config-processor/src/main/java/com/baxter/config/processor/XSLTProcessor.java -text
 config-processor/src/main/java/com/baxter/config/processor/desc/Descriptor.java -text
 config-processor/src/main/java/com/baxter/config/processor/desc/Loader.java -text
