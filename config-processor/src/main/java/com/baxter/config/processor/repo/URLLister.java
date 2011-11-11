@@ -1,4 +1,4 @@
-package com.baxter.config.processor;
+package com.baxter.config.processor.repo;
 
 import java.io.FileInputStream;
 import java.io.IOException;

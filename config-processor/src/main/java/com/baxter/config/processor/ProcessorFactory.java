@@ -5,14 +5,11 @@ package com.baxter.config.processor;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Enumeration;
-import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,11 +19,12 @@ import com.baxter.config.processor.desc.Descriptor;
 import com.baxter.config.processor.desc.Loader;
 import com.baxter.config.processor.desc.Parameter;
 import com.baxter.config.processor.desc.Processor;
+import com.baxter.config.processor.repo.Repository;
+import com.baxter.config.processor.repo.RepositoryException;
 
 /**
  * Processor Factory that returns a target processor for specified input.
  * 
- * @TODO extract the repository related functionality into the new ConfigurationRepository class.
  * @TODO extract the package introspection into the new class
  * 
  * @author ykryshchuk
@@ -41,19 +39,9 @@ public class ProcessorFactory
   private static final Logger LOGGER = LoggerFactory.getLogger(ProcessorFactory.class);
 
   /**
-   * Descriptor file name in repository.
-   */
-  private static final String TARGET_DESCRIPTOR_FILENAME = ".descriptor.xml";
-
-  /**
    * Name of the processor descriptor resource.
    */
   private static final String DESCRIPTOR_RESOURCE = "META-INF/services/com.baxter.config.processor.xml";
-
-  /**
-   * Configuration repository root.
-   */
-  private final File repository;
 
   /**
    * Processors cache.
@@ -61,25 +49,22 @@ public class ProcessorFactory
   private final ProcessorsCache processorsCache = new ProcessorsCache();
 
   /**
+   * Configuration repository.
+   */
+  private final Repository repository;
+
+  /**
    * Hidden constructor.
    * 
-   * @param repository
+   * @param repositoryRoot
    *          configuration repository root
    * @throws ProcessorException
    *           if cannot create factory
    */
-  private ProcessorFactory(final File repository) throws ProcessorException
+  private ProcessorFactory(final File repositoryRoot) throws ProcessorException
   {
-	LOGGER.trace("Creating factory with repository at {}", repository.getAbsolutePath());
-	this.repository = repository;
-	try
-	{
-	  FileUtils.forceMkdir(this.repository);
-	}
-	catch (final IOException e)
-	{
-	  throw new ProcessorException(e);
-	}
+	LOGGER.trace("Creating factory with repository at {}", repositoryRoot.getAbsolutePath());
+	this.repository = Repository.getInstance(repositoryRoot);
 	loadProcessors();
   }
 
@@ -127,6 +112,10 @@ public class ProcessorFactory
 	  }
 	}
   }
+  
+  public Repository getRepository() {
+	return this.repository;
+  }
 
   /**
    * Reads available processor descriptors and loads them.
@@ -145,30 +134,29 @@ public class ProcessorFactory
 		  final Descriptor descriptor = Loader.getInstance().load(descriptorResource);
 		  LOGGER.debug("Found available processor - {}", descriptor);
 
-		  // if there is no descriptor in repository then just copy entire package
-		  final File existingDescriptorFile = new File(getProductDirectory(descriptor.getProductId()), TARGET_DESCRIPTOR_FILENAME);
-		  if (!existingDescriptorFile.exists())
+		  try
 		  {
-			LOGGER.info("Could not find {} in repository", descriptor);
-			copyPackageToRepo(descriptor);
-		  }
-		  else
-		  {
+			final Descriptor existingDescriptor = this.repository.getDescriptor(descriptor.getProductId());
 			// Now check if this descriptor is newer than the descriptor stored in the repository
 			// if this is newer one then apply update
-			final Descriptor existingDescriptor = Loader.getInstance().load(existingDescriptorFile.toURI().toURL());
 			final Version existingVersion = Version.valueOf(existingDescriptor.getVersion());
 			final Version availableVersion = Version.valueOf(descriptor.getVersion());
 			if (existingVersion.compareTo(availableVersion) < 0)
 			{
 			  // processor in JAR is newer than processor in Repo
 			  LOGGER.info("Processor in repository is old - {}. Will upgrade...", existingDescriptor);
+			  // TODO implement upgrading
 			}
 			else
 			{
 			  LOGGER.debug("Processor in repository is up to date - {}", existingDescriptor);
 			}
-
+		  }
+		  catch (final RepositoryException e)
+		  {
+			// if there is no descriptor in repository then just copy entire package
+			LOGGER.info("Could not find {} in repository", descriptor);
+			this.repository.installPackage(descriptor);
 		  }
 
 		  // Finally create processors and register them with cache
@@ -190,52 +178,6 @@ public class ProcessorFactory
 	{
 	  LOGGER.error("Failed when looking for descriptors", e);
 	}
-  }
-
-  /**
-   * Copies all necessary resources from processor package to a local repository.
-   * 
-   * @param descriptor
-   *          the processor descriptor
-   * @throws IOException
-   *           if failed to copy a resource
-   */
-  private void copyPackageToRepo(final Descriptor descriptor) throws IOException, ProcessorException
-  {
-	LOGGER.info("Installing {} in repository", descriptor);
-	final URLLister urlLister = URLLister.getInstance(descriptor.getSourceUrl());
-	final List<String> entryPaths = urlLister.list(descriptor.getSourceUrl());
-
-	final File productDirectory = getProductDirectory(descriptor.getProductId());
-
-	// Perform default configuration copying
-	for (String filePath : entryPaths)
-	{
-	  final URL resourceURL = new URL(descriptor.getSourceUrl(), filePath);
-	  final InputStream resourceStream = resourceURL.openStream();
-	  try
-	  {
-		final File repositoryFile = new File(productDirectory, filePath);
-		FileUtils.copyInputStreamToFile(resourceStream, repositoryFile);
-	  }
-	  finally
-	  {
-		resourceStream.close();
-	  }
-	}
-
-	// Copy processor descriptor to repository
-	final InputStream descriptorStream = descriptor.getUrl().openStream();
-	try
-	{
-	  final File targetDescriptor = new File(productDirectory, TARGET_DESCRIPTOR_FILENAME);
-	  FileUtils.copyInputStreamToFile(descriptorStream, targetDescriptor);
-	}
-	finally
-	{
-	  descriptorStream.close();
-	}
-
   }
 
   /**
@@ -293,19 +235,6 @@ public class ProcessorFactory
 	  LOGGER.error("Could not instantiate processor", e);
 	  throw new ProcessorException(e);
 	}
-  }
-
-  /**
-   * Returns the root directory for specified product.
-   * 
-   * @param productId
-   *          product identifier
-   * @return directory
-   */
-  File getProductDirectory(final String productId)
-  {
-	final String productPath = productId.replace('.', File.separatorChar);
-	return new File(this.repository, productPath);
   }
 
 }

@@ -20,6 +20,7 @@ config-processor/.classpath
 config-processor/.project
 config-processor/.settings
 config-processor/bin
+config-processor/src/META-INF
 config-processor/target
 config-server/.classpath
 config-server/.project

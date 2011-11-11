@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.baxter.config.processor;
+package com.baxter.config.processor.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,6 +10,8 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 
+import com.baxter.config.processor.ProcessorContext;
+import com.baxter.config.processor.ProcessorException;
 import com.baxter.config.processor.desc.Descriptor;
 
 /**
@@ -36,7 +38,7 @@ public class AsIsProcessor extends AbstractXSLTProcessor
   public void process(final ProcessorContext context) throws ProcessorException
   {
 	// 1. Determine the source file location
-	final File productDir = getFactory().getProductDirectory(getDescriptor().getProductId());
+	final File productDir = getFactory().getRepository().getProductDirectory(getDescriptor().getProductId());
 	final String filename = context.getConfigID().getComponentId()
 	    + (context.getConfigID().getVariant() == null ? "" : ("-" + context.getConfigID().getVariant()));
 	final File file = new File(productDir, filename);

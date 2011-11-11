@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.baxter.config.processor;
+package com.baxter.config.processor.impl;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,6 +19,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 
 import com.baxter.config.om.ConfigID;
+import com.baxter.config.processor.AbstractProcessor;
+import com.baxter.config.processor.ProcessorException;
 import com.baxter.config.processor.desc.Descriptor;
 
 /**
