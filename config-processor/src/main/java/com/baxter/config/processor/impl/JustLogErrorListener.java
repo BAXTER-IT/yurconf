@@ -6,10 +6,12 @@ import javax.xml.transform.TransformerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// TODO add javadoc
 class JustLogErrorListener implements ErrorListener
 {
   protected final Logger logger; 
-  
+
+  // TODO make singleton
   public JustLogErrorListener()
   {
 	this.logger = LoggerFactory.getLogger(getClass());

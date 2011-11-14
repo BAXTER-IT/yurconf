@@ -107,9 +107,4 @@ public abstract class AbstractProcessor
 	return this.factory;
   }
 
-  protected void setParameter(final String name, final String value)
-  {
-	logger.debug("Ignoring parameter {} = {}", name, value);
-  }
-
 }

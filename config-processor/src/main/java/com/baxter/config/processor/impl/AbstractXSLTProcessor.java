@@ -36,8 +36,6 @@ import com.baxter.config.processor.desc.Descriptor;
 public abstract class AbstractXSLTProcessor extends AbstractProcessor
 {
 
-  protected static final String PARAM_XSL = "xsl";
-
   protected static final String XSLT_PARAM_PRODUCT_ID = "configurationProductId";
 
   protected static final String XSLT_PARAM_VERSION = "configurationVersion";
@@ -46,10 +44,12 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 
   protected static final String XSLT_PARAM_VARIANT = "configurationVariant";
 
+  // TODO refactor to enum
   private static final String PROTOCOL_XSL = "baxterxsl";
 
   private static final String PREFIX_XSL = PROTOCOL_XSL + ":";
 
+  // TODO refactor to enum
   private static final String PROTOCOL_REPO = "baxterrepo";
 
   private static final String PREFIX_REPO = PROTOCOL_REPO + ":";
@@ -86,18 +86,13 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 	repoURIResolver = new RepoURIResolver();
 	transformerFactory.setURIResolver(new XslURIResolver());
   }
-
-  @Override
-  protected void setParameter(final String name, final String value)
-  {
-	if (PARAM_XSL.equals(name))
-	{
-	  this.stylesheet = value;
-	}
-	else
-	{
-	  super.setParameter(name, value);
-	}
+  
+  public String getStylesheet() {
+	return this.stylesheet;
+  }
+  
+  public void setStylesheet( final String stylesheet ) {
+	this.stylesheet = stylesheet;
   }
 
   /**

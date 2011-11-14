@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Enumeration;
 
+import org.apache.commons.beanutils.BeanUtilsBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +43,11 @@ public class ProcessorFactory
    * Name of the processor descriptor resource.
    */
   private static final String DESCRIPTOR_RESOURCE = "META-INF/services/com.baxter.config.processor.xml";
+
+  /**
+   * BeanUtils instance.
+   */
+  private static final BeanUtilsBean BUB = BeanUtilsBean.getInstance();
 
   /**
    * Processors cache.
@@ -112,8 +118,9 @@ public class ProcessorFactory
 	  }
 	}
   }
-  
-  public Repository getRepository() {
+
+  public Repository getRepository()
+  {
 	return this.repository;
   }
 
@@ -205,8 +212,7 @@ public class ProcessorFactory
 	  for (Parameter parameter : processorDescriptor.getParameters())
 	  {
 		LOGGER.trace("Setting {} in {}", parameter, processorDescriptor);
-		// TODO refactor to bean properties
-		processor.setParameter(parameter.getName(), parameter.getValue());
+		BUB.setProperty(processor, parameter.getName(), parameter.getValue());
 	  }
 	  return processor;
 	}
