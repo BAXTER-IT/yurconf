@@ -11,10 +11,10 @@ config-om/src/site/xdoc/index.xml -text
 config-om/src/test/java/com/baxter/config/om/TestConfigID.java -text
 config-om/src/test/java/com/baxter/config/om/TestVersion.java -text
 config-processor-demo/pom.xml -text
-config-processor-demo/src/main/resources/META-INF/config/default/group1/sample2.xml -text
-config-processor-demo/src/main/resources/META-INF/config/default/sample1.xml -text
-config-processor-demo/src/main/resources/META-INF/config/xsl/inc/common-plain.xsl -text
-config-processor-demo/src/main/resources/META-INF/config/xsl/simple.xsl -text
+config-processor-demo/src/main/resources/META-INF/config/default/hello-world.xml -text
+config-processor-demo/src/main/resources/META-INF/config/default/sub1/multiple-hello.xml -text
+config-processor-demo/src/main/resources/META-INF/config/xsl/hello.xsl -text
+config-processor-demo/src/main/resources/META-INF/config/xsl/inc/input-dump.xsl -text
 config-processor-demo/src/main/resources/META-INF/services/com.baxter.config.processor.xml -text
 config-processor/pom.xml -text
 config-processor/src/main/java/com/baxter/config/processor/AbstractProcessor.java -text
@@ -34,6 +34,7 @@ config-processor/src/main/java/com/baxter/config/processor/repo/Repository.java 
 config-processor/src/main/java/com/baxter/config/processor/repo/RepositoryException.java -text
 config-processor/src/main/java/com/baxter/config/processor/repo/URLLister.java -text
 config-processor/src/main/resources/META-INF/config/xsl/log4j.xsl -text
+config-processor/src/main/resources/META-INF/config/xsl/text-fmt.xsl -text
 config-processor/src/main/resources/com/baxter/config/processor/desc/jaxb.index -text
 config-processor/src/site/resources/uml/package-structure.png -text
 config-processor/src/site/resources/uml/package-structure.uxf -text
