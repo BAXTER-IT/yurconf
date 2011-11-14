@@ -78,16 +78,16 @@
 					processors implementation, in this case the urls must include protocol
 						<code>baxterxsl</code>, for example, <code>baxterxsl:log4j.xsl</code>.</p>
 
-				<p>In the stylesheet file you can import the other xsl files like this.</p> 
+				<p>In the stylesheet file you can import the other xsl files int this way.</p> 
 				
 				<source>
-    			&lt;xsl:import href="baxterxsl:text-fmt.xsl"/&gt;
-    			&lt;xsl:import href="inc/input-dump.xsl" /&gt;
+    				&lt;xsl:import href="baxterxsl:text-fmt.xsl"/&gt;
+    				&lt;xsl:import href="inc/input-dump.xsl" /&gt;
     			</source>
-    			
-    			<p>The links will be transformed to 
-    				/META-INF/config/xsl/text-fmt.xsl
-    				/META-INF/config/inc/input-dump.xsl</p>
+
+				<p>The links will be resolved to</p>
+				<p>/META-INF/config/xsl/text-fmt.xsl</p>
+				<p>/META-INF/config/inc/input-dump.xsl</p>
 
 				<p>Stylesheets may access all files available in the repository. The XSL is
 					responsible for loading the proper file. Custom URI Resolver supports the
@@ -106,7 +106,7 @@
 				</source>
 				
 				<p>The reference will be resolved as
-					CONFIG_REPO/com/baxter/demo2/hello-world.xm
+					CONFIG_REPO/com/baxter/demo2/hello-world.xml
 				while the other one will use the current product id com.baxter.demo and resolve the path as
 					CONFIG_REPO/com/baxter/demo/subDir/hello-world.xm</p>
 				
