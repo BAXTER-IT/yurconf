@@ -107,7 +107,7 @@
 				
 				<p>The reference will be resolved as
 					CONFIG_REPO/com/baxter/demo2/hello-world.xml
-				while the other one will use the current product id com.baxter.demo and resolve the path as
+				while the other one will use the current product id <code>com.baxter.demo</code> and resolve the path as
 					CONFIG_REPO/com/baxter/demo/subDir/hello-world.xm</p>
 				
 
