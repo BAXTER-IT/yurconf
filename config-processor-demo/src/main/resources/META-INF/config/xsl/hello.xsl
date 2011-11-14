@@ -10,10 +10,21 @@
     <xsl:template match="/">
         <xsl:text>Inputs:</xsl:text>
         <xsl:call-template name="CR"/>
-        <xsl:call-template name="input-dump" />
+        <xsl:call-template name="input-dump"/>
         <xsl:call-template name="CR"/>
         <xsl:call-template name="CR"/>
-        <xsl:apply-templates select="hello"/>
+        <!-- Load the hello-world and render it -->
+        <xsl:variable name="helloWorld" select="doc('baxterrepo:hello-world.xml')"/>
+        <xsl:call-template name="CR"/>
+        <xsl:text>hello-world.xml:</xsl:text>
+        <xsl:call-template name="CR"/>
+        <xsl:apply-templates select="$helloWorld/hello"/>
+        <!-- Load the multiple-hello and render it -->
+        <xsl:variable name="helloMultiple" select="doc('baxterrepo:sub1/multiple-hello.xml')"/>
+        <xsl:call-template name="CR"/>
+        <xsl:text>sub1/multiple-hello.xml:</xsl:text>
+        <xsl:call-template name="CR"/>
+        <xsl:apply-templates select="$helloMultiple/hello"/>
     </xsl:template>
 
     <xsl:template match="hello">
