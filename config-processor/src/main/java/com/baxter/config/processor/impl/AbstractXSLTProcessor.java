@@ -3,19 +3,23 @@
  */
 package com.baxter.config.processor.impl;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
-import javax.xml.transform.ErrorListener;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamSource;
 
 import com.baxter.config.om.ConfigID;
@@ -42,6 +46,14 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 
   protected static final String XSLT_PARAM_VARIANT = "configurationVariant";
 
+  private static final String PROTOCOL_XSL = "baxterxsl";
+
+  private static final String PREFIX_XSL = PROTOCOL_XSL + ":";
+
+  private static final String PROTOCOL_REPO = "baxterrepo";
+
+  private static final String PREFIX_REPO = PROTOCOL_REPO + ":";
+
   private final TransformerFactory transformerFactory = TransformerFactory.newInstance();
 
   /**
@@ -60,6 +72,8 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 
   private final WriteLock wLock = rwLock.writeLock();
 
+  private final RepoURIResolver repoURIResolver;
+
   /**
    * Initializes processor.
    * 
@@ -69,7 +83,8 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
   protected AbstractXSLTProcessor(final Descriptor descriptor)
   {
 	super(descriptor);
-	// TODO setup transformer factory
+	repoURIResolver = new RepoURIResolver();
+	transformerFactory.setURIResolver(new XslURIResolver());
   }
 
   @Override
@@ -140,10 +155,10 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 			  throw new ProcessorException(e);
 			}
 		  }
-		  rLock.lock();
 		}
 		finally
 		{
+		  rLock.lock();
 		  wLock.unlock();
 		}
 	  }
@@ -187,28 +202,71 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 	{
 	  transformer.setParameter(XSLT_PARAM_VARIANT, configurationId.getVariant());
 	}
-	transformer.setErrorListener(new ErrorListener()
-	{
+	
+	transformer.setErrorListener(new JustLogErrorListener());
 
-	  @Override
-	  public void warning(final TransformerException exception) throws TransformerException
-	  {
-		logger.warn("XSLT Warning", exception);
-	  }
+	transformer.setURIResolver(repoURIResolver);
+  }
+  
+  private class RepoURIResolver implements URIResolver
+  {
 
-	  @Override
-	  public void fatalError(final TransformerException exception) throws TransformerException
-	  {
-		logger.warn("XSLT Fatal", exception);
+	@Override
+    public Source resolve(String href, String base) throws TransformerException
+    {
+		if (href.startsWith(PREFIX_REPO))
+		{
+		  // repoPath can be either absolute (starts with /) or relative
+		  // if it is absolute, then it is absolute to REPOSITORY root, e.g. '/com/baxter/demo/my.xml' -> $REPO_ROOT/com/baxter/demo/my.xml
+		  // if it is relative, then it shall be resolved from the product's root, e.g. 'subX/other.xml' -> $REPO_ROOT/com/baxter/demo/subX/other.xml
+		  final String repoPath = href.substring(PREFIX_REPO.length());
+		  final File repoFile;
+		  if (repoPath.startsWith("/"))
+		  {
+			repoFile = new File(getFactory().getRepository().getRoot(), repoPath.substring(1));
+		  }
+		  else
+		  {
+			repoFile = new File(getFactory().getRepository().getProductDirectory(getDescriptor().getProductId()), repoPath);
+		  }
+		  try
+		  {
+			return new StreamSource(new FileInputStream(repoFile), href);
+		  }
+		  catch (final FileNotFoundException e)
+		  {
+			logger.error("Could not resolve repository file " + href, e);
+			throw new TransformerException(e);
+		  }
+		}
+		else
+		{
+		  return null;
+		}
 	  }
+	
+  }
+  
+  private class XslURIResolver implements URIResolver
+  {
 
-	  @Override
-	  public void error(final TransformerException exception) throws TransformerException
-	  {
-		logger.warn("XSLT Error", exception);
+	@Override
+    public Source resolve(String href, String base) throws TransformerException
+    {
+		if (href.startsWith(PREFIX_XSL))
+		{
+		  final String xslPath = href.substring(PREFIX_XSL.length());
+		  final String xslResourcePath = "/META-INF/config/xsl/" + xslPath;
+		  final InputStream xslStream = getClass().getResourceAsStream(xslResourcePath);
+		  final Source xslSource = new StreamSource(xslStream, href);
+		  return xslSource;
+		}
+		else
+		{
+		  return null;
+		}
 	  }
-	});
-	// TODO URI Resolver?
+	
   }
 
 }

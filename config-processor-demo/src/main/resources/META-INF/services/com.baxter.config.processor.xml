@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <descriptor xmlns="http://baxter-it.com/config/descriptor" version="1.0" productId="com.baxter.demo">
     <processors>
-        <processor class="com.baxter.config.processor.impl.XSLTProcessor" type="proba">
-            <parameter name="xsl">simple.xsl</parameter>
+        <processor class="com.baxter.config.processor.impl.XSLTProcessor" type="hello">
+            <parameter name="xsl">hello.xsl</parameter>
         </processor>
         <processor class="com.baxter.config.processor.impl.AsIsProcessor" type="asis"> </processor>
     </processors>

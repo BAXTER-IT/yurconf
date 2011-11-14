@@ -29,6 +29,7 @@ config-processor/src/main/java/com/baxter/config/processor/desc/Processor.java -
 config-processor/src/main/java/com/baxter/config/processor/desc/package-info.java -text
 config-processor/src/main/java/com/baxter/config/processor/impl/AbstractXSLTProcessor.java -text
 config-processor/src/main/java/com/baxter/config/processor/impl/AsIsProcessor.java -text
+config-processor/src/main/java/com/baxter/config/processor/impl/JustLogErrorListener.java -text
 config-processor/src/main/java/com/baxter/config/processor/impl/XSLTProcessor.java -text
 config-processor/src/main/java/com/baxter/config/processor/repo/Repository.java -text
 config-processor/src/main/java/com/baxter/config/processor/repo/RepositoryException.java -text
