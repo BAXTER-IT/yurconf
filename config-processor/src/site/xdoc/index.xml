@@ -54,9 +54,11 @@
 					for Price Engine Properties XML, etc.</p>
 
 				<p>In order to use this processor you define it in descriptor as following: </p>
-				<source> &lt;processor class="com.baxter.config.processor.impl.XSLTProcessor"
-					type="log4j"&gt; &lt;parameter name="xsl"&gt;log4j.xsl&lt;/parameter&gt;
-					&lt;/processor&gt; </source>
+				<source> 
+				    &lt;processor class="com.baxter.config.processor.impl.XSLTProcessor" type="log4j"&gt; 
+				      &lt;parameter name="xsl"&gt;log4j.xsl&lt;/parameter&gt;
+					&lt;/processor&gt; 
+				</source>
 				<p>Then you can request a configuration file with URL:
 						<code>http://localhost/config/com.baxter.demo/my-component/log4j</code> this
 					will return transformation result obtained with <code>log4j.xsl</code> template. </p>
@@ -85,8 +87,11 @@
     				&lt;xsl:import href="inc/input-dump.xsl" /&gt;
     			</source>
 
-				<p>The links will be resolved to</p>
+				<p>In the first case the text-fmt.xsl will be searched in the processors jar file under the next path.</p>
 				<p>/META-INF/config/xsl/text-fmt.xsl</p>
+                <p>Int the second case the file needs to be in the folder or sub folder relative to the folder in which 
+                the file is that contains the import</p>
+                <p>For example if the file is in the /META-INF/config directory the path will be</p>
 				<p>/META-INF/config/inc/input-dump.xsl</p>
 
 				<p>Stylesheets may access all files available in the repository. The XSL is

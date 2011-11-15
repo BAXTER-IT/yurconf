@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<console-appender name="CONSOLE">
+		<layout>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</layout>
+	</console-appender>
+
+	<rolling-file-appender name="COMMON_FILE">
+		<fileName>common.log</fileName>
+		<maxSize>5MB</maxSize>
+		<backupIndex>10</backupIndex>
+		<layout>%d{HH:mm:ss.SSS} [%thread] %-5level - %msg%n</layout>
+	</rolling-file-appender>
+
+	<logger name="my.package.2" level="WARN">
+	</logger>
+
+	<logger name="ROOT" level="DEBUG">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="COMMON_FILE" />
+	</logger>
+
+</configuration>
