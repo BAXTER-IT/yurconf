@@ -92,7 +92,7 @@ public abstract class AbstractProcessor
    * 
    * @return descriptor
    */
-  protected Descriptor getDescriptor()
+  public Descriptor getDescriptor()
   {
 	return this.descriptor;
   }
@@ -102,7 +102,7 @@ public abstract class AbstractProcessor
 	this.factory = factory;
   }
 
-  protected ProcessorFactory getFactory()
+  public ProcessorFactory getFactory()
   {
 	return this.factory;
   }

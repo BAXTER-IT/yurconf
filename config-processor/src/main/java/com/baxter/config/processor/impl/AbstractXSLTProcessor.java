@@ -3,11 +3,7 @@
  */
 package com.baxter.config.processor.impl;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
@@ -44,16 +40,6 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 
   protected static final String XSLT_PARAM_VARIANT = "configurationVariant";
 
-  // TODO refactor to enum
-  private static final String PROTOCOL_XSL = "baxterxsl";
-
-  private static final String PREFIX_XSL = PROTOCOL_XSL + ":";
-
-  // TODO refactor to enum
-  private static final String PROTOCOL_REPO = "baxterrepo";
-
-  private static final String PREFIX_REPO = PROTOCOL_REPO + ":";
-
   private final TransformerFactory transformerFactory = TransformerFactory.newInstance();
 
   /**
@@ -72,8 +58,6 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 
   private final WriteLock wLock = rwLock.writeLock();
 
-  private final RepoURIResolver repoURIResolver;
-
   /**
    * Initializes processor.
    * 
@@ -83,15 +67,16 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
   protected AbstractXSLTProcessor(final Descriptor descriptor)
   {
 	super(descriptor);
-	repoURIResolver = new RepoURIResolver();
-	transformerFactory.setURIResolver(new XslURIResolver());
+	transformerFactory.setURIResolver(new BaxterURIResolver());
   }
-  
-  public String getStylesheet() {
+
+  public String getStylesheet()
+  {
 	return this.stylesheet;
   }
-  
-  public void setStylesheet( final String stylesheet ) {
+
+  public void setStylesheet(final String stylesheet)
+  {
 	this.stylesheet = stylesheet;
   }
 
@@ -197,71 +182,28 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 	{
 	  transformer.setParameter(XSLT_PARAM_VARIANT, configurationId.getVariant());
 	}
-	
+
 	transformer.setErrorListener(new JustLogErrorListener());
-
-	transformer.setURIResolver(repoURIResolver);
+	transformer.setURIResolver(this.transformerFactory.getURIResolver());
   }
-  
-  private class RepoURIResolver implements URIResolver
+
+  private class BaxterURIResolver implements URIResolver
   {
 
 	@Override
-    public Source resolve(String href, String base) throws TransformerException
-    {
-		if (href.startsWith(PREFIX_REPO))
-		{
-		  // repoPath can be either absolute (starts with /) or relative
-		  // if it is absolute, then it is absolute to REPOSITORY root, e.g. '/com/baxter/demo/my.xml' -> $REPO_ROOT/com/baxter/demo/my.xml
-		  // if it is relative, then it shall be resolved from the product's root, e.g. 'subX/other.xml' -> $REPO_ROOT/com/baxter/demo/subX/other.xml
-		  final String repoPath = href.substring(PREFIX_REPO.length());
-		  final File repoFile;
-		  if (repoPath.startsWith("/"))
-		  {
-			repoFile = new File(getFactory().getRepository().getRoot(), repoPath.substring(1));
-		  }
-		  else
-		  {
-			repoFile = new File(getFactory().getRepository().getProductDirectory(getDescriptor().getProductId()), repoPath);
-		  }
-		  try
-		  {
-			return new StreamSource(new FileInputStream(repoFile), href);
-		  }
-		  catch (final FileNotFoundException e)
-		  {
-			logger.error("Could not resolve repository file " + href, e);
-			throw new TransformerException(e);
-		  }
-		}
-		else
-		{
-		  return null;
-		}
+	public Source resolve(final String href, final String base) throws TransformerException
+	{
+	  try
+	  {
+		final BaxterProtocol protocol = BaxterProtocol.protocolFor(href);
+		return protocol.getSource(href, AbstractXSLTProcessor.this);
 	  }
-	
-  }
-  
-  private class XslURIResolver implements URIResolver
-  {
+	  catch (final IllegalArgumentException e)
+	  {
+		return null;
+	  }
+	}
 
-	@Override
-    public Source resolve(String href, String base) throws TransformerException
-    {
-		if (href.startsWith(PREFIX_XSL))
-		{
-		  final String xslPath = href.substring(PREFIX_XSL.length());
-		  final String xslResourcePath = "/META-INF/config/xsl/" + xslPath;
-		  final InputStream xslStream = getClass().getResourceAsStream(xslResourcePath);
-		  final Source xslSource = new StreamSource(xslStream, href);
-		  return xslSource;
-		}
-		else
-		{
-		  return null;
-		}
-	  }
-	
   }
 
 }
