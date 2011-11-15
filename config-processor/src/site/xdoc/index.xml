@@ -103,14 +103,14 @@
 						<code>CONFIG_REPO</code> is a path to configuration repository on
 					filesystem.</p>
 				
-				<p>We can also use reference with full path by starting the path with / and with relative path.</p>
+				<p>We can use reference with full path by starting the path with / and with relative path.</p>
 				
 				<source>
 					&lt;xsl:variable name="helloWorld" select="document('baxterrepo:/com/baxter/demo2/hello-world.xml')"/&gt;
 					&lt;xsl:variable name="helloWorld" select="document('baxterrepo:subDir/hello-world.xml')"/&gt;
 				</source>
 				
-				<p>The reference will be resolved as
+				<p>The first reference will be resolved as the path from the BAXTER_REPO
 					CONFIG_REPO/com/baxter/demo2/hello-world.xml
 				while the other one will use the current product id <code>com.baxter.demo</code> and resolve the path as
 					CONFIG_REPO/com/baxter/demo/subDir/hello-world.xm</p>
