@@ -18,6 +18,7 @@ config-processor-demo/src/main/resources/META-INF/config/default/sub1/multiple-h
 config-processor-demo/src/main/resources/META-INF/config/xsl/hello.xsl -text
 config-processor-demo/src/main/resources/META-INF/config/xsl/inc/input-dump.xsl -text
 config-processor-demo/src/main/resources/META-INF/config/xsl/log4j.xsl -text
+config-processor-demo/src/main/resources/META-INF/config/xsl/logback.xsl -text
 config-processor-demo/src/main/resources/META-INF/services/com.baxter.config.processor.xml -text
 config-processor/pom.xml -text
 config-processor/src/main/java/com/baxter/config/processor/AbstractProcessor.java -text
@@ -39,6 +40,7 @@ config-processor/src/main/java/com/baxter/config/processor/repo/Repository.java 
 config-processor/src/main/java/com/baxter/config/processor/repo/RepositoryException.java -text
 config-processor/src/main/java/com/baxter/config/processor/repo/URLLister.java -text
 config-processor/src/main/resources/META-INF/config/xsl/log4j-base.xsl -text
+config-processor/src/main/resources/META-INF/config/xsl/logback-base.xsl -text
 config-processor/src/main/resources/META-INF/config/xsl/text-fmt.xsl -text
 config-processor/src/main/resources/com/baxter/config/processor/desc/jaxb.index -text
 config-processor/src/site/resources/uml/package-structure.png -text
