@@ -115,7 +115,34 @@
 				while the other one will use the current product id <code>com.baxter.demo</code> and resolve the path as
 					CONFIG_REPO/com/baxter/demo/subDir/hello-world.xm</p>
 				
-
+                <h4>Predefined Processor Stylesheets</h4>
+              
+                <map id="predefined-stylesheets">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Type</th>
+                        <th>Schema</th>
+                        <th>Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Logging Configuration</td>
+                        <td>
+                          <a href="xsd/baxter-config-log.xsd">baxter-config-log.xsd</a>
+                        </td>
+                        <td>
+                          Defines the logging configuration for application. The schema describes the common format that can be
+                          transformed to Log4J and Logback configurations. There are predefined stylesheets for both logging
+                          frameworks.
+                          <p>See sample of log4j.xsl and logback.xsl in Demo Processors. TODO place link here.</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </map>
+            
 			</subsection>
 
 		</section>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://baxter-it.com/config/log" xmlns:bcl="http://baxter-it.com/config/log">
+
+    <xs:element name="configuration">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="console-appender" type="bcl:TConsoleAppender"/>
+                <xs:element name="file-appender" type="bcl:TFileAppender"/>
+                <xs:element name="rolling-file-appender" type="bcl:TRollingFileAppender"/>
+                <xs:element name="logger" type="bcl:TLogger"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="TConsoleAppender">
+        <xs:complexContent>
+            <xs:extension base="bcl:TAppender">
+                <xs:attribute name="name" use="required" type="xs:NCName"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TFileAppender">
+        <xs:complexContent>
+            <xs:extension base="bcl:TAppender">
+                <xs:attribute name="append" use="optional" type="xs:boolean"/>
+                <xs:attribute name="file" use="required" type="xs:NCName"/>
+                <xs:attribute name="name" use="required" type="xs:NCName"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TRollingFileAppender">
+        <xs:complexContent>
+            <xs:extension base="bcl:TFileAppender">
+                <xs:attribute name="backupIndex" use="optional" type="xs:integer"/>
+                <xs:attribute name="maxSize" use="optional" type="xs:NMTOKEN"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TLogger">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="appender-ref"
+                type="bcl:TAppenderRef"/>
+        </xs:sequence>
+        <xs:attribute name="additivity" type="xs:boolean"/>
+        <xs:attribute name="level" use="optional" type="xs:NCName"/>
+        <xs:attribute name="name" use="required" type="xs:NCName"/>
+    </xs:complexType>
+
+    <xs:complexType name="TAppenderRef">
+        <xs:attribute name="ref" use="required" type="xs:NCName"/>
+    </xs:complexType>
+
+    <xs:complexType name="TAppender">
+        <xs:sequence>
+            <xs:element name="layout" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

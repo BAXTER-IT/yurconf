@@ -45,6 +45,7 @@ config-processor/src/main/resources/META-INF/config/xsl/text-fmt.xsl -text
 config-processor/src/main/resources/com/baxter/config/processor/desc/jaxb.index -text
 config-processor/src/site/resources/uml/package-structure.png -text
 config-processor/src/site/resources/uml/package-structure.uxf -text
+config-processor/src/site/resources/xsd/baxter-config-log.xsd -text
 config-processor/src/site/site.xml -text
 config-processor/src/site/xdoc/descriptor.xml -text
 config-processor/src/site/xdoc/index.xml -text
