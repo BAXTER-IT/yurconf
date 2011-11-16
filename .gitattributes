@@ -47,6 +47,7 @@ config-processor/src/site/resources/uml/package-structure.png -text
 config-processor/src/site/resources/uml/package-structure.uxf -text
 config-processor/src/site/resources/xsd/baxter-config-log.xsd -text
 config-processor/src/site/site.xml -text
+config-processor/src/site/xdoc/config/logging.xml -text
 config-processor/src/site/xdoc/descriptor.xml -text
 config-processor/src/site/xdoc/index.xml -text
 config-processor/src/site/xdoc/packaging.xml -text

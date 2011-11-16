@@ -11,6 +11,11 @@
       <item name="Packaging" href="packaging.html"/>
       <item name="Descriptor" href="descriptor.html"/>
     </menu>
+    
+    <menu name="Configuration Sources" inherit="top" inheritAsRef="true">
+      <item name="Logging" href="config/logging.html" />
+      <item name="JMV" href="config/jvm.html" />
+    </menu>
 
   </body>
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+	<properties>
+		<title>Logging Configuration Source</title>
+		<author email="ykryshchuk@n-ix.com.ua">Yuriy Kryshchuk</author>
+	</properties>
+
+	<body>
+
+		<section name="Overview">
+		</section>
+		
+		<section name="Schema">
+			<p>This is an <a href="../xsd/baxter-config-log.xsd">XSD Schema</a> for logging configuration source.</p>
+			<iframe src="../xsd/baxter-config-log.xsd" width="100%" height="600"></iframe>
+		</section>
+		
+		<section name="Sample">
+			<p>TODO sample XML here....</p>
+		</section>
+		
+		<section name="Conventions">
+			<p>Describe processing conventions here...</p>
+		</section>
+
+	</body>
+
+</document>
