@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
+    xmlns:bcl="http://baxter-it.com/config/log"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs bcl" version="2.0">
 
-    <xsl:output encoding="UTF-8" method="xml" doctype-system="logback.dtd"/>
+    <xsl:output encoding="UTF-8" method="xml" />
 
-    <xsl:template match="configuration">
+    <xsl:template match="bcl:configuration">
         <configuration>
             <xsl:apply-templates select="*"/>
         </configuration>
     </xsl:template>
 
-    <xsl:template match="logger[@name='ROOT']">
+    <xsl:template match="bcl:logger[@name='ROOT']">
         <root>
             <xsl:apply-templates select="@level"/>
-            <xsl:apply-templates select="appender-ref"/>
+            <xsl:apply-templates select="bcl:appender-ref"/>
         </root>
     </xsl:template>
 
-    <xsl:template match="logger/@level">
+    <xsl:template match="bcl:logger/@level">
         <xsl:attribute name="level">
             <xsl:value-of select="."/>
         </xsl:attribute>
     </xsl:template>
 
-    <xsl:template match="appender-ref">
+    <xsl:template match="bcl:appender-ref">
         <appender-ref>
             <xsl:attribute name="ref">
                 <xsl:value-of select="@ref"/>
@@ -31,38 +32,38 @@
         </appender-ref>
     </xsl:template>
 
-    <xsl:template match="logger">
+    <xsl:template match="bcl:logger">
         <logger>
             <xsl:apply-templates select="@name"/>
             <xsl:apply-templates select="@additivity"/>
             <xsl:apply-templates select="@level"/>
-            <xsl:apply-templates select="appender-ref"/>
+            <xsl:apply-templates select="bcl:appender-ref"/>
         </logger>
     </xsl:template>
 
-    <xsl:template match="logger/@name">
+    <xsl:template match="bcl:logger/@name">
         <xsl:attribute name="name">
             <xsl:value-of select="."/>
         </xsl:attribute>
     </xsl:template>
 
-    <xsl:template match="logger/@additivity">
+    <xsl:template match="bcl:logger/@additivity">
         <xsl:attribute name="additivity">
             <xsl:value-of select="."/>
         </xsl:attribute>
     </xsl:template>
 
-    <xsl:template match="console-appender">
+    <xsl:template match="bcl:console-appender">
         <appender class="ch.qos.logback.core.ConsoleAppender">
             <xsl:attribute name="name">
                 <xsl:value-of select="@name"/>
             </xsl:attribute>
 
-            <xsl:apply-templates select="layout"/>
+            <xsl:apply-templates select="bcl:layout"/>
         </appender>
     </xsl:template>
 
-    <xsl:template match="layout">
+    <xsl:template match="bcl:layout">
         <encoder>
             <pattern>
                 <xsl:value-of select="."/>
@@ -70,33 +71,37 @@
         </encoder>
     </xsl:template>
 
-    <xsl:template match="file-appender">
+    <xsl:template match="bcl:file-appender">
         <appender class="ch.qos.logback.core.FileAppender">
             <xsl:apply-templates select="@name"/>
-            <xsl:apply-templates select="*"/>
+            <xsl:apply-templates select="@file"/>
+            <xsl:apply-templates />
         </appender>
     </xsl:template>
 
-    <xsl:template match="append">
+    <xsl:template match="bcl:append">
         <append>
             <xsl:value-of select="."/>
         </append>
     </xsl:template>
 
-    <xsl:template match="rolling-file-appender">
+    <xsl:template match="bcl:rolling-file-appender">
         <appender class="ch.qos.logback.core.rolling.RollingFileAppender">
             <xsl:apply-templates select="@name"/>
-            <xsl:apply-templates select="*"/>
+            <xsl:apply-templates select="@file"/>
+            <xsl:apply-templates select="@backupIndex"/>
+            <xsl:apply-templates select="@maxSize"/>
+            <xsl:apply-templates />
         </appender>
     </xsl:template>
 
-    <xsl:template match="file-appender/@name | rolling-file-appender/@name">
+    <xsl:template match="bcl:file-appender/@name | bcl:rolling-file-appender/@name">
         <xsl:attribute name="name">
             <xsl:value-of select="."/>
         </xsl:attribute>
     </xsl:template>
 
-    <xsl:template match="maxSize">
+    <xsl:template match="bcl:rolling-file-appender/@maxSize">
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <maxFileSize>
                 <xsl:value-of select="."/>
@@ -104,10 +109,10 @@
         </triggeringPolicy>
     </xsl:template>
 
-    <xsl:template match="backupIndex">
+    <xsl:template match="bcl:rolling-file-appender/@backupIndex">
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <fileNamePattern>
-                <xsl:value-of select="../fileName"/>
+                <xsl:value-of select="../@file"/>
                 <xsl:text>-%i</xsl:text>
             </fileNamePattern>
             <minIndex>
@@ -123,7 +128,7 @@
         <xsl:text>--NOT IMPLEMENTED--</xsl:text>
     </xsl:template>
     
-    <xsl:template match="fileName">
+    <xsl:template match="bcl:rolling-file-appender/@file | bcl:file-appender/@file">
         <file>
             <xsl:call-template name="build-log-directory-name"/>
             <xsl:value-of select="."/>

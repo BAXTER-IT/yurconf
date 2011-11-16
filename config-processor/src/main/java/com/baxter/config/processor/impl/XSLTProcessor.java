@@ -40,6 +40,7 @@ public class XSLTProcessor extends AbstractXSLTProcessor
   @Override
   public void process(final ProcessorContext context) throws ProcessorException
   {
+	logger.trace("Processing with {}, stylesheet {}", getDescriptor(), getStylesheet());
 	final Transformer transformer = getTransformer(context.getConfigID());
 	// Prepare the input source
 	final Source source = new DOMSource();
