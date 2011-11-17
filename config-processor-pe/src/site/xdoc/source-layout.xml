@@ -12,8 +12,126 @@
         <section name="Overview">
             <p>This document describes the format and layout of source XMLs for Price Engine
                 configuration processors. This includes the naming of source files, conventions for
-                content, transformation stylesheets description...</p>
+                content, transformation stylesheets description.</p>
+            <p>All defined configuration sources are described in separate sections of this
+                document. Please also refer to the <a href="components.html">Price Engine Components
+                    Configuration</a> document that describes all kinds of configurations used for
+                Price Engine components.</p>
+            <p>The root of configuration repository for Price Engine product is
+                    <code>$REPO_HOME/com/baxter/pe</code> directory on Configuration Server's file
+                system. Here is a list of source files supported by PE configuration processors:</p>
+
+            <ul>
+                <li>log.xml</li>
+                <li>jms.xml</li>
+            </ul>
+
+            <p>In addition to these configuration sources there can be configuration variant files.
+                The variant conventions are described for each configuration source separately in
+                sections below.</p>
+
         </section>
+
+        <section name="Logging Source">
+            <code>$REPO_HOME/com/baxter/pe/log.xml</code>
+
+            <p>Logging source defines the configuration for logging frameworks such as Log4J or
+                Logback. The same source is used to generate all types of final configuration.</p>
+
+            <subsection name="Schema"> </subsection>
+
+            <subsection name="Variants">
+
+                <p>The logging configuration can be overriden by source variants. The overriding
+                    will be then applied on the phase of generating the configurationm file. Source
+                    variants for logging configuration should follow the filename convention:
+                        <code>$REPO_HOME/com/baxter/pe/log-[variantName].xml</code>, where
+                        <code>[variantName]</code> is a variant part of request URL.</p>
+
+            </subsection>
+
+            <subsection name="Usage"> </subsection>
+
+        </section>
+
+        <section name="JMS Configuration Source">
+            <code>$REPO_HOME/com/baxter/pe/jms.xml</code>
+
+            <p>This configuration source defines all information related to JMS configuration for
+                Price Engine. This includes configuration of JMS Nodes Instances, authorization and
+                authentication, configuration of channels (topics and queues). List of the channels
+                used by Price Engine components can be found in <a href="jms-channels.html">this
+                    document</a>.</p>
+
+            <subsection name="Schema">
+                <p>The configuration source groups all settings into three parts: nodes, channels
+                    and general settings. Please also refer to <a href="xsd/config-pe-jms.xsd">XML
+                        Schema</a> for more details.</p>
+
+                <source><![CDATA[
+<jms xmlns="http://baxter-it.com/config/pe/jms">
+    <node id="node1" host="localhost" port="4001" router="router1">
+    </node>
+    <node id="node2" host="localhost" port="4002" router="router2">
+        <authentication username="testUser2" password="test2" />
+    </node>
+    <queue name="Trade2DB" alias="trade2db" node="node1">
+        <component id="price-engine-broadcast" write="true" />
+        <component id="price-engine-dbserver" read="true" />
+    </queue>
+    <queue name="TWC2Server" alias="twc2tws" node="node2">
+        <component id="price-engine-trackwheel" write="true" />
+        <component id="price-engine-twserver" read="true" />
+    </queue>
+    <topic name="TWS2Client" alias="tws2twc" node="node2">
+        <component id="price-engine-trackwheel" read="true" />
+        <component id="price-engine-twserver" write="true" />
+    </topic>
+</jms>
+                ]]></source>
+
+                <h5>JMS Nodes</h5>
+
+                <p>Every node describes a physical JMS instance. This includes the host and port
+                    where JMS is running, router, authentication rules etc.</p>
+
+                <source><![CDATA[
+<node id="node2" host="localhost" port="4002" router="router2">
+    <authentication username="testUser2" password="test2" />
+</node>
+                ]]></source>
+
+                <h5>Channels</h5>
+
+                <p>Channels configuration includes the setup for JMS Topics and Queues. Each channel
+                    can be described with channel name and alias (used by PE code at runtime). The
+                    channel is assigned to a particular JMS node (should be configured there). The
+                    list of components which use this channel is provided via nested elements.</p>
+
+                <source><![CDATA[
+<queue name="TWC2Server" alias="twc2tws" node="node2">
+    <component id="price-engine-trackwheel" write="true" />
+    <component id="price-engine-twserver" read="true" />
+</queue>
+<topic name="TWS2Client" alias="tws2twc" node="node2">
+    <component id="price-engine-trackwheel" read="true" />
+    <component id="price-engine-twserver" write="true" />
+</topic>
+                ]]></source>
+
+            </subsection>
+
+            <subsection name="Variants">
+                <p>Each configuration element from the source file can be overriden or extended by
+                    variant files. The name of variant file should follow this convention:
+                        <code>$REPO_HOME/com/baxter/pe/jms-[variantName].xml</code>, where
+                        <code>[variantName]</code> is a variant part of request URL.</p>
+            </subsection>
+
+            <subsection name="Usage"> </subsection>
+
+        </section>
+
     </body>
 
 </document>

@@ -103,10 +103,10 @@
 				<p>We can use reference with full path by starting the path with / and with relative
 					path.</p>
 
-				<source> &lt;xsl:variable name="helloWorld"
-					select="document('baxterrepo:/com/baxter/demo2/hello-world.xml')"/&gt;
-					&lt;xsl:variable name="helloWorld"
-					select="document('baxterrepo:subDir/hello-world.xml')"/&gt; </source>
+				<source> 
+					&lt;xsl:variable name="helloWorld" select="document('baxterrepo:/com/baxter/demo2/hello-world.xml')"/&gt;
+					&lt;xsl:variable name="helloWorld" select="document('baxterrepo:subDir/hello-world.xml')"/&gt; 
+				</source>
 
 				<p>The first reference will be resolved as the path from the BAXTER_REPO
 					CONFIG_REPO/com/baxter/demo2/hello-world.xml while the other one will use the

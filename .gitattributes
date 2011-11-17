@@ -21,6 +21,7 @@ config-processor-demo/src/main/resources/META-INF/config/xsl/log4j.xsl -text
 config-processor-demo/src/main/resources/META-INF/config/xsl/logback.xsl -text
 config-processor-demo/src/main/resources/META-INF/services/com.baxter.config.processor.xml -text
 config-processor-pe/pom.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/jms.xml -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/log4j.xsl -text
 config-processor-pe/src/main/resources/META-INF/services/com.baxter.config.processor.xml -text
 config-processor-pe/src/site/site.xml -text
