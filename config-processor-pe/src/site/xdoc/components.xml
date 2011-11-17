@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+    <properties>
+        <title>Price Engine Components Configuration</title>
+        <author email="ykryshchuk@n-ix.com.ua">Yuriy Kryshchuk</author>
+    </properties>
+
+    <body>
+        <section name="Overview">
+            <p>This document summarizes the configuration needed for all Price Engine
+                components...</p>
+        </section>
+
+        <section name="Price Engine Components">
+
+            <subsection name="DBServer">
+                <ol>
+                    <li>JMS Channels Configuration. </li>
+                    <li>Database Connection. </li>
+                    <li>LDAP Configuration</li>
+                </ol>
+                <h5>JMS Channels</h5>
+                <ul>
+                    <li>broadcast - to post</li>
+                </ul>
+            </subsection>
+            
+            <subsection name="Blotter Server"/>
+            
+            <subsection name="TrackWheel Servers"/>
+            
+            <subsection name="Dashboard Servlet"/>
+            
+            <subsection name="Validators"/>
+            
+            <subsection name="Forward Controllers"/>
+            
+            <subsection name="Vendors"/>
+            
+            <subsection name="Broadcast"/>
+            
+            <subsection name="AdminTool"/>
+            
+            <subsection name="Blotter"/>
+            
+            <subsection name="TradingTool"/>
+            
+            <subsection name="Forwards Monitor"/>
+            
+            <subsection name="TrackWheel"/>
+
+
+        </section>
+
+        <section name="ClientMessaging Plugins">
+            <subsection name="Bloomberg"/>
+            <subsection name="FXAll"/>
+
+        </section>
+
+    </body>
+
+</document>

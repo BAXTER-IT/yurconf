@@ -23,6 +23,11 @@ config-processor-demo/src/main/resources/META-INF/services/com.baxter.config.pro
 config-processor-pe/pom.xml -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/log4j.xsl -text
 config-processor-pe/src/main/resources/META-INF/services/com.baxter.config.processor.xml -text
+config-processor-pe/src/site/site.xml -text
+config-processor-pe/src/site/xdoc/components.xml -text
+config-processor-pe/src/site/xdoc/index.xml -text
+config-processor-pe/src/site/xdoc/jms-channels.xml -text
+config-processor-pe/src/site/xdoc/source-layout.xml -text
 config-processor/pom.xml -text
 config-processor/src/main/java/com/baxter/config/processor/AbstractProcessor.java -text
 config-processor/src/main/java/com/baxter/config/processor/ProcessorContext.java -text

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/DECORATION/1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/DECORATION/1.1.0 http://maven.apache.org/xsd/decoration-1.1.0.xsd"
+    name="Price Engine Configuration Processor">
+    
+    <body>
+        
+        <menu name="Configuration Processors" inherit="top" inheritAsRef="true">
+            <item name="Summary" href="index.html"/>
+            <item name="Components Configuration" href="components.html"/>
+            <item name="XML Source Layout" href="source-layout.html"/>
+            <item name="JMS Channels" href="jms-channels.html"/>
+        </menu>
+        
+    </body>
+    
+</project>
