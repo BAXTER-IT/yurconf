@@ -22,7 +22,7 @@
                 system. Here is a list of source files supported by PE configuration processors:</p>
 
             <ul>
-                <li>log.xml</li>
+                <li>log-*.xml</li>
                 <li>jms.xml</li>
             </ul>
 
@@ -33,10 +33,19 @@
         </section>
 
         <section name="Logging Source">
-            <code>$REPO_HOME/com/baxter/pe/log.xml</code>
+            <code>$REPO_HOME/com/baxter/pe/log-*.xml</code>
 
             <p>Logging source defines the configuration for logging frameworks such as Log4J or
                 Logback. The same source is used to generate all types of final configuration.</p>
+
+            <p>Each Price Engine component's log is configured in a separate file. Following are the
+                sample file names:</p>
+
+            <ul>
+                <li>log-price-engine-dbserver.xml</li>
+                <li>log-price-engine-trackwheel.xml</li>
+                <li>log-price-engine-broadcast.xml</li>
+            </ul>
 
             <subsection name="Schema"> </subsection>
 
@@ -45,8 +54,15 @@
                 <p>The logging configuration can be overriden by source variants. The overriding
                     will be then applied on the phase of generating the configurationm file. Source
                     variants for logging configuration should follow the filename convention:
-                        <code>$REPO_HOME/com/baxter/pe/log-[variantName].xml</code>, where
-                        <code>[variantName]</code> is a variant part of request URL.</p>
+                        <code>$REPO_HOME/com/baxter/pe/log-componentId-(variantName).xml</code>,
+                    where <code>componentId</code> is Price Engine component identifier and <code>variant</code> is a variant part of request URL. Here are
+                    sample filenames for variants:</p>
+
+                <ul>
+                    <li>log-price-engine-broadcast(Local).xml</li>
+                    <li>log-price-engine-broadcast(Sydney).xml</li>
+                    <li>log-price-engine-blotter(experimental).xml</li>
+                </ul>
 
             </subsection>
 
@@ -124,8 +140,13 @@
             <subsection name="Variants">
                 <p>Each configuration element from the source file can be overriden or extended by
                     variant files. The name of variant file should follow this convention:
-                        <code>$REPO_HOME/com/baxter/pe/jms-[variantName].xml</code>, where
-                        <code>[variantName]</code> is a variant part of request URL.</p>
+                        <code>$REPO_HOME/com/baxter/pe/jms(variant).xml</code>, where
+                        <code>variant</code> is a variant part of request URL.</p>
+                
+                <ul>
+                    <li>jms(TestEnv).xml</li>
+                    <li>jms(SwiftMQ-7).xml</li>
+                </ul>
             </subsection>
 
             <subsection name="Usage"> </subsection>

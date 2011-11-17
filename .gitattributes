@@ -64,6 +64,10 @@ config-processor/src/test/java/com/baxter/config/processor/TestProcessorFactory.
 config-processor/src/test/java/com/baxter/config/processor/desc/TestLoader.java -text
 config-processor/src/test/resources/com/baxter/config/processor/desc/data/test-descriptor-1.xml -text
 config-processor/src/test/resources/log4j.xml -text
+config-processor/src/test/resources/xslt/merge/input-merge.xsl -text
+config-processor/src/test/resources/xslt/merge/input.xml -text
+config-processor/src/test/resources/xslt/merge/input1.xml -text
+config-processor/src/test/resources/xslt/merge/input2.xml -text
 config-server/pom.xml -text
 config-server/src/main/java/com/baxter/config/servlet/RestfulServlet.java -text
 config-server/src/main/resources/log4j.xml -text

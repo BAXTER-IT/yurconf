@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<input xmlns="http://proba">
+    <block id="id1" name="block id1 in input1" type="generic">
+        
+    </block>
+    
+    <block id="id2" name="block id2 in input1" type="custom" xmlns:gg="http://gg">
+    </block>
+    
+    <frame id="f1">
+        <param name="p1">VALUE 1.1</param>
+        <param name="p2">VALUE 1.2</param>
+    </frame>
+    <frame id="f2">
+        <param name="p1">VALUE 2.1</param>
+        <param name="p2">VALUE 2.2</param>
+    </frame>
+</input>
