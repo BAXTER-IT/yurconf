@@ -94,7 +94,7 @@
         <plugin>
           <groupId>org.apache.jmeter</groupId>
           <artifactId>maven-jmeter-plugin</artifactId>
-          <version>1.0</version>
+          <version>1.2</version>
         </plugin>
         <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build 
           itself. -->
