@@ -12,7 +12,7 @@
         <param name="p2">VALUE 1.2</param>
     </frame>
     <frame id="f2">
-        <param name="p1">VALUE 2.1</param>
+        <param id="a" name="p1">VALUE 2.1</param>
         <param name="p2">VALUE 2.2</param>
     </frame>
 </input>
