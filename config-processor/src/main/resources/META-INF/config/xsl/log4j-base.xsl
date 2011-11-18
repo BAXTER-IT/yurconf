@@ -8,6 +8,7 @@
 
 
   <xsl:template match="bcl:configuration">
+      <xsl:message>Starting to process log</xsl:message>
     <log4j:configuration debug="true">
       <xsl:apply-templates select="*"/>
     </log4j:configuration>

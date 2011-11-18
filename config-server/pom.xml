@@ -37,6 +37,12 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>config-processor-demo</artifactId>
 		</dependency>
+		<!-- TODO review the ways to add processors to application -->
+		<dependency>
+			<groupId>com.baxter.pe</groupId>
+			<artifactId>config-processor-pe</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -49,6 +55,21 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon-dom</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon-xpath</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 

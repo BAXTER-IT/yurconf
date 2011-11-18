@@ -22,6 +22,7 @@ config-processor-demo/src/main/resources/META-INF/config/xsl/logback.xsl -text
 config-processor-demo/src/main/resources/META-INF/services/com.baxter.config.processor.xml -text
 config-processor-pe/pom.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/jms.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-dbserver.xml -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/log4j.xsl -text
 config-processor-pe/src/main/resources/META-INF/services/com.baxter.config.processor.xml -text
 config-processor-pe/src/site/site.xml -text
@@ -50,6 +51,7 @@ config-processor/src/main/java/com/baxter/config/processor/repo/RepositoryExcept
 config-processor/src/main/java/com/baxter/config/processor/repo/URLLister.java -text
 config-processor/src/main/resources/META-INF/config/xsl/log4j-base.xsl -text
 config-processor/src/main/resources/META-INF/config/xsl/logback-base.xsl -text
+config-processor/src/main/resources/META-INF/config/xsl/repo-base.xsl -text
 config-processor/src/main/resources/META-INF/config/xsl/text-fmt.xsl -text
 config-processor/src/main/resources/com/baxter/config/processor/desc/jaxb.index -text
 config-processor/src/site/resources/uml/package-structure.png -text

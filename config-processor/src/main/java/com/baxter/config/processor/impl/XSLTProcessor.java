@@ -5,12 +5,11 @@ package com.baxter.config.processor.impl;
 
 import java.io.IOException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
-import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import com.baxter.config.processor.ProcessorContext;
@@ -42,8 +41,6 @@ public class XSLTProcessor extends AbstractXSLTProcessor
   {
 	logger.trace("Processing with {}, stylesheet {}", getDescriptor(), getStylesheet());
 	final Transformer transformer = getTransformer(context.getConfigID());
-	// Prepare the input source
-	final Source source = new DOMSource();
 	// Write content type
 	context.setContentType(transformer.getOutputProperty(OutputKeys.MEDIA_TYPE),
 	    transformer.getOutputProperty(OutputKeys.ENCODING));
@@ -53,11 +50,16 @@ public class XSLTProcessor extends AbstractXSLTProcessor
 	  final Result result = new StreamResult(context.getOutputStream());
 	  try
 	  {
-		transformer.transform(source, result);
+		transformer.transform(getXmlSource(context), result);
 	  }
 	  catch (final TransformerException e)
 	  {
 		logger.error("XSLT failed", e);
+		throw new ProcessorException(e);
+	  }
+	  catch (final ParserConfigurationException e)
+	  {
+		logger.error("Could not create source XML", e);
 		throw new ProcessorException(e);
 	  }
 	}

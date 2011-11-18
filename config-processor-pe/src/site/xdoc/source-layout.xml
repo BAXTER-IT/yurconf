@@ -85,7 +85,7 @@
                         Schema</a> for more details.</p>
 
                 <source><![CDATA[
-<jms xmlns="http://baxter-it.com/config/pe/jms">
+<configuration xmlns="http://baxter-it.com/config/pe/jms">
     <node id="node1" host="localhost" port="4001" router="router1">
     </node>
     <node id="node2" host="localhost" port="4002" router="router2">
@@ -103,7 +103,7 @@
         <component id="price-engine-trackwheel" read="true" />
         <component id="price-engine-twserver" write="true" />
     </topic>
-</jms>
+</configuration>
                 ]]></source>
 
                 <h5>JMS Nodes</h5>

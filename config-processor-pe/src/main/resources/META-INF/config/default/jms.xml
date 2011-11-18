@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jms xmlns="http://baxter-it.com/config/pe/jms">
+<configuration xmlns="http://baxter-it.com/config/pe/jms">
     
     <!-- JMS Nodes -->
     
@@ -21,4 +21,4 @@
         <component id="price-engine-dbserver" read="true" />
     </queue>
     
-</jms>
+</configuration>

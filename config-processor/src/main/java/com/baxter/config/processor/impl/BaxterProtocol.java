@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Custom Baxter Protocols for XSLT Processing.
+ * 
  * @author xpdev
  * @since ${developmentVersion}
  */
@@ -74,7 +75,8 @@ enum BaxterProtocol
 	  }
 	  catch (final FileNotFoundException e)
 	  {
-		LOGGER.error("Could not resolve repository file " + href, e);
+		LOGGER.debug("Failed to lookup the file in repository", e);
+		LOGGER.warn("Could not resolve {} to repository file", href);
 		throw new TransformerException(e);
 	  }
 	}
@@ -91,25 +93,34 @@ enum BaxterProtocol
 
   /**
    * Returns the Source from this protocol.
-   * @param href source hyper reference
-   * @param processor the calling processor
+   * 
+   * @param href
+   *          source hyper reference
+   * @param processor
+   *          the calling processor
    * @return transformation source
-   * @throws TransformerException if failed to get source for any reason
+   * @throws TransformerException
+   *           if failed to get source for any reason
    */
   abstract Source getSource(String href, AbstractXSLTProcessor processor) throws TransformerException;
 
   /**
    * Determines if the protocol supports specified href.
-   * @param href reference to test
+   * 
+   * @param href
+   *          reference to test
    * @return true if this protocol can be used to access source specified by href
    */
   abstract boolean supports(String href);
 
   /**
    * Determines the protocol element to be used to access the specified href.
-   * @param href source reference
+   * 
+   * @param href
+   *          source reference
    * @return protocol element
-   * @throws IllegalArgumentException if protocol specified by href is not supported
+   * @throws IllegalArgumentException
+   *           if protocol specified by href is not supported
    */
   static BaxterProtocol protocolFor(final String href)
   {

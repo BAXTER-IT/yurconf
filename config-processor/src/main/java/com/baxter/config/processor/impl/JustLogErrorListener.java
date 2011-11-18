@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 // TODO add javadoc
 class JustLogErrorListener implements ErrorListener
 {
-  protected final Logger logger; 
+  protected final Logger logger;
 
   // TODO make singleton
   public JustLogErrorListener()
@@ -20,18 +20,18 @@ class JustLogErrorListener implements ErrorListener
   @Override
   public void warning(final TransformerException exception) throws TransformerException
   {
-	logger.warn("XSLT Warning", exception);
+	logger.warn("XSLT Warning: ", exception);
   }
 
   @Override
   public void fatalError(final TransformerException exception) throws TransformerException
   {
-	logger.warn("XSLT Fatal", exception);
+	logger.warn("XSLT Fatal: ", exception);
   }
 
   @Override
   public void error(final TransformerException exception) throws TransformerException
   {
-	logger.warn("XSLT Error", exception);
+	logger.warn("XSLT Error: ", exception);
   }
 }

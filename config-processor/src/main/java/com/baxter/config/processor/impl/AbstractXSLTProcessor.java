@@ -9,6 +9,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
@@ -16,10 +19,15 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.URIResolver;
+import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.baxter.config.om.ConfigID;
 import com.baxter.config.processor.AbstractProcessor;
+import com.baxter.config.processor.ProcessorContext;
 import com.baxter.config.processor.ProcessorException;
 import com.baxter.config.processor.desc.Descriptor;
 
@@ -40,7 +48,9 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 
   protected static final String XSLT_PARAM_VARIANT = "configurationVariant";
 
-  private final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+  private static final DocumentBuilderFactory DBF = DocumentBuilderFactory.newInstance();
+
+  private final TransformerFactory transformerFactory;
 
   /**
    * Path to a stylesheet.
@@ -67,7 +77,9 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
   protected AbstractXSLTProcessor(final Descriptor descriptor)
   {
 	super(descriptor);
-	transformerFactory.setURIResolver(new BaxterURIResolver());
+	this.transformerFactory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", Thread.currentThread()
+	    .getContextClassLoader());
+	this.transformerFactory.setURIResolver(new BaxterURIResolver());
   }
 
   public String getStylesheet()
@@ -163,6 +175,21 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 	}
 	final URL stylesheetUrl = new URL(getDescriptor().getXslUrl(), this.stylesheet);
 	return new StreamSource(stylesheetUrl.openStream(), stylesheetUrl.toString());
+  }
+
+  protected Source getXmlSource(final ProcessorContext context) throws ParserConfigurationException
+  {
+	final DocumentBuilder docBuilder = DBF.newDocumentBuilder();
+	final Document doc = docBuilder.newDocument();
+	final Element configSrc = doc.createElement("configuration-source");
+	final Element request = doc.createElement("request");
+	request.setAttribute("productId", context.getConfigID().getProductId());
+	request.setAttribute("componentId", context.getConfigID().getComponentId());
+	request.setAttribute("variant", context.getConfigID().getVariant());
+	request.setAttribute("type", context.getConfigID().getType());
+	configSrc.appendChild(request);
+	doc.appendChild(configSrc);
+	return new DOMSource(doc);
   }
 
   /**

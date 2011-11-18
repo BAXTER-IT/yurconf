@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <input  xmlns="http://proba">
     <block id="id1" name="block id1 in input2">
-        
+        <subblock />
     </block>
     
     <block id="id3" name="block id3 in input2">
