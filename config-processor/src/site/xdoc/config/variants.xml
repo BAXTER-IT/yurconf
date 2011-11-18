@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+    <properties>
+        <title>Configuration Source Variants</title>
+        <author email="ykryshchuk@n-ix.com.ua">Yuriy Kryshchuk</author>
+    </properties>
+
+    <body>
+
+        <section name="Overview">
+            <p>Baxter Configuration server is used on a complex environments. Sometimes there is a need to provide the
+                similar configuration to different applications. The only difference in configuration for those
+                applications can be expressed in several options. In order to satisfy such a case, default XSLT
+                Processor implementation provides an instrument to consolidate or merge several input source documents
+                into one by just rewriting and overriding the configuration options.</p>
+        </section>
+
+        <section name="Inheritance">
+            <p>By default, the variant configuration inherits everything from the original source. One does not need to
+                do anything to inherit the basic configuration in a variant. Instead, the variant configuration may add
+                new elements to the base setup. All new elements found in a variant configuration will be appended to
+                the original XML document. </p>
+        </section>
+
+        <section name="Overriding">
+            <p>The overriding of the configuration elements from original document by some changed values in variant
+                document is possible by using the element identifiers. These are the <code>id</code> attributes on an
+                XML element. More description with samples here.... </p>
+        </section>
+
+        <section name="Naming the variant files">
+            <p>The variant configuration file names are built from the original files by adding the
+                    <code>(variantName)</code> suffix.</p>
+
+            <p>Example of variant files </p>
+            <ul>
+                <li>Original - myfile.xml <ul>
+                        <li>myfile(another).xml - another variant</li>
+                        <li>myfile(demo).xml - demo variant</li>
+                        <li>myfile(test).xml - test variant</li>
+                    </ul>
+                </li>
+                <li>Original - db-config.xml <ul>
+                        <li>db-config(mysql).xml - mysql variant</li>
+                        <li>db-config(oracle).xml - oracle variant</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+    </body>
+
+</document>

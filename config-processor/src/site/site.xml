@@ -15,6 +15,7 @@
     <menu name="Configuration Sources" inherit="top" inheritAsRef="true">
       <item name="Logging" href="config/logging.html" />
       <item name="JMV" href="config/jvm.html" />
+      <item name="Configuration Variants" href="config/variants.html" />
     </menu>
     
   </body>
