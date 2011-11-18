@@ -264,6 +264,21 @@
 				<artifactId>commons-beanutils</artifactId>
 				<version>1.8.3</version>
 			</dependency>
+		    <dependency>
+		        <groupId>net.sf.saxon</groupId>
+		        <artifactId>saxon</artifactId>
+		        <version>${saxon.version}</version>
+		    </dependency>		    
+            <dependency>
+                <groupId>net.sf.saxon</groupId>
+                <artifactId>saxon-dom</artifactId>
+                <version>${saxon.version}</version>
+            </dependency>           
+            <dependency>
+                <groupId>net.sf.saxon</groupId>
+                <artifactId>saxon-xpath</artifactId>
+                <version>${saxon.version}</version>
+            </dependency>           
 		</dependencies>
 	</dependencyManagement>
 
@@ -277,6 +292,7 @@
 
 	<properties>
 		<jira.component/>
+	    <saxon.version>8.9</saxon.version>
 	</properties>
 
 </project>
