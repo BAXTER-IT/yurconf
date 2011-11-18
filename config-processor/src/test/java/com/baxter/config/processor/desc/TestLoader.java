@@ -33,7 +33,7 @@ public class TestLoader
 	assertEquals("com.baxter.test", d.getProductId());
 	assertEquals("22.33", d.getVersion());
 	assertEquals(2, d.getProcessors().size());
-	assertEquals("com.baxter.config.processor.XSLTProcessor", d.getProcessors().get(0).getClassName());
+	assertEquals("com.baxter.config.processor.impl.XSLTProcessor", d.getProcessors().get(0).getClassName());
 	assertEquals("proba", d.getProcessors().get(0).getConfigurationType());
   }
 

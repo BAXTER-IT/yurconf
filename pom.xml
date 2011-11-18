@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.baxter.config</groupId>
@@ -85,6 +86,11 @@
 					<artifactId>maven-changes-plugin</artifactId>
 					<version>2.6</version>
 				</plugin>
+				<plugin>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>maven-jetty-plugin</artifactId>
+					<version>6.1.26</version>
+				</plugin>
 				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
@@ -103,7 +109,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<execute/>
+										<execute />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
@@ -214,8 +220,8 @@
 		<module>config-om</module>
 		<module>config-processor</module>
 		<module>config-processor-demo</module>
-        <module>config-processor-pe</module>
-  </modules>
+		<module>config-processor-pe</module>
+	</modules>
 
 	<dependencyManagement>
 		<dependencies>
@@ -264,21 +270,21 @@
 				<artifactId>commons-beanutils</artifactId>
 				<version>1.8.3</version>
 			</dependency>
-		    <dependency>
-		        <groupId>net.sf.saxon</groupId>
-		        <artifactId>saxon</artifactId>
-		        <version>${saxon.version}</version>
-		    </dependency>		    
-            <dependency>
-                <groupId>net.sf.saxon</groupId>
-                <artifactId>saxon-dom</artifactId>
-                <version>${saxon.version}</version>
-            </dependency>           
-            <dependency>
-                <groupId>net.sf.saxon</groupId>
-                <artifactId>saxon-xpath</artifactId>
-                <version>${saxon.version}</version>
-            </dependency>           
+			<dependency>
+				<groupId>net.sf.saxon</groupId>
+				<artifactId>saxon</artifactId>
+				<version>${saxon.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.saxon</groupId>
+				<artifactId>saxon-dom</artifactId>
+				<version>${saxon.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.saxon</groupId>
+				<artifactId>saxon-xpath</artifactId>
+				<version>${saxon.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -291,8 +297,8 @@
 	</dependencies>
 
 	<properties>
-		<jira.component/>
-	    <saxon.version>8.9</saxon.version>
+		<jira.component />
+		<saxon.version>8.9</saxon.version>
 	</properties>
 
 </project>
