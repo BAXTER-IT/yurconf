@@ -4,5 +4,8 @@
 		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="log4j">
 			<parameter name="stylesheet">log4j.xsl</parameter>
 		</processor>
+	    <processor class="com.baxter.config.processor.impl.XSLTProcessor" type="logback">
+	        <parameter name="stylesheet">logback.xsl</parameter>
+	    </processor>
 	</processors>
 </descriptor>

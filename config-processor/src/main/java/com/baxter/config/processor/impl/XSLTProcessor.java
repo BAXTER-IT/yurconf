@@ -39,6 +39,7 @@ public class XSLTProcessor extends AbstractXSLTProcessor
   @Override
   public void process(final ProcessorContext context) throws ProcessorException
   {
+	final long startTime = System.currentTimeMillis();
 	logger.trace("Processing with {}, stylesheet {}", getDescriptor(), getStylesheet());
 	final Transformer transformer = getTransformer(context.getConfigID());
 	// Write content type
@@ -50,7 +51,11 @@ public class XSLTProcessor extends AbstractXSLTProcessor
 	  final Result result = new StreamResult(context.getOutputStream());
 	  try
 	  {
+		final long beforeXsltTime = System.currentTimeMillis();
+		logger.trace("Prepared to XSLT in {} ms", (beforeXsltTime - startTime));
 		transformer.transform(getXmlSource(context), result);
+		final long afterXsltTime = System.currentTimeMillis();
+		logger.trace("XSLT completed within {} ms", (afterXsltTime - beforeXsltTime));
 	  }
 	  catch (final TransformerException e)
 	  {

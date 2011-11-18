@@ -1,155 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document xmlns="http://maven.apache.org/XDOC/2.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
-	<properties>
-		<title>Configuration Processors</title>
-		<author email="ykryshchuk@n-ix.com.ua">Yuriy Kryshchuk</author>
-	</properties>
+    <properties>
+        <title>Configuration Processors</title>
+        <author email="ykryshchuk@n-ix.com.ua">Yuriy Kryshchuk</author>
+    </properties>
 
-	<body>
+    <body>
 
-		<section name="Overview">
-			<p>Configuration processor is a component responsible for building thte configuration
-				file from configuration sources.</p>
-			<p>Each Baxter product provides its own Configuration Processor that is specific for
-				Product configuration domain. See <a href="packaging.html">packaging rules</a> for
-				processors.</p>
-			<p>Configuration Server also provides the instruments (Java Classes and Transformation
-				Stylesheets) to be reused by Product's Configuration Processors.</p>
-			<p>The format of the processor descriptor can be found <a href="descriptor"
-				>here</a>.</p>
-		</section>
+        <section name="Overview">
+            <p>Configuration processor is a component responsible for building thte configuration file from
+                configuration sources.</p>
+            <p>Each Baxter product provides its own Configuration Processor that is specific for Product configuration
+                domain. See <a href="packaging.html">packaging rules</a> for processors.</p>
+            <p>Configuration Server also provides the instruments (Java Classes and Transformation Stylesheets) to be
+                reused by Product's Configuration Processors.</p>
+            <p>The format of the processor descriptor can be found <a href="descriptor">here</a>.</p>
+        </section>
 
-		<section name="Predefined Processors">
-			<p>The Configuration Server provides the implementation for several predefined
-				configuration processors. Each product may use these processors in their descriptors
-				or extend the existing processors.</p>
+        <section name="Predefined Processors">
+            <p>The Configuration Server provides the implementation for several predefined configuration processors.
+                Each product may use these processors in their descriptors or extend the existing processors.</p>
 
-			<subsection name="As Is Processor">
+            <subsection name="As Is Processor">
 
-				<code>com.baxter.config.processor.impl.AsIsProcessor</code>
+                <code>com.baxter.config.processor.impl.AsIsProcessor</code>
 
-				<p>The purpose of this processor is to deliver the configuration source as it is,
-					that is, without any transformation or modification. Typical usage of such a
-					processor would be to return the binary configuration files.</p>
+                <p>The purpose of this processor is to deliver the configuration source as it is, that is, without any
+                    transformation or modification. Typical usage of such a processor would be to return the binary
+                    configuration files.</p>
 
-				<p>In order to use this processor you define it in descriptor as following: </p>
-				<source> &lt;processor class="com.baxter.config.processor.impl.AsIsProcessor"
-					type="bin" /&gt; </source>
-				<p>Then you can request a configuration file with URL:
-						<code>http://localhost/config/com.baxter.demo/myfile.dat/bin</code> this
-					will return a source <code>myfile.dat</code> without any modifications. </p>
+                <p>In order to use this processor you define it in descriptor as following: </p>
+                <source><![CDATA[
+<processor class="com.baxter.config.processor.impl.AsIsProcessor" type="bin" /> 
+				]]></source>
+                <p>Then you can request a configuration file with URL:
+                        <code>http://localhost/config/com.baxter.demo/myfile.dat/bin</code> this will return a source
+                        <code>myfile.dat</code> without any modifications. </p>
 
-			</subsection>
+            </subsection>
 
-			<subsection name="XSLT Processor">
+            <subsection name="XSLT Processor">
 
-				<code>com.baxter.config.processor.impl.XSLTProcessor</code>
+                <code>com.baxter.config.processor.impl.XSLTProcessor</code>
 
-				<p>As the name implies it is supposed to transform the input sources with XSLT using
-					the specified XSL template. In the processor package each processor is
-					responsible for some configuration type, e.g. processor for log4j, for logback,
-					for Price Engine Properties XML, etc.</p>
+                <p>As the name implies it is supposed to transform the input sources with XSLT using the specified XSL
+                    template. In the processor package each processor is responsible for some configuration type, e.g.
+                    processor for log4j, for logback, for Price Engine Properties XML, etc.</p>
 
-				<p>In order to use this processor you define it in descriptor as following: </p>
-				<source> &lt;processor class="com.baxter.config.processor.impl.XSLTProcessor"
-					type="log4j"&gt; &lt;parameter name="xsl"&gt;log4j.xsl&lt;/parameter&gt;
-					&lt;/processor&gt; </source>
-				<p>Then you can request a configuration file with URL:
-						<code>http://localhost/config/com.baxter.demo/my-component/log4j</code> this
-					will return transformation result obtained with <code>log4j.xsl</code> template. </p>
-				<p>The default implementation of XSLT Processor passes these input parameters to
-					XSLT:</p>
+                <p>In order to use this processor you define it in descriptor as following: </p>
+                <source><![CDATA[
+<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="log4j"> 
+    <parameter name="xsl">log4j.xsl</parameter>
+</processor> 
+				]]></source>
+                <p>Then you can request a configuration file with URL:
+                        <code>http://localhost/config/com.baxter.demo/my-component/log4j</code> this will return
+                    transformation result obtained with <code>log4j.xsl</code> template. </p>
+                <p>The default implementation of XSLT Processor passes these input parameters to XSLT:</p>
 
-				<ul>
-					<li>configurationProductId</li>
-					<li>configurationVersion</li>
-					<li>configurationComponentId</li>
-					<li>configurationVariant</li>
-				</ul>
+                <ul>
+                    <li>configurationProductId</li>
+                    <li>configurationVersion</li>
+                    <li>configurationComponentId</li>
+                    <li>configurationVariant</li>
+                </ul>
 
-				<p>The stylesheet can access these parameters using the XSLT variable syntax
-					${...}.</p>
+                <p>The stylesheet can access these parameters using the XSLT variable syntax ${...}.</p>
 
-				<p>The root stylesheet specified for the processor may import other stylesheets from
-					the package, or it may import some predefined stylesheets from default
-					processors implementation, in this case the urls must include protocol
-						<code>baxterxsl</code>, for example, <code>baxterxsl:log4j.xsl</code>.</p>
+                <p>The root stylesheet specified for the processor may import other stylesheets from the package, or it
+                    may import some predefined stylesheets from default processors implementation, in this case the urls
+                    must include protocol <code>baxterxsl</code>, for example, <code>baxterxsl:log4j.xsl</code>.</p>
 
-				<p>In the stylesheet file you can import the other xsl files int this way.</p>
+                <p>In the stylesheet file you can import the other xsl files int this way.</p>
 
-				<source> &lt;xsl:import href="baxterxsl:text-fmt.xsl"/&gt; &lt;xsl:import
-					href="inc/input-dump.xsl" /&gt; </source>
+                <source><![CDATA[
+<xsl:import href="baxterxsl:text-fmt.xsl"/>
+<xsl:import href="inc/input-dump.xsl" />				    
+				]]></source>
 
-				<p>In the first case the text-fmt.xsl will be searched in the processors jar file
-					under the next path.</p>
-				<p>/META-INF/config/xsl/text-fmt.xsl</p>
-				<p>Int the second case the file needs to be in the folder or sub folder relative to
-					the folder in which the file is that contains the import</p>
-				<p>For example if the file is in the /META-INF/config directory the path will be</p>
-				<p>/META-INF/config/inc/input-dump.xsl</p>
+                <p>In the first case the text-fmt.xsl will be searched in the processors jar file under the next
+                    path.</p>
+                <p>/META-INF/config/xsl/text-fmt.xsl</p>
+                <p>Int the second case the file needs to be in the folder or sub folder relative to the folder in which
+                    the file is that contains the import</p>
+                <p>For example if the file is in the /META-INF/config directory the path will be</p>
+                <p>/META-INF/config/inc/input-dump.xsl</p>
 
-				<p>Stylesheets may access all files available in the repository. The XSL is
-					responsible for loading the proper file. Custom URI Resolver supports the
-					protocol <code>baxterrepo</code>. For example, when XSL loads a file
-						<code>baxterrepo:jms/nodes.xml</code>, and the current processor belongs to
-					product <code>com.baxter.demo</code>, the file will be resolved to
-						<code>CONFIG_REPO/com/baxter/demo/jms/nodes.xml</code>, where
-						<code>CONFIG_REPO</code> is a path to configuration repository on
-					filesystem.</p>
+                <p>Stylesheets may access all files available in the repository. The XSL is responsible for loading the
+                    proper file. Custom URI Resolver supports the protocol <code>baxterrepo</code>. For example, when
+                    XSL loads a file <code>baxterrepo:jms/nodes.xml</code>, and the current processor belongs to product
+                        <code>com.baxter.demo</code>, the file will be resolved to
+                        <code>CONFIG_REPO/com/baxter/demo/jms/nodes.xml</code>, where <code>CONFIG_REPO</code> is a path
+                    to configuration repository on filesystem.</p>
 
-				<p>We can use reference with full path by starting the path with / and with relative
-					path.</p>
+                <p>We can use reference with full path by starting the path with / and with relative path.</p>
 
-				<source> 
-					&lt;xsl:variable name="helloWorld" select="document('baxterrepo:/com/baxter/demo2/hello-world.xml')"/&gt;
-					&lt;xsl:variable name="helloWorld" select="document('baxterrepo:subDir/hello-world.xml')"/&gt; 
-				</source>
+                <source><![CDATA[
+<xsl:variable name="helloWorld" select="document('baxterrepo:/com/baxter/demo2/hello-world.xml')"/>
+<xsl:variable name="helloWorld" select="document('baxterrepo:subDir/hello-world.xml')"/> 
+				]]></source>
 
-				<p>The first reference will be resolved as the path from the BAXTER_REPO
-					CONFIG_REPO/com/baxter/demo2/hello-world.xml while the other one will use the
-					current product id <code>com.baxter.demo</code> and resolve the path as
-					CONFIG_REPO/com/baxter/demo/subDir/hello-world.xm</p>
 
-				<h4>Predefined Configuration Sources</h4>
+                <p>The first reference will be resolved as the path from the BAXTER_REPO
+                    CONFIG_REPO/com/baxter/demo2/hello-world.xml while the other one will use the current product id
+                        <code>com.baxter.demo</code> and resolve the path as
+                    CONFIG_REPO/com/baxter/demo/subDir/hello-world.xm</p>
 
-				<p>The default implementation of XSLT Processor includes transformation stylesheets
-					for several commonly used configuration types.</p>
+                <h4>Predefined Configuration Sources</h4>
 
-				<map id="predefined-stylesheets">
-					<table>
-						<thead>
-							<tr>
-								<th>Type</th>
-								<th>Schema</th>
-								<th>Purpose</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Logging Configuration</td>
-								<td>
-									<a href="xsd/baxter-config-log.xsd">baxter-config-log.xsd</a>
-								</td>
-								<td> Defines the logging configuration for application. The schema
-									describes the common format that can be transformed to Log4J and
-									Logback configurations. There are predefined stylesheets for
-									both logging frameworks. <p>See sample of log4j.xsl and
-										logback.xsl in Demo Processors. <a
-											href="config/logging.html">More details on Logging
-											Configuration</a>.</p>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</map>
+                <p>The default implementation of XSLT Processor includes transformation stylesheets for several commonly
+                    used configuration types.</p>
 
-			</subsection>
+                <map id="predefined-stylesheets">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Schema</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Logging Configuration</td>
+                                <td>
+                                    <a href="xsd/baxter-config-log.xsd">baxter-config-log.xsd</a>
+                                </td>
+                                <td> Defines the logging configuration for application. The schema describes the common
+                                    format that can be transformed to Log4J and Logback configurations. There are
+                                    predefined stylesheets for both logging frameworks. <p>See sample of log4j.xsl and
+                                        logback.xsl in Demo Processors. <a href="config/logging.html">More details on
+                                            Logging Configuration</a>.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </map>
 
-		</section>
+            </subsection>
 
-	</body>
+        </section>
+
+    </body>
 
 </document>

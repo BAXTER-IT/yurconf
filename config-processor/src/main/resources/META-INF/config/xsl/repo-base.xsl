@@ -83,10 +83,11 @@
                     <xsl:choose>
                         <!-- There are no more nested elements in both operands, just copy normalized text -->
                         <xsl:when test="count(*)=0 and count($other/*)=0">
-                            <xsl:variable name="otherText" select="normalize-space($other/text())" />
+                            <xsl:variable name="otherText" select="normalize-unicode($other/text())" />
                             <xsl:choose>
-                                <xsl:when test="string-length($otherText)">
-                                    <xsl:copy-of select="normalize-space(text())" />
+                                <!-- has right node any text? -->
+                                <xsl:when test="string-length($otherText)=0">
+                                    <xsl:copy-of select="normalize-unicode(text())" />
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:copy-of select="$otherText" />
