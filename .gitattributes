@@ -22,8 +22,17 @@ config-processor-demo/src/main/resources/META-INF/config/xsl/logback.xsl -text
 config-processor-demo/src/main/resources/META-INF/services/com.baxter.config.processor.xml -text
 config-processor-pe/pom.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/jms.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-admin-tool.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-blotter-client.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-blotter-server.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-broadcast.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-dbserver(verbose).xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-dbserver.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-forward-controller.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-forward-ir-controller.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-forward-monitor.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-trackwheel-client.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-trackwheel-server.xml -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/log4j.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/logback.xsl -text
 config-processor-pe/src/main/resources/META-INF/services/com.baxter.config.processor.xml -text
@@ -86,6 +95,8 @@ config-server/src/site/xdoc/concept.xml -text
 config-server/src/site/xdoc/index.xml -text
 config-server/src/site/xdoc/protocol.xml -text
 config-server/src/test/jmeter/jmeter.properties -text
+config-server/src/test/jmeter/plans/com-baxter-demo-test-plain.jmx -text
+config-server/src/test/jmeter/plans/com-baxter-pe-test-plain.jmx -text
 config-server/src/test/jmeter/plans/tp2.jmx -text
 /pom.xml -text
 src/site/resources/images/baxter_configuration.png -text

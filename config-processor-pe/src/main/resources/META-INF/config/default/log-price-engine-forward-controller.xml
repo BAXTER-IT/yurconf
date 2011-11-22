@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://baxter-it.com/config/log">
+
+    <console-appender name="CONSOLE">
+        <layout>%c{1} [%d{ISO8601}] %m%n</layout>
+    </console-appender>
+   
+    <rolling-file-appender name="FILE_FwdController" file="FwdController${fwdc.ccy}.log" maxSize="5MB" backupIndex="10">
+        <layout>FwdController${fwdc.ccy}[%d{ISO8601}][%p] - %m%n</layout>
+    </rolling-file-appender>
+
+    <logger name="com.baxter" level="INFO">
+        <appender-ref ref="CONSOLE" />
+    </logger>
+
+    <logger name="com.baxter.genius.fwd.FwdUtility" level="TRACE" additivity="false">
+	<appender-ref ref="FILE_FwdController" />
+    </logger>
+
+
+    <logger name="FwdController${fwdc.ccy}" level="TRACE" additivity="false">
+	<appender-ref ref="FILE_FwdController" />
+    </logger>
+    
+</configuration>

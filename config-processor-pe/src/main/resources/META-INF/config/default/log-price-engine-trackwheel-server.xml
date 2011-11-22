@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://baxter-it.com/config/log">
+
+    <console-appender name="CONSOLE">
+        <layout>TWServer${TWS.cpCode} %c{1} [%d{ISO8601}] %m%n</layout>
+    </console-appender>
+   
+    <rolling-file-appender name="FILE_TWServer" file="TWServer${TWS.cpCode}.log" maxSize="50MB" backupIndex="10">
+        <layout>BlotterServer[%d{ISO8601}][%p] - %m%n</layout>
+    </rolling-file-appender>
+
+    <logger name="TrackwheelServer" additivity="false" level="TRACE">
+        <appender-ref ref="FILE_TWServer" />
+    </logger>
+
+    <logger name="com.baxter" level="INFO" />
+
+    <logger name="ROOT" level="WARN">
+	<appender-ref ref="CONSOLE" />
+    </logger>
+    
+</configuration>

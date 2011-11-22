@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://baxter-it.com/config/log">
+
+    <logger name="com.baxter" level="TRACE">
+        <appender-ref ref="CONSOLE" />
+    </logger>
+
+    <logger name="com.baxter" level="TRACE" additivity="false">
+        <appender-ref ref="FILE_AdminTool" />
+    </logger>
+
+    <console-appender name="CONSOLE">
+        <layout>AdminTool %c{1} [%d{ISO8601}] %m%n</layout>
+    </console-appender>
+
+    <rolling-file-appender name="FILE_AdminTool" file="AdminTool.log" maxSize="5MB" backupIndex="10">
+        <layout>AdminTool[%d{ISO8601}][%p] - %m%n</layout>
+    </rolling-file-appender>
+
+</configuration>
