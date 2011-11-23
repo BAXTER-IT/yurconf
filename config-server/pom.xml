@@ -71,7 +71,7 @@
 						</goals>
 						<configuration>
 							<dataid>jmeterPEProcessors</dataid>
-							<input>${basedir}/src/jmeter/com-baxter-demo-test-plan.jmx</input>
+							<input>${basedir}/src/jmeter/com-baxter-pe-test-plan.jmx</input>
 						</configuration>
 					</execution>
 				</executions>
@@ -79,7 +79,7 @@
 			<plugin>
 				<artifactId>maven-site-plugin</artifactId>
 				<configuration>
-					<reportPlugins>
+					<reportPlugins combine.children="append">
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
 							<artifactId>chronos-report-maven-plugin</artifactId>
