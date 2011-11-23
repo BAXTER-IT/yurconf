@@ -67,6 +67,7 @@
             <subsection name="TrackWheel Servers">
                 <ol>
                     <li>JMS Channels Configuration.</li>
+                    <li>currencypairs and prots (currencypairs_udp.dat)</li>
                 </ol>
                 <h5>JMS Channels</h5>
                 <ul>
@@ -88,6 +89,7 @@
                 <ol>
                     <li>JMS Channels Configuration.</li>
                     <li>validatorForEPP</li>
+                    <li>currencypairs and prots (currencypairs.dat)</li>
                 </ol>
                 <h5>JMS Channels</h5>
                 <ul>
@@ -100,15 +102,80 @@
                 </ul>
             </subsection>
             
-            <subsection name="Forward Controllers"/>
+            <subsection name="Forward Controllers">
+                <ol>
+                    <li>JMS Channels Configuration.</li>
+                    <li>dLRWarningInterval</li>
+                    <li>fwdcurrencypairs and prots (fwdcurrencypairs.dat)</li>
+                </ol>
+                <h5>JMS Channels</h5>
+                <ul>
+                    <li>broadcast</li>
+                    <li>toDb</li>
+                    <li>vendor2fwdctrl</li>
+                    <li>fwdmon2fwdctrl</li>
+                    <li>fwdctrl2fwdmon</li>
+                    <li>fwdctrl2publisher</li>
+                    <li>toSender</li>
+                    <li>fromReceiver</li>
+                </ul>
+            </subsection>
             
             <subsection name="Vendors"/>
             
             <subsection name="Broadcast"/>
             
-            <subsection name="AdminTool"/>
+            <subsection name="AdminTool">
+                <ol>
+                    <li>JMS Channels Configuration.</li>
+                    <li>snmp</li>
+                    <li>bounds</li>
+                    <li>udpPriceParams</li>
+                    <li>uniqueMarketPort</li>
+                </ol>
+                <h5>JMS Channels</h5>
+                <ul>
+                    <li>broadcast</li>
+                    <li>toDb</li>
+                    <li>ObserverTopic</li>
+                </ul>
+            </subsection>
             
-            <subsection name="Blotter"/>
+            <subsection name="Blotter">
+                <ol>
+                    <li>JMS Channels Configuration.</li>
+                    <li>popForward</li>
+                    <li>uDPClient2Server</li>
+                    <li>bounds</li>
+                    <li>riskManager</li>
+                    <li>pricedisplay</li>
+                    <li>downarrowFile</li>
+                    <li>resourceDirectory</li>
+                    <li>salesBlotter</li>
+                    <li>countDownSeconds</li>
+                    <li>pricedisplay</li>
+                    <li>uniqueBlotterPort</li>
+                    <li>tradingToolPropertyFile</li>
+                    <li>showFailedTradePopup</li>
+                    <li>failedTradePopupPosition</li>
+                    <li>sound</li>
+                    <li>screenClose</li>
+                    <li>useDIPanel</li>
+                    <li>ALGOEngineClassName ???</li>
+                </ol>
+                <h5>JMS Channels</h5>
+                <ul>
+                    <li>broadcast</li>
+                    <li>toDb</li>
+                    <li>blotterServer2Client</li>
+                    <li>client2BlotterServer</li>
+                    <li>client2DIServer</li>
+                    <li>diServer2Client</li>
+                    <li>positionManager.client2PositionManagerServer</li>
+                    <li>positionManager.positionManagerServer2Client</li>
+                    <li>ObserverTopic</li>
+                </ul>
+            </subsection>
             
             <subsection name="TradingTool"/>
             
