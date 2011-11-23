@@ -758,7 +758,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-blotter-client/log4j</stringProp>
+            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-blotter/log4j</stringProp>
             <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
           </ConfigTestElement>
           <hashTree/>
@@ -803,7 +803,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-blotter-client/logback</stringProp>
+            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-blotter/logback</stringProp>
             <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
           </ConfigTestElement>
           <hashTree/>
@@ -848,7 +848,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-admin-tool/log4j</stringProp>
+            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-admintool/log4j</stringProp>
             <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
           </ConfigTestElement>
           <hashTree/>
@@ -893,7 +893,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-admin-tool/logback</stringProp>
+            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-admintool/logback</stringProp>
             <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
           </ConfigTestElement>
           <hashTree/>
@@ -938,7 +938,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-trackwheel-server/log4j</stringProp>
+            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-tw-server/log4j</stringProp>
             <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
           </ConfigTestElement>
           <hashTree/>
@@ -983,7 +983,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-trackwheel-server/logback</stringProp>
+            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-tw-server/logback</stringProp>
             <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
           </ConfigTestElement>
           <hashTree/>
@@ -1028,7 +1028,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-trackwheel-client/log4j</stringProp>
+            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-trackwheel/log4j</stringProp>
             <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
           </ConfigTestElement>
           <hashTree/>
@@ -1073,7 +1073,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-trackwheel-client/logback</stringProp>
+            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-trackwheel/logback</stringProp>
             <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
           </ConfigTestElement>
           <hashTree/>
@@ -1118,7 +1118,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-forward-controller/log4j</stringProp>
+            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-fwd-controller/log4j</stringProp>
             <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
           </ConfigTestElement>
           <hashTree/>
@@ -1163,7 +1163,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-forward-controller/logback</stringProp>
+            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-fwd-controller/logback</stringProp>
             <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
           </ConfigTestElement>
           <hashTree/>
@@ -1208,7 +1208,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-forward-ir-controller/log4j</stringProp>
+            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-fwd-ir-controller/log4j</stringProp>
             <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
           </ConfigTestElement>
           <hashTree/>
@@ -1253,7 +1253,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-forward-ir-controller/logback</stringProp>
+            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-fwd-ir-controller/logback</stringProp>
             <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
           </ConfigTestElement>
           <hashTree/>
@@ -1298,7 +1298,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-forward-monitor/log4j</stringProp>
+            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-fwd-monitor/log4j</stringProp>
             <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
           </ConfigTestElement>
           <hashTree/>
@@ -1343,7 +1343,7 @@
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol"></stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-forward-monitor/logback</stringProp>
+            <stringProp name="HTTPSampler.path">/config-server/rest/com.baxter.pe/price-engine-fwd-monitor/logback</stringProp>
             <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
           </ConfigTestElement>
           <hashTree/>

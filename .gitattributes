@@ -95,6 +95,7 @@ config-server/src/site/xdoc/concept.xml -text
 config-server/src/site/xdoc/index.xml -text
 config-server/src/site/xdoc/protocol.xml -text
 config-server/src/test/jmeter/jmeter.properties -text
+config-server/src/test/jmeter/plans/com-baxter-demo-test-plain-2.3.jmx -text
 config-server/src/test/jmeter/plans/com-baxter-demo-test-plain.jmx -text
 config-server/src/test/jmeter/plans/com-baxter-pe-test-plain.jmx -text
 config-server/src/test/jmeter/plans/tp2.jmx -text
