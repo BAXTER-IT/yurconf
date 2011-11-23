@@ -95,8 +95,6 @@
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>chronos-jmeter-maven-plugin</artifactId>
 					<version>${chronos.version}</version>
-					<configuration>
-					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
