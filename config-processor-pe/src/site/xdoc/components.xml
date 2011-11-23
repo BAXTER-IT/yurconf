@@ -123,7 +123,42 @@
             
             <subsection name="Vendors"/>
             
-            <subsection name="Broadcast"/>
+            <subsection name="Broadcast">
+                <ol>
+                    <li>JMS Channels Configuration.</li>
+                    <li>stpConfigFileName</li>
+                    <li>watchDogInterval</li>
+                    <li>udpPort</li>
+                    <li>logServerPort</li>
+                    <li>maxLatency</li>
+                    <li>broadcastNode</li>
+                    <li>uDPClientConnectionPort</li>
+                    <li>iORoundPercentage</li>
+                    <li>tradeEventManager</li>
+                    <li>generateFakeIR</li>
+                    <li>tws2manufacturer</li>
+                    <li>creditcheckmanager (properties_creditcheck.xml)</li>
+                    <li>handoffmanager (properties_handoff.xml)</li>
+                </ol>
+                <h5>JMS Channels</h5>
+                <ul>
+                    <li>broadcast</li>
+                    <li>toDb</li>
+                    <li>trade2Db</li>
+                    <li>tws2manufacturer</li>
+                    <li>fwdctrl2publisher</li>
+                    <li>fwdIRctrl2publisher</li>
+                    <li>blotterTrade</li>
+                    <li>positionManager.client2PositionManagerServer</li>
+                    <li>positionManager.positionManagerServer2Client</li>                    
+                    <li>positionManager.HedgeClientMessaging</li>
+                    <li>marketDataFromBroadcast2BlotterServer</li>
+                    <li>creditcheckmanager</li>
+                    <li>ObserverTopic</li>
+                    <li>handoffmanager.HandOff2Upstream</li>
+                    <li>handoffmanager.Upstream2HandOff</li>
+                </ul>
+            </subsection>
             
             <subsection name="AdminTool">
                 <ol>
@@ -177,11 +212,66 @@
                 </ul>
             </subsection>
             
-            <subsection name="TradingTool"/>
+            <subsection name="TradingTool">
+                <ol>
+                    <li>ServletUrl</li>
+                    <li>ServletUrl2</li>
+                    <li>priceRefreshTime</li>
+                    <li>enableLogger</li>
+                    <li>userData</li>
+                    <li>Password</li>
+                </ol>
+  
+                <h5>Optional</h5>
+                
+                <ol>
+                    
+                    <li>messagesTime</li>
+                    <li>connectionConnectTimeout</li>
+                    <li>connectionReadTimeout</li>
+                    <li>verbose</li>
+
+                </ol>
+            </subsection>
             
-            <subsection name="Forwards Monitor"/>
+            <subsection name="Forwards Monitor">
+                <ol>
+                    <li>JMS Channels Configuration.</li>
+                    <li>behavior</li>
+                    <li>bounds</li>
+                    <li>uDPPortForMon</li>
+                    <li>uniqueForMonPort</li>
+                </ol>
+                <h5>JMS Channels</h5>
+                <ul>
+                    <li>broadcast</li>
+                    <li>toDb</li>
+                    <li>fwdmon2fwdctrl</li>
+                    <li>fwdctrl2fwdmon</li>
+                    <li>toSender</li>
+                    <li>fromReceiver</li>
+                    <li>ObserverTopic</li>
+                </ul>
+            </subsection>
             
-            <subsection name="TrackWheel"/>
+            <subsection name="TrackWheel">
+                <ol>
+                    <li>JMS Channels Configuration.</li>
+                    <li>bounds</li>
+                    <li>uDBPort</li>
+                    <li>uniqueTrackwheelPort</li>
+                    <li>soundState</li>
+                    <li>type</li>
+                    <li>colors</li>
+                </ol>
+                <h5>JMS Channels</h5>
+                <ul>
+                    <li>broadcast</li>
+                    <li>toDb</li>
+                    <li>tws2twc</li>
+                    <li>ObserverTopic</li>
+                </ul>
+            </subsection>
 
 
         </section>
