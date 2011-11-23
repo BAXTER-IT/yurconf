@@ -96,8 +96,6 @@
 					<artifactId>chronos-jmeter-maven-plugin</artifactId>
 					<version>${chronos.version}</version>
 					<configuration>
-						<input>${basedir}/src/jmeter</input>
-						<jmeterHome>${jmeter.home}</jmeterHome>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -152,6 +150,47 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-project-info-reports-plugin</artifactId>
+							<version>2.4</version>
+							<reportSets>
+								<reportSet>
+									<reports>
+										<report>project-team</report>
+										<report>issue-tracking</report>
+										<!-- <report>dependencies</report> <report>mailing-list</report> <report>cim</report> <report>license</report> 
+											<report>scm</report> -->
+									</reports>
+								</reportSet>
+							</reportSets>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-changes-plugin</artifactId>
+							<version>2.6</version>
+							<configuration>
+								<onlyCurrentVersion>true</onlyCurrentVersion>
+								<statusIds>Open,In Progress,Reopened,Resolved,Closed</statusIds>
+								<resolutionIds>Unresolved,Fixed,Won't Fix,Duplicate,Incomplete,Cannot Reproduce</resolutionIds>
+								<columnNames>Key,Summary,Status,Resolution,Assignee</columnNames>
+								<component>${jira.component}</component>
+								<jiraUser>${jira.username}</jiraUser>
+								<jiraPassword>${jira.password}</jiraPassword>
+							</configuration>
+							<reportSets>
+								<reportSet>
+									<reports>
+										<report>jira-report</report>
+										<report>changes-report</report>
+									</reports>
+								</reportSet>
+							</reportSets>
+						</plugin>
+					</reportPlugins>
+				</configuration>
 				<executions>
 					<execution>
 						<id>attach-descriptor</id>
@@ -186,47 +225,6 @@
 		</extensions>
 
 	</build>
-
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>2.4</version>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>project-team</report>
-							<report>issue-tracking</report>
-							<!-- <report>dependencies</report> <report>mailing-list</report> <report>cim</report> <report>license</report> <report>scm</report> -->
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-changes-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<onlyCurrentVersion>true</onlyCurrentVersion>
-					<statusIds>Open,In Progress,Reopened,Resolved,Closed</statusIds>
-					<resolutionIds>Unresolved,Fixed,Won't Fix,Duplicate,Incomplete,Cannot Reproduce</resolutionIds>
-					<columnNames>Key,Summary,Status,Resolution,Assignee</columnNames>
-					<component>${jira.component}</component>
-					<jiraUser>${jira.username}</jiraUser>
-					<jiraPassword>${jira.password}</jiraPassword>
-				</configuration>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>jira-report</report>
-							<report>changes-report</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-		</plugins>
-	</reporting>
 
 	<modules>
 		<module>config-client</module>
@@ -299,11 +297,6 @@
 				<artifactId>saxon-xpath</artifactId>
 				<version>${saxon.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>commons-logging</groupId>
-				<artifactId>commons-logging</artifactId>
-				<version>1.1.1</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -317,7 +310,6 @@
 
 	<properties>
 		<jira.component />
-		<jmeter.home>${project.basedir}/jmeter</jmeter.home>
 		<saxon.version>8.9</saxon.version>
 		<chronos.version>1.0-beta-1</chronos.version>
 		<slf4j.version>1.6.1</slf4j.version>
