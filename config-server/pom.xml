@@ -49,29 +49,78 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>chronos-jmeter-maven-plugin</artifactId>
 				<configuration>
+					<jmeterHome>${jmeter.home}</jmeterHome>
 				</configuration>
 				<executions>
 					<execution>
-						<id>run-jmeter-tests</id>
+						<id>run-jmeter-demo-tests</id>
 						<phase>integration-test</phase>
 						<goals>
 							<goal>jmeter</goal>
 						</goals>
+						<configuration>
+							<dataid>jmeterDemoProcessors</dataid>
+							<input>${basedir}/src/jmeter/com-baxter-demo-test-plan.jmx</input>
+						</configuration>
+					</execution>
+					<execution>
+						<id>run-jmeter-pe-tests</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+						<configuration>
+							<dataid>jmeterPEProcessors</dataid>
+							<input>${basedir}/src/jmeter/com-baxter-demo-test-plan.jmx</input>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
-	</build>
-
-	<reporting>
-		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>chronos-report-maven-plugin</artifactId>
-				<version>${chronos.version}</version>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>chronos-report-maven-plugin</artifactId>
+							<version>${chronos.version}</version>
+							<reportSets>
+								<reportSet>
+									<id>jmeterPEProcessorsReports</id>
+									<reports>
+										<report>report</report>
+									</reports>
+									<configuration>
+										<dataid>jmeterPEProcessors</dataid>
+										<title>PE Processors Tests</title>
+										<description>Shows the JMeter tests run for Price Engine Configuration Processors.</description>
+									</configuration>
+								</reportSet>
+							</reportSets>
+						</plugin>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>chronos-report-maven-plugin</artifactId>
+							<version>${chronos.version}</version>
+							<reportSets>
+								<reportSet>
+									<id>jmeterDemoProcessorsReports</id>
+									<reports>
+										<report>report</report>
+									</reports>
+									<configuration>
+										<dataid>jmeterDemoProcessors</dataid>
+										<title>Demo Processors Tests</title>
+										<description>Shows the JMeter tests run for Demo Configuration Processors.</description>
+									</configuration>
+								</reportSet>
+							</reportSets>
+						</plugin>
+					</reportPlugins>
+				</configuration>
 			</plugin>
 		</plugins>
-	</reporting>
+	</build>
 
 	<dependencies>
 		<dependency>
@@ -125,6 +174,7 @@
 
 	<properties>
 		<jira.component>${project.artifactId}</jira.component>
+		<jmeter.home>${project.basedir}/jmeter</jmeter.home>
 	</properties>
 
 </project>
