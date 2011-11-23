@@ -91,6 +91,8 @@ config-processor/src/test/resources/xslt/merge/input.xml -text
 config-processor/src/test/resources/xslt/merge/input1.xml -text
 config-processor/src/test/resources/xslt/merge/input2.xml -text
 config-server/pom.xml -text
+config-server/src/jmeter/com-baxter-demo-test-plan.jmx -text
+config-server/src/jmeter/com-baxter-pe-test-plan.jmx -text
 config-server/src/main/java/com/baxter/config/servlet/RestfulServlet.java -text
 config-server/src/main/resources/log4j.xml -text
 config-server/src/main/webapp/WEB-INF/web.xml -text
@@ -102,11 +104,6 @@ config-server/src/site/site.xml -text
 config-server/src/site/xdoc/concept.xml -text
 config-server/src/site/xdoc/index.xml -text
 config-server/src/site/xdoc/protocol.xml -text
-config-server/src/test/jmeter/jmeter.properties -text
-config-server/src/test/jmeter/plans/com-baxter-demo-test-plain-2.3.jmx -text
-config-server/src/test/jmeter/plans/com-baxter-demo-test-plain.jmx -text
-config-server/src/test/jmeter/plans/com-baxter-pe-test-plain.jmx -text
-config-server/src/test/jmeter/plans/tp2.jmx -text
 /pom.xml -text
 src/site/resources/images/baxter_configuration.png -text
 src/site/resources/images/baxter_logo.png -text

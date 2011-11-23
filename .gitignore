@@ -29,5 +29,6 @@ config-processor/target
 config-server/.classpath
 config-server/.project
 config-server/.settings
+config-server/jmeter
 config-server/target
 /target
