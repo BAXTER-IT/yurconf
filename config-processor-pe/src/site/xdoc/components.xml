@@ -21,20 +21,84 @@
                     <li>JMS Channels Configuration. </li>
                     <li>Database Connection. </li>
                     <li>LDAP Configuration</li>
+                    <li>toffile</li>
+                    <li>dbudbport</li>
+                    <li>deletelogins</li>
                 </ol>
                 <h5>JMS Channels</h5>
                 <ul>
-                    <li>broadcast - to post</li>
+                    <li>broadcast</li>
+                    <li>toDb</li>
+                    <li>trade2Db</li>
+                    <li>xmlManager.structurales2DB</li>
+                    <li>xmlManager.db2Structurales</li>
+                    <li>ObserverTopic</li>
                 </ul>
             </subsection>
             
-            <subsection name="Blotter Server"/>
+            <subsection name="Blotter Server">
+                <ol>
+                    <li>JMS Channels Configuration. </li>
+                    <li>mmm connections</li>
+                    <li>blotterUDPPort</li>
+                    <li>abos connection</li>
+                </ol>
+                <h5>JMS Channels</h5>
+                <ul>
+                    <li>broadcast</li>
+                    <li>toDb</li>
+                    <li>trade2Db</li>
+                    <li>tws2manufacturer</li>
+                    <li>fwdctrl2publisher</li>
+                    <li>blotterTrade</li>
+                    <li>blotterServer2Client</li>
+                    <li>blotterPrice</li>
+                    <li>client2BlotterServer</li>
+                    <li>positionManager.client2PositionManagerServer</li>
+                    <li>positionManager.positionManagerServer2Client</li>
+                    <li>positionManager.positionManagerServer2TW</li>
+                    <li>positionManager.HedgeClientMessaging</li>
+                    <li>DI2Upstream</li>
+                    <li>marketDataFromBroadcast2BlotterServer</li>
+                    <li>ObserverTopic</li>
+                </ul>
+            </subsection>
             
-            <subsection name="TrackWheel Servers"/>
+            <subsection name="TrackWheel Servers">
+                <ol>
+                    <li>JMS Channels Configuration.</li>
+                </ol>
+                <h5>JMS Channels</h5>
+                <ul>
+                    <li>broadcast</li>
+                    <li>toDb</li>
+                    <li>validator2tws</li>
+                    <li>tws2manufacturer</li>
+                    <li>twc2tws</li>
+                    <li>tws2twc</li>
+                    <li>positionManager.client2PositionManagerServer</li>
+                    <li>positionManager.positionManagerServer2Client</li>
+                    <li>positionManager.positionManagerServer2TW</li>
+                </ul>
+            </subsection>
             
             <subsection name="Dashboard Servlet"/>
             
-            <subsection name="Validators"/>
+            <subsection name="Validators">
+                <ol>
+                    <li>JMS Channels Configuration.</li>
+                    <li>validatorForEPP</li>
+                </ol>
+                <h5>JMS Channels</h5>
+                <ul>
+                    <li>broadcast</li>
+                    <li>toDb</li>
+                    <li>vendor2validator</li>
+                    <li>validator2tws</li>
+                    <li>twc2tws</li>
+                    <li>fwdctrl2publisher</li>
+                </ul>
+            </subsection>
             
             <subsection name="Forward Controllers"/>
             

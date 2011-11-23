@@ -444,18 +444,6 @@
                             <td>Topic</td>
                             <td>DI2Upstream</td>
                             <td>DI2Upstream</td>
-                            <td>Empty description. Someone should describe it.</td>
-                            <td>
-                                <ul>
-                                    <li>BlotterServer</li>
-                                    <li>DiUpstreamTester</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Topic</td>
-                            <td>DI2Upstream</td>
-                            <td>DI2Upstream</td>
                             <td>When there is no price in the system a request will be sent ot SAN
                                 instead of DI popup on Blotter</td>
                             <td>
