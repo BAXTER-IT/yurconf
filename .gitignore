@@ -26,6 +26,7 @@ config-processor/.settings
 config-processor/bin
 config-processor/src/META-INF
 config-processor/target
+config-server/*.unknown
 config-server/.classpath
 config-server/.project
 config-server/.settings

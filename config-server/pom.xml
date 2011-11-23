@@ -48,9 +48,6 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>chronos-jmeter-maven-plugin</artifactId>
-				<configuration>
-					<jmeterHome>${jmeter.home}</jmeterHome>
-				</configuration>
 				<executions>
 					<execution>
 						<id>run-jmeter-demo-tests</id>
@@ -174,7 +171,6 @@
 
 	<properties>
 		<jira.component>${project.artifactId}</jira.component>
-		<jmeter.home>${project.basedir}/jmeter</jmeter.home>
 	</properties>
 
 </project>
