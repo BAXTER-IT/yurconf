@@ -45,6 +45,38 @@
         </xsl:if>
     </xsl:template>
 
+
+    <!--
+        Builds the location of a document as "baxterrepo:<prefix>.xml"
+    -->
+    <xsl:template name="document-repo-location">
+        <xsl:param name="prefix" />
+        <xsl:param name="suffix" />
+        <xsl:call-template name="baxterrepo-protocol" />
+        <xsl:value-of select="$prefix" />
+        <xsl:if test="$suffix">
+            <xsl:value-of select="$suffix" />
+        </xsl:if>
+        <xsl:call-template name="xml-extension" />
+    </xsl:template>
+
+    <!--
+        Builds the location of a variant document as "baxterrepo:<prefix>(<variant>).xml"
+    -->
+    <xsl:template name="variant-repo-location">
+        <xsl:param name="prefix" />
+        <xsl:if test="$configurationVariant">
+            <xsl:call-template name="document-repo-location">
+                <xsl:with-param name="prefix" select="$prefix" />
+                <xsl:with-param name="suffix">
+                    <xsl:text>(</xsl:text>
+                    <xsl:value-of select="$configurationVariant" />
+                    <xsl:text>)</xsl:text>
+                </xsl:with-param>
+            </xsl:call-template>
+        </xsl:if>
+    </xsl:template>
+    
     <!-- 
         Loads the document specified by xmlLocation and merges it with variant document specified by xmlVariantLocation. 
         The result is a new document which is a merge result of both. 

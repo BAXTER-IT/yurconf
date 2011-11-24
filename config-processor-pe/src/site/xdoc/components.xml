@@ -42,6 +42,7 @@
                     <li>mmm connections</li>
                     <li>blotterUDPPort</li>
                     <li>abos connection</li>
+                    <li>runDIServer</li>
                 </ol>
                 <h5>JMS Channels</h5>
                 <ul>
@@ -195,6 +196,7 @@
                     <li>failedTradePopupPosition</li>
                     <li>sound</li>
                     <li>screenClose</li>
+                    <li>runDIServer</li>
                     <li>useDIPanel</li>
                     <li>ALGOEngineClassName ???</li>
                 </ol>

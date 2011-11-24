@@ -1,24 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration xmlns="http://baxter-it.com/config/pe/jms">
-    
+<configuration xmlns="http://baxter-it.com/config/pe/jms" xmlns:c="http://baxter-it.com/config/component">
+
     <!-- JMS Nodes -->
-    
+
     <node id="jms1" host="localhost" port="4001" router="router1">
-        <authentication username="anonymous" password="" />
-    </node>     
-    
+        <authentication username="anonymous" password=""/>
+    </node>
+
     <node id="jms2" host="localhost" port="4002" router="router2">
-        <authentication username="anonymous" password="" />
-    </node>     
+        <authentication username="anonymous" password=""/>
+    </node>
 
     <node id="jms3" host="localhost" port="4003" router="router3">
-        <authentication username="anonymous" password="" />
-    </node>     
-    
-    <!-- JMS Channels --> 
-    
-    <queue id="toDb" name="DBRequest" alias="toDb" node="jms1">
-        <component id="price-engine-dbserver" read="true" />
+        <authentication username="anonymous" password=""/>
+    </node>
+
+    <!-- JMS Channels -->
+
+    <!-- nodeHA="" -->
+
+    <queue id="toDb" name="DBRequest" node="jms1">
+        <c:component id="price-engine-dbserver" read="true"/>
     </queue>
-    
+
+    <topic id="broadcast" name="DBBroadcast" node="jms1">
+        <c:component id="price-engine-dbserver" write="true" read="true"/>
+        <c:component id="price-engine-broadcast" read="true"/>
+        <c:component id="price-engine-twserver" read="true"/>
+    </topic>
+
+    <queue id="trade2Db" name="Trade2DB" node="jms3">
+        <c:component id="price-engine-dbserver" read="true"/>
+        <c:component id="price-engine-broadcast" write="true"/>
+        <c:component id="price-engine-blotterserver" write="true"/>
+    </queue>
+
+    <queue id="xmlManager.structurales2DB" name="Structurales2DB" node="jms1">
+        <c:component id="price-engine-dbserver" read="true"/>
+    </queue>
+
+    <queue id="xmlManager.db2Structurales" name="DB2Structurales" node="jms1">
+        <c:component id="price-engine-dbserver" write="true"/>
+    </queue>
+        
+
 </configuration>

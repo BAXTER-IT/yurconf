@@ -7,5 +7,8 @@
 	    <processor class="com.baxter.config.processor.impl.XSLTProcessor" type="logback">
 	        <parameter name="stylesheet">logback.xsl</parameter>
 	    </processor>
+		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="propertiesxml">
+			<parameter name="stylesheet">propertiesxml.xsl</parameter>
+		</processor>
 	</processors>
 </descriptor>
