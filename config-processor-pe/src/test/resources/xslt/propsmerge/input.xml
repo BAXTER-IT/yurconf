@@ -10,7 +10,10 @@
             <entry key="password">p</entry>
         </group>
     </group>
-    <group key="a">
+    <group key="xmlManager">
+        <entry key="nick">bob</entry>
+    </group>
+        <group key="a">
         <group key="b">
             <group key="c">
                 <group key="d">

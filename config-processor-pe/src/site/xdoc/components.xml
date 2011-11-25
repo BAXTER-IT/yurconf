@@ -35,7 +35,7 @@
                     <li>ObserverTopic</li>
                 </ul>
             </subsection>
-            
+
             <subsection name="Blotter Server">
                 <ol>
                     <li>JMS Channels Configuration. </li>
@@ -64,7 +64,7 @@
                     <li>ObserverTopic</li>
                 </ul>
             </subsection>
-            
+
             <subsection name="TrackWheel Servers">
                 <ol>
                     <li>JMS Channels Configuration.</li>
@@ -83,9 +83,9 @@
                     <li>positionManager.positionManagerServer2TW</li>
                 </ul>
             </subsection>
-            
+
             <subsection name="Dashboard Servlet"/>
-            
+
             <subsection name="Validators">
                 <ol>
                     <li>JMS Channels Configuration.</li>
@@ -102,7 +102,7 @@
                     <li>fwdctrl2publisher</li>
                 </ul>
             </subsection>
-            
+
             <subsection name="Forward Controllers">
                 <ol>
                     <li>JMS Channels Configuration.</li>
@@ -121,9 +121,9 @@
                     <li>fromReceiver</li>
                 </ul>
             </subsection>
-            
+
             <subsection name="Vendors"/>
-            
+
             <subsection name="Broadcast">
                 <ol>
                     <li>JMS Channels Configuration.</li>
@@ -151,7 +151,7 @@
                     <li>fwdIRctrl2publisher</li>
                     <li>blotterTrade</li>
                     <li>positionManager.client2PositionManagerServer</li>
-                    <li>positionManager.positionManagerServer2Client</li>                    
+                    <li>positionManager.positionManagerServer2Client</li>
                     <li>positionManager.HedgeClientMessaging</li>
                     <li>marketDataFromBroadcast2BlotterServer</li>
                     <li>creditcheckmanager</li>
@@ -160,7 +160,7 @@
                     <li>handoffmanager.Upstream2HandOff</li>
                 </ul>
             </subsection>
-            
+
             <subsection name="AdminTool">
                 <ol>
                     <li>JMS Channels Configuration.</li>
@@ -176,7 +176,7 @@
                     <li>ObserverTopic</li>
                 </ul>
             </subsection>
-            
+
             <subsection name="Blotter">
                 <ol>
                     <li>JMS Channels Configuration.</li>
@@ -213,7 +213,7 @@
                     <li>ObserverTopic</li>
                 </ul>
             </subsection>
-            
+
             <subsection name="TradingTool">
                 <ol>
                     <li>ServletUrl</li>
@@ -223,19 +223,15 @@
                     <li>userData</li>
                     <li>Password</li>
                 </ol>
-  
                 <h5>Optional</h5>
-                
                 <ol>
-                    
                     <li>messagesTime</li>
                     <li>connectionConnectTimeout</li>
                     <li>connectionReadTimeout</li>
                     <li>verbose</li>
-
                 </ol>
             </subsection>
-            
+
             <subsection name="Forwards Monitor">
                 <ol>
                     <li>JMS Channels Configuration.</li>
@@ -255,7 +251,7 @@
                     <li>ObserverTopic</li>
                 </ul>
             </subsection>
-            
+
             <subsection name="TrackWheel">
                 <ol>
                     <li>JMS Channels Configuration.</li>
@@ -279,7 +275,20 @@
         </section>
 
         <section name="ClientMessaging Plugins">
+            
+            <subsection name="WebClientMessaging">
+                <ol>
+                    <li>JMS Channels Configuration.</li>
+                </ol>
+                <h5>JMS Channels</h5>
+                <ul>
+                    <li>servletTrade</li>
+                    <li>servletStream</li>
+                </ul>
+            </subsection>
+            
             <subsection name="Bloomberg"/>
+            
             <subsection name="FXAll"/>
 
         </section>

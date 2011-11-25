@@ -6,6 +6,7 @@
     xmlns="http://baxter-it.com/config/pe/properties" version="2.0">
 
     <xsl:import href="baxterxsl:repo-base.xsl"/>
+    <xsl:import href="imp/merge-redundant-groups.xsl"/>
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
@@ -18,50 +19,29 @@
     <xsl:param name="configurationVariant"/>
 
     <xsl:template match="/">
-        <xsl:variable name="xmlDocLocation">
-            <xsl:call-template name="document-repo-location">
-                <xsl:with-param name="prefix" select="$jmsPrefix"/>
-            </xsl:call-template>
-        </xsl:variable>
-        <xsl:variable name="xmlVariantLocation">
-            <xsl:call-template name="variant-repo-location">
-                <xsl:with-param name="prefix" select="$jmsPrefix"/>
-            </xsl:call-template>
-        </xsl:variable>
         <xsl:variable name="jms">
-            <xsl:call-template name="merge-document-with-variant">
-                <xsl:with-param name="xmlLocation" select="$xmlDocLocation"/>
-                <xsl:with-param name="xmlVariantLocation" select="$xmlVariantLocation"/>
-            </xsl:call-template>
-        </xsl:variable>
-        <xsl:variable name="xmlPropDocLocation">
-            <xsl:call-template name="document-repo-location">
-                <xsl:with-param name="prefix" select="$propPrefix"/>
-            </xsl:call-template>
-        </xsl:variable>
-        <xsl:variable name="xmlPropVariantLocation">
-            <xsl:call-template name="variant-repo-location">
-                <xsl:with-param name="prefix" select="$propPrefix"/>
+            <xsl:call-template name="load-merged-repo-document">
+                <xsl:with-param name="prefix" select="'jms'"/>
             </xsl:call-template>
         </xsl:variable>
         <xsl:variable name="properties">
-            <xsl:call-template name="merge-document-with-variant">
-                <xsl:with-param name="xmlLocation" select="$xmlPropDocLocation"/>
-                <xsl:with-param name="xmlVariantLocation" select="$xmlPropVariantLocation"/>
+            <xsl:call-template name="load-merged-repo-document">
+                <xsl:with-param name="prefix" select="'properties'"/>
             </xsl:call-template>
         </xsl:variable>
-        <properties>
-            <xsl:attribute name="version">
-                <xsl:value-of select="$configurationVersion"/>
-            </xsl:attribute>
-
-            <xsl:apply-templates
-                select="$properties/peprop:properties/(peprop:property)[c:component/@id=$configurationComponentId]"/>
-
-            <xsl:apply-templates
-                select="$jms/pejms:configuration/(pejms:topic|pejms:queue)[c:component/@id=$configurationComponentId]"/>
-
-        </properties>
+        <xsl:variable name="redundantProperties">
+            <properties>
+                <xsl:attribute name="version">
+                    <xsl:value-of select="$configurationVersion"/>
+                </xsl:attribute>
+                <xsl:apply-templates
+                    select="$properties/peprop:properties/(peprop:property)[c:component/@id=$configurationComponentId]"/>
+                <xsl:apply-templates
+                    select="$jms/pejms:configuration/(pejms:topic|pejms:queue)[c:component/@id=$configurationComponentId]"
+                />
+            </properties>
+        </xsl:variable>
+        <xsl:apply-templates select="$redundantProperties/peprop:properties"/>
     </xsl:template>
 
     <xsl:template match="pejms:authentication">
