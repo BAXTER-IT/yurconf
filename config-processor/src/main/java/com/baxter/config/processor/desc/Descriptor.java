@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.baxter.config.om.Version;
+
 /**
  * Processor descriptor.
  * 
@@ -42,6 +44,10 @@ public class Descriptor
   @XmlElementWrapper(name = "processors")
   @XmlElement(name = "processor")
   private List<Processor> processors = new ArrayList<Processor>();
+
+  @XmlElementWrapper(name = "upgrades")
+  @XmlElement(name = "from")
+  private List<Upgrade> upgrades = new ArrayList<Upgrade>();
 
   public URL getUrl()
   {
@@ -78,6 +84,32 @@ public class Descriptor
   public List<Processor> getProcessors()
   {
 	return processors;
+  }
+
+  /**
+   * Returns the latest available upgrade from the specified version.
+   * 
+   * @param fromVersion
+   *          version to be upgraded
+   * @return the upgrade object
+   */
+  public Upgrade getLatestUpgrade(final String fromVersion)
+  {
+	Version maxToVersion = null;
+	Upgrade latestUpgrade = null;
+	for (Upgrade upgrade : this.upgrades)
+	{
+	  if (fromVersion.equals(upgrade.getFromVersion()))
+	  {
+		final Version toVersion = Version.valueOf(upgrade.getToVersion());
+		if (maxToVersion == null || maxToVersion.compareTo(toVersion) < 0)
+		{
+		  maxToVersion = toVersion;
+		  latestUpgrade = upgrade;
+		}
+	  }
+	}
+	return latestUpgrade;
   }
 
   void setVersion(String version)

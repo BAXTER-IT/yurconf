@@ -14,6 +14,7 @@ import javax.xml.bind.Marshaller;
 
 import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -35,6 +36,29 @@ public class TestLoader
 	assertEquals(2, d.getProcessors().size());
 	assertEquals("com.baxter.config.processor.impl.XSLTProcessor", d.getProcessors().get(0).getClassName());
 	assertEquals("proba", d.getProcessors().get(0).getConfigurationType());
+  }
+
+  @Test
+  public void loadDescriptorFromUpgrade() throws Exception
+  {
+	final URL url = getClass().getResource("data/test-descriptor-upgrade.xml");
+	final Descriptor d = Loader.getInstance().load(url);
+
+	final Upgrade from0_9 = d.getLatestUpgrade("0.9");
+	assertNull(from0_9);
+
+	final Upgrade from1_0 = d.getLatestUpgrade("1.0");
+	assertEquals("2.0", from1_0.getToVersion());
+	assertEquals(UpgradeAddFileCommand.class, from1_0.getCommands().get(0).getClass());
+	assertEquals(UpgradeAddFileCommand.class, from1_0.getCommands().get(1).getClass());
+	assertEquals(UpgradeRemoveFileCommand.class, from1_0.getCommands().get(2).getClass());
+	assertEquals(UpgradeMoveFileCommand.class, from1_0.getCommands().get(3).getClass());
+
+	final Upgrade from2_0 = d.getLatestUpgrade("2.0");
+	assertEquals("3.0", from2_0.getToVersion());
+
+	final Upgrade from2_1 = d.getLatestUpgrade("2.1");
+	assertEquals("3.0", from2_1.getToVersion());
   }
 
   @Test
