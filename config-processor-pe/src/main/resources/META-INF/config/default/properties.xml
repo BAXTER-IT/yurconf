@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<properties xmlns="http://baxter-it.com/config/pe/properties" xmlns:c="http://baxter-it.com/config/component">
-    
+<properties xmlns="http://baxter-it.com/config/pe/properties"
+    xmlns:c="http://baxter-it.com/config/component">
+
     <property id="xmlManager.structuralesUser.xmlUserId" value="m">
-        <c:component id="price-engine-dbserver" />
+        <c:component id="price-engine-dbserver"/>
     </property>
-    
+
     <!-- Test -->
     <property id="a.b.c.d.e.f" value="test">
-        <c:component id="price-engine-dbserver" />
-        <c:component id="price-engine-broadcast" />
+        <c:component id="price-engine-dbserver"/>
+        <c:component id="price-engine-broadcast"/>
     </property>
-    
-    <property id="runDIServer" value="${pe.devel.log}">
-        <c:component id="price-engine-blotter" />
-        <c:component id="price-engine-blotterserver" />
+
+    <property id="runDIServer" value="${pe.devel.config.di}">
+        <c:component id="price-engine-blotter"/>
+        <c:component id="price-engine-blotterserver"/>
     </property>
-    
+
+    <property id="useDIPanel" value="${pe.devel.config.useDIPanel}">
+        <c:component id="price-engine-blotter"/>
+    </property>
+
 </properties>

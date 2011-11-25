@@ -89,15 +89,15 @@
     <node id="node2" host="localhost" port="4002" router="router2">
         <authentication username="testUser2" password="test2" />
     </node>
-    <queue name="Trade2DB" alias="trade2db" node="node1">
+    <queue name="Trade2DB" id="trade2db" node="node1">
         <component id="price-engine-broadcast" write="true" />
         <component id="price-engine-dbserver" read="true" />
     </queue>
-    <queue name="TWC2Server" alias="twc2tws" node="node2">
+    <queue name="TWC2Server" id="twc2tws" node="node2">
         <component id="price-engine-trackwheel" write="true" />
         <component id="price-engine-twserver" read="true" />
     </queue>
-    <topic name="TWS2Client" alias="tws2twc" node="node2">
+    <topic name="TWS2Client" id="tws2twc" node="node2">
         <component id="price-engine-trackwheel" read="true" />
         <component id="price-engine-twserver" write="true" />
     </topic>
@@ -118,16 +118,16 @@
                 <h5>Channels</h5>
 
                 <p>Channels configuration includes the setup for JMS Topics and Queues. Each channel can be described
-                    with channel name and alias (used by PE code at runtime). The channel is assigned to a particular
+                    with channel name and id (used by PE code at runtime). The channel is assigned to a particular
                     JMS node (should be configured there). The list of components which use this channel is provided via
                     nested elements.</p>
 
                 <source><![CDATA[
-<queue name="TWC2Server" alias="twc2tws" node="node2">
+<queue name="TWC2Server" id="twc2tws" node="node2">
     <component id="price-engine-trackwheel" write="true" />
     <component id="price-engine-twserver" read="true" />
 </queue>
-<topic name="TWS2Client" alias="tws2twc" node="node2">
+<topic name="TWS2Client" id="tws2twc" node="node2">
     <component id="price-engine-trackwheel" read="true" />
     <component id="price-engine-twserver" write="true" />
 </topic>
@@ -153,6 +153,65 @@
 
             <subsection name="Usage"> </subsection>
 
+        </section>
+        
+        <section name="Standard Configuration Source">
+            <code>$REPO_HOME/com/baxter/pe/properties.xml</code>
+            
+            <p>This configuration source defines all information related to the components except jms settings. This
+                includes configuration of Property Instances and the component list where they are used.</p>
+            
+            <subsection name="Schema">
+                <p>The configuration source consist of property settings.
+                    Please also refer to <a href="xsd/config-pe-properties.xsd">XML Schema</a> for more details.</p>
+                
+                <source><![CDATA[
+<properties xmlns="http://baxter-it.com/config/pe/properties"
+    xmlns:c="http://baxter-it.com/config/component">
+
+    <property id="runDIServer" value="${pe.devel.config.di}">
+        <c:component id="price-engine-blotter"/>
+        <c:component id="price-engine-blotterserver"/>
+    </property>
+
+    <property id="useDIPanel" value="${pe.devel.config.useDIPanel}">
+        <c:component id="price-engine-blotter"/>
+    </property>
+
+</properties>
+                ]]></source>
+                
+                <h5>Property Nodes</h5>
+                
+                <p>Every node describes a property instance. This includes the name on which the component try to serarch for the value. And the value itself, and the list of components which use this property</p>
+                
+                <source><![CDATA[
+    <property id="runDIServer" value="${pe.devel.config.di}">
+        <c:component id="price-engine-blotter"/>
+        <c:component id="price-engine-blotterserver"/>
+    </property>
+                ]]></source>
+
+            </subsection>
+            
+            <subsection name="Variants">
+                <p>Each configuration element from the source file can be overriden or extended by variant files. The
+                    name of variant file should follow this convention:
+                    <code>$REPO_HOME/com/baxter/pe/properties(variant).xml</code>, where <code>variant</code> is a variant
+                    part of request URL.</p>
+                
+                <ul>
+                    <li>properties(TestEnv).xml</li>
+                    <li>properties(SwiftMQ-7).xml</li>
+                </ul>
+                
+                <p>Use standard variants overriding rules to define configuration variants. TODO link to standard
+                    rules</p>
+                
+            </subsection>
+            
+            <subsection name="Usage"> </subsection>
+            
         </section>
 
     </body>
