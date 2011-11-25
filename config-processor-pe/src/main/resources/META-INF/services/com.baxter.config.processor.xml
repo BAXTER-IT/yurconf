@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<descriptor xmlns="http://baxter-it.com/config/descriptor" version="1.0" productId="com.baxter.pe">
+<descriptor xmlns="http://baxter-it.com/config/descriptor" version="2.0" productId="com.baxter.pe">
 	<processors>
 		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="log4j">
 			<parameter name="stylesheet">log4j.xsl</parameter>
@@ -11,4 +11,18 @@
 			<parameter name="stylesheet">propertiesxml.xsl</parameter>
 		</processor>
 	</processors>
+	<upgrades>
+		<from version="1.0" to="1.5">
+			<add source="common/extended.xml" />
+			<add source="ext/*.jca" />
+			<del source="dummy.xml" />
+			<move source="price-engine-blotter-server*.xml" target="price-engine-blotterserver*.xml" />
+			<move regexp="s/(jms)(\([^\)*]\)\.xml)/jmsnew$2" />
+			<xslt xml="jms*.xml" xsl="upgrade-to-1.5.xsl" />
+			<xslt xsl="upgrade-to-1.5-additional.xsl" />
+		</from>
+		<from version="1.5" to="2.0">
+			
+		</from>
+	</upgrades>
 </descriptor>

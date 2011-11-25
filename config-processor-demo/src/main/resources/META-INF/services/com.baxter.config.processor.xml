@@ -12,5 +12,11 @@
         <processor class="com.baxter.config.processor.impl.XSLTProcessor" type="logback">
             <parameter name="stylesheet">logback.xsl</parameter>
         </processor>
+		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="currencypair">
+			<parameter name="stylesheet">currencypair.xsl</parameter>
+		</processor>
+		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="currency">
+			<parameter name="stylesheet">currency.xsl</parameter>
+		</processor>
 	</processors>
 </descriptor>

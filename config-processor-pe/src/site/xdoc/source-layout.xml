@@ -186,7 +186,7 @@
                 <p>Every node describes a property instance. This includes the name on which the component try to serarch for the value. And the value itself, and the list of components which use this property</p>
                 
                 <source><![CDATA[
-    <property id="runDIServer" value="${pe.devel.config.di}">
+    <property id="runDIServer" value="${pe.devel.config.dir}">
         <c:component id="price-engine-blotter"/>
         <c:component id="price-engine-blotterserver"/>
     </property>

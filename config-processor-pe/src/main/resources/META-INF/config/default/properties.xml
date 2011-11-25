@@ -5,7 +5,7 @@
     <property id="xmlManager.structuralesUser.xmlUserId" value="m">
         <c:component id="price-engine-dbserver"/>
     </property>
-
+    
     <!-- Test -->
     <property id="a.b.c.d.e.f" value="test">
         <c:component id="price-engine-dbserver"/>

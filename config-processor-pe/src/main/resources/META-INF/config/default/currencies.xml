@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://baxter-it.com/config/pe/jms" xmlns:c="http://baxter-it.com/config/component">
+
+    <currencyPair id="AU">
+        <port id="price-engine-fwdcontroller">6200</port>
+        <port id="price-engine-validator">6740</port>
+        <port id="price-engine-twserver">6002</port>
+    </currencyPair>
+    
+    <currencyPair id="ZX">
+        <port id="price-engine-fwdcontroller">6205</port>
+        <port id="price-engine-validator">6748</port>
+        <port id="price-engine-twserver">6008</port>
+    </currencyPair>
+    
+    <currencyPair id="EU">
+        <port id="price-engine-fwdcontroller">6215</port>
+        <port id="price-engine-validator">6742</port>
+        <port id="price-engine-twserver">6020</port>
+    </currencyPair>
+    
+    <currencyPair id="YY">
+        <port id="price-engine-fwdcontroller">6035</port>
+        <port id="price-engine-validator">6750</port>
+        <port id="price-engine-twserver">6010</port>
+    </currencyPair>
+    
+    <currencyPair id="YP">
+        <port id="price-engine-fwdcontroller">6085</port>
+        <port id="price-engine-twserver">6018</port>
+    </currencyPair>
+    
+    <currencyPair id="YF">
+        <port id="price-engine-fwdcontroller">6055</port>
+        <port id="price-engine-twserver">6022</port>
+    </currencyPair>
+    
+    <currencyPair id="YD">
+        <port id="price-engine-fwdcontroller">6065</port>
+        <port id="price-engine-validator">6744</port>
+        <port id="price-engine-twserver">6004</port>
+    </currencyPair>
+    
+    <currencyPair id="NS">
+        <port id="price-engine-fwdcontroller">6075</port>
+    </currencyPair>
+    
+    <currencyPair id="RK">
+        <port id="price-engine-validator">6746</port>
+    </currencyPair>
+
+    <currencyPair id="RZ">
+        <port id="price-engine-validator">6752</port>
+        <port id="price-engine-twserver">6012</port>
+    </currencyPair>
+    
+    <currencyPair id="GB">
+        <port id="price-engine-validator">6754</port>
+        <port id="price-engine-twserver">6014</port>
+    </currencyPair>
+    
+    <currencyPair id="EJ">
+        <port id="price-engine-validator">6756</port>
+        <port id="price-engine-twserver">6016</port>
+    </currencyPair>
+    
+    <currencyPair id="AB">
+        <port id="price-engine-validator">6758</port>
+    </currencyPair>
+    
+    <currency id="USD">
+        <port id="price-engine-fwdcontroller">6090</port>
+    </currency>
+    
+</configuration>
