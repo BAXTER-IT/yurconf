@@ -49,10 +49,10 @@ public class TestLoader
 
 	final Upgrade from1_0 = d.getLatestUpgrade("1.0");
 	assertEquals("2.0", from1_0.getToVersion());
-	assertEquals(UpgradeAddFileCommand.class, from1_0.getCommands().get(0).getClass());
-	assertEquals(UpgradeAddFileCommand.class, from1_0.getCommands().get(1).getClass());
-	assertEquals(UpgradeRemoveFileCommand.class, from1_0.getCommands().get(2).getClass());
-	assertEquals(UpgradeMoveFileCommand.class, from1_0.getCommands().get(3).getClass());
+	assertEquals(UpgradeAddFile.class, from1_0.getCommands().get(0).getClass());
+	assertEquals(UpgradeAddFile.class, from1_0.getCommands().get(1).getClass());
+	assertEquals(UpgradeRemoveFile.class, from1_0.getCommands().get(2).getClass());
+	assertEquals(UpgradeMoveFile.class, from1_0.getCommands().get(3).getClass());
 
 	final Upgrade from2_0 = d.getLatestUpgrade("2.0");
 	assertEquals("3.0", from2_0.getToVersion());

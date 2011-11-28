@@ -15,8 +15,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.baxter.config.processor.ProcessorException;
+import com.baxter.config.processor.desc.AbstractUpgradeFile;
 import com.baxter.config.processor.desc.Descriptor;
 import com.baxter.config.processor.desc.Loader;
+import com.baxter.config.processor.desc.Upgrade;
+import com.baxter.config.processor.upgrade.CommandFactory;
+import com.baxter.config.processor.upgrade.UpgradeContext;
+import com.baxter.config.processor.util.URLLister;
 
 /**
  * The Configuration Repository manager.
@@ -75,6 +80,36 @@ public class Repository
   {
 	final String productPath = productId.replace('.', File.separatorChar);
 	return new File(getRoot(), productPath);
+  }
+
+  /**
+   * Upgrades the package in repository.
+   * @param descriptor the package descriptor
+   * @param upgrade upgrade to execute
+   * @throws ProcessorException if failed to upgrade
+   */
+  public void upgradePackage(final Descriptor descriptor, final Upgrade upgrade) throws ProcessorException
+  {
+	final UpgradeContext upgradeContext = new UpgradeContext()
+	{
+
+	  @Override
+      public File getProcessorRepositoryRoot()
+      {
+	    return getProductDirectory(descriptor.getProductId());
+      }
+
+	  @Override
+      public URL getSourceBase()
+      {
+	    return descriptor.getSourceUrl();
+      }
+
+	};
+	for (AbstractUpgradeFile command : upgrade.getCommands())
+	{
+	  CommandFactory.getInstance().getCommand(command).upgrade(upgradeContext);
+	}
   }
 
   /**

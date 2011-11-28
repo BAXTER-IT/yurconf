@@ -20,6 +20,7 @@ import com.baxter.config.processor.desc.Descriptor;
 import com.baxter.config.processor.desc.Loader;
 import com.baxter.config.processor.desc.Parameter;
 import com.baxter.config.processor.desc.Processor;
+import com.baxter.config.processor.desc.Upgrade;
 import com.baxter.config.processor.repo.Repository;
 import com.baxter.config.processor.repo.RepositoryException;
 
@@ -150,9 +151,15 @@ public class ProcessorFactory
 			final Version availableVersion = Version.valueOf(descriptor.getVersion());
 			if (existingVersion.compareTo(availableVersion) < 0)
 			{
-			  // processor in JAR is newer than processor in Repo
-			  LOGGER.info("Processor in repository is old - {}. Will upgrade...", existingDescriptor);
-			  // TODO CFG-15 implement upgrading
+			  final Upgrade upgrade = descriptor.getLatestUpgrade(existingDescriptor.getVersion());
+			  if (upgrade != null)
+			  {
+				this.repository.upgradePackage(descriptor, upgrade);
+			  }
+			  else
+			  {
+				LOGGER.warn("Cannot find upgrade from {} to {}", existingVersion, availableVersion);
+			  }
 			}
 			else
 			{

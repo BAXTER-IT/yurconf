@@ -23,11 +23,11 @@ public class Upgrade
   @XmlAttribute(name = "toVersion")
   private String toVersion;
 
-  @XmlElements({ @XmlElement(name = "add", type = UpgradeAddFileCommand.class),
-	  @XmlElement(name = "remove", type = UpgradeRemoveFileCommand.class),
-	  @XmlElement(name = "move", type = UpgradeMoveFileCommand.class),
-	  @XmlElement(name = "transform", type = UpgradeTransformCommand.class) })
-  private List<? extends AbstractUpgradeCommand> commands;
+  @XmlElements({ @XmlElement(name = "add", type = UpgradeAddFile.class),
+	  @XmlElement(name = "remove", type = UpgradeRemoveFile.class),
+	  @XmlElement(name = "move", type = UpgradeMoveFile.class),
+	  @XmlElement(name = "transform", type = UpgradeTransform.class) })
+  private List<? extends AbstractUpgradeFile> commands;
 
   public String getFromVersion()
   {
@@ -39,7 +39,7 @@ public class Upgrade
 	return toVersion;
   }
 
-  public List<? extends AbstractUpgradeCommand> getCommands()
+  public List<? extends AbstractUpgradeFile> getCommands()
   {
 	return this.commands;
   }

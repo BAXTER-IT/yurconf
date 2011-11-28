@@ -9,14 +9,15 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author ykryshchuk
  * @since ${developmentVersion}
  */
-public abstract class AbstractUpgradeFileCommand extends AbstractUpgradeCommand
+public class UpgradeMoveFile extends AbstractUpgradeFile
 {
-  @XmlAttribute(name = "file")
-  private String file;
 
-  public String getFile()
+  @XmlAttribute(name = "to")
+  private String to;
+
+  public String getTo()
   {
-	return this.file;
+	return this.to;
   }
 
 }
