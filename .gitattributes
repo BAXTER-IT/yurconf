@@ -35,6 +35,9 @@ config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-
 config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-twserver.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-validator.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/properties.xml -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/currency.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/currencypair.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/imp/currency-base.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/imp/merge-redundant-groups.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/log4j.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/logback.xsl -text

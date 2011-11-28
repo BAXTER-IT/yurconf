@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration xmlns="http://baxter-it.com/config/pe/jms" xmlns:c="http://baxter-it.com/config/component">
+<configuration xmlns="http://baxter-it.com/config/pe/cp">
 
     <currencyPair id="AU">
         <port id="price-engine-fwdcontroller">6200</port>
