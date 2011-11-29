@@ -37,6 +37,10 @@ class AddFileCommand extends AbstractFileCommand implements UpgradeCommand
 	  for (String filename : entryPaths)
 	  {
 		final File destFile = new File(destDir, filename);
+		if (destFile.isFile())
+		{
+		  logger.warn("Target file will be overwritten {}", destFile.getAbsolutePath());
+		}
 		FileUtils.copyURLToFile(new URL(sourceBase, filename), destFile);
 	  }
 	}

@@ -123,14 +123,16 @@ config-processor/src/site/xdoc/index.xml -text
 config-processor/src/site/xdoc/packaging.xml -text
 config-processor/src/test/java/com/baxter/config/processor/TestProcessorFactory.java -text
 config-processor/src/test/java/com/baxter/config/processor/desc/TestLoader.java -text
-config-processor/src/test/java/com/baxter/config/processor/upgrade/AbstractFileCommandTest.java -text
+config-processor/src/test/java/com/baxter/config/processor/upgrade/TestAbstractFileCommand.java -text
 config-processor/src/test/java/com/baxter/config/processor/upgrade/TestAddFileCommand.java -text
 config-processor/src/test/java/com/baxter/config/processor/upgrade/TestMoveFileCommand.java -text
+config-processor/src/test/java/com/baxter/config/processor/upgrade/TestRemoveFileCommand.java -text
 config-processor/src/test/resources/com/baxter/config/processor/desc/data/test-descriptor-1.xml -text
 config-processor/src/test/resources/com/baxter/config/processor/desc/data/test-descriptor-upgrade.xml -text
 config-processor/src/test/resources/com/baxter/config/processor/upgrade/config/default/input1_1.txt -text
 config-processor/src/test/resources/com/baxter/config/processor/upgrade/config/default/input1_2.txt -text
 config-processor/src/test/resources/com/baxter/config/processor/upgrade/config/default/input1_3.txt -text
+config-processor/src/test/resources/com/baxter/config/processor/upgrade/config/default/input2_1.txt -text
 config-processor/src/test/resources/com/baxter/config/processor/upgrade/config/default/otherdir/otherfile.ext -text
 config-processor/src/test/resources/com/baxter/config/processor/upgrade/config/default/somedir/somefile.ext -text
 config-processor/src/test/resources/log4j.xml -text

@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
 import com.baxter.config.processor.desc.FilenameProvider;
@@ -21,19 +22,9 @@ import com.baxter.config.processor.desc.FilenameProvider;
  * @author xpdev
  * @since ${developmentVersion}
  */
-public class TestAddFileCommand extends AbstractFileCommandTest
+public class TestAddFileCommand extends TestAbstractFileCommand
 {
   
-  @Test
-  public void check_isFilenamePatternEffective()
-  {
-	final FilenameProvider fnProvider = mock(FilenameProvider.class);
-	when(fnProvider.getFileNameMask()).thenReturn("somedir/somefile.ext");
-	when(fnProvider.getFileNamePattern()).thenReturn("[^\\.]*\\.[^\\.]*");
-	final AddFileCommand cmd = new AddFileCommand(fnProvider);
-	assertTrue(cmd.isFilenamePatternEffective());
-  }
-
   /**
    * 
    */
@@ -42,9 +33,7 @@ public class TestAddFileCommand extends AbstractFileCommandTest
   {
 	final FilenameProvider fnProvider = mock(FilenameProvider.class);
 	when(fnProvider.getFileNameMask()).thenReturn("somedir/somefile.ext");
-
 	final AddFileCommand cmd = new AddFileCommand(fnProvider);
-
 	final File expectedNewFile = new File(this.pseudoRoot, "somedir/somefile.ext");
 	assertFalse(expectedNewFile.isFile());
 	cmd.upgrade(this.upgradeContext);
@@ -102,6 +91,20 @@ public class TestAddFileCommand extends AbstractFileCommandTest
 	{
 	  assertTrue(new File(this.pseudoRoot, "input1_" + i + ".txt").isFile());
 	}
+  }
+  
+  @Test
+  public void check_addFileOverwrite() throws Exception {
+	final FilenameProvider fnProvider = mock(FilenameProvider.class);
+	when(fnProvider.getFileNameMask()).thenReturn("somedir/somefile.ext");
+	final AddFileCommand cmd = new AddFileCommand(fnProvider);
+	final File expectedNewFile = new File(this.pseudoRoot, "somedir/somefile.ext");
+	FileUtils.touch(expectedNewFile);
+	assertTrue(expectedNewFile.isFile());
+	assertEquals(0, expectedNewFile.length());
+	cmd.upgrade(this.upgradeContext);
+	assertTrue(expectedNewFile.isFile());
+	assertEquals(10, expectedNewFile.length());
   }
 
 }
