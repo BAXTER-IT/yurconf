@@ -177,17 +177,21 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 	return new StreamSource(stylesheetUrl.openStream(), stylesheetUrl.toString());
   }
 
-  protected Source getXmlSource(final ProcessorContext context) throws ParserConfigurationException
+  protected Source getXmlSource(final ProcessorContext context) throws ParserConfigurationException, ProcessorException
   {
 	final DocumentBuilder docBuilder = DBF.newDocumentBuilder();
 	final Document doc = docBuilder.newDocument();
 	final Element configSrc = doc.createElement("configuration-source");
-	final Element request = doc.createElement("request");
-	request.setAttribute("productId", context.getConfigID().getProductId());
-	request.setAttribute("componentId", context.getConfigID().getComponentId());
-	request.setAttribute("variant", context.getConfigID().getVariant());
-	request.setAttribute("type", context.getConfigID().getType());
-	configSrc.appendChild(request);
+	final ConfigID configId = context.getConfigID();
+	if (configId != null)
+	{
+	  final Element request = doc.createElement("request");
+	  request.setAttribute("productId", configId.getProductId());
+	  request.setAttribute("componentId", configId.getComponentId());
+	  request.setAttribute("variant", configId.getVariant());
+	  request.setAttribute("type", configId.getType());
+	  configSrc.appendChild(request);
+	}
 	doc.appendChild(configSrc);
 	return new DOMSource(doc);
   }
@@ -198,18 +202,20 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
    * @param transformer
    *          transformer to setup
    * @param configurationId
-   *          actual requestetd configuration
+   *          actual requestetd configuration, may be null
    */
   protected void setupTransformer(final Transformer transformer, final ConfigID configurationId)
   {
 	transformer.setParameter(XSLT_PARAM_PRODUCT_ID, getDescriptor().getProductId());
 	transformer.setParameter(XSLT_PARAM_VERSION, getDescriptor().getVersion());
-	transformer.setParameter(XSLT_PARAM_COMPONENT_ID, configurationId.getComponentId());
-	if (configurationId.getVariant() != null)
+	if (configurationId != null)
 	{
-	  transformer.setParameter(XSLT_PARAM_VARIANT, configurationId.getVariant());
+	  transformer.setParameter(XSLT_PARAM_COMPONENT_ID, configurationId.getComponentId());
+	  if (configurationId.getVariant() != null)
+	  {
+		transformer.setParameter(XSLT_PARAM_VARIANT, configurationId.getVariant());
+	  }
 	}
-
 	transformer.setErrorListener(new JustLogErrorListener());
 	transformer.setURIResolver(this.transformerFactory.getURIResolver());
   }

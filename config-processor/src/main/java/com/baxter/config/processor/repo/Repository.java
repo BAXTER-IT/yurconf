@@ -25,6 +25,7 @@ import com.baxter.config.processor.util.URLLister;
 
 /**
  * The Configuration Repository manager.
+ * 
  * @author xpdev
  * @since ${developmentVersion}
  */
@@ -84,9 +85,13 @@ public class Repository
 
   /**
    * Upgrades the package in repository.
-   * @param descriptor the package descriptor
-   * @param upgrade upgrade to execute
-   * @throws ProcessorException if failed to upgrade
+   * 
+   * @param descriptor
+   *          the package descriptor
+   * @param upgrade
+   *          upgrade to execute
+   * @throws ProcessorException
+   *           if failed to upgrade
    */
   public void upgradePackage(final Descriptor descriptor, final Upgrade upgrade) throws ProcessorException
   {
@@ -94,16 +99,16 @@ public class Repository
 	{
 
 	  @Override
-      public File getProcessorRepositoryRoot()
-      {
-	    return getProductDirectory(descriptor.getProductId());
-      }
+	  public File getProcessorRepositoryRoot()
+	  {
+		return getProductDirectory(descriptor.getProductId());
+	  }
 
 	  @Override
-      public URL getSourceBase()
-      {
-	    return descriptor.getSourceUrl();
-      }
+	  public Descriptor getDescriptor()
+	  {
+		return descriptor;
+	  }
 
 	};
 	for (AbstractUpgradeFile command : upgrade.getCommands())
@@ -113,7 +118,8 @@ public class Repository
   }
 
   /**
-   * Install a configuration processor package into repository. Copies all necessary resources from processor package to a local repository.
+   * Install a configuration processor package into repository. Copies all necessary resources from processor package to a local
+   * repository.
    * 
    * @param descriptor
    *          the processor descriptor
@@ -159,11 +165,15 @@ public class Repository
   }
 
   /**
-   * Loads a product processors descriptor from this repository.  
-   * @param productId product identifier
+   * Loads a product processors descriptor from this repository.
+   * 
+   * @param productId
+   *          product identifier
    * @return processors descriptor
-   * @throws ProcessorException if failed to load the descriptor from file
-   * @throws RepositoryException if the descriptor file has not been found in repository
+   * @throws ProcessorException
+   *           if failed to load the descriptor from file
+   * @throws RepositoryException
+   *           if the descriptor file has not been found in repository
    */
   public Descriptor getDescriptor(final String productId) throws ProcessorException
   {
