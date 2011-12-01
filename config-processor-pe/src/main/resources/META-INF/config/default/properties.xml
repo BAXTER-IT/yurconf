@@ -5,8 +5,15 @@
     <property id="xmlManager.structuralesUser.xmlUserId" value="m">
         <c:component id="price-engine-dbserver"/>
     </property>
+
+    <property id="positionManager.aLGOEngineClassName" value="com.baxter.genius.positionmanager.DefaultALGOEngine">
+        <!-- If you don't want to instantiate position manager in blotter server somment the next line out -->
+        <c:component id="price-engine-blotterserver"/>
+    </property>
     
-      <property id="runDIServer" value="${pe.devel.config.di}">
+
+
+    <property id="runDIServer" value="${pe.devel.config.di}">
         <c:component id="price-engine-blotter"/>
         <c:component id="price-engine-blotterserver"/>
     </property>
