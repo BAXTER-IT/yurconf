@@ -31,8 +31,10 @@ class MoveFileCommand extends AbstractFileCommand implements UpgradeCommand
   @Override
   public void upgrade(final UpgradeContext context) throws UpgradeException
   {
+
 	// Processor's repository root
-	final File repoDir = context.getProcessorRepositoryRoot();
+	final File repoDir = context.getProcessorFactory().getRepository()
+	    .getProductDirectory(context.getDescriptor().getProductId());
 	final URL baseURL;
 	try
 	{
@@ -45,25 +47,42 @@ class MoveFileCommand extends AbstractFileCommand implements UpgradeCommand
 	try
 	{
 	  final List<String> filenames = listFilenames(baseURL);
-	  for (String filename : filenames)
+
+	  if (isFilenamePatternEffective())
 	  {
-		final File file = new File(repoDir, filename);
-		if (isFilenamePatternEffective())
+
+		for (String filename : filenames)
 		{
-		  final String newName = filename.replaceAll(getFilenamePattern().pattern(), this.to);
-		  final File targetFile = new File(repoDir, newName);
-		  FileUtils.moveFile(file, targetFile);
-		}
-		else
-		{
-		  final File target = new File(repoDir, this.to);
-		  if (target.isDirectory())
+		  final File file = new File(repoDir, filename);
+		  if (isFilenamePatternEffective())
 		  {
-			FileUtils.moveToDirectory(file, target, true);
+			final String newName = filename.replaceAll(getFilenamePattern().pattern(), this.to);
+			final File targetFile = new File(repoDir, newName);
+			replaceWithCheckExistingFile(file, targetFile);
+		  }
+		}
+	  }
+	  else
+	  {
+		boolean isTargetDirectory = this.to.endsWith("/");
+		final File target = new File(repoDir, this.to);
+		// if we have a wildcard in file attribute, then to shall be a directory
+		if (isFileNameMaskWildcard() && !isTargetDirectory)
+		{
+		  throw new UpgradeException("Target is not a directory " + target.getAbsolutePath());
+		}
+		for (String filename : filenames)
+		{
+		  final File file = new File(repoDir, filename);
+
+		  if (isTargetDirectory)
+		  {
+			File targetFile = new File(target, file.getName());
+			replaceWithCheckExistingFile(file, targetFile);
 		  }
 		  else
 		  {
-			FileUtils.moveFile(file, target);
+			replaceWithCheckExistingFile(file, target);
 		  }
 		}
 	  }
@@ -72,6 +91,16 @@ class MoveFileCommand extends AbstractFileCommand implements UpgradeCommand
 	{
 	  throw new UpgradeException(e);
 	}
+  }
+
+  private void replaceWithCheckExistingFile(final File file, final File targetFile) throws IOException
+  {
+	if (targetFile.exists())
+	{
+	  FileUtils.forceDelete(targetFile);
+	  logger.warn("Target file will be overwritten {}", targetFile.getAbsolutePath());
+	}
+	FileUtils.moveFile(file, targetFile);
   }
 
 }

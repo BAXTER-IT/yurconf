@@ -1,0 +1,11 @@
+<!-- 
+    For upgrade we want to put text in attribute value.
+    -->
+<catalogue>
+    <element id="1">
+        first element
+    </element>
+    <element id="2">
+        second element
+    </element>
+</catalogue>

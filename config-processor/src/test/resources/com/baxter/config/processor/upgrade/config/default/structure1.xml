@@ -1,0 +1,6 @@
+<!-- for upgrade we want to rename list to items -->
+<list>
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+</list>

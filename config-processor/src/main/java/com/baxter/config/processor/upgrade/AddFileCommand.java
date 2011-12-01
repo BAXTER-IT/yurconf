@@ -28,7 +28,8 @@ class AddFileCommand extends AbstractFileCommand implements UpgradeCommand
   public void upgrade(final UpgradeContext context) throws UpgradeException
   {
 	// Processor's repository root
-	final File destDir = context.getProcessorRepositoryRoot();
+	final File destDir = context.getProcessorFactory().getRepository()
+	    .getProductDirectory(context.getDescriptor().getProductId());
 	// the URL to processor's directory with default sources
 	final URL sourceBase = context.getDescriptor().getSourceUrl();
 	try

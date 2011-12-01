@@ -94,14 +94,10 @@ public class TransformCommand extends AbstractFileCommand implements UpgradeComm
 
 	protected UpgradeXSLTProcessor(final Descriptor descriptor, final UpgradeContext upgradeContext)
 	{
-	  super(descriptor);
+	  super(descriptor, upgradeContext.getProcessorFactory());
 	  this.upgradeContext = upgradeContext;
-	}
+	  setStylesheet(TransformCommand.this.stylesheet);
 
-	@Override
-	public String getStylesheet()
-	{
-	  return TransformCommand.this.stylesheet;
 	}
 
 	@Override
@@ -112,17 +108,19 @@ public class TransformCommand extends AbstractFileCommand implements UpgradeComm
 	  {
 		final DOMSource domSource = DOMSource.class.cast(originalSource);
 		final Document doc = Document.class.cast(domSource.getNode());
-		final Element rootElement = Element.class.cast(doc.getDocumentElement().getFirstChild());
+		final Element rootElement = doc.getDocumentElement();
 		try
 		{
 		  final Element sourcesElement = doc.createElement("sources");
 		  // iterate source files and add subelements
 		  // Processor's repository root
-		  final File repoDir = this.upgradeContext.getProcessorRepositoryRoot();
+		  final File repoDir = this.upgradeContext.getProcessorFactory().getRepository()
+			  .getProductDirectory(this.upgradeContext.getDescriptor().getProductId());
 		  final URL baseURL;
 		  try
 		  {
 			baseURL = repoDir.toURI().toURL();
+			sourcesElement.setAttribute("repo", baseURL.toString());
 		  }
 		  catch (final MalformedURLException e)
 		  {

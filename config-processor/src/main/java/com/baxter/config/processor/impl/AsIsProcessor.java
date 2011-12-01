@@ -12,6 +12,7 @@ import org.apache.commons.io.IOUtils;
 
 import com.baxter.config.processor.ProcessorContext;
 import com.baxter.config.processor.ProcessorException;
+import com.baxter.config.processor.ProcessorFactory;
 import com.baxter.config.processor.desc.Descriptor;
 
 /**
@@ -29,9 +30,9 @@ public class AsIsProcessor extends AbstractXSLTProcessor
    * @param descriptor
    *          processor descriptor
    */
-  public AsIsProcessor(final Descriptor descriptor)
+  public AsIsProcessor(final Descriptor descriptor, final ProcessorFactory processorFactory )
   {
-	super(descriptor);
+	super(descriptor, processorFactory);
   }
 
   @Override

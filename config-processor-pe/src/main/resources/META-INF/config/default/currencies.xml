@@ -17,6 +17,7 @@
         <port id="price-engine-fwdcontroller">6215</port>
         <port id="price-engine-validator">6742</port>
         <port id="price-engine-twserver">6020</port>
+        <port id="price-engine-trackwheel">7000</port>
     </currencyPair>
     
     <currencyPair id="YY">

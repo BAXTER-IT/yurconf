@@ -14,6 +14,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import com.baxter.config.processor.ProcessorContext;
 import com.baxter.config.processor.ProcessorException;
+import com.baxter.config.processor.ProcessorFactory;
 import com.baxter.config.processor.desc.Descriptor;
 
 /**
@@ -31,9 +32,9 @@ public class XSLTProcessor extends AbstractXSLTProcessor
    * @param descriptor
    *          processor descriptor
    */
-  public XSLTProcessor(final Descriptor descriptor)
+  public XSLTProcessor(final Descriptor descriptor, final ProcessorFactory processorFactory)
   {
-	super(descriptor);
+	super(descriptor, processorFactory);
   }
 
   @Override

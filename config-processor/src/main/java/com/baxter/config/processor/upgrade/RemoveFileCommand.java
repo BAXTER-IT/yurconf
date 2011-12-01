@@ -29,7 +29,8 @@ class RemoveFileCommand extends AbstractFileCommand implements UpgradeCommand
   public void upgrade(final UpgradeContext context) throws UpgradeException
   {
 	// Processor's repository root
-	final File repoDir = context.getProcessorRepositoryRoot();
+	final File repoDir = context.getProcessorFactory().getRepository()
+	    .getProductDirectory(context.getDescriptor().getProductId());
 	final URL baseURL;
 	try
 	{

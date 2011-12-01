@@ -33,7 +33,7 @@ public abstract class AbstractProcessor
   /**
    * Owner factory that created this processor.
    */
-  private ProcessorFactory factory;
+  private final ProcessorFactory factory;
 
   /**
    * Initializes processor with descriptor.
@@ -41,11 +41,12 @@ public abstract class AbstractProcessor
    * @param descriptor
    *          configuration descriptor
    */
-  protected AbstractProcessor(final Descriptor descriptor)
+  protected AbstractProcessor(final Descriptor descriptor, final ProcessorFactory processorFactory)
   {
 	this.logger = LoggerFactory.getLogger(getClass());
 	this.descriptor = descriptor;
 	this.version = Version.valueOf(descriptor.getVersion());
+	this.factory = processorFactory;
   }
 
   /**
@@ -95,11 +96,6 @@ public abstract class AbstractProcessor
   public Descriptor getDescriptor()
   {
 	return this.descriptor;
-  }
-
-  void setFactory(final ProcessorFactory factory)
-  {
-	this.factory = factory;
   }
 
   public ProcessorFactory getFactory()

@@ -154,7 +154,7 @@ public class ProcessorFactory
 			  final Upgrade upgrade = descriptor.getLatestUpgrade(existingDescriptor.getVersion());
 			  if (upgrade != null)
 			  {
-				this.repository.upgradePackage(descriptor, upgrade);
+				this.repository.upgradePackage(descriptor, upgrade, this);
 			  }
 			  else
 			  {
@@ -213,9 +213,8 @@ public class ProcessorFactory
 	{
 	  final Class<? extends AbstractProcessor> processorClass = Class.forName(processorDescriptor.getClassName()).asSubclass(
 		  AbstractProcessor.class);
-	  final Constructor<? extends AbstractProcessor> processorConstructor = processorClass.getConstructor(Descriptor.class);
-	  final AbstractProcessor processor = processorConstructor.newInstance(descriptor);
-	  processor.setFactory(this);
+	  final Constructor<? extends AbstractProcessor> processorConstructor = processorClass.getConstructor(Descriptor.class, ProcessorFactory.class);
+	  final AbstractProcessor processor = processorConstructor.newInstance(descriptor, this);
 	  for (Parameter parameter : processorDescriptor.getParameters())
 	  {
 		LOGGER.trace("Setting {} in {}", parameter, processorDescriptor);

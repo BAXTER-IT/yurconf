@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.baxter.config.processor.ProcessorException;
+import com.baxter.config.processor.ProcessorFactory;
 import com.baxter.config.processor.desc.AbstractUpgradeFile;
 import com.baxter.config.processor.desc.Descriptor;
 import com.baxter.config.processor.desc.Loader;
@@ -93,21 +94,21 @@ public class Repository
    * @throws ProcessorException
    *           if failed to upgrade
    */
-  public void upgradePackage(final Descriptor descriptor, final Upgrade upgrade) throws ProcessorException
+  public void upgradePackage(final Descriptor descriptor, final Upgrade upgrade, final ProcessorFactory processorFactory ) throws ProcessorException
   {
 	final UpgradeContext upgradeContext = new UpgradeContext()
 	{
 
 	  @Override
-	  public File getProcessorRepositoryRoot()
-	  {
-		return getProductDirectory(descriptor.getProductId());
-	  }
-
-	  @Override
 	  public Descriptor getDescriptor()
 	  {
 		return descriptor;
+	  }
+	  
+	  @Override
+	  public ProcessorFactory getProcessorFactory()
+	  {
+	    return processorFactory;
 	  }
 
 	};

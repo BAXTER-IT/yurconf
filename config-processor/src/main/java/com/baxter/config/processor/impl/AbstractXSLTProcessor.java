@@ -12,6 +12,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
@@ -22,6 +23,10 @@ import javax.xml.transform.URIResolver;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 
+import net.sf.saxon.FeatureKeys;
+import net.sf.saxon.OutputURIResolver;
+import net.sf.saxon.event.StandardOutputResolver;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -29,6 +34,7 @@ import com.baxter.config.om.ConfigID;
 import com.baxter.config.processor.AbstractProcessor;
 import com.baxter.config.processor.ProcessorContext;
 import com.baxter.config.processor.ProcessorException;
+import com.baxter.config.processor.ProcessorFactory;
 import com.baxter.config.processor.desc.Descriptor;
 
 /**
@@ -74,12 +80,13 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
    * @param descriptor
    *          configuration processor descriptor
    */
-  protected AbstractXSLTProcessor(final Descriptor descriptor)
+  protected AbstractXSLTProcessor(final Descriptor descriptor, final ProcessorFactory processorFactory)
   {
-	super(descriptor);
+	super(descriptor, processorFactory);
 	this.transformerFactory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", Thread.currentThread()
 	    .getContextClassLoader());
 	this.transformerFactory.setURIResolver(new BaxterURIResolver());
+	this.transformerFactory.setAttribute(FeatureKeys.OUTPUT_URI_RESOLVER, new BaxterOutputURIResolver());
   }
 
   public String getStylesheet()
@@ -169,11 +176,11 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
    */
   protected Source getXslSource() throws IOException
   {
-	if (this.stylesheet == null)
+	if (getStylesheet() == null)
 	{
 	  throw new IllegalStateException("Stylesheet not configured");
 	}
-	final URL stylesheetUrl = new URL(getDescriptor().getXslUrl(), this.stylesheet);
+	final URL stylesheetUrl = new URL(getDescriptor().getXslUrl(), getStylesheet());
 	return new StreamSource(stylesheetUrl.openStream(), stylesheetUrl.toString());
   }
 
@@ -218,6 +225,32 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 	}
 	transformer.setErrorListener(new JustLogErrorListener());
 	transformer.setURIResolver(this.transformerFactory.getURIResolver());
+  }
+
+  private class BaxterOutputURIResolver implements OutputURIResolver
+  {
+
+	private final OutputURIResolver standardResolver = StandardOutputResolver.getInstance();
+
+	@Override
+	public void close(final Result result) throws TransformerException
+	{
+	  this.standardResolver.close(result);
+	}
+
+	@Override
+	public Result resolve(final String href, final String base) throws TransformerException
+	{
+	  if (BaxterProtocol.REPO.supports(href))
+	  {
+		return BaxterProtocol.REPO.getResult(href, AbstractXSLTProcessor.this);
+	  }
+	  else
+	  {
+		return standardResolver.resolve(href, base);
+	  }
+	}
+
   }
 
   private class BaxterURIResolver implements URIResolver

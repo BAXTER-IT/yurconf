@@ -8,8 +8,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.slf4j.Logger;
@@ -42,6 +44,12 @@ enum BaxterProtocol
 	}
 
 	@Override
+	Result getResult(String href, AbstractXSLTProcessor processor) throws TransformerException
+	{
+	  throw new UnsupportedOperationException("Result not supported");
+	}
+
+	@Override
 	boolean supports(String href)
 	{
 	  return href.startsWith(prefix);
@@ -58,26 +66,37 @@ enum BaxterProtocol
 	@Override
 	Source getSource(final String href, final AbstractXSLTProcessor processor) throws TransformerException
 	{
-	  final String repoPath = href.substring(prefix.length());
-	  final File repoFile;
-	  if (repoPath.startsWith("/"))
-	  {
-		repoFile = new File(processor.getFactory().getRepository().getRoot(), repoPath.substring(1));
-	  }
-	  else
-	  {
-		repoFile = new File(processor.getFactory().getRepository().getProductDirectory(processor.getDescriptor().getProductId()),
-		    repoPath);
-	  }
 	  try
 	  {
-		return new StreamSource(new FileInputStream(repoFile), href);
+		return new StreamSource(new FileInputStream(getRepositoryFile(href, processor)), href);
 	  }
 	  catch (final FileNotFoundException e)
 	  {
 		LOGGER.debug("Failed to lookup the file in repository", e);
 		LOGGER.warn("Could not resolve {} to repository file", href);
 		throw new TransformerException(e);
+	  }
+	}
+
+	@Override
+	Result getResult(final String href, final AbstractXSLTProcessor processor) throws TransformerException
+	{
+	  final File repoFile = getRepositoryFile(href, processor);
+	  LOGGER.debug("Output result file {}", repoFile.getAbsolutePath());
+	  return new StreamResult(repoFile);
+	}
+
+	private File getRepositoryFile(final String href, final AbstractXSLTProcessor processor)
+	{
+	  final String repoPath = href.substring(prefix.length());
+	  if (repoPath.startsWith("/"))
+	  {
+		return new File(processor.getFactory().getRepository().getRoot(), repoPath.substring(1));
+	  }
+	  else
+	  {
+		return new File(processor.getFactory().getRepository().getProductDirectory(processor.getDescriptor().getProductId()),
+		    repoPath);
 	  }
 	}
 
@@ -103,6 +122,8 @@ enum BaxterProtocol
    *           if failed to get source for any reason
    */
   abstract Source getSource(String href, AbstractXSLTProcessor processor) throws TransformerException;
+
+  abstract Result getResult(String href, AbstractXSLTProcessor processor) throws TransformerException;
 
   /**
    * Determines if the protocol supports specified href.

@@ -3,8 +3,7 @@
  */
 package com.baxter.config.processor.upgrade;
 
-import java.io.File;
-
+import com.baxter.config.processor.ProcessorFactory;
 import com.baxter.config.processor.desc.Descriptor;
 
 /**
@@ -15,17 +14,17 @@ public interface UpgradeContext
 {
 
   /**
-   * Root directory of processor's repo.
-   * 
-   * @return directory
-   */
-  File getProcessorRepositoryRoot();
-
-  /**
    * Returns the processor descriptor.
    * 
    * @return the descriptor
    */
   Descriptor getDescriptor();
+
+  /**
+   * Returns the factory appropriate for upgrade context.
+   * 
+   * @return factory instance
+   */
+  ProcessorFactory getProcessorFactory();
 
 }

@@ -24,9 +24,20 @@ abstract class AbstractFileCommand
 
   private final Pattern filenamePattern;
 
+  private final boolean isWildcardMask;
+
   protected AbstractFileCommand(final FilenameProvider filenameProvider)
   {
 	this.filenameMask = filenameProvider.getFileNameMask();
+	if (filenameMask != null)
+	{
+	  isWildcardMask = filenameMask.contains("*") || filenameMask.contains("?");
+	}
+	else
+	{
+	  isWildcardMask = false;
+	}
+
 	if (filenameProvider.getFileNamePattern() != null)
 	{
 	  this.filenamePattern = Pattern.compile(filenameProvider.getFileNamePattern());
@@ -45,6 +56,11 @@ abstract class AbstractFileCommand
   protected Pattern getFilenamePattern()
   {
 	return filenamePattern;
+  }
+
+  protected boolean isFileNameMaskWildcard()
+  {
+	return isWildcardMask;
   }
 
   protected List<String> listFilenames(final URL baseURL) throws IOException

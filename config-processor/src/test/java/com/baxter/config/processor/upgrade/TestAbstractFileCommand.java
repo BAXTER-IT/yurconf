@@ -15,8 +15,10 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.baxter.config.processor.ProcessorFactory;
 import com.baxter.config.processor.desc.Descriptor;
 import com.baxter.config.processor.desc.FilenameProvider;
+import com.baxter.config.processor.repo.Repository;
 import com.google.common.io.Files;
 
 /**
@@ -25,6 +27,8 @@ import com.google.common.io.Files;
  */
 public class TestAbstractFileCommand
 {
+  
+  private static final String TEST_PRODUCT_ID = "test.product";
 
   protected File pseudoRoot;
 
@@ -33,11 +37,22 @@ public class TestAbstractFileCommand
   @Before
   public void setupEnv() {
 	this.pseudoRoot = Files.createTempDir();
+	
 	final Descriptor descriptor = mock(Descriptor.class);
 	when(descriptor.getSourceUrl()).thenReturn(getClass().getResource("config/default/"));
+	when(descriptor.getXslUrl()).thenReturn(getClass().getResource("config/xsl/"));
+	when(descriptor.getProductId()).thenReturn(TEST_PRODUCT_ID);
+	
+	final Repository repository = mock(Repository.class);
+	when( repository.getProductDirectory(TEST_PRODUCT_ID)).thenReturn(this.pseudoRoot);
+	
+	final ProcessorFactory processorFactory = mock(ProcessorFactory.class);
+	when( processorFactory.getRepository() ).thenReturn( repository );
+	
 	this.upgradeContext = mock(UpgradeContext.class);
-	when(this.upgradeContext.getProcessorRepositoryRoot()).thenReturn(pseudoRoot);
 	when(this.upgradeContext.getDescriptor()).thenReturn(descriptor);
+	when(this.upgradeContext.getProcessorFactory()).thenReturn(processorFactory);
+	
   }
   
   @Test
@@ -59,8 +74,8 @@ public class TestAbstractFileCommand
   protected void installFileToRoot( final String resourceName ) throws IOException {
 
 	final File targetFile = new File( this.pseudoRoot, resourceName );
-	final URL source = getClass().getResource("/com/baxter/config/processor/upgrade/config/default/" + resourceName);
+	final URL source = getClass().getResource("config/default/" + resourceName);
 	FileUtils.copyURLToFile(source, targetFile);
   }
-
+  
 }

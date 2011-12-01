@@ -12,14 +12,18 @@
     </node>
 
     <node id="jms3" host="localhost" port="4003" router="router3">
-        <authentication username="anonymous" password=""/>
     </node>
 
+<!-- TODO auth is moved from node, adjust XSLT -->
+        <authentication id="auth1" username="anonymous" password=""/>
+    
     <!-- JMS Channels -->
 
     <!-- nodeHA="" -->
 
-    <queue id="toDb" name="DBRequest" node="jms1">
+<!-- TODO added nodeHA, adjust xslt to generate host/port2 -->
+    <!-- TODO adjust XSLT for authentication attribute -->
+    <queue id="toDb" name="DBRequest" node="jms1" nodeHA="jmsHA1" authentication="auth1">
         <c:component id="price-engine-dbserver" read="true"/>
     </queue>
 
@@ -40,6 +44,14 @@
     </queue>
 
     <queue id="xmlManager.db2Structurales" name="DB2Structurales" node="jms1">
+        <c:component id="price-engine-dbserver" write="true"/>
+    </queue>
+    
+    <queue id="queueBetweenControllerAndBroadcast" name="queueBetweenControllerAndBroadcast" node="jms1" nodeHA="jms2">
+        <c:component id="price-engine-dbserver" write="true"/>
+    </queue>
+    
+    <queue id="queueBetweenControllerAndBroadcast" name="queueBetweenControllerAndBroadcast" node="jms3" nodeHA="jms4">
         <c:component id="price-engine-dbserver" write="true"/>
     </queue>
         
