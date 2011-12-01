@@ -1,59 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration xmlns="http://baxter-it.com/config/pe/jms" xmlns:c="http://baxter-it.com/config/component">
+<configuration xmlns="http://baxter-it.com/config/pe/jms"
+    xmlns:c="http://baxter-it.com/config/component">
 
     <!-- JMS Nodes -->
 
-    <node id="jms1" host="localhost" port="4001" router="router1">
-        <authentication username="anonymous" password=""/>
-    </node>
-
-    <node id="jms2" host="localhost" port="4002" router="router2">
-        <authentication username="anonymous" password=""/>
-    </node>
-
-    <node id="jms3" host="localhost" port="4003" router="router3">
-    </node>
-
-<!-- TODO auth is moved from node, adjust XSLT -->
-        <authentication id="auth1" username="anonymous" password=""/>
+    <node id="jms1" host="localhost" port="4001" router="router1"/>
+    <node id="jms2" host="localhost" port="4002" router="router2"/>
+    <node id="jms3" host="localhost" port="4003" router="router3"/>
     
+    <node id="jmsNull" host="null" port="0" />
+    <node id="jmsNullR1" host="null" port="0" router="router1"/>
+    <node id="jmsNullR2" host="null" port="0" router="router2"/>
+    <node id="jmsNullR3" host="null" port="0" router="router3"/>
+    
+    <node id="jms1HA" host="null" port="0" router="router1"/>
+    <node id="jms1HA" host="null" port="0" router="router1"/>
+
+    <!-- TODO auth is moved from node, adjust XSLT -->
+    <authentication id="auth1" username="anonymous" password=""/>
+    <authentication id="auth2" username="anonymous" password=""/>
+    <authentication id="auth3" username="anonymous" password=""/>
+
     <!-- JMS Channels -->
 
     <!-- nodeHA="" -->
 
-<!-- TODO added nodeHA, adjust xslt to generate host/port2 -->
+    <!-- TODO added nodeHA, adjust xslt to generate host/port2 -->
     <!-- TODO adjust XSLT for authentication attribute -->
-    <queue id="toDb" name="DBRequest" node="jms1" nodeHA="jmsHA1" authentication="auth1">
+    <queue id="toDb" name="DBRequest" node="jms1" nodeHA="jmsNull" authentication="auth1">
         <c:component id="price-engine-dbserver" read="true"/>
     </queue>
 
-    <topic id="broadcast" name="DBBroadcast" node="jms1">
+    <topic id="broadcast" name="DBBroadcast" node="jms1" nodeHA="jmsNull" authentication="auth1">
         <c:component id="price-engine-dbserver" write="true" read="true"/>
         <c:component id="price-engine-broadcast" read="true"/>
         <c:component id="price-engine-twserver" read="true"/>
     </topic>
 
-    <queue id="trade2Db" name="Trade2DB" node="jms3">
+    <queue id="trade2Db" name="Trade2DB" node="jms3" nodeHA="jmsNullR3" authentication="auth1">
         <c:component id="price-engine-dbserver" read="true"/>
         <c:component id="price-engine-broadcast" write="true"/>
         <c:component id="price-engine-blotterserver" write="true"/>
     </queue>
+    
+    <topic id="vendor2validator" name="Vendors2Validator" node="jms1" nodeHA="jmsNull" authentication="auth2">
+    </topic>
 
-    <queue id="xmlManager.structurales2DB" name="Structurales2DB" node="jms1">
+    <topic id="validator2tws" name="Validator2TWS" node="jms2" nodeHA="jmsNull" authentication="auth2">
+    </topic>
+    
+    <topic id="tws2manufacturer" name="TWS2Manufacturer" node="jms2" nodeHA="jmsNull" authentication="auth2">
+    </topic>
+
+    <queue id="twc2tws" name="TWC2Server" node="jms2" nodeHA="jmsNullR2" authentication="auth2">
+    </queue>
+
+    <topic id="tws2twc" name="TWS2Client" node="jms2" nodeHA="jmsNull" authentication="auth2">
+    </topic>
+    
+    <topic id="vendor2fwdctrl" name="FwdSource2Controller" node="jms1" nodeHA="jmsNull" authentication="auth1">
+    </topic>
+    
+    <topic id="vendor2fwdirctrl" name="FwdIRSource2Controller" node="jms1" nodeHA="jmsNull" authentication="auth1">
+    </topic>
+
+    <queue id="fwdmon2fwdctrl" name="C2SFwdReq" node="jms1" nodeHA="jmsNullR1" authentication="auth1">
+    </queue>
+
+    <topic id="fwdctrl2fwdmon" name="S2CFwdReq" node="jms1" nodeHA="jmsNull" authentication="auth1">
+    </topic>
+
+    <topic id="fwdctrl2publisher" name="FwdController2Publisher" node="jms1" nodeHA="jmsNull" authentication="auth1">
+    </topic>
+    
+    <topic id="fwdIRctrl2publisher" name="FwdIRController2Publisher" node="jms1" nodeHA="jmsNull" authentication="auth1">
+    </topic>
+
+    <queue id="blotterTrade" name="BlotterTrade" node="jms1" nodeHA="jmsNullR1" authentication="auth1">
+    </queue>
+    
+    <topic id="blotterServer2Client" name="BlotterS2C" node="jms1" nodeHA="jmsNull" authentication="auth1">
+    </topic>
+    
+    <topic id="blotterPrice" name="BlotterPrice" node="jms1" nodeHA="jmsNull" authentication="auth1">
+    </topic>
+    
+    <topic id="client2BlotterServer" name="BlotterC2S" node="jms1" nodeHA="jmsNull" authentication="auth1">
+    </topic>
+
+    <topic id="client2DIServer" name="Client2DIServer" node="jms1" nodeHA="jmsNull" authentication="auth1">
+    </topic>
+    
+    <queue id="diServer2Client" name="DIServer2Client" node="jms1" nodeHA="jmsNullR1" authentication="auth1">
+    </queue>
+    
+    <queue id="diServerSenderQueue" name="DIServerSender" node="jms1" nodeHA="jmsNullR1" authentication="auth1">
+    </queue>
+    
+    <queue id="xmlManager.structurales2DB" name="Structurales2DB" node="jms1" nodeHA="jmsNullR1" authentication="auth1">
         <c:component id="price-engine-dbserver" read="true"/>
     </queue>
+    
+    <queue id="xmlManager.db2Structurales" name="DB2Structurales" node="jms1" nodeHA="jmsNullR1" authentication="auth1">
+        <c:component id="price-engine-dbserver" write="true"/>
+    </queue>
+    
+    <queue id="positionManager.client2PositionManagerServer" name="Client2PositionManagerServer" node="jms2" nodeHA="jmsNullR2" authentication="auth2">
+    </queue>
 
-    <queue id="xmlManager.db2Structurales" name="DB2Structurales" node="jms1">
-        <c:component id="price-engine-dbserver" write="true"/>
+    <topic id="positionManager.positionManagerServer2Client" name="PositionManagerServer2Client" node="jms2" nodeHA="jmsNull" authentication="auth2">
+    </topic>
+    
+    <topic id="positionManager.positionManagerServer2TW" name="PositionManagerServer2TW" node="jms2" nodeHA="jmsNull" authentication="auth2">
+    </topic>
+
+    <queue id="positionManager.HedgeClientMessaging" name="BlotterServer2HedgeClientMessaging" node="jms2" nodeHA="jmsNullR2" authentication="auth2">
     </queue>
     
-    <queue id="queueBetweenControllerAndBroadcast" name="queueBetweenControllerAndBroadcast" node="jms1" nodeHA="jms2">
-        <c:component id="price-engine-dbserver" write="true"/>
-    </queue>
+    <topic id="toSender" name="FWDSVSender" node="jms1" nodeHA="jmsNull" authentication="auth1">
+    </topic>
+
+    <topic id="fromReceiver" name="FWDSVReceiver" node="jms1" nodeHA="jmsNull" authentication="auth1">
+    </topic>
+
+    <topic id="DI2Upstream" name="DI2Upstream" node="jms1" nodeHA="jmsNull" authentication="auth1">
+    </topic>
     
-    <queue id="queueBetweenControllerAndBroadcast" name="queueBetweenControllerAndBroadcast" node="jms3" nodeHA="jms4">
-        <c:component id="price-engine-dbserver" write="true"/>
+    <topic id="Upstream2DI" name="Upstream2DI" node="jms1" nodeHA="jmsNull" authentication="auth1">
+    </topic>
+
+    <queue id="Vendor2DOBAlgo" name="Vendor2DOBAlgo" node="jms3" nodeHA="jmsNullR3" authentication="auth3">
     </queue>
-        
+
+    <queue id="marketDataFromBroadcast2BlotterServer" name="MarketDataFromBroadcast2BS" node="jms1" nodeHA="jmsNullR1" authentication="auth1">
+    </queue>
 
 </configuration>

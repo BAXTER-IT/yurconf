@@ -6,13 +6,7 @@
         <c:component id="price-engine-dbserver"/>
     </property>
     
-    <!-- Test -->
-    <property id="a.b.c.d.e.f" value="test">
-        <c:component id="price-engine-dbserver"/>
-        <c:component id="price-engine-broadcast"/>
-    </property>
-
-    <property id="runDIServer" value="${pe.devel.config.di}">
+      <property id="runDIServer" value="${pe.devel.config.di}">
         <c:component id="price-engine-blotter"/>
         <c:component id="price-engine-blotterserver"/>
     </property>

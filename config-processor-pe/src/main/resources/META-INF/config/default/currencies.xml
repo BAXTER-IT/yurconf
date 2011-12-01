@@ -5,12 +5,14 @@
         <port id="price-engine-fwdcontroller">6200</port>
         <port id="price-engine-validator">6740</port>
         <port id="price-engine-twserver">6002</port>
+        <port id="price-engine-trackwheel">7015</port>
     </currencyPair>
     
     <currencyPair id="ZX">
         <port id="price-engine-fwdcontroller">6205</port>
         <port id="price-engine-validator">6748</port>
         <port id="price-engine-twserver">6008</port>
+        <port id="price-engine-trackwheel">7018</port>
     </currencyPair>
     
     <currencyPair id="EU">
@@ -24,22 +26,26 @@
         <port id="price-engine-fwdcontroller">6035</port>
         <port id="price-engine-validator">6750</port>
         <port id="price-engine-twserver">6010</port>
+        <port id="price-engine-trackwheel">7006</port>
     </currencyPair>
     
     <currencyPair id="YP">
         <port id="price-engine-fwdcontroller">6085</port>
         <port id="price-engine-twserver">6018</port>
+        <port id="price-engine-trackwheel">7054</port>
     </currencyPair>
     
     <currencyPair id="YF">
         <port id="price-engine-fwdcontroller">6055</port>
         <port id="price-engine-twserver">6022</port>
+        <port id="price-engine-trackwheel">7003</port>
     </currencyPair>
     
     <currencyPair id="YD">
         <port id="price-engine-fwdcontroller">6065</port>
         <port id="price-engine-validator">6744</port>
         <port id="price-engine-twserver">6004</port>
+        <port id="price-engine-trackwheel">7009</port>
     </currencyPair>
     
     <currencyPair id="NS">
@@ -48,25 +54,77 @@
     
     <currencyPair id="RK">
         <port id="price-engine-validator">6746</port>
+        <port id="price-engine-trackwheel">7039</port>
     </currencyPair>
 
     <currencyPair id="RZ">
         <port id="price-engine-validator">6752</port>
         <port id="price-engine-twserver">6012</port>
+        <port id="price-engine-trackwheel">7033</port>
     </currencyPair>
     
     <currencyPair id="GB">
         <port id="price-engine-validator">6754</port>
         <port id="price-engine-twserver">6014</port>
+        <port id="price-engine-trackwheel">7045</port>
     </currencyPair>
     
     <currencyPair id="EJ">
         <port id="price-engine-validator">6756</port>
         <port id="price-engine-twserver">6016</port>
+        <port id="price-engine-trackwheel">7030</port>
     </currencyPair>
     
     <currencyPair id="AB">
         <port id="price-engine-validator">6758</port>
+    </currencyPair>
+
+    <currencyPair id="SY">
+        <port id="price-engine-trackwheel">7048</port>
+    </currencyPair>
+    
+    <currencyPair id="NS">
+        <port id="price-engine-trackwheel">7087</port>
+    </currencyPair>
+
+    <currencyPair id="KU">
+        <port id="price-engine-trackwheel">7084</port>
+    </currencyPair>
+
+    <currencyPair id="EP">
+        <port id="price-engine-trackwheel">7042</port>
+    </currencyPair>
+    
+    <currencyPair id="EP">
+        <port id="price-engine-trackwheel">7096</port>
+    </currencyPair>
+    
+    <currencyPair id="OL">
+        <port id="price-engine-trackwheel">7039</port>
+    </currencyPair>
+    
+    <currencyPair id="ZR">
+        <port id="price-engine-trackwheel">7012</port>
+    </currencyPair>
+ 
+    <currencyPair id="AR">
+        <port id="price-engine-trackwheel">7021</port>
+    </currencyPair>
+    
+    <currencyPair id="ZY">
+        <port id="price-engine-trackwheel">7027</port>
+    </currencyPair>
+    
+    <currencyPair id="SS">
+        <port id="price-engine-trackwheel">7051</port>
+    </currencyPair>
+    
+    <currencyPair id="YA">
+        <port id="price-engine-trackwheel">7024</port>
+    </currencyPair>
+    
+    <currencyPair id="AL">
+        <port id="price-engine-trackwheel">7092</port>
     </currencyPair>
     
     <currency id="USD">
