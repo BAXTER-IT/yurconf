@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://baxter-it.com/config/pe/blotter">
+
+    <!--
+        
+        <group key="riskManager">
+        <entry key="enableRiskManager">false</entry>
+        <entry key="currenciesForRiskManager">EUR,USD,AUD,CHF,JPY,NZD,CAD,GBP</entry>
+        </group>
+        
+        <entry key="tradingToolPropertyFile">C:\\PeTrunkWorkspace\\price-engine\\price-engine-devel\\target/config\properties_tradingtool.xml</entry>
+        
+    -->
+
+    <priceDisplay currencyPairsPerRow="8" currencyPairs="EU" active="true"> </priceDisplay>
+
+    <ui>
+        <flag id="AtTrade">true</flag>
+        <flag id="AtPending">true</flag>
+        <flag id="AtMRR">true</flag>
+        <flag id="AtNEG">true</flag>
+        <flag id="salesBlotter">true</flag>
+        <flag id="useDIPanel">false</flag>
+
+        <!-- If does not present then showFailedTradePopup=false -->
+        <!-- Possible positions: CENTER, SOUTH_EAST, SOUTH_WEST, NORTH_WEST, NORTH_EAST -->
+        <failedTrade position="SOUTH_EAST"/>
+
+        <sound id="missedTrade">res\alert.wav</sound>
+        <sound id="failedTrade">res\alert.wav</sound>
+
+
+        <tabAfterDI>Trading Tool</tabAfterDI>
+        <countdownSeconds>30</countdownSeconds>
+
+    </ui>
+
+</configuration>

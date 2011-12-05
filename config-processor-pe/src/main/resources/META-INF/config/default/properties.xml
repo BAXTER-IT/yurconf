@@ -10,7 +10,13 @@
         <!-- If you don't want to instantiate position manager in blotter server somment the next line out -->
         <c:component id="price-engine-blotterserver"/>
     </property>
+    
+    <!-- TODO - consolidate with previous one -->
+    <property id="ALGOEngineClassName" value="com.baxter.genius.positionmanager.DefaultALGOEngine">
+        <c:component id="price-engine-blotter"/>
+    </property>
 
+<!-- TODO review moving to separate file -->
     <property id="runDIServer" value="NO">
         <c:component id="price-engine-blotter"/>
         <c:component id="price-engine-blotterserver"/>

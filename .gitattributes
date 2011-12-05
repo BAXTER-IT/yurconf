@@ -24,6 +24,7 @@ config-processor-pe/pom.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/broadcast.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/clients.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/comp/admintool.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/comp/blotter.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/comp/dbserver.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/currencies.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/jdbc.xml -text
