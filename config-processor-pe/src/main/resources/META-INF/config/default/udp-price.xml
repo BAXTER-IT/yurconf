@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://baxter-it.com/config/pe/udpprice"  xmlns:c="http://baxter-it.com/config/component">
+    
+    <connection id="udpPriceParams" serverHost="192.168.9.17" serverPort="6788" clientPort="6791">
+        <c:component id="price-engine-admintool" />
+    </connection>
+    
+    <connection id="uDPClient2Server.uDPConnectionParam1" serverHost="broadcastNodeHost" serverPort="broadcastNodeChannelPort" clientPort="7795">
+        <c:component id="price-engine-blotter" />
+        <serverHost>
+            <reference id="broadcast1" attribute="channelPort" element="subelement"/>
+        </serverHost>
+    </connection>
+    
+    <connection id="uDPClient2Server.uDPConnectionParam2" serverHost="broadcastNodeHost2" serverPort="broadcastNodeChannelPort2" clientPort="7796">
+        <c:component id="price-engine-blotter" />
+    </connection>
+    
+    <connection id="pricedisplay.uDPPriceParams" serverHost="broadcastNodeHost" serverPort="broadcastNodeChannelPort" clientPort="7792">
+        <c:component id="price-engine-blotter" />
+    </connection>
+    
+    <dummy value="reference('baxterrepo:broadcast.xml','node[@id=broadcast1]/@channelPort')"
+    
+</configuration>    

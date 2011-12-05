@@ -1,134 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration xmlns="http://baxter-it.com/config/pe/cp">
+<configuration xmlns="http://baxter-it.com/config/pe/cp" xmlns:c="http://baxter-it.com/config/component">
+
+    <c:component id="price-engine-fwdcontroller">
+        <currencyPort id="USD">6090</port>
+    </c:component>
+    
+
+    <currency id="USD">
+        <c:component id="price-engine-fwdcontroller">6090</c:component>
+    </currency>
+
+
+
+    <c:component id="price-engine-fwdcontroller">
+        <currencyPairPort id="AU">6200</currencyPairPort>
+        <currencyPairPort id="ZX">6205</currencyPairPort>
+    </c:component>
+
+
+
+
 
     <currencyPair id="AU">
-        <port id="price-engine-fwdcontroller">6200</port>
-        <port id="price-engine-validator">6740</port>
-        <port id="price-engine-twserver">6002</port>
-        <port id="price-engine-trackwheel">7015</port>
+        <c:component id="price-engine-fwdcontroller">
+            <port>6200</port>
+        </c:component>
+        <c:component id="price-engine-validator"><port>6740</port></c:component>
+        <c:component id="price-engine-twserver"><port>6002</port></c:component>
+        <c:component id="price-engine-trackwheel"><port>7015</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="ZX">
-        <port id="price-engine-fwdcontroller">6205</port>
-        <port id="price-engine-validator">6748</port>
-        <port id="price-engine-twserver">6008</port>
-        <port id="price-engine-trackwheel">7018</port>
+        <c:component id="price-engine-fwdcontroller"><port>6205</port></c:component>
+        <c:component id="price-engine-validator"><port>6748</port></c:component>
+        <c:component id="price-engine-twserver"><port>6008</port></c:component>
+        <c:component id="price-engine-trackwheel"><port>7018</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="EU">
-        <port id="price-engine-fwdcontroller">6215</port>
-        <port id="price-engine-validator">6742</port>
-        <port id="price-engine-twserver">6020</port>
-        <port id="price-engine-trackwheel">7000</port>
+        <c:component id="price-engine-fwdcontroller"><port>6215</port></c:component>
+        <c:component id="price-engine-validator"><port>6742</port></c:component>
+        <c:component id="price-engine-twserver"><port>6020</port></c:component>
+        <c:component id="price-engine-trackwheel"><port>7000</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="YY">
-        <port id="price-engine-fwdcontroller">6035</port>
-        <port id="price-engine-validator">6750</port>
-        <port id="price-engine-twserver">6010</port>
-        <port id="price-engine-trackwheel">7006</port>
+        <c:component id="price-engine-fwdcontroller"><port>6035</port></c:component>
+        <c:component id="price-engine-validator"><port>6750</port></c:component>
+        <c:component id="price-engine-twserver"><port>6010</port></c:component>
+        <c:component id="price-engine-trackwheel"><port>7006</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="YP">
-        <port id="price-engine-fwdcontroller">6085</port>
-        <port id="price-engine-twserver">6018</port>
-        <port id="price-engine-trackwheel">7054</port>
+        <c:component id="price-engine-fwdcontroller"><port>6085</port></c:component>
+        <c:component id="price-engine-twserver"><port>6018</port></c:component>
+        <c:component id="price-engine-trackwheel"><port>7054</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="YF">
-        <port id="price-engine-fwdcontroller">6055</port>
-        <port id="price-engine-twserver">6022</port>
-        <port id="price-engine-trackwheel">7003</port>
+        <c:component id="price-engine-fwdcontroller"><port>6055</port></c:component>
+        <c:component id="price-engine-twserver"><port>6022</port></c:component>
+        <c:component id="price-engine-trackwheel"><port>7003</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="YD">
-        <port id="price-engine-fwdcontroller">6065</port>
-        <port id="price-engine-validator">6744</port>
-        <port id="price-engine-twserver">6004</port>
-        <port id="price-engine-trackwheel">7009</port>
+        <c:component id="price-engine-fwdcontroller"><port>6065</port></c:component>
+        <c:component id="price-engine-validator"><port>6744</port></c:component>
+        <c:component id="price-engine-twserver"><port>6004</port></c:component>
+        <c:component id="price-engine-trackwheel"><port>7009</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="NS">
-        <port id="price-engine-fwdcontroller">6075</port>
+        <c:component id="price-engine-fwdcontroller"><port>6075</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="RK">
-        <port id="price-engine-validator">6746</port>
-        <port id="price-engine-trackwheel">7039</port>
+        <c:component id="price-engine-validator"><port>6746</port></c:component>
+        <c:component id="price-engine-trackwheel"><port>7039</port></c:component>
     </currencyPair>
 
     <currencyPair id="RZ">
-        <port id="price-engine-validator">6752</port>
-        <port id="price-engine-twserver">6012</port>
-        <port id="price-engine-trackwheel">7033</port>
+        <c:component id="price-engine-validator"><port>6752</port></c:component>
+        <c:component id="price-engine-twserver"><port>6012</port></c:component>
+        <c:component id="price-engine-trackwheel"><port>7033</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="GB">
-        <port id="price-engine-validator">6754</port>
-        <port id="price-engine-twserver">6014</port>
-        <port id="price-engine-trackwheel">7045</port>
+        <c:component id="price-engine-validator"><port>6754</port></c:component>
+        <c:component id="price-engine-twserver"><port>6014</port></c:component>
+        <c:component id="price-engine-trackwheel"><port>7045</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="EJ">
-        <port id="price-engine-validator">6756</port>
-        <port id="price-engine-twserver">6016</port>
-        <port id="price-engine-trackwheel">7030</port>
+        <c:component id="price-engine-validator"><port>6756</port></c:component>
+        <c:component id="price-engine-twserver"><port>6016</port></c:component>
+        <c:component id="price-engine-trackwheel"><port>7030</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="AB">
-        <port id="price-engine-validator">6758</port>
+        <c:component id="price-engine-validator"><port>6758</port></c:component>
     </currencyPair>
 
     <currencyPair id="SY">
-        <port id="price-engine-trackwheel">7048</port>
+        <c:component id="price-engine-trackwheel"><port>7048</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="NS">
-        <port id="price-engine-trackwheel">7087</port>
+        <c:component id="price-engine-trackwheel"><port>7087</port></c:component>
     </currencyPair>
 
     <currencyPair id="KU">
-        <port id="price-engine-trackwheel">7084</port>
+        <c:component id="price-engine-trackwheel"><port>7084</port></c:component>
     </currencyPair>
 
     <currencyPair id="EP">
-        <port id="price-engine-trackwheel">7042</port>
+        <c:component id="price-engine-trackwheel"><port>7042</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="EP">
-        <port id="price-engine-trackwheel">7096</port>
+        <c:component id="price-engine-trackwheel"><port>7096</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="OL">
-        <port id="price-engine-trackwheel">7039</port>
+        <c:component id="price-engine-trackwheel"><port>7039</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="ZR">
-        <port id="price-engine-trackwheel">7012</port>
+        <c:component id="price-engine-trackwheel"><port>7012</port></c:component>
     </currencyPair>
- 
+
     <currencyPair id="AR">
-        <port id="price-engine-trackwheel">7021</port>
+        <c:component id="price-engine-trackwheel"><port>7021</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="ZY">
-        <port id="price-engine-trackwheel">7027</port>
+        <c:component id="price-engine-trackwheel"><port>7027</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="SS">
-        <port id="price-engine-trackwheel">7051</port>
+        <c:component id="price-engine-trackwheel"><port>7051</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="YA">
-        <port id="price-engine-trackwheel">7024</port>
+        <c:component id="price-engine-trackwheel"><port>7024</port></c:component>
     </currencyPair>
-    
+
     <currencyPair id="AL">
-        <port id="price-engine-trackwheel">7092</port>
+        <c:component id="price-engine-trackwheel"><port>7092</port></c:component>
     </currencyPair>
-    
+
     <currency id="USD">
-        <port id="price-engine-fwdcontroller">6090</port>
+        <c:component id="price-engine-fwdcontroller"><port>6090</port></c:component>
     </currency>
-    
+
 </configuration>

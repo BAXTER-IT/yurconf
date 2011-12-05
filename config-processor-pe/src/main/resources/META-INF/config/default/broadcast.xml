@@ -7,6 +7,8 @@
     
     <node id="broadcast1" host="localhost" pricePort="7104" channelPort="7106" />
     
-    <node id="broadcast2" host="localhost" pricePort="7770" channelPort="7781" />
+    <node id="broadcast2" host="localhost" pricePort="7770" channelPort="7781" >
+        <something>text</something>
+    </node>
     
 </configuration>

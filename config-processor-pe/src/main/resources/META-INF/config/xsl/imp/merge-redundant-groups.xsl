@@ -12,6 +12,7 @@
     <xsl:template match="p:properties">
         <properties>
             <xsl:call-template name="merge-container"/>
+            <xsl:copy-of select="p:import"/>
         </properties>
     </xsl:template>
 
@@ -45,5 +46,16 @@
         </xsl:for-each>
     </xsl:template>
 
+    <xsl:template name="in-container">
+        <xsl:param name="path"/>
+        <group>
+            <xsl:attribute name="key">
+                <xsl:value-of select="substring-before($path,'.')"/>
+            </xsl:attribute>
+            <xsl:apply-templates select=".">
+                <xsl:with-param name="path" select="substring-after($path,'.')"/>
+            </xsl:apply-templates>
+        </group>
+    </xsl:template>
 
 </xsl:stylesheet>

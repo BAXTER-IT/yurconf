@@ -22,6 +22,9 @@ config-processor-demo/src/main/resources/META-INF/config/xsl/logback.xsl -text
 config-processor-demo/src/main/resources/META-INF/services/com.baxter.config.processor.xml -text
 config-processor-pe/pom.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/broadcast.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/clients.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/comp/admintool.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/comp/dbserver.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/currencies.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/jdbc.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/jms.xml -text
@@ -37,10 +40,16 @@ config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-
 config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-twserver.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-validator.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/properties.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/udp-price.xml -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-admintool.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-blotter.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-broadcast.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-dbserver.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/currency.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/currencypair.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/imp/currency-base.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/imp/merge-redundant-groups.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/imp/udp-price.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/log4j.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/logback.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/propertiesxml.xsl -text

@@ -11,22 +11,13 @@
         <c:component id="price-engine-blotterserver"/>
     </property>
 
-    <property id="runDIServer" value="${pe.devel.config.di}">
+    <property id="runDIServer" value="NO">
         <c:component id="price-engine-blotter"/>
         <c:component id="price-engine-blotterserver"/>
     </property>
 
-    <property id="useDIPanel" value="${pe.devel.config.useDIPanel}">
+    <property id="useDIPanel" value="NO">
         <c:component id="price-engine-blotter"/>
-    </property>
-    
-    <property id="GlobalJMSUserName" value="swiftadmin">
-        <c:component id="price-engine-web-clinet-messaging"/>
-    </property>
-    
-    <property id="GlobalJMSPassword" value="adminadmin">
-        <c:component id="price-engine-web-clinet-messaging"/>
-        <c:component id="price-engine-dcpk"/> ????
     </property>
 
 </properties>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://baxter-it.com/config/pe/clients"  xmlns:c="http://baxter-it.com/config/component">
+    
+    <c:component id="price-engine-admintool" >
+        <port id="uniqueApp">13000</port>
+    </c:component>
+    
+    <c:component id="price-engine-blotter" >
+        <port id="uniqueApp">13010</port>
+    </c:component>
+    
+</configuration>    

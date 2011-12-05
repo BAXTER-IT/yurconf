@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://baxter-it.com/config/pe/dbserver">
+
+    <toffile primary="./tofdir" secondary="./tofdir" />
+    
+    <deleteLogins>true</deleteLogins>
+    
+    <dbUDPPort>-1</dbUDPPort>
+        
+    <ldap id="default" loginModule="com.sun.security.auth.module.LdapLoginModule" controlFlag="REQUIRED">
+        <connection id="internal" userProvider="ldap://192.168.9.221:389/dc=users,dc=internal,dc=priceengine,dc=baxtersol,dc=bit" userFileter="uid={USERNAME}" useSSL="false" debug="true"/>
+        <connection id="external" userProvider="ldap://192.168.9.221:389/dc=users,dc=external,dc=priceengine,dc=baxtersol,dc=bit" userFileter="uid={USERNAME}" useSSL="false" debug="true"/>
+    </ldap>
+
+</configuration>
+

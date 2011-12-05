@@ -12,7 +12,7 @@
     <xsl:template name="xml-extension">
         <xsl:text>.xml</xsl:text>
     </xsl:template>
-
+    
     <!-- 
         Loads a document (specified by a prefix) from repository, then loads a corresponding variant (comes from configurationVariant) if needed and merges both documents.
         example: prefix = 'jms', variant = 'dev'
