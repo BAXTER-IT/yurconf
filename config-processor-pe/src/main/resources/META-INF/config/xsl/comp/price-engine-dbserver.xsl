@@ -5,25 +5,24 @@
     xmlns:pedb="http://baxter-it.com/config/pe/db" xmlns="http://baxter-it.com/config/pe/properties"
     exclude-result-prefixes="xs t pedb pedbs" version="2.0">
 
-    <xsl:template match="t:price-engine-dbserver" mode="component-specific">
-        <xsl:variable name="comp">
-            <xsl:call-template name="load-merged-repo-document">
-                <xsl:with-param name="prefix" select="'comp/dbserver'"/>
-            </xsl:call-template>
-        </xsl:variable>
-        <xsl:apply-templates select="$comp/pedbs:configuration/*"/>
+    <xsl:template match="t:price-engine-dbserver" mode="component-specific-sources">
+        <xsl:call-template name="load-merged-repo-document">
+            <xsl:with-param name="prefix" select="'comp/dbserver'"/>
+        </xsl:call-template>
+        <xsl:call-template name="load-merged-repo-document">
+            <xsl:with-param name="prefix" select="'jdbc'"/>
+        </xsl:call-template>
+    </xsl:template>
 
-        <xsl:variable name="jdbc">
-            <xsl:call-template name="load-merged-repo-document">
-                <xsl:with-param name="prefix" select="'jdbc'"/>
-            </xsl:call-template>
-        </xsl:variable>
+    <xsl:template match="t:price-engine-dbserver" mode="component-specific">
+        <xsl:param name="root"/>
+        <xsl:apply-templates select="$root/pedbs:configuration/*"/>
         <group key="dbConnection">
             <xsl:apply-templates
-                select="$jdbc/pedb:configuration/pedb:connection[@id='dbConnection']"
+                select="$root/pedb:configuration/pedb:connection[@id='dbConnection']"
                 mode="dbserver-connection"/>
             <xsl:apply-templates
-                select="$jdbc/pedb:configuration/pedb:connection[@id='dbConnection2']"
+                select="$root/pedb:configuration/pedb:connection[@id='dbConnection2']"
                 mode="dbserver-connection">
                 <xsl:with-param name="suffix">2</xsl:with-param>
             </xsl:apply-templates>

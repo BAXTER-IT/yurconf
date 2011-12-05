@@ -19,7 +19,7 @@
     </xsl:template>
     
     <xsl:template match="pecp:port">
-      <xsl:value-of select="../@id" />
+      <xsl:value-of select="../../@id" />
       <xsl:text> </xsl:text>
       <xsl:value-of select="." />
       <xsl:if test="position() != last()">

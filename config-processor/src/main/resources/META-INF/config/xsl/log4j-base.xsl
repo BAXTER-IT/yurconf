@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:bcl="http://baxter-it.com/config/log"
+  xmlns:c="http://baxter-it.com/config/component"
   xmlns:log4j="http://jakarta.apache.org/log4j/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  exclude-result-prefixes="xs bcl" version="2.0">
+  exclude-result-prefixes="xs bcl c " version="2.0">
 
   <xsl:output encoding="UTF-8" method="xml" doctype-system="log4j.dtd"/>
 
+  <xsl:param name="configurationComponentId"/>
 
   <xsl:template match="bcl:configuration">
     <log4j:configuration debug="true">
-      <xsl:apply-templates select="*"/>
+      <xsl:apply-templates select="*[c:component[@id=$configurationComponentId]]"/>
     </log4j:configuration>
   </xsl:template>
 
   <xsl:template match="bcl:console-appender">
     <appender class="org.apache.log4j.ConsoleAppender">
       <xsl:attribute name="name">
-        <xsl:value-of select="@name"/>
+        <xsl:value-of select="@id"/>
       </xsl:attribute>
       <param name="Target" value="System.out"/>
       <xsl:apply-templates select="bcl:layout"/>
@@ -28,8 +30,8 @@
     <xsl:attribute name="{$name}">
       <xsl:text>PSEUDO_</xsl:text>
       <xsl:choose>
-        <xsl:when test="@name">
-          <xsl:value-of select="@name"/>
+        <xsl:when test="@id">
+          <xsl:value-of select="@id"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="."/>
@@ -41,7 +43,7 @@
   <xsl:template name="async-appender">
     <appender class="org.apache.log4j.AsyncAppender">
       <xsl:attribute name="name">
-        <xsl:value-of select="@name"/>
+        <xsl:value-of select="@id"/>
       </xsl:attribute>
       <appender-ref>
         <xsl:call-template name="appender-pseudo-name">
@@ -77,7 +79,7 @@
     </param>
   </xsl:template>
   
-  <xsl:template match="bcl:rolling-file-appender/@name | bcl:file-appender/@name">
+  <xsl:template match="bcl:rolling-file-appender/@id | bcl:file-appender/@id">
     <xsl:call-template name="appender-pseudo-name">
       <xsl:with-param name="name">
         <xsl:text>name</xsl:text>
@@ -104,7 +106,7 @@
   <xsl:template match="bcl:rolling-file-appender">
     <xsl:call-template name="async-appender"/>
     <appender class="org.apache.log4j.RollingFileAppender">
-      <xsl:apply-templates select="@name"/>
+      <xsl:apply-templates select="@id"/>
       <xsl:apply-templates select="@file"/>
       <xsl:apply-templates select="@maxSize"/>
       <xsl:apply-templates select="@backupIndex"/>
@@ -115,13 +117,13 @@
   <xsl:template match="bcl:file-appender">
     <xsl:call-template name="async-appender"/>
     <appender class="org.apache.log4j.FileAppender">
-      <xsl:apply-templates select="@name"/>
+      <xsl:apply-templates select="@id"/>
       <xsl:apply-templates select="@file"/>
       <xsl:apply-templates />
     </appender>
   </xsl:template>
 
-  <xsl:template match="bcl:logger[@name='ROOT']">
+  <xsl:template match="bcl:logger[@id='ROOT']">
     <root>
       <xsl:apply-templates select="@level"/>
       <xsl:apply-templates select="bcl:appender-ref"/>
@@ -130,14 +132,14 @@
 
   <xsl:template match="bcl:logger">
     <category>
-      <xsl:apply-templates select="@name"/>
+      <xsl:apply-templates select="@id"/>
       <xsl:apply-templates select="@additivity"/>
       <xsl:apply-templates select="@level"/>
       <xsl:apply-templates select="bcl:appender-ref"/>
     </category>
   </xsl:template>
 
-  <xsl:template match="bcl:logger/@name">
+  <xsl:template match="bcl:logger/@id">
     <xsl:attribute name="name">
       <xsl:value-of select="."/>
     </xsl:attribute>

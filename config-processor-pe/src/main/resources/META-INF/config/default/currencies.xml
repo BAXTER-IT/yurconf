@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration xmlns="http://baxter-it.com/config/pe/cp" xmlns:c="http://baxter-it.com/config/component">
 
-    <c:component id="price-engine-fwdcontroller">
+    <!--c:component id="price-engine-fwdcontroller">
         <currencyPort id="USD">6090</port>
     </c:component>
     
@@ -15,16 +15,14 @@
     <c:component id="price-engine-fwdcontroller">
         <currencyPairPort id="AU">6200</currencyPairPort>
         <currencyPairPort id="ZX">6205</currencyPairPort>
-    </c:component>
+    </c:component-->
 
 
 
 
 
     <currencyPair id="AU">
-        <c:component id="price-engine-fwdcontroller">
-            <port>6200</port>
-        </c:component>
+        <c:component id="price-engine-fwdcontroller"><port>6200</port></c:component>
         <c:component id="price-engine-validator"><port>6740</port></c:component>
         <c:component id="price-engine-twserver"><port>6002</port></c:component>
         <c:component id="price-engine-trackwheel"><port>7015</port></c:component>

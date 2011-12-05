@@ -28,10 +28,6 @@ config-processor-pe/src/main/resources/META-INF/config/default/comp/dbserver.xml
 config-processor-pe/src/main/resources/META-INF/config/default/currencies.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/jdbc.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/jms.xml -text
-config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-admintool.xml -text
-config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-blotter.xml -text
-config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-blotterserver.xml -text
-config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-broadcast.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-dbserver.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-fwdcontroller.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-fwdircontroller.xml -text
@@ -39,6 +35,7 @@ config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-
 config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-trackwheel.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-twserver.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-validator.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/log.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/properties.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/udp-price.xml -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-admintool.xsl -text
@@ -49,6 +46,7 @@ config-processor-pe/src/main/resources/META-INF/config/xsl/currency.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/currencypair.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/imp/currency-base.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/imp/merge-redundant-groups.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/imp/params.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/imp/udp-price.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/log4j.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/logback.xsl -text

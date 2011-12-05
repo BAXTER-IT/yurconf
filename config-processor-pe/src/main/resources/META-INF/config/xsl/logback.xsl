@@ -7,26 +7,13 @@
 
     <xsl:output indent="yes" />
 
-    <xsl:variable name="logPrefix" select="'log-'" />
-
     <xsl:template match="/">
-        <xsl:variable name="xmlDocLocation">
-            <xsl:call-template name="document-by-component-repo-location">
-                <xsl:with-param name="prefix" select="$logPrefix" />
+        <xsl:variable name="root">
+            <xsl:call-template name="load-merged-repo-document">
+                <xsl:with-param name="prefix" select="'log'"/>
             </xsl:call-template>
-        </xsl:variable>
-        <xsl:variable name="xmlVariantLocation">
-            <xsl:call-template name="variant-by-component-repo-location">
-                <xsl:with-param name="prefix" select="$logPrefix" />
-            </xsl:call-template>
-        </xsl:variable>
-        <xsl:variable name="configuration">
-            <xsl:call-template name="merge-document-with-variant">
-                <xsl:with-param name="xmlLocation" select="$xmlDocLocation" />
-                <xsl:with-param name="xmlVariantLocation" select="$xmlVariantLocation" />
-            </xsl:call-template>
-        </xsl:variable>
-        <xsl:apply-templates select="$configuration/bcl:configuration" />
+        </xsl:variable>            
+        <xsl:apply-templates select="$root/bcl:configuration" />
     </xsl:template>
 
     <xsl:template name="build-log-directory-name">

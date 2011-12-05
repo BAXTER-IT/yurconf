@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://baxter-it.com/config/log"
+    xmlns:c="http://baxter-it.com/config/component">
+
+<!-- Move the configuration from separate files into this container. Add corresponding tags <c:component /> --> 
+
+    <logger id="ROOT" level="TRACE">
+        <appender-ref ref="CONSOLE"/>
+        <c:component id="price-engine-admintool"/>
+    </logger>
+
+    <logger id="com.baxter" level="TRACE" additivity="false">
+        <appender-ref ref="FILE_AdminTool"/>
+        <c:component id="price-engine-admintool"/>
+        <c:component id="price-engine-blotter"/>
+        <c:component id="price-engine-blotterserver"/>
+    </logger>
+
+    <logger id="com.baxter.genius.blotterX.Blotter" additivity="false" level="TRACE">
+        <appender-ref ref="FILE_Blotter"/>
+        <c:component id="price-engine-blotter"/>
+    </logger>
+
+    <logger id="com.baxter.genius.blotterX.PriceDisplayX" additivity="false" level="TRACE">
+        <appender-ref ref="FILE_Blotter"/>
+        <c:component id="price-engine-blotter"/>
+    </logger>
+
+    <logger id="com.baxter.genius.dealertradingtool" additivity="false" level="TRACE">
+        <appender-ref ref="FILE_DealerTradingTool"/>
+        <c:component id="price-engine-blotter"/>
+    </logger>
+
+    <logger id="com.baxter.genius.publishing.NSVEngine" additivity="false" level="TRACE">
+        <appender-ref ref="ASYNC_NSVEngine"/>
+        <c:component id="price-engine-blotter"/>
+    </logger>
+
+    <logger id="com.baxter.genius.blotter.JQuotedOutrightMiniPricePanelX2" additivity="false"
+        level="TRACE">
+        <appender-ref ref="ASYNC_NSVEngine"/>
+        <c:component id="price-engine-blotter"/>
+    </logger>
+
+    <logger id="com.baxter.genius.BlotterServer" additivity="false" level="TRACE">
+        <appender-ref ref="FILE_BlotterServer"/>
+        <c:component id="price-engine-blotterserver"/>
+    </logger>
+
+    <logger id="com.baxter.genius.positionmanager.AbosConnection" additivity="false" level="TRACE">
+        <appender-ref ref="FILE_BlotterServer_AbosConnection"/>
+        <c:component id="price-engine-blotterserver"/>
+    </logger>
+
+    <logger id="org.jnp" additivity="false" level="TRACE">
+        <appender-ref ref="FILE_BlotterServer_AbosConnection"/>
+        <c:component id="price-engine-blotterserver"/>
+    </logger>
+
+    <logger id="com.baxter.genius.positionmanager.PositionManager" additivity="false"
+        level="TRACE">
+        <appender-ref ref="FILE_BlotterServer_PositionServer"/>
+        <c:component id="price-engine-blotterserver"/>
+    </logger>
+
+    <logger id="com.baxter.genius.positionmanager.InstitutionalPortfolio" additivity="false"
+        level="TRACE">
+        <appender-ref ref="FILE_BlotterServer_PositionServer"/>
+        <c:component id="price-engine-blotterserver"/>
+    </logger>
+
+    <logger id="com.baxter.genius.positionmanager.MasterAccountPortfolio" additivity="false"
+        level="TRACE">
+        <appender-ref ref="FILE_BlotterServer_PositionServer"/>
+        <c:component id="price-engine-blotterserver"/>
+    </logger>
+
+    <logger id="com.baxter.genius.positionmanager.RetailBucketingPortfolio" additivity="false"
+        level="TRACE">
+        <appender-ref ref="FILE_BlotterServer_PositionServer"/>
+        <c:component id="price-engine-blotterserver"/>
+    </logger>
+
+    <logger id="com.baxter.genius.mmm" additivity="false" level="TRACE">
+        <appender-ref ref="FILE_MMMPricesToDB"/>
+        <c:component id="price-engine-blotterserver"/>
+    </logger>
+
+    <logger id="com.baxter.pe.di.server" additivity="false" level="TRACE">
+        <appender-ref ref="FILE_DIServer"/>
+        <c:component id="price-engine-blotterserver"/>
+    </logger>
+
+    <logger id="com.baxter.genius.publishing.BroadcastBase" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.BroadcastBase$ShutdownHook" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.FXAllClientMessaging" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.WebClientMessaging" additivity="false" level="TRACE">
+        <appender-ref ref="ASYNC_Web"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.FIX44ClientMessaging" additivity="false"
+        level="TRACE">
+        <appender-ref ref="ASYNC_FIX44"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.TradeAcceptor" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.CurrenexClientMessaging" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.CurrenexAPClientMessaging" additivity="false"
+        level="TRACE">
+        <appender-ref ref="ASYNC_CurrenexAP"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.FIXClientMessaging" additivity="false" level="TRACE">
+        <appender-ref ref="ASYNC_FIX"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.BloombergClientMessaging" additivity="false"
+        level="TRACE">
+        <appender-ref ref="ASYNC_Bloomberg"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.EBSXMLClientMessaging" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.SimpleClientMessaging" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.HotSpotClientMessaging" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.FXConnectClientMessaging" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.EBSClientMessaging" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.HedgeClientMessaging" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.IntegralClientMessaging" additivity="false"
+        level="TRACE">
+        <appender-ref ref="ASYNC_Integral"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.JMSClientMessaging" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.MDPIFXAllClientMessaging" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.FIX44MessageCracker" additivity="false" level="TRACE">
+        <appender-ref ref="ASYNC_FIX44"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.BloombergMessageHandler" additivity="false"
+        level="TRACE">
+        <appender-ref ref="ASYNC_Bloomberg"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.ForwardCurrenciesHandler" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.pe.management.StatisticExposer" level="TRACE">
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter" additivity="false" level="TRACE">
+        <appender-ref ref="ASYNC_BroadcastBase"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+
+    <logger id="com.ssgm.glml.integration.sonic.SonicLoginSpiImpl" additivity="false"
+        level="TRACE">
+        <appender-ref ref="ASYNC_SonicLoginSpiImpl"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+
+    <logger id="org.jboss" additivity="false" level="TRACE">
+        <appender-ref ref="ASYNC_JBossMQ"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+
+    <logger id="org.jnp" additivity="false" level="TRACE">
+        <appender-ref ref="ASYNC_JNP"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+
+    <logger id="quickfix.mina" additivity="false" level="TRACE">
+        <appender-ref ref="ASYNC_FIX44"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+
+    <logger id="fxi.api" additivity="false" level="DEBUG">
+        <appender-ref ref="ASYNC_CurrenexAP"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.PricesTable" level="TRACE">
+        <appender-ref ref="ASYNC_BroadcastBase"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+    <logger id="com.baxter.genius.publishing.NSVEngine" additivity="false" level="TRACE">
+        <appender-ref ref="ASYNC_BroadcastBase"/>
+        <c:component id="price-engine-broadcast"/>
+    </logger>
+
+    <!-- TODO review default config. Should not be the same file for several appenders -->
+    <rolling-file-appender id="ASYNC_BroadcastBase" file="BroadcastBase.log" maxSize="5MB"
+        backupIndex="10">
+        <layout>%c[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-broadcast"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="ASYNC_PricesTable" file="BroadcastBase.log" maxSize="5MB"
+        backupIndex="10">
+        <layout>%c[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-broadcast"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="ASYNC_Bloomberg" file="Bloomberg_messages.log" maxSize="100MB"
+        backupIndex="5">
+        <layout>[%d{ISO8601}] %c - %m%n</layout>
+        <c:component id="price-engine-broadcast"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="ASYNC_CurrenexAP" file="currenexap_messages.log" maxSize="100MB"
+        backupIndex="5">
+        <layout>[%d{ISO8601}] %c - %m%n</layout>
+        <c:component id="price-engine-broadcast"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="ASYNC_SonicLoginSpiImpl" file="SonicLoginSpiImpl.log"
+        maxSize="100MB" backupIndex="5">
+        <layout>[%d{ISO8601}] %c - %m%n</layout>
+        <c:component id="price-engine-broadcast"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="ASYNC_JBossMQ" file="JBossMQ.log" maxSize="100MB" backupIndex="5">
+        <layout>[%d{ISO8601}] %c - %m%n</layout>
+        <c:component id="price-engine-broadcast"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="ASYNC_JNP" file="JNP.log" maxSize="100MB" backupIndex="5">
+        <layout>[%d{ISO8601}] %c - %m%n</layout>
+        <c:component id="price-engine-broadcast"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="ASYNC_Integral" file="Integral_messages.log" maxSize="100MB"
+        backupIndex="5">
+        <layout>[%d{ISO8601}] %c - %m%n</layout>
+        <c:component id="price-engine-broadcast"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="ASYNC_FIX44" file="fix44_messages.log" maxSize="100MB"
+        backupIndex="5">
+        <layout>[%d{ISO8601}] %c - %m%n</layout>
+        <c:component id="price-engine-broadcast"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="ASYNC_FIX" file="fix_messages.log" maxSize="100MB" backupIndex="5">
+        <layout>[%d{ISO8601}] %c - %m%n</layout>
+        <c:component id="price-engine-broadcast"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="ASYNC_Web" file="web_messages.log" maxSize="100MB" backupIndex="5">
+        <layout>[%d{ISO8601}] %c - %m%n</layout>
+        <c:component id="price-engine-broadcast"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="ASYNC_NSVEngine" file="BroadcastBase.log" maxSize="100MB"
+        backupIndex="5">
+        <layout>[%d{ISO8601}] %c - %m%n</layout>
+        <c:component id="price-engine-broadcast"/>
+    </rolling-file-appender>
+
+
+    <rolling-file-appender id="FILE_BlotterServer" file="BlotterServer.log" maxSize="5MB"
+        backupIndex="10">
+        <layout>BlotterServer[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-blotterserver"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="FILE_BlotterServer_AbosConnection" file="BlotterServer.log"
+        maxSize="5MB" backupIndex="10">
+        <layout>AbosConnection[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-blotterserver"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="FILE_BlotterServer_PositionServer" file="BlotterServer.log"
+        maxSize="100MB" backupIndex="5">
+        <layout>%X{HDR}[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-blotterserver"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="FILE_MMMPricesToDB" file="MMMPricesToDB.log" maxSize="100MB"
+        backupIndex="5">
+        <layout>MMMPricesToDB[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-blotterserver"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="FILE_DIServer" file="DIServer.log" maxSize="100MB" backupIndex="5">
+        <layout>DIServer[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-blotterserver"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="FILE_Blotter" file="BlotterClient.log" maxSize="5MB"
+        backupIndex="10">
+        <layout>BlotterX[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-blotter"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="FILE_DealerTradingTool" file="DealerTradingTool.log" maxSize="5MB"
+        backupIndex="10">
+        <layout>TradingTool[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-blotter"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender id="ASYNC_NSVEngine" file="BlotterClient.log" maxSize="100MB"
+        backupIndex="5">
+        <layout>[%d{ISO8601}] %c - %m%n</layout>
+        <c:component id="price-engine-blotter"/>
+    </rolling-file-appender>
+
+    <console-appender id="CONSOLE">
+        <layout>%c{1} [%d{ISO8601}] %m%n</layout>
+        <c:component id="price-engine-admintool"/>
+    </console-appender>
+
+    <rolling-file-appender id="FILE_AdminTool" file="AdminTool.log" maxSize="5MB" backupIndex="10">
+        <layout>[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-admintool"/>
+    </rolling-file-appender>
+
+</configuration>

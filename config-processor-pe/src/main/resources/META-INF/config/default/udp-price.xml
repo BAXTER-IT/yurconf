@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration xmlns="http://baxter-it.com/config/pe/udpprice"  xmlns:c="http://baxter-it.com/config/component">
-    
+<configuration xmlns="http://baxter-it.com/config/pe/udpprice"
+    xmlns:c="http://baxter-it.com/config/component">
+
     <connection id="udpPriceParams" serverHost="192.168.9.17" serverPort="6788" clientPort="6791">
-        <c:component id="price-engine-admintool" />
+        <c:component id="price-engine-admintool"/>
     </connection>
-    
-    <connection id="uDPClient2Server.uDPConnectionParam1" serverHost="broadcastNodeHost" serverPort="broadcastNodeChannelPort" clientPort="7795">
-        <c:component id="price-engine-blotter" />
-        <serverHost>
-            <reference id="broadcast1" attribute="channelPort" element="subelement"/>
-        </serverHost>
+
+    <connection id="uDPClient2Server.uDPConnectionParam1" clientPort="7795">
+        <c:component id="price-engine-blotter"/>
+        <c:param id="serverHost"
+            reference="/broadcast:configuration/broadcast:node[@id='broadcast1']/@host"/>
+        <c:param id="serverPort"
+            reference="/broadcast:configuration/broadcast:node[@id='broadcast1']/@channelPort"/>
     </connection>
-    
-    <connection id="uDPClient2Server.uDPConnectionParam2" serverHost="broadcastNodeHost2" serverPort="broadcastNodeChannelPort2" clientPort="7796">
-        <c:component id="price-engine-blotter" />
+
+    <connection id="uDPClient2Server.uDPConnectionParam2" clientPort="7796">
+        <c:component id="price-engine-blotter"/>
+        <c:param id="serverHost"
+            reference="/broadcast:configuration/broadcast:node[@id='broadcast2']/@host"/>
+        <c:param id="serverPort"
+            reference="/broadcast:configuration/broadcast:node[@id='broadcast2']/@channelPort"/>
     </connection>
-    
-    <connection id="pricedisplay.uDPPriceParams" serverHost="broadcastNodeHost" serverPort="broadcastNodeChannelPort" clientPort="7792">
-        <c:component id="price-engine-blotter" />
+
+    <connection id="pricedisplay.uDPPriceParams" clientPort="7792">
+        <c:component id="price-engine-blotter"/>
+        <c:param id="serverHost"
+            reference="/broadcast:configuration/broadcast:node[@id='broadcast1']/@host"/>
+        <c:param id="serverPort"
+            reference="/broadcast:configuration/broadcast:node[@id='broadcast1']/@channelPort"/>
     </connection>
-    
-    <dummy value="reference('baxterrepo:broadcast.xml','node[@id=broadcast1]/@channelPort')"
-    
-</configuration>    
+
+</configuration>

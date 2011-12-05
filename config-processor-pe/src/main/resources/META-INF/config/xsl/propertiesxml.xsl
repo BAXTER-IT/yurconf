@@ -23,6 +23,9 @@
   <xsl:param name="configurationVariant"/>
 
   <xsl:template match="/">
+    <xsl:variable name="templateToCall">
+      <xsl:element name="{$configurationComponentId}" namespace="urn:templates"/>
+    </xsl:variable>
     <xsl:variable name="root">
       <xsl:call-template name="load-merged-repo-document">
         <xsl:with-param name="prefix" select="'jms'"/>
@@ -33,12 +36,14 @@
       <xsl:call-template name="load-merged-repo-document">
         <xsl:with-param name="prefix" select="'clients'"/>
       </xsl:call-template>
+      <xsl:apply-templates select="$templateToCall/*" mode="component-specific-sources"/>
     </xsl:variable>
     <xsl:variable name="redundantProperties">
       <properties>
         <xsl:attribute name="version">
           <xsl:value-of select="$configurationVersion"/>
         </xsl:attribute>
+        <!-- Generic Clients processing -->
         <xsl:apply-templates select="$root/clients:configuration[c:component[@id=$configurationComponentId]]" mode="window-xml-import"/>
         <xsl:apply-templates select="$root/clients:configuration/c:component[@id=$configurationComponentId]/clients:port[@id='uniqueApp']" />
         <!-- Render generic poroperties -->
@@ -52,12 +57,12 @@
           mode="global-jms"/>
         <xsl:apply-templates select="$root/pejms:configuration/pejms:ssl[@id='jmsSSL']"/>
         <!-- Now each component has its own processing -->
-        <xsl:variable name="templateToCall">
-          <xsl:element name="{$configurationComponentId}" namespace="urn:templates"/>
-        </xsl:variable>
-        <xsl:apply-templates select="$templateToCall/*" mode="component-specific"/>
+        <xsl:apply-templates select="$templateToCall/*" mode="component-specific">
+          <xsl:with-param name="root" select="$root" />
+        </xsl:apply-templates>
       </properties>
     </xsl:variable>
+    <!-- Consolidate the elements within same parent groups -->
     <xsl:apply-templates select="$redundantProperties/peprop:properties"/>
   </xsl:template>
   

@@ -7,18 +7,18 @@
 
     <xsl:import href="baxterxsl:repo-base.xsl"/>
     <xsl:import href="../imp/merge-redundant-groups.xsl"/>
+    <xsl:import href="params.xsl"/>
 
     <xsl:param name="configurationComponentId"/>
-
-    <xsl:template name="udp-price-connections">
-        <xsl:variable name="udpPrice">
-            <xsl:call-template name="load-merged-repo-document">
-                <xsl:with-param name="prefix" select="'udp-price'"/>
-            </xsl:call-template>
-        </xsl:variable>
-        <xsl:apply-templates
-            select="$udpPrice/udpprice:configuration/udpprice:connection[c:component[@id=$configurationComponentId]]"
-        />
+    
+    <xsl:template name="add-udp-price-config-to-root">
+        <xsl:call-template name="load-merged-repo-document">
+            <xsl:with-param name="prefix" select="'udp-price'"/>
+        </xsl:call-template>
+    </xsl:template>
+    
+    <xsl:template match="udpprice:configuration">
+        <xsl:apply-templates select="udpprice:connection[c:component[@id=$configurationComponentId]]"/>
     </xsl:template>
 
     <xsl:template match="udpprice:connection">
@@ -35,13 +35,19 @@
                         <xsl:value-of select="$path"/>
                     </xsl:attribute>
                     <entry key="ServerHost">
-                        <xsl:value-of select="@serverHost"/>
+                        <xsl:call-template name="parameter">
+                            <xsl:with-param name="name">serverHost</xsl:with-param>
+                        </xsl:call-template>
                     </entry>
                     <entry key="ServerPort">
-                        <xsl:value-of select="@serverPort"/>
+                        <xsl:call-template name="parameter">
+                            <xsl:with-param name="name">serverPort</xsl:with-param>
+                        </xsl:call-template>
                     </entry>
                     <entry key="ClientPort">
-                        <xsl:value-of select="@clientPort"/>
+                        <xsl:call-template name="parameter">
+                            <xsl:with-param name="name">clientPort</xsl:with-param>
+                        </xsl:call-template>
                     </entry>
                 </group>
             </xsl:otherwise>
