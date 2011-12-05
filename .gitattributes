@@ -83,6 +83,10 @@ config-processor-pe/src/test/resources/META-INF/config/default/log-price-engine-
 config-processor-pe/src/test/resources/META-INF/config/default/log-price-engine-tradabilitytool.xml -text
 config-processor-pe/src/test/resources/xslt/propsmerge/input.xml -text
 config-processor-pe/src/test/resources/xslt/propsmerge/merge.xsl -text
+config-processor-pe/src/test/resources/xslt/refs/input.xml -text
+config-processor-pe/src/test/resources/xslt/refs/input1.xml -text
+config-processor-pe/src/test/resources/xslt/refs/input2.xml -text
+config-processor-pe/src/test/resources/xslt/refs/ref.xsl -text
 config-processor/pom.xml -text
 config-processor/src/main/java/com/baxter/config/processor/AbstractProcessor.java -text
 config-processor/src/main/java/com/baxter/config/processor/ProcessorContext.java -text
