@@ -251,7 +251,19 @@
             <port>7092</port>
         </c:component>
     </currencyPair>
+    
+    <currencyPair6 id="EURUSD">
+        <c:component id="trading-tool" />
+    </currencyPair6>
 
+    <currencyPair6 id="AUDUSD">
+        <c:component id="trading-tool" />
+    </currencyPair6>
+    
+    <currencyPair6 id="USDJPY">
+        <c:component id="trading-tool" />
+    </currencyPair6>
+    
     <currency id="USD">
         <c:component id="price-engine-fwdcontroller">
             <port>6090</port>

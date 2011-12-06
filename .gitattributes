@@ -26,6 +26,7 @@ config-processor-pe/src/main/resources/META-INF/config/default/clients.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/comp/admintool.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/comp/blotter.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/comp/dbserver.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/comp/tradingtool.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/currencies.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/jdbc.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/jms.xml -text
@@ -43,8 +44,10 @@ config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-adm
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-blotter.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-broadcast.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-dbserver.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/comp/trading-tool.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/currency.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/currencypair.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/imp/config-ref.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/imp/currency-base.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/imp/merge-redundant-groups.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/imp/params.xsl -text

@@ -4,8 +4,8 @@
   xmlns:peprop="http://baxter-it.com/config/pe/properties"
   xmlns:c="http://baxter-it.com/config/component"
   xmlns:clients="http://baxter-it.com/config/pe/clients" xmlns:t="urn:templates"
-  exclude-result-prefixes="xs pejms peprop c t clients" xmlns="http://baxter-it.com/config/pe/properties"
-  version="2.0">
+  exclude-result-prefixes="xs pejms peprop c t clients"
+  xmlns="http://baxter-it.com/config/pe/properties" version="2.0">
 
   <xsl:import href="baxterxsl:repo-base.xsl"/>
   <xsl:import href="imp/merge-redundant-groups.xsl"/>
@@ -14,6 +14,7 @@
   <xsl:import href="comp/price-engine-broadcast.xsl"/>
   <xsl:import href="comp/price-engine-admintool.xsl"/>
   <xsl:import href="comp/price-engine-blotter.xsl"/>
+  <xsl:import href="comp/trading-tool.xsl"/>
 
   <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
@@ -44,8 +45,11 @@
           <xsl:value-of select="$configurationVersion"/>
         </xsl:attribute>
         <!-- Generic Clients processing -->
-        <xsl:apply-templates select="$root/clients:configuration[c:component[@id=$configurationComponentId]]" mode="window-xml-import"/>
-        <xsl:apply-templates select="$root/clients:configuration/c:component[@id=$configurationComponentId]/clients:port[@id='uniqueApp']" />
+        <xsl:apply-templates
+          select="$root/clients:configuration[c:component[@id=$configurationComponentId]]"
+          mode="window-xml-import"/>
+        <xsl:apply-templates
+          select="$root/clients:configuration/c:component[@id=$configurationComponentId]/clients:port[@id='uniqueApp']"/>
         <!-- Render generic poroperties -->
         <xsl:apply-templates
           select="$root/peprop:properties/(peprop:property)[c:component/@id=$configurationComponentId]"/>
@@ -58,17 +62,17 @@
         <xsl:apply-templates select="$root/pejms:configuration/pejms:ssl[@id='jmsSSL']"/>
         <!-- Now each component has its own processing -->
         <xsl:apply-templates select="$templateToCall/*" mode="component-specific">
-          <xsl:with-param name="root" select="$root" />
+          <xsl:with-param name="root" select="$root"/>
         </xsl:apply-templates>
       </properties>
     </xsl:variable>
     <!-- Consolidate the elements within same parent groups -->
     <xsl:apply-templates select="$redundantProperties/peprop:properties"/>
   </xsl:template>
-  
+
   <xsl:template match="clients:port[@id='uniqueApp']">
     <entry key="applicationUniquePort">
-      <xsl:apply-templates />
+      <xsl:apply-templates/>
     </entry>
   </xsl:template>
 
@@ -85,7 +89,12 @@
         <xsl:text>_window.xml</xsl:text>
       </xsl:attribute>
     </import>
-
+    <group key="bounds">
+      <entry key="X">0</entry>
+      <entry key="Y">0</entry>
+      <entry key="W">800</entry>
+      <entry key="H">600</entry>
+    </group>
   </xsl:template>
 
   <xsl:template match="pejms:authentication" mode="global-jms">

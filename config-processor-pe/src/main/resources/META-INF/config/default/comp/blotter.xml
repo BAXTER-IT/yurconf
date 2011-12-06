@@ -20,6 +20,7 @@
         <flag id="AtMRR">true</flag>
         <flag id="AtNEG">true</flag>
         <flag id="salesBlotter">true</flag>
+        <flag id="tradingTool">true</flag>
         <flag id="useDIPanel">false</flag>
 
         <!-- If does not present then showFailedTradePopup=false -->

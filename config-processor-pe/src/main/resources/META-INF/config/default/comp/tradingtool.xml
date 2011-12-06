@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://baxter-it.com/config/pe/tradingtool" >
+    
+    <servlet url="http://127.0.0.1:8080/price-engine-dashboard/DashServlet" url2="http://127.0.0.1:8080/price-engine-dashboard/DashServlet" />
+   
+    <priceRefreshTime>500</priceRefreshTime>
+    
+</configuration>
+    

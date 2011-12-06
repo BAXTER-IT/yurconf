@@ -9,7 +9,13 @@
     exclude-result-prefixes="xs t pedb comp udpprice broadcast cp c" version="2.0">
 
     <xsl:import href="../imp/udp-price.xsl"/>
+    <xsl:import href="../imp/config-ref.xsl"/>
     <xsl:import href="baxterxsl:repo-base.xsl"/>
+
+    <xsl:param name="configurationVariant"/>
+    <xsl:param name="configurationProductId"/>
+    <xsl:param name="configurationVersion"/>
+    <xsl:param name="configurationComponentId"/>
 
     <xsl:template match="t:price-engine-blotter" mode="component-specific-sources">
         <xsl:call-template name="load-merged-repo-document">
@@ -95,26 +101,32 @@
         </group>
 
         <!-- TODO something is still wrong -->
-        <xsl:if test="count($root/cp:configuration/currency[c:component[@id=risk-manager]]) > 0">
+        <xsl:if test="$root/cp:configuration/cp:currency[c:component[@id='risk-manager']]">
             <group key="riskManager">
+                <entry key="enableRiskManager">true</entry>
                 <entry key="currenciesForRiskManager">
                     <xsl:apply-templates
-                        select="$root/cp:configuration/currency[c:component[@id=risk-manager]]"/>
+                        select="$root/cp:configuration/cp:currency[c:component[@id='risk-manager']]"
+                    />
                 </entry>
             </group>
         </xsl:if>
-
         <!-- references -->
-        <entry key="tradingToolPropertyURL"
-            >http://host:port/config/rest/com.baxter.pe/trading-tool/propertiesxml</entry>
-    </xsl:template>
-
-    <xsl:template match="currency[c:component[@id=risk-manager]]">
-        <xsl:value-of select="@id"/>
-        <xsl:if test="current() != last()">
-            <xsl:text>, </xsl:text>
+        <xsl:if
+            test="$root/comp:configuration/comp:ui/comp:flag[@id='tradingTool']/text() = 'true'">
+            <xsl:call-template name="config-reference">
+                <xsl:with-param name="refName">tradingToolConfig</xsl:with-param>
+                <xsl:with-param name="refType">propertiesxml</xsl:with-param>
+                <xsl:with-param name="refComponentId">trading-tool</xsl:with-param>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
 
+    <xsl:template match="cp:currency[c:component[@id='risk-manager']]">
+        <xsl:value-of select="@id"/>
+        <xsl:if test="position() != last()">
+            <xsl:text>,</xsl:text>
+        </xsl:if>
+    </xsl:template>
 
 </xsl:stylesheet>
