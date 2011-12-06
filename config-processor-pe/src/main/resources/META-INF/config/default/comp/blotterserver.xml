@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://baxter-it.com/config/pe/blotterserver" xmlns:c="http://baxter-it.com/config/component">
+
+
+    <!--abos namingContextFactory="org.jnp.interfaces.NamingContextFactory"
+        providerUrl="jnp://abosfxcdev:1099" queueConnectionFactory="ConnectionFactory"
+        potPositionSenderQueueName="queue/potPositionSenderQueue"
+        potPositionReceiverQueueName="queue/potPositionReceiverQueue" accountNumbers="1210573"/-->
+    
+    <mmm priceBuffereSize="1000">
+        <broadcastChannel id="1" clientPort="17000">
+            <c:param id="serverHost" reference="/broadcast:configuration/broadcast:node[@id='broadcast1']/@host" />
+            <c:param id="udpServerPort"  reference="/broadcast:configuration/broadcast:node[@id='broadcast1']/@pricePort" />
+        </broadcastChannel>
+        <broadcastChannel id="2" clientPort="17002">
+            <c:param id="serverHost" reference="/broadcast:configuration/broadcast:node[@id='broadcast2']/@host" />
+            <c:param id="udpServerPort"  reference="/broadcast:configuration/broadcast:node[@id='broadcast2']/@pricePort" />
+        </broadcastChannel>
+    </mmm>
+
+</configuration>

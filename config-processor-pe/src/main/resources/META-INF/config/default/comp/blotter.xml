@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration xmlns="http://baxter-it.com/config/pe/blotter">
 
-    <!--
-        
-        <group key="riskManager">
-        <entry key="enableRiskManager">false</entry>
-        <entry key="currenciesForRiskManager">EUR,USD,AUD,CHF,JPY,NZD,CAD,GBP</entry>
-        </group>
-        
-        <entry key="tradingToolPropertyFile">C:\\PeTrunkWorkspace\\price-engine\\price-engine-devel\\target/config\properties_tradingtool.xml</entry>
-        
-    -->
-
     <priceDisplay currencyPairsPerRow="8" currencyPairs="EU" active="true"> </priceDisplay>
 
     <ui>

@@ -5,13 +5,13 @@
     xmlns:pedb="http://baxter-it.com/config/pe/db" xmlns="http://baxter-it.com/config/pe/properties"
     exclude-result-prefixes="xs t pedb pedbs" version="2.0">
 
+    <xsl:import href="../imp/jdbc.xsl"/>
+
     <xsl:template match="t:price-engine-dbserver" mode="component-specific-sources">
         <xsl:call-template name="load-merged-repo-document">
             <xsl:with-param name="prefix" select="'comp/dbserver'"/>
         </xsl:call-template>
-        <xsl:call-template name="load-merged-repo-document">
-            <xsl:with-param name="prefix" select="'jdbc'"/>
-        </xsl:call-template>
+        <xsl:call-template name="add-jdbc-config-to-root" />
     </xsl:template>
 
     <xsl:template match="t:price-engine-dbserver" mode="component-specific">
@@ -19,11 +19,9 @@
         <xsl:apply-templates select="$root/pedbs:configuration/*"/>
         <group key="dbConnection">
             <xsl:apply-templates
-                select="$root/pedb:configuration/pedb:connection[@id='dbConnection']"
-                mode="dbserver-connection"/>
+                select="$root/pedb:configuration/pedb:connection[@id='dbConnection']" mode="entries-only"/>
             <xsl:apply-templates
-                select="$root/pedb:configuration/pedb:connection[@id='dbConnection2']"
-                mode="dbserver-connection">
+                select="$root/pedb:configuration/pedb:connection[@id='dbConnection2']" mode="entries-only">
                 <xsl:with-param name="suffix">2</xsl:with-param>
             </xsl:apply-templates>
         </group>
@@ -73,31 +71,5 @@
             <xsl:apply-templates/>
         </group>
     </xsl:template>
-
-    <xsl:template match="pedb:connection" mode="dbserver-connection">
-        <xsl:param name="suffix" select="''"/>
-        <entry>
-            <xsl:attribute name="key">
-                <xsl:text>dbDriver</xsl:text>
-                <xsl:value-of select="$suffix"/>
-            </xsl:attribute>
-            <xsl:value-of select="@driver"/>
-        </entry>
-        <entry>
-            <xsl:attribute name="key">
-                <xsl:text>dbAddress</xsl:text>
-                <xsl:value-of select="$suffix"/>
-            </xsl:attribute>
-            <xsl:value-of select="@url"/>
-        </entry>
-        <entry>
-            <xsl:attribute name="key">
-                <xsl:text>dbPasswdEnc</xsl:text>
-                <xsl:value-of select="$suffix"/>
-            </xsl:attribute>
-            <xsl:value-of select="@encodedPassword"/>
-        </entry>
-    </xsl:template>
-
 
 </xsl:stylesheet>

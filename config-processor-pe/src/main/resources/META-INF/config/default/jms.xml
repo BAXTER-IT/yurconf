@@ -17,6 +17,8 @@
     <authentication id="auth2" username="anonymous" password=""/>
     <authentication id="auth3" username="anonymous" password=""/>
     
+    <authentication id="handoff" username="testUser" password="test1"/>
+    
     <ssl id="jmsSSL" store="c:/swiftmq_7.5.4_licenced/scripts/win32/clientcerts" storePassword="secret1234" anonCipher="false" />
 
     <!-- JMS Channels -->
@@ -187,5 +189,25 @@
         <c:component id="price-engine-broadcast" read="true"/>
         <c:component id="price-engine-blotterserver" write="true"/>
     </queue>
+    
+    <queue id="creditcheckmanager.receiver" name="CreditCheckReceiver" node="jms1" authentication="auth1">
+        <c:component id="price-engine-broadcast"/>
+    </queue>
+    
+    <queue id="creditcheckmanager.sender" name="CreditCheckSender" node="jms1" authentication="auth1">
+        <c:component id="price-engine-broadcast"/>
+    </queue>
+    
+    <topic id="creditcheckmanager.heartbeat" name="CreditCheckHeartbeat" node="jms1" authentication="auth1">
+        <c:component id="price-engine-broadcast"/>
+    </topic>
+    
+    <topic id="handoffmanager.HandOff2Upstream" name="HandOff2Upstream" node="jms1" authentication="handoff">
+        <!-- c:component id="price-engine-broadcast" /-->
+    </topic>
+    
+    <topic id="handoffmanager.Upstream2HandOff" name="Upstream2HandOff" node="jms1" authentication="handoff">
+        <!-- c:component id="price-engine-broadcast" /-->
+    </topic>
     
 </configuration>

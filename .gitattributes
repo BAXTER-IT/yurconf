@@ -25,6 +25,8 @@ config-processor-pe/src/main/resources/META-INF/config/default/broadcast.xml -te
 config-processor-pe/src/main/resources/META-INF/config/default/clients.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/comp/admintool.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/comp/blotter.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/comp/blotterserver.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/comp/broadcast.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/comp/dbserver.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/comp/tradingtool.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/currencies.xml -text
@@ -42,6 +44,7 @@ config-processor-pe/src/main/resources/META-INF/config/default/properties.xml -t
 config-processor-pe/src/main/resources/META-INF/config/default/udp-price.xml -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-admintool.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-blotter.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-blotterserver.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-broadcast.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-dbserver.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/trading-tool.xsl -text
@@ -49,6 +52,7 @@ config-processor-pe/src/main/resources/META-INF/config/xsl/currency.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/currencypair.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/imp/config-ref.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/imp/currency-base.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/imp/jdbc.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/imp/merge-redundant-groups.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/imp/params.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/imp/udp-price.xsl -text

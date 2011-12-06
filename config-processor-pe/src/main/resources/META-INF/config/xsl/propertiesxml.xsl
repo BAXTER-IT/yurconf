@@ -15,7 +15,8 @@
   <xsl:import href="comp/price-engine-admintool.xsl"/>
   <xsl:import href="comp/price-engine-blotter.xsl"/>
   <xsl:import href="comp/trading-tool.xsl"/>
-
+  <xsl:import href="comp/price-engine-blotterserver.xsl"/>
+  
   <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
   <xsl:param name="configurationProductId"/>
@@ -178,7 +179,7 @@
       <xsl:otherwise>
         <group>
           <xsl:attribute name="key">
-            <xsl:value-of select="@id"/>
+            <xsl:value-of select="$path"/>
           </xsl:attribute>
           <entry key="TName">
             <xsl:value-of select="@name"/>
