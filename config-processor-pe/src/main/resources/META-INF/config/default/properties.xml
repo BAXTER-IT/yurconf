@@ -25,5 +25,9 @@
     <property id="useDIPanel" value="NO">
         <c:component id="price-engine-blotter"/>
     </property>
+    
+    <property id="dLRWarningInterval" value="10000">
+        <c:component id="price-engine-fwdcontroller"/>
+    </property>
 
 </properties>

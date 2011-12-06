@@ -2,27 +2,6 @@
 <configuration xmlns="http://baxter-it.com/config/pe/cp"
     xmlns:c="http://baxter-it.com/config/component">
 
-    <!--c:component id="price-engine-fwdcontroller">
-        <currencyPort id="USD">6090</port>
-    </c:component>
-    
-
-    <currency id="USD">
-        <c:component id="price-engine-fwdcontroller">6090</c:component>
-        <c:component id="risk-manager" />
-           
-    </currency>
-
-
-
-    <c:component id="price-engine-fwdcontroller">
-        <currencyPairPort id="AU">6200</currencyPairPort>
-        <currencyPairPort id="ZX">6205</currencyPairPort>
-    </c:component-->
-
-
-
-
 
     <currencyPair id="AU">
         <c:component id="price-engine-fwdcontroller">
@@ -93,6 +72,9 @@
         </c:component>
         <c:component id="price-engine-trackwheel">
             <port>7054</port>
+        </c:component>
+        <c:component id="price-engine-fwdmonitor">
+            <port>6980</port>
         </c:component>
     </currencyPair>
 
@@ -265,10 +247,13 @@
     </currencyPair6>
     
     <currency id="USD">
-        <c:component id="price-engine-fwdcontroller">
+        <c:component id="price-engine-fwdircontroller">
             <port>6090</port>
         </c:component>
         <c:component id="risk-manager"/>
+        <c:component id="price-engine-fwdmonitor">
+            <port>6984</port>
+        </c:component>
     </currency>
 
     <currency id="EUR">

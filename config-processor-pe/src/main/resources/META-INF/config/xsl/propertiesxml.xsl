@@ -16,6 +16,7 @@
   <xsl:import href="comp/price-engine-blotter.xsl"/>
   <xsl:import href="comp/trading-tool.xsl"/>
   <xsl:import href="comp/price-engine-blotterserver.xsl"/>
+  <xsl:import href="comp/price-engine-fwdmonitor.xsl"/>
   
   <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 

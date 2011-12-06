@@ -9,6 +9,10 @@
         <port id="uniqueApp">13010</port>
     </c:component>
     
+    <c:component id="price-engine-fwdmonitor" >
+        <port id="uniqueApp">33343</port>
+    </c:component>
+    
     <c:component id="trading-tool" >
     </c:component>
     

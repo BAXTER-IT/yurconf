@@ -8,7 +8,7 @@
     <xsl:import href="imp/currency-base.xsl" />
     
     <xsl:template match="pecp:configuration">
-        <xsl:apply-templates select="pecp:currency/c:component[@id=$configurationComponentId]/pecp:port" />   
+        <xsl:apply-templates select="pecp:*/c:component[@id=$configurationComponentId]/pecp:port" />   
     </xsl:template>
 
 </xsl:stylesheet>
