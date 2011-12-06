@@ -2,11 +2,18 @@
 <configuration xmlns="http://baxter-it.com/config/log"
     xmlns:c="http://baxter-it.com/config/component">
 
-<!-- Move the configuration from separate files into this container. Add corresponding tags <c:component /> --> 
+    <!-- Move the configuration from separate files into this container. Add corresponding tags <c:component /> -->
 
     <logger id="ROOT" level="TRACE">
         <appender-ref ref="CONSOLE"/>
         <c:component id="price-engine-admintool"/>
+        <c:component id="price-engine-validator"/>
+    </logger>
+
+    <logger name="ROOT" level="WARN">
+        <appender-ref ref="CONSOLE"/>
+        <c:component id="price-engine-dbserver"/>
+        <c:component id="price-engine-twserver"/>
     </logger>
 
     <logger id="com.baxter" level="TRACE" additivity="false">
@@ -14,6 +21,23 @@
         <c:component id="price-engine-admintool"/>
         <c:component id="price-engine-blotter"/>
         <c:component id="price-engine-blotterserver"/>
+    </logger>
+
+    <logger id="com.baxter" level="TRACE" additivity="false">
+        <appender-ref ref="FILE_AdminTool"/>
+        <c:component id="price-engine-trackwheel"/>
+    </logger>
+
+    <logger name="com.baxter" level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <c:component id="price-engine-fwdcontroller"/>
+        <c:component id="price-engine-fwdircontroller"/>
+        <c:component id="price-engine-fwdmonitor"/>
+    </logger>
+
+    <logger name="com.baxter.pe" level="DEBUG">
+        <appender-ref ref="DBSERVER_FILE"/>
+        <c:component id="price-engine-dbserver"/>
     </logger>
 
     <logger id="com.baxter.genius.blotterX.Blotter" additivity="false" level="TRACE">
@@ -57,8 +81,7 @@
         <c:component id="price-engine-blotterserver"/>
     </logger>
 
-    <logger id="com.baxter.genius.positionmanager.PositionManager" additivity="false"
-        level="TRACE">
+    <logger id="com.baxter.genius.positionmanager.PositionManager" additivity="false" level="TRACE">
         <appender-ref ref="FILE_BlotterServer_PositionServer"/>
         <c:component id="price-engine-blotterserver"/>
     </logger>
@@ -104,8 +127,7 @@
         <appender-ref ref="ASYNC_Web"/>
         <c:component id="price-engine-broadcast"/>
     </logger>
-    <logger id="com.baxter.genius.publishing.FIX44ClientMessaging" additivity="false"
-        level="TRACE">
+    <logger id="com.baxter.genius.publishing.FIX44ClientMessaging" additivity="false" level="TRACE">
         <appender-ref ref="ASYNC_FIX44"/>
         <c:component id="price-engine-broadcast"/>
     </logger>
@@ -178,8 +200,7 @@
         <c:component id="price-engine-broadcast"/>
     </logger>
 
-    <logger id="com.ssgm.glml.integration.sonic.SonicLoginSpiImpl" additivity="false"
-        level="TRACE">
+    <logger id="com.ssgm.glml.integration.sonic.SonicLoginSpiImpl" additivity="false" level="TRACE">
         <appender-ref ref="ASYNC_SonicLoginSpiImpl"/>
         <c:component id="price-engine-broadcast"/>
     </logger>
@@ -212,6 +233,41 @@
         <c:component id="price-engine-broadcast"/>
     </logger>
 
+    <logger name="com.baxter.genius.fwd.FwdUtility" level="TRACE" additivity="false">
+        <appender-ref ref="FILE_FwdController"/>
+        <c:component id="price-engine-fwdcontroller"/>
+    </logger>
+
+    <logger name="FwdController${fwdc.ccy}" level="TRACE" additivity="false">
+        <appender-ref ref="FILE_FwdController"/>
+        <c:component id="price-engine-fwdcontroller"/>
+    </logger>
+
+    <logger name="FwdControllerUSD" level="TRACE" additivity="false">
+        <appender-ref ref="FILE_FwdIRControllerUSD"/>
+        <c:component id="price-engine-fwdircontroller"/>
+    </logger>
+
+    <logger name="com.baxter.genius.fwdmonitorX" level="TRACE" additivity="false">
+        <appender-ref ref="FILE_FwdMonitor"/>
+        <c:component id="price-engine-fwdmonitor"/>
+    </logger>
+
+    <logger name="com.baxter" level="TRACE" additivity="false">
+        <appender-ref ref="FILE_TWClient"/>
+        <c:component id="price-engine-trackwheel"/>
+    </logger>
+    
+    <logger name="TrackwheelServer" additivity="false" level="TRACE">
+        <appender-ref ref="FILE_TWServer" />
+        <c:component id="price-engine-twserver"/>
+    </logger>
+    
+    <logger name="com.baxter" additivity="false" level="TRACE">
+        <appender-ref ref="FILE_Validator" />
+        <c:component id="price-engine-validator"/>
+    </logger>
+
     <!-- TODO review default config. Should not be the same file for several appenders -->
     <rolling-file-appender id="ASYNC_BroadcastBase" file="BroadcastBase.log" maxSize="5MB"
         backupIndex="10">
@@ -237,8 +293,8 @@
         <c:component id="price-engine-broadcast"/>
     </rolling-file-appender>
 
-    <rolling-file-appender id="ASYNC_SonicLoginSpiImpl" file="SonicLoginSpiImpl.log"
-        maxSize="100MB" backupIndex="5">
+    <rolling-file-appender id="ASYNC_SonicLoginSpiImpl" file="SonicLoginSpiImpl.log" maxSize="100MB"
+        backupIndex="5">
         <layout>[%d{ISO8601}] %c - %m%n</layout>
         <c:component id="price-engine-broadcast"/>
     </rolling-file-appender>
@@ -311,8 +367,7 @@
         <c:component id="price-engine-blotterserver"/>
     </rolling-file-appender>
 
-    <rolling-file-appender id="FILE_Blotter" file="BlotterClient.log" maxSize="5MB"
-        backupIndex="10">
+    <rolling-file-appender id="FILE_Blotter" file="BlotterClient.log" maxSize="5MB" backupIndex="10">
         <layout>BlotterX[%d{ISO8601}][%p] - %m%n</layout>
         <c:component id="price-engine-blotter"/>
     </rolling-file-appender>
@@ -332,11 +387,74 @@
     <console-appender id="CONSOLE">
         <layout>%c{1} [%d{ISO8601}] %m%n</layout>
         <c:component id="price-engine-admintool"/>
+        <c:component id="price-engine-blotter"/>
+        <c:component id="price-engine-fwdcontroller"/>
+        <c:component id="price-engine-fwdircontroller"/>
+        <c:component id="price-engine-fwdmonitor"/>
+    </console-appender>
+
+    <console-appender name="CONSOLE">
+        <layout>%d{HH:mm:ss.SSS} [%thread] %-5level %c - %msg%n</layout>
+        <c:component id="price-engine-dbserver"/>
+    </console-appender>
+
+    <console-appender name="CONSOLE">
+        <layout>TrackwheelClient %c{1} [%d{ISO8601}] %m%n</layout>
+        <c:component id="price-engine-trackwheel"/>
+    </console-appender>
+    
+    <console-appender name="CONSOLE">
+        <layout>TWServer${TWS.cpCode} %c{1} [%d{ISO601}] %m%n</layout>
+        <c:component id="price-engine-twserver"/>
+    </console-appender>
+
+    <console-appender name="CONSOLE">
+        <layout>Validator${VS.cpCode} %c{1} [%d{ISO8601}] %m%n</layout>
+        <c:component id="price-engine-validator"/>
     </console-appender>
 
     <rolling-file-appender id="FILE_AdminTool" file="AdminTool.log" maxSize="5MB" backupIndex="10">
         <layout>[%d{ISO8601}][%p] - %m%n</layout>
         <c:component id="price-engine-admintool"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender name="DBSERVER_FILE" file="dbserver.log" maxSize="5MB" backupIndex="10">
+        <layout>%d{HH:mm:ss.SSS} [%thread] %-5level - %msg%n</layout>
+        <c:component id="price-engine-dbserver"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender name="FILE_FwdController" file="FwdController${fwdc.ccy}.log"
+        maxSize="5MB" backupIndex="10">
+        <layout>FwdController${fwdc.ccy}[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-fwdcontroller"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender name="FILE_FwdIRControllerUSD" file="FwdIRControllerUSD.log"
+        maxSize="50MB" backupIndex="10">
+        <layout>FwdIRControllerUSD[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-fwdircontroller"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender name="FILE_FwdMonitor" file="FwdMonitor.log" maxSize="50MB"
+        backupIndex="10">
+        <layout>FwdMonitor[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-fwdmonitor"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender name="FILE_TWClient" file="TrackwheelClient.log" maxSize="50MB"
+        backupIndex="10">
+        <layout>TrackwheelClient[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-trackwheel"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender name="FILE_TWServer" file="TWServer${TWS.cpCode}.log" maxSize="50MB" backupIndex="10">
+        <layout>BlotterServer[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-twserver"/>
+    </rolling-file-appender>
+
+    <rolling-file-appender name="FILE_Validator" file="${VS.name}Validator${VS.cpCode}.log" maxSize="5MB" backupIndex="10">
+        <layout>Validator${VS.cpCode}[%d{ISO8601}][%p] - %m%n</layout>
+        <c:component id="price-engine-validator"/>
     </rolling-file-appender>
 
 </configuration>
