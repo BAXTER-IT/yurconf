@@ -5,8 +5,10 @@ package com.baxter.config.processor;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 import com.baxter.config.om.ConfigID;
+import com.baxter.config.om.ConfigParameter;
 
 /**
  * Processing context.
@@ -35,11 +37,19 @@ public interface ProcessorContext
    *          result encoding, like "UTF-8"
    */
   void setContentType(String contentType, String encoding);
-  
+
   /**
    * Returns the configuration identifier for this context.
+   * 
    * @return configuration identifier
    */
   ConfigID getConfigID();
+
+  /**
+   * Returns configuration parameters.
+   * 
+   * @return list of configuration parameters
+   */
+  List<ConfigParameter> getParameters();
 
 }

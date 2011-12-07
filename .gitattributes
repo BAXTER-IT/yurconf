@@ -5,6 +5,7 @@ config-client/src/site/site.xml -text
 config-client/src/site/xdoc/index.xml -text
 config-om/pom.xml -text
 config-om/src/main/java/com/baxter/config/om/ConfigID.java -text
+config-om/src/main/java/com/baxter/config/om/ConfigParameter.java -text
 config-om/src/main/java/com/baxter/config/om/Version.java -text
 config-om/src/site/site.xml -text
 config-om/src/site/xdoc/index.xml -text
@@ -44,6 +45,7 @@ config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-bro
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-dbserver.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-fwdmonitor.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-trackwheel.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-validator.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/trading-tool.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/currency.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/currencypair.xsl -text

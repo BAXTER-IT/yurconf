@@ -18,6 +18,7 @@
   <xsl:import href="comp/price-engine-blotterserver.xsl"/>
   <xsl:import href="comp/price-engine-fwdmonitor.xsl"/>
   <xsl:import href="comp/price-engine-trackwheel.xsl"/>
+  <xsl:import href="comp/price-engine-validator.xsl"/>
   
   <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
@@ -31,6 +32,7 @@
       <xsl:element name="{$configurationComponentId}" namespace="urn:templates"/>
     </xsl:variable>
     <xsl:variable name="root">
+      <xsl:copy-of select="configuration-source/request" />
       <xsl:call-template name="load-merged-repo-document">
         <xsl:with-param name="prefix" select="'jms'"/>
       </xsl:call-template>

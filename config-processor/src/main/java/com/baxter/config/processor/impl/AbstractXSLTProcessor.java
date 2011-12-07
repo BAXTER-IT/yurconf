@@ -31,6 +31,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.baxter.config.om.ConfigID;
+import com.baxter.config.om.ConfigParameter;
 import com.baxter.config.processor.AbstractProcessor;
 import com.baxter.config.processor.ProcessorContext;
 import com.baxter.config.processor.ProcessorException;
@@ -197,6 +198,14 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 	  request.setAttribute("componentId", configId.getComponentId());
 	  request.setAttribute("variant", configId.getVariant());
 	  request.setAttribute("type", configId.getType());
+	  // add config parameters
+	  for (ConfigParameter cParam : context.getParameters())
+	  {
+		final Element param = doc.createElement("parameter");
+		param.setAttribute("id", cParam.getName());
+		param.setTextContent(cParam.getValue());
+		request.appendChild(param);
+	  }
 	  configSrc.appendChild(request);
 	}
 	doc.appendChild(configSrc);

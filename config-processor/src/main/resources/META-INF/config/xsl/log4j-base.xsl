@@ -18,7 +18,7 @@
   <xsl:template match="bcl:console-appender">
     <appender class="org.apache.log4j.ConsoleAppender">
       <xsl:attribute name="name">
-        <xsl:value-of select="@id"/>
+        <xsl:value-of select="@name"/>
       </xsl:attribute>
       <param name="Target" value="System.out"/>
       <xsl:apply-templates select="bcl:layout"/>
@@ -43,7 +43,7 @@
   <xsl:template name="async-appender">
     <appender class="org.apache.log4j.AsyncAppender">
       <xsl:attribute name="name">
-        <xsl:value-of select="@id"/>
+        <xsl:value-of select="@name"/>
       </xsl:attribute>
       <appender-ref>
         <xsl:call-template name="appender-pseudo-name">
@@ -79,7 +79,7 @@
     </param>
   </xsl:template>
   
-  <xsl:template match="bcl:rolling-file-appender/@id | bcl:file-appender/@id">
+  <xsl:template match="bcl:rolling-file-appender/@name | bcl:file-appender/@name">
     <xsl:call-template name="appender-pseudo-name">
       <xsl:with-param name="name">
         <xsl:text>name</xsl:text>
@@ -106,7 +106,7 @@
   <xsl:template match="bcl:rolling-file-appender">
     <xsl:call-template name="async-appender"/>
     <appender class="org.apache.log4j.RollingFileAppender">
-      <xsl:apply-templates select="@id"/>
+      <xsl:apply-templates select="@name"/>
       <xsl:apply-templates select="@file"/>
       <xsl:apply-templates select="@maxSize"/>
       <xsl:apply-templates select="@backupIndex"/>
@@ -117,13 +117,13 @@
   <xsl:template match="bcl:file-appender">
     <xsl:call-template name="async-appender"/>
     <appender class="org.apache.log4j.FileAppender">
-      <xsl:apply-templates select="@id"/>
+      <xsl:apply-templates select="@name"/>
       <xsl:apply-templates select="@file"/>
       <xsl:apply-templates />
     </appender>
   </xsl:template>
 
-  <xsl:template match="bcl:logger[@id='ROOT']">
+  <xsl:template match="bcl:logger[@name='ROOT']">
     <root>
       <xsl:apply-templates select="@level"/>
       <xsl:apply-templates select="bcl:appender-ref"/>
@@ -132,14 +132,14 @@
 
   <xsl:template match="bcl:logger">
     <category>
-      <xsl:apply-templates select="@id"/>
+      <xsl:apply-templates select="@name"/>
       <xsl:apply-templates select="@additivity"/>
       <xsl:apply-templates select="@level"/>
       <xsl:apply-templates select="bcl:appender-ref"/>
     </category>
   </xsl:template>
 
-  <xsl:template match="bcl:logger/@id">
+  <xsl:template match="bcl:logger/@name">
     <xsl:attribute name="name">
       <xsl:value-of select="."/>
     </xsl:attribute>
