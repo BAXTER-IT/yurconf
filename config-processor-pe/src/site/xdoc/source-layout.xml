@@ -22,7 +22,7 @@
                 system. Here is a list of source files supported by PE configuration processors:</p>
 
             <ul>
-                <li>log-*.xml</li>
+                <li>log.xml</li>
                 <li>jms.xml</li>
                 <li>properties.xml</li>
                 <li>properties-*.xml</li>
@@ -35,18 +35,15 @@
         </section>
 
         <section name="Logging Source">
-            <code>$REPO_HOME/com/baxter/pe/log-*.xml</code>
+            <code>$REPO_HOME/com/baxter/pe/log.xml</code>
 
             <p>Logging source defines the configuration for logging frameworks such as Log4J or
                 Logback. The same source is used to generate all types of final configuration.</p>
 
-            <p>Each Price Engine component's log is configured in a separate file. Following are the
-                sample file names:</p>
+            <p>Each Price Engine component's log is configured in the same file.</p>
 
             <ul>
-                <li>log-price-engine-dbserver.xml</li>
-                <li>log-price-engine-trackwheel.xml</li>
-                <li>log-price-engine-broadcast.xml</li>
+                <li>log.xml</li>
             </ul>
 
             <subsection name="Schema"> </subsection>
@@ -56,15 +53,14 @@
                 <p>The logging configuration can be overriden by source variants. The overriding
                     will be then applied on the phase of generating the configurationm file. Source
                     variants for logging configuration should follow the filename convention:
-                        <code>$REPO_HOME/com/baxter/pe/log-componentId-(variantName).xml</code>,
-                    where <code>componentId</code> is Price Engine component identifier and
-                        <code>variant</code> is a variant part of request URL. Here are sample
+                        <code>$REPO_HOME/com/baxter/pe/log(variantName).xml</code>,
+                    where <code>variant</code> is a variant part of request URL. Here are sample
                     filenames for variants:</p>
 
                 <ul>
-                    <li>log-price-engine-broadcast(Local).xml</li>
-                    <li>log-price-engine-broadcast(Sydney).xml</li>
-                    <li>log-price-engine-blotter(experimental).xml</li>
+                    <li>log(Local).xml</li>
+                    <li>log(Sydney).xml</li>
+                    <li>log(experimental).xml</li>
                 </ul>
 
                 <p>Use standard variants overriding rules to define configuration variants. TODO
