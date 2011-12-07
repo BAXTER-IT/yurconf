@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration xmlns="http://baxter-it.com/config/pe/clients"  xmlns:c="http://baxter-it.com/config/component">
     
+    <common-filename>pe-common.log</common-filename>
+    
     <c:component id="price-engine-admintool" >
         <port id="uniqueApp">13000</port>
     </c:component>
@@ -11,6 +13,10 @@
     
     <c:component id="price-engine-fwdmonitor" >
         <port id="uniqueApp">33343</port>
+    </c:component>
+    
+    <c:component id="price-engine-trackwheel" >
+        <port id="uniqueApp">33340</port>
     </c:component>
     
     <c:component id="trading-tool" >

@@ -29,17 +29,11 @@ config-processor-pe/src/main/resources/META-INF/config/default/comp/blotterserve
 config-processor-pe/src/main/resources/META-INF/config/default/comp/broadcast.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/comp/dbserver.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/comp/fwdmonitor.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/comp/trackwheel.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/comp/tradingtool.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/currencies.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/jdbc.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/jms.xml -text
-config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-dbserver.xml -text
-config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-fwdcontroller.xml -text
-config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-fwdircontroller.xml -text
-config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-fwdmonitor.xml -text
-config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-trackwheel.xml -text
-config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-twserver.xml -text
-config-processor-pe/src/main/resources/META-INF/config/default/log-price-engine-validator.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/log.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/properties.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/udp-price.xml -text
@@ -49,6 +43,7 @@ config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-blo
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-broadcast.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-dbserver.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-fwdmonitor.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-trackwheel.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/trading-tool.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/currency.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/currencypair.xsl -text
@@ -89,6 +84,7 @@ config-processor-pe/src/test/resources/META-INF/config/default/log-price-engine-
 config-processor-pe/src/test/resources/META-INF/config/default/log-price-engine-test-cba-fxgt-system.xml -text
 config-processor-pe/src/test/resources/META-INF/config/default/log-price-engine-test-persistent-dcpk-receiver.xml -text
 config-processor-pe/src/test/resources/META-INF/config/default/log-price-engine-tradabilitytool.xml -text
+config-processor-pe/src/test/resources/xslt/duplicate-logs.xsl -text
 config-processor-pe/src/test/resources/xslt/propsmerge/input.xml -text
 config-processor-pe/src/test/resources/xslt/propsmerge/merge.xsl -text
 config-processor-pe/src/test/resources/xslt/refs/input.xml -text
