@@ -33,7 +33,7 @@
 			<p>In general the URL pattern can be represented as following. All of the URL components
 				will be explained in details below.</p>
 
-			<code>&lt;config-base&gt;/rest/&lt;product-id&gt;/&lt;component-id&gt;[/&lt;variant&gt;]/&lt;config-type&gt;[?version=&lt;config-version&gt;]</code>
+			<code>&lt;config-base&gt;/rest/&lt;product-id&gt;/&lt;component-id&gt;[/&lt;variant&gt;]/&lt;config-type&gt;[?version=&lt;config-version&gt;][&amp;&lt;parameter-name&gt;=&lt;parameter-value&gt;]</code>
 
 			<p>Here are some samples for configuration requests.</p>
 
@@ -42,6 +42,7 @@
 				<li>http://localhost:8080/config/com.baxter.pe/price-engine-broadcast/logback</li>
 				<li>http://localhost:8080/config/properties/com.baxter.pe/price-engine-blotterserver/properties</li>
 				<li>http://localhost:8080/config/com.baxter.config/some-file-as-is.xml/asis</li>
+				<li>http://localhost:8080/config-server/rest/com.baxter.pe/price-engine-validator/propertiesxml?epp=true</li>
 			</ul>
 
 			<subsection name="Configuration Base">
@@ -78,6 +79,7 @@
 				<p>The Variant is a kind of extension of a typical configuration. It usually
 					inherits all values from a base configuration and just extends or overrides some
 					of them.</p>
+				<p>It's purpose to create settings for different systems by using the common settings and override the differences</p>
 			</subsection>
 
 			<subsection name="Configuration Version">
@@ -85,6 +87,14 @@
 				<p>The version required by the client. If ommited, then the current version is
 					returned. If specified, then server ensures that delivered configuration version
 					will be same or newer than requested value.</p>
+			</subsection>
+			
+			<subsection name="Configuration Parameters">
+				<code>&lt;parameter-name&gt;=&lt;parameter-value&gt;</code>
+				<p>This params can be used to alternate the behaviour of the settings generation. The parameters contrary to the variants are for 
+				define different behaviour on the same system. Like starting a component wiht extra settings.</p>
+				<p>Multiple parameter can be defined separeted by the &amp; sign.</p>
+				<p>Different parameter-values can be set for the same parameter-name.</p>
 			</subsection>
 
 		</section>
