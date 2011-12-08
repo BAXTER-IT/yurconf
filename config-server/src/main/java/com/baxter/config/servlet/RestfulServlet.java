@@ -6,6 +6,9 @@ package com.baxter.config.servlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -17,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.baxter.config.om.ConfigID;
+import com.baxter.config.om.ConfigParameter;
 import com.baxter.config.om.Version;
 import com.baxter.config.processor.AbstractProcessor;
 import com.baxter.config.processor.ProcessorContext;
@@ -50,8 +54,9 @@ public class RestfulServlet extends HttpServlet
   private static final String PARAM_VERSION = "version";
 
   private static final String CTX_PARAM_REPOSITORY = "com.baxter.config.Repository";
-  
-  private static final String DEFAULT_REPO_PATH = System.getProperty("user.home") + File.separator + ".baxter-configuration-repository";
+
+  private static final String DEFAULT_REPO_PATH = System.getProperty("user.home") + File.separator
+	  + ".baxter-configuration-repository";
 
   /**
    * Processor factory reference. This instance is initialized in {@link #init()} method.
@@ -95,8 +100,10 @@ public class RestfulServlet extends HttpServlet
 		final AbstractProcessor processor = processorFactory.getProcessor(configId, version);
 		try
 		{
-		  processor.process(new ProcessorContext()
+		  final ProcessorContext thisContext = new ProcessorContext()
 		  {
+
+			private final List<ConfigParameter> params = new ArrayList<ConfigParameter>();
 
 			@Override
 			public void setContentType(final String contentType, final String encoding)
@@ -116,7 +123,26 @@ public class RestfulServlet extends HttpServlet
 			  return configId;
 			}
 
-		  });
+			@Override
+			public List<ConfigParameter> getParameters()
+			{
+			  if (this.params.isEmpty())
+			  {
+				for (Enumeration<?> paramNames = request.getParameterNames(); paramNames.hasMoreElements();)
+				{
+				  final String parameterName = String.valueOf(paramNames.nextElement());
+				  for (String value : request.getParameterValues(parameterName))
+				  {
+					final ConfigParameter cParam = new ConfigParameter(parameterName, value);
+					this.params.add(cParam);
+				  }
+				}
+			  }
+			  return this.params;
+			}
+
+		  };
+		  processor.process(thisContext);
 		}
 		catch (final ProcessorException e)
 		{

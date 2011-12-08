@@ -10,12 +10,8 @@
 		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="propertiesxml">
 			<parameter name="stylesheet">propertiesxml.xsl</parameter>
 		</processor>
-		<!-- TODO consolidate currencypairs and currencies to C(urrency)DAT processor -->
-		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="currencypairs">
-			<parameter name="stylesheet">currencypair.xsl</parameter>
-		</processor>
-		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="currencies">
-			<parameter name="stylesheet">currency.xsl</parameter>
+		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="cdat">
+			<parameter name="stylesheet">CDAT.xsl</parameter>
 		</processor>
 	</processors>
 	<upgrades>

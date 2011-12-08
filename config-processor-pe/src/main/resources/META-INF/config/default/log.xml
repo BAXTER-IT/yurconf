@@ -19,12 +19,10 @@
     <logger id="com.baxter1" name="com.baxter" level="TRACE" additivity="false">
         <appender-ref ref="FILE_AdminTool"/>
         <c:component id="price-engine-admintool"/>
-        <c:component id="price-engine-blotter"/>
-        <c:component id="price-engine-blotterserver"/>
     </logger>
 
     <logger id="com.baxter2" name="com.baxter" level="TRACE" additivity="false">
-        <appender-ref ref="FILE_AdminTool"/>
+        <appender-ref ref="FILE_TWClient"/>
         <c:component id="price-engine-trackwheel"/>
     </logger>
 
@@ -33,6 +31,17 @@
         <c:component id="price-engine-fwdcontroller"/>
         <c:component id="price-engine-fwdircontroller"/>
         <c:component id="price-engine-fwdmonitor"/>
+    </logger>
+
+    <logger id="com.baxter4" name="com.baxter" level="TRACE">
+        <appender-ref ref="CONSOLE" />
+        <c:component id="price-engine-blotter"/>
+        <c:component id="price-engine-blotterserver"/>
+    </logger>
+    
+    <logger id="com.baxter5" name="com.baxter" level="TRACE" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <c:component id="price-engine-trackwheel"/>
     </logger>
 
     <logger id="com.baxter.pe" name="com.baxter.pe" level="DEBUG">

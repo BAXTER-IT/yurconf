@@ -2,13 +2,13 @@
 <configuration xmlns="http://baxter-it.com/config/pe/cp"
     xmlns:c="http://baxter-it.com/config/component">
 
-
     <currencyPair id="AU">
         <c:component id="price-engine-fwdcontroller">
             <port>6200</port>
         </c:component>
         <c:component id="price-engine-validator">
             <port>6740</port>
+            <port epp='true'>6766</port>
         </c:component>
         <c:component id="price-engine-twserver">
             <port>6002</port>
@@ -39,6 +39,7 @@
         </c:component>
         <c:component id="price-engine-validator">
             <port>6742</port>
+            <port epp="true">6768</port>
         </c:component>
         <c:component id="price-engine-twserver">
             <port>6020</port>
