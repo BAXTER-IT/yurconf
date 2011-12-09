@@ -20,6 +20,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.baxter.config.om.ConfigID;
+import com.baxter.config.om.ConfigParameter;
 import com.baxter.config.processor.ProcessorContext;
 import com.baxter.config.processor.ProcessorException;
 import com.baxter.config.processor.desc.Descriptor;
@@ -66,6 +67,20 @@ public class TransformCommand extends AbstractFileCommand implements UpgradeComm
 		// no config request - no config id
 		return null;
 	  }
+
+	  @Override
+      public List<ConfigParameter> getParameters()
+      {
+	    // TODO Auto-generated method stub
+	    return null;
+      }
+
+	  @Override
+      public URL getConfigurationBaseUrl()
+      {
+	    // TODO Auto-generated method stub
+	    return null;
+      }
 	};
 
 	try
