@@ -6,6 +6,8 @@ package com.baxter.config.servlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -86,7 +88,20 @@ public class RestfulServlet extends HttpServlet
   {
 	final String pathInfo = request.getPathInfo();
 	final String versionParam = request.getParameter(PARAM_VERSION);
-	LOGGER.trace("Request pathInfo {} and version {}", pathInfo, versionParam);
+	final List<ConfigParameter> params = new ArrayList<ConfigParameter>();
+	for (Enumeration<?> paramNames = request.getParameterNames(); paramNames.hasMoreElements();)
+	{
+	  final String parameterName = String.valueOf(paramNames.nextElement());
+	  if (!PARAM_VERSION.equals(parameterName))
+	  {
+		for (String value : request.getParameterValues(parameterName))
+		{
+		  final ConfigParameter cParam = new ConfigParameter(parameterName, value);
+		  params.add(cParam);
+		}
+	  }
+	}
+	LOGGER.trace("Request pathInfo {} and version {}, params: {}", new Object[] { pathInfo, versionParam, params });
 	try
 	{
 	  if (pathInfo == null)
@@ -102,8 +117,6 @@ public class RestfulServlet extends HttpServlet
 		{
 		  final ProcessorContext thisContext = new ProcessorContext()
 		  {
-
-			private final List<ConfigParameter> params = new ArrayList<ConfigParameter>();
 
 			@Override
 			public void setContentType(final String contentType, final String encoding)
@@ -124,21 +137,23 @@ public class RestfulServlet extends HttpServlet
 			}
 
 			@Override
+			public URL getConfigurationBaseUrl()
+			{
+			  try
+			  {
+				return new URL(request.getRequestURL().toString().replace(pathInfo, ""));
+			  }
+			  catch (final MalformedURLException e)
+			  {
+				LOGGER.error("Failed to construct configuration base URL", e);
+				return null;
+			  }
+			}
+
+			@Override
 			public List<ConfigParameter> getParameters()
 			{
-			  if (this.params.isEmpty())
-			  {
-				for (Enumeration<?> paramNames = request.getParameterNames(); paramNames.hasMoreElements();)
-				{
-				  final String parameterName = String.valueOf(paramNames.nextElement());
-				  for (String value : request.getParameterValues(parameterName))
-				  {
-					final ConfigParameter cParam = new ConfigParameter(parameterName, value);
-					this.params.add(cParam);
-				  }
-				}
-			  }
-			  return this.params;
+			  return params;
 			}
 
 		  };

@@ -23,6 +23,7 @@ config-processor-demo/src/main/resources/META-INF/config/xsl/logback.xsl -text
 config-processor-demo/src/main/resources/META-INF/services/com.baxter.config.processor.xml -text
 config-processor-pe/pom.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/broadcast.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/client-messaging.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/clients.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/comp/admintool.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/comp/blotter.xml -text
@@ -37,8 +38,11 @@ config-processor-pe/src/main/resources/META-INF/config/default/jdbc.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/jms.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/log.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/properties.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/qfix.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/udp-price.xml -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/CDAT.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/QFixINI.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/client-messaging.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-admintool.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-blotter.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/comp/price-engine-blotterserver.xsl -text
@@ -126,6 +130,7 @@ config-processor/src/main/java/com/baxter/config/processor/upgrade/UpgradeComman
 config-processor/src/main/java/com/baxter/config/processor/upgrade/UpgradeContext.java -text
 config-processor/src/main/java/com/baxter/config/processor/upgrade/UpgradeException.java -text
 config-processor/src/main/java/com/baxter/config/processor/util/URLLister.java -text
+config-processor/src/main/resources/META-INF/config/xsl/conf-reference.xsl -text
 config-processor/src/main/resources/META-INF/config/xsl/log4j-base.xsl -text
 config-processor/src/main/resources/META-INF/config/xsl/logback-base.xsl -text
 config-processor/src/main/resources/META-INF/config/xsl/repo-base.xsl -text

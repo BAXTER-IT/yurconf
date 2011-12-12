@@ -5,6 +5,7 @@ package com.baxter.config.processor;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.List;
 
 import com.baxter.config.om.ConfigID;
@@ -51,5 +52,11 @@ public interface ProcessorContext
    * @return list of configuration parameters
    */
   List<ConfigParameter> getParameters();
+  
+  /**
+   * Returns the base URL for configurations. This is typically the URL to restful servlet.
+   * @return
+   */
+  URL getConfigurationBaseUrl();
 
 }

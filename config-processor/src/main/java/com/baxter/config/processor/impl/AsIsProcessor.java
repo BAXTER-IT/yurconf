@@ -7,9 +7,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.apache.commons.io.IOUtils;
 
+import com.baxter.config.om.ConfigParameter;
 import com.baxter.config.processor.ProcessorContext;
 import com.baxter.config.processor.ProcessorException;
 import com.baxter.config.processor.ProcessorFactory;
@@ -24,25 +27,56 @@ import com.baxter.config.processor.desc.Descriptor;
 public class AsIsProcessor extends AbstractXSLTProcessor
 {
 
+  private static final String PARAM_FILE = "file";
+
   /**
    * Creates processor for specified descriptor.
    * 
    * @param descriptor
    *          processor descriptor
    */
-  public AsIsProcessor(final Descriptor descriptor, final ProcessorFactory processorFactory )
+  public AsIsProcessor(final Descriptor descriptor, final ProcessorFactory processorFactory)
   {
 	super(descriptor, processorFactory);
+  }
+
+  private String getParameterByName(final List<ConfigParameter> parameters, final String name)
+  {
+	for (ConfigParameter param : parameters)
+	{
+	  if (name.equals(param.getName()))
+	  {
+		return param.getValue();
+	  }
+	}
+	throw new NoSuchElementException("No parameter " + name);
+  }
+
+  private File getRequestedFile(final ProcessorContext context)
+  {
+	final File productDir = getFactory().getRepository().getProductDirectory(getDescriptor().getProductId());
+	final String filename = getParameterByName(context.getParameters(), PARAM_FILE);
+	if (context.getConfigID().getVariant() != null)
+	{
+	  final String variantFileName = filename + "-" + context.getConfigID().getVariant();
+	  final File variantFile = new File(productDir, variantFileName);
+	  if (variantFile.isFile())
+	  {
+		return variantFile;
+	  }
+	  else
+	  {
+		logger.info("Requested variant file could not be found. Falling back to original file");
+	  }
+	}
+	return new File(productDir, filename);
   }
 
   @Override
   public void process(final ProcessorContext context) throws ProcessorException
   {
 	// 1. Determine the source file location
-	final File productDir = getFactory().getRepository().getProductDirectory(getDescriptor().getProductId());
-	final String filename = context.getConfigID().getComponentId()
-	    + (context.getConfigID().getVariant() == null ? "" : ("-" + context.getConfigID().getVariant()));
-	final File file = new File(productDir, filename);
+	final File file = getRequestedFile(context);
 	if (!file.isFile())
 	{
 	  logger.error("Could not find source file " + file.getAbsolutePath());

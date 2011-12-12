@@ -31,5 +31,14 @@ public class ConfigParameter
   {
 	return value;
   }
+  
+  @Override
+  public String toString()
+  {
+	final StringBuilder str = new StringBuilder(getName());
+	str.append("=");
+	str.append(getValue());
+    return str.toString();
+  }
 
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://baxter-it.com/config/pe/cm"
+    xmlns:c="http://baxter-it.com/config/component" xmlns:conf="http://baxter-it.com/config">
+
+    <clientMessaging id="fix44">
+        <property id="SequenceIDStorageFileName">./fixSequences.txt</property>
+        <conf:reference id="CLIENTMESSAGING_QUICKFIX_INIFILE" type="qfixini">
+            <conf:param name="session">fix44</conf:param>
+            <conf:param name="defaults">fix44</conf:param>
+            <conf:param name="defaults">thisIsSomethingCommon</conf:param>
+            <!--
+                    http://server:port/ctx/rest/productId/componentId/variant/type?version=...&params
+                -->
+        </conf:reference>
+    </clientMessaging>
+
+    <clientMessaging id="integral">
+        <conf:reference id="QUOTESESSION_QUICKFIX_INIFILE" type="qfixini">
+            <conf:param name="session">integralQuote</conf:param>
+            <conf:param name="defaults">integralQuote</conf:param>
+            <conf:param name="defaults">thisIsSomethingCommon</conf:param>
+        </conf:reference>
+        <conf:reference id="ORDERSESSION_QUICKFIX_INIFILE" type="qfixini">
+            <conf:param name="session">integralOrder</conf:param>
+            <conf:param name="defaults">integralOrder</conf:param>
+            <conf:param name="defaults">thisIsSomethingCommon</conf:param>
+        </conf:reference>
+    </clientMessaging>
+
+    <clientMessaging id="currenexAP">
+        <property id="USERID">baxterrfqmkr</property>
+        <property id="ALIAS">baxterrfqmkr</property>
+        <property id="PASSWORD">bax1234</property>
+        <conf:reference id="KEYFILE" type="asis">
+            <conf:param name="file">baxterrfqmkr.jks</conf:param>
+        </conf:reference>
+        <conf:reference id="PROPERTIES_CONTEXT" type="asis">
+            <conf:param name="file">fxintegrateAP.properties</conf:param>
+        </conf:reference>
+    </clientMessaging>
+
+</configuration>

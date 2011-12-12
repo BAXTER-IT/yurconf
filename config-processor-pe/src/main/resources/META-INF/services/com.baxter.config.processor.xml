@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <descriptor xmlns="http://baxter-it.com/config/descriptor" version="1.0" productId="com.baxter.pe">
 	<processors>
+		<processor class="com.baxter.config.processor.impl.AsIsProcessor" type="asis">
+		</processor>
 		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="log4j">
 			<parameter name="stylesheet">log4j.xsl</parameter>
 		</processor>
@@ -12,6 +14,12 @@
 		</processor>
 		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="cdat">
 			<parameter name="stylesheet">CDAT.xsl</parameter>
+		</processor>
+		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="qfixini">
+			<parameter name="stylesheet">QFixINI.xsl</parameter>
+		</processor>
+		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="clientmessaging">
+			<parameter name="stylesheet">client-messaging.xsl</parameter>
 		</processor>
 	</processors>
 	<upgrades>

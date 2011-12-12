@@ -198,6 +198,7 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 	  request.setAttribute("componentId", configId.getComponentId());
 	  request.setAttribute("variant", configId.getVariant());
 	  request.setAttribute("type", configId.getType());
+	  request.setAttribute("base", context.getConfigurationBaseUrl().toString() );
 	  // add config parameters
 	  for (ConfigParameter cParam : context.getParameters())
 	  {
