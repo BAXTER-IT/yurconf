@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:qfix="http://baxter-it.com/config/pe/qfix"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:qfix="http://baxter-it.com/price-engine/conf/qfix"
     xmlns:c="http://baxter-it.com/config/component" xmlns:conf="http://baxter-it.com/config"
     exclude-result-prefixes="xs" version="2.0">
 
@@ -8,7 +8,7 @@
     <xsl:import href="baxterxsl:text-fmt.xsl"/>
     <xsl:import href="baxterxsl:conf-reference.xsl"/>
 
-    <xsl:output method="text" encoding="UTF-8"/>
+    <xsl:output method="text" encoding="UTF-8" omit-xml-declaration="yes"/>
 
     <xsl:param name="configurationProductId"/>
     <xsl:param name="configurationComponentId"/>

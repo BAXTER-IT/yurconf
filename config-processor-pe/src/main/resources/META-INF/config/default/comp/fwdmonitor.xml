@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration xmlns="http://baxter-it.com/config/pe/fwdmonitor">
-
-    <ui>
-        <flag id="popForwardAtWarning">false</flag>
-        <flag id="popUpWithFocus">false</flag>
-    </ui>
-
-</configuration>

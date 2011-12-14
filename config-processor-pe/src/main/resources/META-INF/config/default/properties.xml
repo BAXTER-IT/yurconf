@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<properties xmlns="http://baxter-it.com/config/pe/properties"
+<configuration xmlns="http://baxter-it.com/price-engine/conf/generic-properties"
     xmlns:c="http://baxter-it.com/config/component">
 
     <property id="xmlManager.structuralesUser.xmlUserId" value="m">
@@ -22,12 +22,89 @@
         <c:component id="price-engine-blotterserver"/>
     </property>
 
-    <property id="useDIPanel" value="NO">
-        <c:component id="price-engine-blotter"/>
-    </property>
-    
     <property id="dLRWarningInterval" value="10000">
         <c:component id="price-engine-fwdcontroller"/>
     </property>
-
-</properties>
+    
+    
+    <!-- From Broadcast Comp -->
+    <property id="creditcheckmanager.timeout" value="8000">
+        <c:component id="price-engine-broadcast"/>
+    </property>
+    <property id="creditcheckmanager.heartbeat.NumberOfRequiredHeartbeat" value="5">
+        <c:component id="price-engine-broadcast"/>
+    </property>
+    <property id="creditcheckmanager.heartbeat.HeartbeatInterval" value="100">
+        <c:component id="price-engine-broadcast"/>
+    </property>
+    <property id="watchDogInterval" value="0">
+        <c:component id="price-engine-broadcast"/>
+    </property>
+    <property id="generateFakeIR" value="yes">
+        <c:component id="price-engine-broadcast"/>
+    </property>
+    <property id="logServerPort" value="6804">
+        <c:component id="price-engine-broadcast"/>
+    </property>
+    <property id="maxLatency" value="-1">
+        <c:component id="price-engine-broadcast"/>
+    </property>
+    <property id="iORoundPercentage" value="0.80">
+        <c:component id="price-engine-broadcast"/>
+    </property>
+    <property id="tradeEventManager.roundTripInterval" value="100">
+        <c:component id="price-engine-broadcast"/>
+    </property>
+    <property id="handoffmanager.Upstream2HandOff.timeout" value="6000">
+        <c:component id="price-engine-broadcast"/>
+    </property>
+    <property id="broadcastNode" value="0">
+        <c:component id="price-engine-broadcast"/>
+    </property>
+    
+    <!-- For Trading Tool -->
+    <property id="priceRefreshTime" value="500">
+        <c:component id="trading-tool"/>
+    </property>
+    
+    <!-- DBServer -->
+    <property id="toffile.primary" value="./tofdir">
+        <c:component id="price-engine-dbserver"/>
+    </property>
+    <property id="toffile.secondary" value="./tofdir">
+        <c:component id="price-engine-dbserver"/>
+    </property>
+    <property id="deleteLogins" value="true">
+        <c:component id="price-engine-dbserver"/>
+    </property>
+    <property id="dbUDPPort" value="-1">
+        <c:component id="price-engine-dbserver"/>
+    </property>
+    
+    <!-- Blotter -->
+    <property id="screenClose.di" value="Trading Tool">
+        <c:component id="price-engine-blotter"/>
+    </property>
+    <property id="countDownSeconds" value="30">
+        <c:component id="price-engine-blotter"/>
+    </property>
+    <!-- possible values are values from SwingConstants. Use 'off' to disable failedTrade popup. -->
+    <property id="failedTradePopupPosition" value="SOUTH_WEST">
+        <c:component id="price-engine-blotter"/>
+    </property>
+    <property id="pricedisplay.CPs_per_row" value="8">
+        <c:component id="price-engine-blotter"/>
+    </property>
+    
+    <!-- BlotterServer -->
+    <property id="mmm.priceBufferSize" value="1000">
+        <c:component id="price-engine-blotterserver"/>
+    </property>
+    <property id="abos.accountNumbers" value="1210573">
+        <c:component id="price-engine-blotterserver"/>
+    </property>
+    
+    
+    
+    
+</configuration>

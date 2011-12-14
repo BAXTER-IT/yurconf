@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration xmlns="http://baxter-it.com/config/pe/broadcast">
-    
-    <!--
-        in XSLT we can count node elements to get value of numberOfBroadcastNodes
-        -->
+<configuration xmlns="http://baxter-it.com/price-engine/conf/broadcast">
     
     <node id="broadcast1" host="localhost" pricePort="7104" channelPort="7106" />
     

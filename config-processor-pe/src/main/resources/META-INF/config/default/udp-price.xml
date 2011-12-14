@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration xmlns="http://baxter-it.com/config/pe/udpprice"
-    xmlns:c="http://baxter-it.com/config/component">
+<configuration xmlns="http://baxter-it.com/price-engine/conf/udp-price" xmlns:c="http://baxter-it.com/config/component">
 
-    <connection id="udpPriceParams" serverHost="192.168.9.17" serverPort="6788" clientPort="6791">
-        <c:component id="price-engine-admintool"/>
+    <connection id="udpPriceParams" port="6791">
+        <c:component id="price-engine-admintool" />
+        <server id="default" host="192.168.9.17" port="6788" />
     </connection>
 
-    <connection id="uDPClient2Server.uDPConnectionParam1" clientPort="7795">
-        <c:component id="price-engine-blotter"/>
-        <c:param id="serverHost"
-            reference="/broadcast:configuration/broadcast:node[@id='broadcast1']/@host"/>
-        <c:param id="serverPort"
-            reference="/broadcast:configuration/broadcast:node[@id='broadcast1']/@channelPort"/>
+    <connection id="uDPClient2Server.uDPConnectionParam1" port="7795">
+        <c:component id="price-engine-blotter" />
+        <server id="default" broadcastId="broadcast1" />
     </connection>
 
-    <connection id="uDPClient2Server.uDPConnectionParam2" clientPort="7796">
-        <c:component id="price-engine-blotter"/>
-        <c:param id="serverHost"
-            reference="/broadcast:configuration/broadcast:node[@id='broadcast2']/@host"/>
-        <c:param id="serverPort"
-            reference="/broadcast:configuration/broadcast:node[@id='broadcast2']/@channelPort"/>
+    <connection id="uDPClient2Server.uDPConnectionParam2" port="7796">
+        <c:component id="price-engine-blotter" />
+        <server id="default" broadcastId="broadcast2" />
     </connection>
 
-    <connection id="pricedisplay.uDPPriceParams" clientPort="7792">
-        <c:component id="price-engine-blotter"/>
-        <c:param id="serverHost"
-            reference="/broadcast:configuration/broadcast:node[@id='broadcast1']/@host"/>
-        <c:param id="serverPort"
-            reference="/broadcast:configuration/broadcast:node[@id='broadcast1']/@channelPort"/>
+    <connection id="pricedisplay.uDPPriceParams" port="7792">
+        <c:component id="price-engine-blotter" />
+        <server id="default" broadcastId="broadcast1" />
     </connection>
 
+    <connection id="mmm.broadcast.1" port="17000">
+        <c:component id="price-engine-blotterserver" />
+        <server id="default" broadcastId="broadcast1" />
+    </connection>
+    
+    <connection id="mmm.broadcast.2" port="17002">
+        <c:component id="price-engine-blotterserver" />
+        <server id="default" broadcastId="broadcast2" />
+    </connection>
+    
 </configuration>

@@ -2,8 +2,6 @@
 <configuration xmlns="http://baxter-it.com/config/log"
     xmlns:c="http://baxter-it.com/config/component">
 
-    <!-- Move the configuration from separate files into this container. Add corresponding tags <c:component /> -->
-
     <logger id="ROOT1" name="ROOT" level="TRACE">
         <appender-ref ref="CONSOLE"/>
         <c:component id="price-engine-admintool"/>

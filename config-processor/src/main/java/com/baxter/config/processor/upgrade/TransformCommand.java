@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -46,48 +47,18 @@ public class TransformCommand extends AbstractFileCommand implements UpgradeComm
   {
 	final UpgradeXSLTProcessor processor = new UpgradeXSLTProcessor(context.getDescriptor(), context);
 	final StringWriter xsltWriter = new StringWriter();
-	final OutputStream xsltStream = new WriterOutputStream(xsltWriter);
-	final ProcessorContext processorContext = new ProcessorContext()
-	{
-
-	  @Override
-	  public void setContentType(String contentType, String encoding)
-	  {
-	  }
-
-	  @Override
-	  public OutputStream getOutputStream() throws IOException
-	  {
-		return xsltStream;
-	  }
-
-	  @Override
-	  public ConfigID getConfigID()
-	  {
-		// no config request - no config id
-		return null;
-	  }
-
-	  @Override
-      public List<ConfigParameter> getParameters()
-      {
-	    // TODO Auto-generated method stub
-	    return null;
-      }
-
-	  @Override
-      public URL getConfigurationBaseUrl()
-      {
-	    // TODO Auto-generated method stub
-	    return null;
-      }
-	};
-
 	try
 	{
-	  processor.process(processorContext);
-	  xsltWriter.flush();
-	  logger.debug("Upgrade XSLT output: {}", xsltWriter);
+	  try
+	  {
+		processor.process(new UpgradeProcessorContext(xsltWriter));
+		xsltWriter.flush();
+		logger.debug("Upgrade XSLT output: {}", xsltWriter);
+	  }
+	  finally
+	  {
+		xsltWriter.close();
+	  }
 	}
 	catch (final ProcessorException e)
 	{
@@ -99,6 +70,53 @@ public class TransformCommand extends AbstractFileCommand implements UpgradeComm
 	  {
 		throw new UpgradeException(e);
 	  }
+	}
+	catch (final IOException e)
+	{
+	  throw new UpgradeException(e);
+	}
+  }
+
+  private class UpgradeProcessorContext implements ProcessorContext
+  {
+
+	private final OutputStream outputstream;
+
+	private UpgradeProcessorContext(final Writer writer)
+	{
+	  this.outputstream = new WriterOutputStream(writer);
+	}
+
+	@Override
+	public void setContentType(String contentType, String encoding)
+	{
+	}
+
+	@Override
+	public OutputStream getOutputStream() throws IOException
+	{
+	  return this.outputstream;
+	}
+
+	@Override
+	public ConfigID getConfigID()
+	{
+	  // no config request - no config id
+	  return null;
+	}
+
+	@Override
+	public List<ConfigParameter> getParameters()
+	{
+	  // not appicable for upgrade
+	  return null;
+	}
+
+	@Override
+	public URL getConfigurationBaseUrl()
+	{
+	  // not appicable for upgrade
+	  return null;
 	}
   }
 

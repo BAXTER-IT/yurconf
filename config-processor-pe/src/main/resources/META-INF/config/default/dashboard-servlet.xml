@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://baxter-it.com/price-engine/conf/servlet" >
+    
+    <servlet id="servlet1" url="http://127.0.0.1:8080/price-engine-dashboard/DashServlet" />
+    
+    <servlet id="servlet2" url="http://127.0.0.1:8080/price-engine-dashboard/DashServlet" />
+    
+</configuration>

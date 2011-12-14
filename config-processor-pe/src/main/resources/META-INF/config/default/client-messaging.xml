@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration xmlns="http://baxter-it.com/config/pe/cm"
-    xmlns:c="http://baxter-it.com/config/component" xmlns:conf="http://baxter-it.com/config">
+<configuration xmlns="http://baxter-it.com/price-engine/conf/client-messaging" xmlns:c="http://baxter-it.com/config/component"
+    xmlns:conf="http://baxter-it.com/config">
 
     <clientMessaging id="fix44">
         <property id="SequenceIDStorageFileName">./fixSequences.txt</property>
@@ -8,9 +8,6 @@
             <conf:param name="session">fix44</conf:param>
             <conf:param name="defaults">fix44</conf:param>
             <conf:param name="defaults">thisIsSomethingCommon</conf:param>
-            <!--
-                    http://server:port/ctx/rest/productId/componentId/variant/type?version=...&params
-                -->
         </conf:reference>
     </clientMessaging>
 

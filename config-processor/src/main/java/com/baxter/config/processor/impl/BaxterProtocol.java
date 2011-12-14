@@ -38,6 +38,7 @@ enum BaxterProtocol
 	{
 	  final String xslPath = href.substring(prefix.length());
 	  final String xslResourcePath = "/META-INF/config/xsl/" + xslPath;
+	  LOGGER.debug("XSL resource path: {}", xslResourcePath);
 	  final InputStream xslStream = getClass().getResourceAsStream(xslResourcePath);
 	  final Source xslSource = new StreamSource(xslStream, href);
 	  return xslSource;
@@ -68,7 +69,12 @@ enum BaxterProtocol
 	{
 	  try
 	  {
-		return new StreamSource(new FileInputStream(getRepositoryFile(href, processor)), href);
+		final File file = getRepositoryFile(href, processor);
+		if (LOGGER.isDebugEnabled())
+		{
+		  LOGGER.debug("Repo file: {}", file.getAbsolutePath());
+		}
+		return new StreamSource(new FileInputStream(file), href);
 	  }
 	  catch (final FileNotFoundException e)
 	  {
