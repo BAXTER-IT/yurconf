@@ -18,24 +18,14 @@
         <xsl:apply-templates select="$root/curr:configuration" />
     </xsl:template>
 
+    <xsl:template
+        match="curr:configuration[$configurationComponentId='price-engine-validator'][/request/parameter[@id='epp']/text() = 'true']">
+        <xsl:apply-templates select="curr:currencyPair/c:component[@id=$configurationComponentId]/curr:port[@id='epp']"
+         />
+    </xsl:template>
+
     <xsl:template match="curr:configuration">
-        <xsl:choose>
-            <xsl:when test="$configurationComponentId='price-engine-validator'">
-                <xsl:choose>
-                    <xsl:when test="/request/parameter[@id='epp']/text() = 'true'">
-                        <xsl:apply-templates
-                            select="curr:*/c:component[@id=$configurationComponentId]/curr:port[@epp='true']" />
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:apply-templates
-                            select="curr:*/c:component[@id=$configurationComponentId]/curr:port[not(@epp)]" />
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="curr:*/c:component[@id=$configurationComponentId]/curr:port" />
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="curr:*/c:component[@id=$configurationComponentId]/curr:port[@id='default']" />
     </xsl:template>
 
     <xsl:template match="curr:port">

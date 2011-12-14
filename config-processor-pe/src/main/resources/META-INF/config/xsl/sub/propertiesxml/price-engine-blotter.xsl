@@ -48,7 +48,15 @@
             </entry>
         </group>
     </xsl:template>
+    
+    <xsl:template match="gui:flag[@id='useDIPanel'][@value='true']">
+        <entry key="useDIPanel">YES</entry>
+    </xsl:template>
 
+    <xsl:template match="gui:flag[@id='useDIPanel']">
+        <entry key="useDIPanel">NO</entry>
+    </xsl:template>
+    
     <xsl:template match="gui:flag[@id='tradingTool'][@value='true']">
         <entry key="tradingToolConfig">
             <xsl:apply-templates select="/conf:reference[@id='tradingToolConfig']" mode="url" />

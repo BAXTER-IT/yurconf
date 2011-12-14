@@ -8,6 +8,7 @@
         <c:component id="price-engine-fwdmonitor" />
         <c:component id="price-engine-trackwheel" />
         <c:component id="trading-tool" />
+        <c:component id="price-engine-dbserver" />
         <c:component id="price-engine-broadcast" />
         <c:component id="price-engine-blotterserver" />
         <c:component id="price-engine-fwdcontroller" />
@@ -22,6 +23,7 @@
         <c:component id="price-engine-fwdmonitor" />
         <c:component id="price-engine-trackwheel" />
         <c:component id="trading-tool" />
+        <c:component id="price-engine-dbserver" />
         <c:component id="price-engine-broadcast" />
         <c:component id="price-engine-blotterserver" />
         <c:component id="price-engine-fwdcontroller" />
@@ -36,6 +38,7 @@
         <c:component id="price-engine-fwdmonitor" />
         <c:component id="price-engine-trackwheel" />
         <c:component id="trading-tool" />
+        <c:component id="price-engine-dbserver" />
         <c:component id="price-engine-broadcast" />
         <c:component id="price-engine-blotterserver" />
         <c:component id="price-engine-fwdcontroller" />

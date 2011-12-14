@@ -3,6 +3,8 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://baxter-it.com/price-engine/conf/properties"
     exclude-result-prefixes="xs p" version="2.0" xmlns:p="http://baxter-it.com/price-engine/conf/properties">
 
+    <!-- TODO check duplicate entries on same level -->
+
     <xsl:template name="merge-container">
         <xsl:copy-of select="@*"/>
         <xsl:copy-of select="p:entry"/>

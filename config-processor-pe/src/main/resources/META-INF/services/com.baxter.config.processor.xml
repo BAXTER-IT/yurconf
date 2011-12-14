@@ -13,13 +13,13 @@
 			<parameter name="stylesheet">propertiesxml.xsl</parameter>
 		</processor>
 		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="cdat">
-			<parameter name="stylesheet">CDAT.xsl</parameter>
+			<parameter name="stylesheet">cdat.xsl</parameter>
 		</processor>
 		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="qfixini">
-			<parameter name="stylesheet">QFixINI.xsl</parameter>
+			<parameter name="stylesheet">qfixini.xsl</parameter>
 		</processor>
 		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="clientmessaging">
-			<parameter name="stylesheet">client-messaging.xsl</parameter>
+			<parameter name="stylesheet">clientmessaging.xsl</parameter>
 		</processor>
 	</processors>
 	<upgrades>

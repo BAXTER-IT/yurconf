@@ -2,12 +2,15 @@
 <configuration xmlns="http://baxter-it.com/price-engine/conf/gui" xmlns:c="http://baxter-it.com/config/component">
 
     <window id="wnd800x600" left="0" top="0" width="800" height="600">
-        <c:component id="price-enging-admintool" />
-        <c:component id="price-enging-blotter" />
-        <c:component id="price-enging-fwdmonitor" />
-        <c:component id="price-enging-trackwheel" />
+        <c:component id="price-engine-fwdmonitor" />
+        <c:component id="price-engine-trackwheel" />
     </window>
 
+    <window id="wnd1024x768" left="0" top="0" width="1024" height="768">
+        <c:component id="price-engine-admintool" />
+        <c:component id="price-engine-blotter" />
+    </window>
+    
     <flag id="behavior.popForwardAtWarning" value="false">
         <c:component id="price-engine-fwdmonitor" />
     </flag>

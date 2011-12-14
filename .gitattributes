@@ -37,12 +37,12 @@ config-processor-pe/src/main/resources/META-INF/config/default/properties.xml -t
 config-processor-pe/src/main/resources/META-INF/config/default/qfix.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/snmp.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/udp-price.xml -text
-config-processor-pe/src/main/resources/META-INF/config/xsl/CDAT.xsl -text
-config-processor-pe/src/main/resources/META-INF/config/xsl/QFixINI.xsl -text
-config-processor-pe/src/main/resources/META-INF/config/xsl/client-messaging.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/cdat.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/clientmessaging.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/log4j.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/logback.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/propertiesxml.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/qfixini.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/sub/applications-common.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/sub/db.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/sub/group-container.xsl -text
