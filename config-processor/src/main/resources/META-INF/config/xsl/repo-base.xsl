@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    exclude-result-prefixes="xs" version="2.0">
+    xmlns:conf="http://baxter-it.com/config" exclude-result-prefixes="xs conf" version="2.0">
 
     <xsl:param name="configurationComponentId" />
-    <xsl:param name="configurationVariant" />
 
     <xsl:template name="baxterrepo-protocol">
         <xsl:text>baxterrepo:</xsl:text>
@@ -13,63 +12,58 @@
         <xsl:text>.xml</xsl:text>
     </xsl:template>
 
-    <!-- 
-        Loads a document (specified by a prefix) from repository, then loads a corresponding variant (comes from configurationVariant) if needed and merges both documents.
-        example: prefix = 'jms', variant = 'dev'
-        - loads baxterrepo:jms.xml
-        - loads baxterrepo:jms(dev).xml
-        - merges these two documents and writes to result
-    -->
-    <xsl:template name="load-merged-repo-document">
+    <xsl:template match="conf:request" mode="load-document-with-variants">
         <xsl:param name="prefix" />
-        <xsl:variable name="docLocation">
-            <xsl:call-template name="document-repo-location">
-                <xsl:with-param name="prefix" select="$prefix" />
-            </xsl:call-template>
+        <xsl:variable name="work">
+            <conf:request>
+                <xsl:attribute name="prefix" select="$prefix" />
+                <xsl:copy-of select="conf:variant" />
+                <conf:input>
+                    <xsl:call-template name="load-repo-document">
+                        <xsl:with-param name="prefix" select="$prefix" />
+                    </xsl:call-template>
+                </conf:input>
+            </conf:request>
         </xsl:variable>
-        <xsl:variable name="variantLocation">
-            <xsl:call-template name="variant-repo-location">
-                <xsl:with-param name="prefix" select="$prefix" />
-            </xsl:call-template>
-        </xsl:variable>
-        <xsl:call-template name="merge-document-with-variant">
-            <xsl:with-param name="xmlLocation" select="$docLocation" />
-            <xsl:with-param name="xmlVariantLocation" select="$variantLocation" />
-        </xsl:call-template>
+        <xsl:apply-templates select="$work/conf:request" mode="merge-with-first-variant" />
     </xsl:template>
 
-    <!--
-        Builds the location of a document as "baxterrepo:<prefix><componentId>.xml"
-    -->
-    <xsl:template name="document-by-component-repo-location">
-        <xsl:param name="prefix" />
-        <xsl:param name="suffix" />
-        <xsl:call-template name="baxterrepo-protocol" />
-        <xsl:value-of select="$prefix" />
-        <xsl:value-of select="$configurationComponentId" />
-        <xsl:if test="$suffix">
-            <xsl:value-of select="$suffix" />
-        </xsl:if>
-        <xsl:call-template name="xml-extension" />
+    <xsl:template match="conf:request" mode="merge-with-first-variant">
+        <xsl:choose>
+            <xsl:when test="conf:variant">
+                <xsl:variable name="xmlVariantLocation">
+                    <xsl:call-template name="variant-repo-location">
+                        <xsl:with-param name="prefix" select="@prefix" />
+                        <xsl:with-param name="variant" select="conf:variant[1]/@id" />
+                    </xsl:call-template>
+                </xsl:variable>
+                <xsl:variable name="work">
+                    <conf:request>
+                        <xsl:attribute name="prefix" select="@prefix" />
+                        <xsl:copy-of select="conf:variant[position() != 1]" />
+                        <conf:input>
+                            <xsl:variable name="xmlDoc" select="conf:input/*" />
+                            <xsl:choose>
+                                <xsl:when test="$xmlVariantLocation and doc-available($xmlVariantLocation)">
+                                    <xsl:variable name="xmlVariant" select="doc($xmlVariantLocation)/node()" />
+                                    <xsl:apply-templates select="$xmlDoc" mode="merge-nodes-by-id">
+                                        <xsl:with-param name="other" select="$xmlVariant" />
+                                    </xsl:apply-templates>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:copy-of select="$xmlDoc" />
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </conf:input>
+                    </conf:request>
+                </xsl:variable>
+                <xsl:apply-templates select="$work/conf:request" mode="merge-with-first-variant" />
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="conf:input/*" />
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-
-    <!--
-        Builds the location of a variant document as "baxterrepo:<prefix><componentId>(<variant>).xml"
-    -->
-    <xsl:template name="variant-by-component-repo-location">
-        <xsl:param name="prefix" />
-        <xsl:if test="$configurationVariant">
-            <xsl:call-template name="document-by-component-repo-location">
-                <xsl:with-param name="prefix" select="$prefix" />
-                <xsl:with-param name="suffix">
-                    <xsl:text>(</xsl:text>
-                    <xsl:value-of select="$configurationVariant" />
-                    <xsl:text>)</xsl:text>
-                </xsl:with-param>
-            </xsl:call-template>
-        </xsl:if>
-    </xsl:template>
-
 
     <!--
         Builds the location of a document as "baxterrepo:<prefix>.xml"
@@ -90,12 +84,13 @@
     -->
     <xsl:template name="variant-repo-location">
         <xsl:param name="prefix" />
-        <xsl:if test="$configurationVariant">
+        <xsl:param name="variant" />
+        <xsl:if test="$variant">
             <xsl:call-template name="document-repo-location">
                 <xsl:with-param name="prefix" select="$prefix" />
                 <xsl:with-param name="suffix">
                     <xsl:text>(</xsl:text>
-                    <xsl:value-of select="$configurationVariant" />
+                    <xsl:value-of select="$variant" />
                     <xsl:text>)</xsl:text>
                 </xsl:with-param>
             </xsl:call-template>
@@ -112,31 +107,13 @@
         <xsl:copy-of select="doc($xmlLocation)/node()" />
     </xsl:template>
 
-    <!-- 
-        Loads the document specified by xmlLocation and merges it with variant document specified by xmlVariantLocation. 
-        The result is a new document which is a merge result of both. 
-    -->
-    <xsl:template name="merge-document-with-variant">
-        <xsl:param name="xmlLocation" />
-        <xsl:param name="xmlVariantLocation" />
-        <xsl:variable name="xmlDoc" select="doc($xmlLocation)/node()" />
-        <xsl:choose>
-            <xsl:when test="$xmlVariantLocation and doc-available($xmlVariantLocation)">
-                <xsl:variable name="xmlVariant" select="doc($xmlVariantLocation)/node()" />
-                <xsl:apply-templates select="$xmlDoc" mode="merge-nodes-by-id">
-                    <xsl:with-param name="other" select="$xmlVariant" />
-                </xsl:apply-templates>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:copy-of select="$xmlDoc" />
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-
     <xsl:template match="*" mode="merge-nodes-by-id">
         <!-- Left operand of a merge is current context node, right operand - parameter "other" -->
         <xsl:param name="other" />
         <xsl:choose>
+            <xsl:when test="$other/@conf:skip='all'">
+                <!-- Do not output other element if it is marked to skip -->
+            </xsl:when>
             <!-- If the right operand is supplied, then try to merge -->
             <xsl:when test="$other">
                 <!-- Create node that corresponds to left operand -->

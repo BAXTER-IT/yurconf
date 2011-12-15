@@ -13,7 +13,7 @@
 
     <connection id="uDPClient2Server.uDPConnectionParam2" port="7796">
         <c:component id="price-engine-blotter" />
-        <server id="default" broadcastId="broadcast2" />
+        <server id="default" broadcastId="broadcast2" broadcastMode="channel" />
     </connection>
 
     <connection id="pricedisplay.uDPPriceParams" port="7792">
@@ -23,11 +23,11 @@
 
     <connection id="mmm.broadcast.1" port="17000">
         <c:component id="price-engine-blotterserver" />
-        <server id="default" broadcastId="broadcast1" />
+        <server id="default" broadcastId="broadcast1" broadcastMode="price" />
     </connection>
     
     <connection id="mmm.broadcast.2" port="17002">
-        <c:component id="price-engine-blotterserver" />
+        <c:component id="price-engine-blotterserver" broadcastMode="price" />
         <server id="default" broadcastId="broadcast2" />
     </connection>
     

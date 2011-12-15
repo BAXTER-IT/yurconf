@@ -8,7 +8,7 @@
             <xsl:attribute name="key">
                 <xsl:value-of select="substring-before($path,'.')" />
             </xsl:attribute>
-            <xsl:apply-templates select=".">
+            <xsl:apply-templates select="." mode="#current">
                 <xsl:with-param name="path" select="substring-after($path,'.')" />
             </xsl:apply-templates>
         </group>

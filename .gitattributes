@@ -23,6 +23,7 @@ config-processor-demo/src/main/resources/META-INF/config/xsl/logback.xsl -text
 config-processor-demo/src/main/resources/META-INF/services/com.baxter.config.processor.xml -text
 config-processor-pe/pom.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/applications.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/broadcast(ha).xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/broadcast.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/client-messaging.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/component-sources.xml -text
@@ -31,6 +32,7 @@ config-processor-pe/src/main/resources/META-INF/config/default/dashboard-servlet
 config-processor-pe/src/main/resources/META-INF/config/default/db.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/gui.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/jaas.xml -text
+config-processor-pe/src/main/resources/META-INF/config/default/jms(ha).xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/jms.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/log.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/properties.xml -text
@@ -39,6 +41,7 @@ config-processor-pe/src/main/resources/META-INF/config/default/snmp.xml -text
 config-processor-pe/src/main/resources/META-INF/config/default/udp-price.xml -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/cdat.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/clientmessaging.xsl -text
+config-processor-pe/src/main/resources/META-INF/config/xsl/dcpk.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/log4j.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/logback.xsl -text
 config-processor-pe/src/main/resources/META-INF/config/xsl/propertiesxml.xsl -text

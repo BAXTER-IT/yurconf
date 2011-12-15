@@ -10,7 +10,14 @@
         <entry key="stpConfig">
             <xsl:apply-templates select="/conf:reference[@id='stpConfig']" mode="url" />
         </entry>
+        <xsl:apply-templates select="/broadcast:configuration/broadcast:node[@id=../broadcast:server[@id='default']/@node]" mode="node-index" />
         <xsl:apply-templates select="/broadcast:configuration/broadcast:node[@id='broadcast1']" mode="udp-ports" />
+    </xsl:template>
+    
+    <xsl:template match="broadcast:node" mode="node-index">
+        <entry key="broadcastNode">
+            <xsl:value-of select="count(preceding::broadcast:node)" />
+        </entry>
     </xsl:template>
 
     <xsl:template match="broadcast:node" mode="udp-ports">

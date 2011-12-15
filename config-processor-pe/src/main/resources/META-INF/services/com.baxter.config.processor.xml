@@ -21,6 +21,9 @@
 		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="clientmessaging">
 			<parameter name="stylesheet">clientmessaging.xsl</parameter>
 		</processor>
+	    <processor class="com.baxter.config.processor.impl.XSLTProcessor" type="dcpk">
+	        <parameter name="stylesheet">dcpk.xsl</parameter>
+	    </processor>
 	</processors>
 	<upgrades>
 	</upgrades>

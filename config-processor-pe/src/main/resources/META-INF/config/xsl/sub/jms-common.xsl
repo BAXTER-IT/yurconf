@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:conf="http://baxter-it.com/config"
     xmlns:c="http://baxter-it.com/config/component" xmlns:jms="http://baxter-it.com/price-engine/conf/jms" xmlns="http://baxter-it.com/price-engine/conf/properties"
     exclude-result-prefixes="xs jms c" version="2.0">
 
@@ -114,8 +115,8 @@
     <xsl:template name="channel-jms-reference">
         <xsl:apply-templates select="../jms:node[@id=current()/@node]" mode="jms-reference" />
         <xsl:choose>
-            <xsl:when test="/request/parameter[@id='ha']/text() = 'true'">
-                <xsl:apply-templates select="../jms:node[@id=current()/@nodeHA]" mode="jms-reference">
+            <xsl:when test="@node2">
+                <xsl:apply-templates select="../jms:node[@id=current()/@node2]" mode="jms-reference">
                     <xsl:with-param name="suffix">2</xsl:with-param>
                 </xsl:apply-templates>
             </xsl:when>

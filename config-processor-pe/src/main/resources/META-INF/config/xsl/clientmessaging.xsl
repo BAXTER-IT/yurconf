@@ -15,13 +15,13 @@
 
     <xsl:template match="/">
         <xsl:variable name="root">
-            <xsl:copy-of select="configuration-source/request" />
-            <xsl:call-template name="load-merged-repo-document">
+            <xsl:copy-of select="conf:configuration-source/conf:request" />
+            <xsl:apply-templates select="conf:configuration-source/conf:request" mode="load-document-with-variants">
                 <xsl:with-param name="prefix" select="'client-messaging'" />
-            </xsl:call-template>
+            </xsl:apply-templates>
         </xsl:variable>
         <xsl:apply-templates
-            select="$root/cm:configuration/cm:clientMessaging[@id=$root/request/parameter[@id='cmid']/text()]" />
+            select="$root/cm:configuration/cm:clientMessaging[@id=$root/conf:request/conf:parameter[@id='cmid']/text()]" />
     </xsl:template>
 
     <xsl:template match="cm:clientMessaging">

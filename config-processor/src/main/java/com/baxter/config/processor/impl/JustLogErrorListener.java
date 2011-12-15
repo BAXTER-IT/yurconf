@@ -6,15 +6,24 @@ import javax.xml.transform.TransformerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// TODO add javadoc
+/**
+ * Error listener that simply prints the error messages to logger.
+ * @author ykryshchuk
+ * @since ${developmentVersion}
+ */
 class JustLogErrorListener implements ErrorListener
 {
+  private static final ErrorListener INSTANCE = new JustLogErrorListener();
+  
   protected final Logger logger;
 
-  // TODO make singleton
-  public JustLogErrorListener()
+  private JustLogErrorListener()
   {
 	this.logger = LoggerFactory.getLogger(getClass());
+  }
+  
+  static final ErrorListener getInstance() {
+	return INSTANCE;
   }
 
   @Override

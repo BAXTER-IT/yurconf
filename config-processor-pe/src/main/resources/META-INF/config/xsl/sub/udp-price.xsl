@@ -48,24 +48,30 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
+    <xsl:template match="udpp:server[@broadcastId][@broadcastMode='price']" mode="broadcast-port">
+        <xsl:value-of select="/broadcast:configuration/broadcast:node[@id=current()/@broadcastId]/@pricePort" />
+    </xsl:template>
 
+    <xsl:template match="udpp:server[@broadcastId][@broadcastMode='channel' or not(exists(@broadcastMode))]" mode="broadcast-port">
+        <xsl:value-of select="/broadcast:configuration/broadcast:node[@id=current()/@broadcastId]/@channelPort" />
+    </xsl:template>
+    
     <xsl:template match="udpp:server[@broadcastId]">
         <xsl:param name="suffix" select="''" />
-        <xsl:variable name="broadcastNodeId" select="@broadcastId" />
         <entry>
             <xsl:attribute name="key">
                 <xsl:text>ServerHost</xsl:text>
                 <xsl:value-of select="$suffix" />
             </xsl:attribute>
-            <xsl:value-of select="/broadcast:configuration/broadcast:node[@id=$broadcastNodeId]/@host" />
+            <xsl:value-of select="/broadcast:configuration/broadcast:node[@id=current()/@broadcastId]/@host" />
         </entry>
         <entry>
             <xsl:attribute name="key">
                 <xsl:text>ServerPort</xsl:text>
                 <xsl:value-of select="$suffix" />
             </xsl:attribute>
-            <!-- TODO blotter server requires pricePort -->
-            <xsl:value-of select="/broadcast:configuration/broadcast:node[@id=$broadcastNodeId]/@channelPort" />
+            <xsl:apply-templates select="." mode="broadcast-port" />
         </entry>
     </xsl:template>
 

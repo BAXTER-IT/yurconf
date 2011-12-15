@@ -10,16 +10,16 @@
 
     <xsl:template match="/">
         <xsl:variable name="root">
-            <xsl:copy-of select="configuration-source/request" />
-            <xsl:call-template name="load-merged-repo-document">
+            <xsl:copy-of select="conf:configuration-source/conf:request" />
+            <xsl:apply-templates select="conf:configuration-source/conf:request" mode="load-document-with-variants">
                 <xsl:with-param name="prefix" select="'currencies'" />
-            </xsl:call-template>
+            </xsl:apply-templates>
         </xsl:variable>
         <xsl:apply-templates select="$root/curr:configuration" />
     </xsl:template>
 
     <xsl:template
-        match="curr:configuration[$configurationComponentId='price-engine-validator'][/request/parameter[@id='epp']/text() = 'true']">
+        match="curr:configuration[$configurationComponentId='price-engine-validator'][/conf:request/conf:parameter[@id='epp']/text() = 'true']">
         <xsl:apply-templates select="curr:currencyPair/c:component[@id=$configurationComponentId]/curr:port[@id='epp']"
          />
     </xsl:template>

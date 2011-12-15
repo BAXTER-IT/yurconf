@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Stack;
 
 import org.apache.commons.io.IOUtils;
 
@@ -56,18 +57,25 @@ public class AsIsProcessor extends AbstractXSLTProcessor
   {
 	final File productDir = getFactory().getRepository().getProductDirectory(getDescriptor().getProductId());
 	final String filename = getParameterByName(context.getParameters(), PARAM_FILE);
-	if (context.getConfigID().getVariant() != null)
+	final Stack<String> variants = new Stack<String>();
+	variants.addAll(context.getConfigID().getVariants());
+	if (!variants.isEmpty())
 	{
-	  final String variantFileName = filename + "-" + context.getConfigID().getVariant();
-	  final File variantFile = new File(productDir, variantFileName);
-	  if (variantFile.isFile())
+	  while (!variants.isEmpty())
 	  {
-		return variantFile;
+		final String variant = variants.pop();
+		final String variantFileName = filename + "-" + variant;
+		final File variantFile = new File(productDir, variantFileName);
+		if (variantFile.isFile())
+		{
+		  return variantFile;
+		}
+		else
+		{
+		  logger.warn("Requested variant ({}) not found for file {}", variant, filename);
+		}
 	  }
-	  else
-	  {
-		logger.info("Requested variant file could not be found. Falling back to original file");
-	  }
+	  logger.warn("Variants do not exist for {}. Falling back to orifinal file", filename);
 	}
 	return new File(productDir, filename);
   }

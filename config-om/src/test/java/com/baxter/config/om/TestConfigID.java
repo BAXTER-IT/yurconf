@@ -3,9 +3,10 @@
  */
 package com.baxter.config.om;
 
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 /**
  * @author ykryshchuk
@@ -20,7 +21,7 @@ public class TestConfigID
 	final ConfigID cid = ConfigID.fromURLPath("/com.baxter.pe/price-engine-dbserber/log4j");
 	assertEquals("com.baxter.pe", cid.getProductId());
 	assertEquals("price-engine-dbserber", cid.getComponentId());
-	assertNull(cid.getVariant());
+	assertTrue(cid.getVariants().isEmpty());
 	assertEquals("log4j", cid.getType());
   }
 
@@ -30,7 +31,20 @@ public class TestConfigID
 	final ConfigID cid = ConfigID.fromURLPath("/com.baxter.pe/price-engine-broadcast/sydney/log4j");
 	assertEquals("com.baxter.pe", cid.getProductId());
 	assertEquals("price-engine-broadcast", cid.getComponentId());
-	assertEquals("sydney", cid.getVariant());
+	assertEquals(1, cid.getVariants().size());
+	assertEquals("sydney", cid.getVariants().get(0));
+	assertEquals("log4j", cid.getType());
+  }
+
+  @Test
+  public void testFromURLPath_valid_4parts_mulVariants()
+  {
+	final ConfigID cid = ConfigID.fromURLPath("/com.baxter.pe/price-engine-broadcast/sydney,ha/log4j");
+	assertEquals("com.baxter.pe", cid.getProductId());
+	assertEquals("price-engine-broadcast", cid.getComponentId());
+	assertEquals(2, cid.getVariants().size());
+	assertEquals("sydney", cid.getVariants().get(0));
+	assertEquals("ha", cid.getVariants().get(1));
 	assertEquals("log4j", cid.getType());
   }
 

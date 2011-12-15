@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:sc="http://baxter-it.com/config/source-catalogue" xmlns:c="http://baxter-it.com/config/component"
-    xmlns:cidt="http://baxter-it.com/config/component/id-template"
-    xmlns="http://baxter-it.com/price-engine/conf/properties" exclude-result-prefixes="xs sc c cidt" version="2.0">
+    xmlns:cidt="http://baxter-it.com/config/component/id-template" xmlns:conf="http://baxter-it.com/config"
+    xmlns="http://baxter-it.com/price-engine/conf/properties" exclude-result-prefixes="xs sc c cidt conf" version="2.0">
 
     <xsl:import href="baxterxsl:repo-base.xsl" />
     <xsl:import href="./sub/applications-common.xsl" />
@@ -33,6 +33,10 @@
                 namespace="http://baxter-it.com/config/component/id-template" />
         </xsl:variable>
 
+        <xsl:variable name="request">
+            <xsl:copy-of select="conf:configuration-source/conf:request" />
+        </xsl:variable>
+
         <!-- Single root of configuration sources -->
         <xsl:variable name="root">
 
@@ -40,12 +44,15 @@
             <xsl:copy-of select="$componentTemplate" />
 
             <!-- Copy request to root -->
-            <xsl:copy-of select="configuration-source/request" />
+            <xsl:copy-of select="conf:configuration-source/conf:request" />
 
             <!-- Now add relevant config sources to root -->
-            <xsl:apply-templates
-                select="$sources/sc:configuration/sc:source[c:component[@id=$configurationComponentId]]"
-                mode="load-merged" />
+            <xsl:for-each select="$sources/sc:configuration/sc:source[c:component[@id=$configurationComponentId]]">
+                <xsl:apply-templates select="$request/conf:request" mode="load-document-with-variants">
+                    <xsl:with-param name="prefix" select="@prefix" />
+                </xsl:apply-templates>
+            </xsl:for-each>
+
             <xsl:apply-templates
                 select="$sources/sc:configuration/sc:embedded[c:component[@id=$configurationComponentId]]/sc:values"
                 mode="load-merged" />
@@ -64,12 +71,6 @@
 
     <xsl:template match="sc:values" mode="load-merged">
         <xsl:copy-of select="*" />
-    </xsl:template>
-
-    <xsl:template match="sc:source" mode="load-merged">
-        <xsl:call-template name="load-merged-repo-document">
-            <xsl:with-param name="prefix" select="@prefix" />
-        </xsl:call-template>
     </xsl:template>
 
     <xsl:template match="cidt:*" mode="build-redundant-root">

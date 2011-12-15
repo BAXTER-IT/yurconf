@@ -53,7 +53,7 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 
   protected static final String XSLT_PARAM_COMPONENT_ID = "configurationComponentId";
 
-  protected static final String XSLT_PARAM_VARIANT = "configurationVariant";
+  protected static final String XML_NS_CONF = "http://baxter-it.com/config";
 
   private static final DocumentBuilderFactory DBF = DocumentBuilderFactory.newInstance();
 
@@ -189,20 +189,26 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
   {
 	final DocumentBuilder docBuilder = DBF.newDocumentBuilder();
 	final Document doc = docBuilder.newDocument();
-	final Element configSrc = doc.createElement("configuration-source");
+	final Element configSrc = doc.createElementNS(XML_NS_CONF, "configuration-source");
 	final ConfigID configId = context.getConfigID();
 	if (configId != null)
 	{
-	  final Element request = doc.createElement("request");
+	  final Element request = doc.createElementNS(XML_NS_CONF, "request");
 	  request.setAttribute("productId", configId.getProductId());
 	  request.setAttribute("componentId", configId.getComponentId());
-	  request.setAttribute("variant", configId.getVariant());
 	  request.setAttribute("type", configId.getType());
-	  request.setAttribute("base", context.getConfigurationBaseUrl().toString() );
+	  request.setAttribute("base", context.getConfigurationBaseUrl().toString());
+	  // add config variants
+	  for (String cVariant : configId.getVariants())
+	  {
+		final Element variant = doc.createElementNS(XML_NS_CONF, "variant");
+		variant.setAttribute("id", cVariant);
+		request.appendChild(variant);
+	  }
 	  // add config parameters
 	  for (ConfigParameter cParam : context.getParameters())
 	  {
-		final Element param = doc.createElement("parameter");
+		final Element param = doc.createElementNS(XML_NS_CONF, "parameter");
 		param.setAttribute("id", cParam.getName());
 		param.setTextContent(cParam.getValue());
 		request.appendChild(param);
@@ -228,12 +234,8 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 	if (configurationId != null)
 	{
 	  transformer.setParameter(XSLT_PARAM_COMPONENT_ID, configurationId.getComponentId());
-	  if (configurationId.getVariant() != null)
-	  {
-		transformer.setParameter(XSLT_PARAM_VARIANT, configurationId.getVariant());
-	  }
 	}
-	transformer.setErrorListener(new JustLogErrorListener());
+	transformer.setErrorListener(JustLogErrorListener.getInstance());
 	transformer.setURIResolver(this.transformerFactory.getURIResolver());
   }
 

@@ -3,6 +3,8 @@
  */
 package com.baxter.config.om;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,7 +26,7 @@ public class ConfigID
 
   private final String type;
 
-  private final String variant;
+  private final String[] variants;
 
   /**
    * Returns the configuration identifier specified by a part of URL.
@@ -47,18 +49,14 @@ public class ConfigID
 	  }
 	  else
 	  {
-		return new ConfigID(m.group(1), m.group(2), m.group(3), lastGroup);
+		final String[] variants = m.group(3).split(",");
+		return new ConfigID(m.group(1), m.group(2), lastGroup, variants);
 	  }
 	}
 	throw new IllegalArgumentException("Invalid configuration path");
   }
 
-  public ConfigID(final String productId, final String componentId, final String type)
-  {
-	this(productId, componentId, null, type);
-  }
-
-  public ConfigID(final String productId, final String componentId, final String variant, final String type)
+  public ConfigID(final String productId, final String componentId, final String type, final String... variants)
   {
 	if (productId == null || productId.isEmpty())
 	{
@@ -70,16 +68,12 @@ public class ConfigID
 	  throw new IllegalArgumentException("Invalid componentId");
 	}
 	this.componentId = componentId;
-	if (variant != null && variant.isEmpty())
-	{
-	  throw new IllegalArgumentException("Invalid variant");
-	}
-	this.variant = variant;
 	if (type == null || type.isEmpty())
 	{
 	  throw new IllegalArgumentException("Invalid type");
 	}
 	this.type = type;
+	this.variants = variants;
   }
 
   public String getProductId()
@@ -92,9 +86,9 @@ public class ConfigID
 	return componentId;
   }
 
-  public String getVariant()
+  public List<String> getVariants()
   {
-	return variant;
+	return Arrays.asList(this.variants);
   }
 
   public String getType()
