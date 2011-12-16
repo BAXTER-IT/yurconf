@@ -16,7 +16,6 @@
     <xsl:param name="configurationProductId" />
     <xsl:param name="configurationVersion" />
     <xsl:param name="configurationComponentId" />
-    <xsl:param name="configurationVariant" />
 
     <xsl:template match="/">
 

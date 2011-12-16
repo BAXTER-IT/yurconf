@@ -3,7 +3,8 @@
     xmlns:apps="http://baxter-it.com/price-engine/conf/applications"
     xmlns:gui="http://baxter-it.com/price-engine/conf/gui" xmlns:c="http://baxter-it.com/config/component"
     xmlns:genp="http://baxter-it.com/price-engine/conf/generic-properties"
-    xmlns="http://baxter-it.com/price-engine/conf/properties" exclude-result-prefixes="xs apps gui genp" version="2.0">
+    xmlns:conf="http://baxter-it.com/config"
+    xmlns="http://baxter-it.com/price-engine/conf/properties" exclude-result-prefixes="xs apps gui genp conf" version="2.0">
 
     <xsl:import href="./group-container.xsl" />
 
@@ -76,9 +77,9 @@
             <xsl:attribute name="resource">
                 <xsl:text>./</xsl:text>
                 <xsl:value-of select="$configurationComponentId" />
-                <xsl:if test="$configurationVariant">
+                <xsl:if test="/conf:request/conf:variant">
                     <xsl:text>(</xsl:text>
-                    <xsl:value-of select="$configurationVariant" />
+                    <xsl:value-of select="/conf:request/conf:variant/@id" separator="," />
                     <xsl:text>)</xsl:text>
                 </xsl:if>
                 <xsl:text>_local.xml</xsl:text>

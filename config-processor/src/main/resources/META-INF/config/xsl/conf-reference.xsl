@@ -51,9 +51,9 @@
         <xsl:text>?version=</xsl:text>
         <xsl:value-of select="$configurationVersion" />
         <!-- Add config parameters -->
-        <xsl:for-each select="conf:param">
+        <xsl:for-each select="conf:parameter">
             <xsl:text disable-output-escaping="yes">&amp;</xsl:text>
-            <xsl:value-of select="@name" />
+            <xsl:value-of select="@id" />
             <xsl:text>=</xsl:text>
             <xsl:value-of select="encode-for-uri(text())" />
         </xsl:for-each>

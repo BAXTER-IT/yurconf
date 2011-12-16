@@ -18,7 +18,12 @@ import java.util.regex.Pattern;
 public class ConfigID
 {
 
-  private static final Pattern URL_PATH_PATTERN = Pattern.compile("/([^/]+)/([^/]+)/([^/]+)(/([^/]+))?");
+  private static final Pattern URL_PATH_PATTERN = Pattern.compile("/([^/]+)/([^/]+)(/([^/]+))?/([^/]+)");
+
+  private static final int GRP_PRODUCT = 1;
+  private static final int GRP_COMPONENT = 2;
+  private static final int GRP_VARIANTS = 4;
+  private static final int GRP_TYPE = 5;
 
   private final String productId;
 
@@ -42,18 +47,23 @@ public class ConfigID
 	final Matcher m = URL_PATH_PATTERN.matcher(urlPath);
 	if (m.matches())
 	{
-	  final String lastGroup = m.group(5);
-	  if (lastGroup == null)
+	  final String vGroup = m.group(GRP_VARIANTS);
+	  if (vGroup == null)
 	  {
-		return new ConfigID(m.group(1), m.group(2), m.group(3));
+		return new ConfigID(m.group(GRP_PRODUCT), m.group(GRP_COMPONENT), m.group(GRP_TYPE));
 	  }
 	  else
 	  {
-		final String[] variants = m.group(3).split(",");
-		return new ConfigID(m.group(1), m.group(2), lastGroup, variants);
+		final String[] variants = vGroup.split(",");
+		return new ConfigID(m.group(GRP_PRODUCT), m.group(GRP_COMPONENT), m.group(GRP_TYPE), variants);
 	  }
 	}
 	throw new IllegalArgumentException("Invalid configuration path");
+  }
+
+  public ConfigID(final String productId, final String componentId, final String type, final List<String> variants)
+  {
+	this(productId, componentId, type, variants.toArray(new String[variants.size()]));
   }
 
   public ConfigID(final String productId, final String componentId, final String type, final String... variants)
@@ -94,6 +104,27 @@ public class ConfigID
   public String getType()
   {
 	return type;
+  }
+
+  public String toURLPath()
+  {
+	final StringBuilder str = new StringBuilder();
+	str.append("/").append(getProductId());
+	str.append("/").append(getComponentId());
+	if (this.variants.length != 0)
+	{
+	  str.append("/");
+	  for (int i = 0; i < this.variants.length; i++)
+	  {
+		if (i != 0)
+		{
+		  str.append(",");
+		}
+		str.append(this.variants[i]);
+	  }
+	}
+	str.append("/").append(getType());
+	return str.toString();
   }
 
 }

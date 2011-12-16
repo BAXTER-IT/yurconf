@@ -26,6 +26,7 @@ import com.baxter.config.processor.ProcessorContext;
 import com.baxter.config.processor.ProcessorException;
 import com.baxter.config.processor.desc.Descriptor;
 import com.baxter.config.processor.desc.FilenameProvider;
+import com.baxter.config.processor.impl.AbstractXSLTProcessor;
 import com.baxter.config.processor.impl.XSLTProcessor;
 
 /**
@@ -144,7 +145,7 @@ public class TransformCommand extends AbstractFileCommand implements UpgradeComm
 		final Element rootElement = doc.getDocumentElement();
 		try
 		{
-		  final Element sourcesElement = doc.createElement("sources");
+		  final Element sourcesElement = doc.createElementNS(AbstractXSLTProcessor.XML_NS_CONF, "sources");
 		  // iterate source files and add subelements
 		  // Processor's repository root
 		  final File repoDir = this.upgradeContext.getProcessorFactory().getRepository()
@@ -162,7 +163,7 @@ public class TransformCommand extends AbstractFileCommand implements UpgradeComm
 		  final List<String> filenames = listFilenames(baseURL);
 		  for (String filename : filenames)
 		  {
-			final Element sourceElement = doc.createElement("source");
+			final Element sourceElement = doc.createElementNS(AbstractXSLTProcessor.XML_NS_CONF, "source");
 			final File sourceFile = new File(repoDir, filename);
 			final URL sourceURL = sourceFile.toURI().toURL();
 			sourceElement.setTextContent(sourceURL.toString());

@@ -5,22 +5,22 @@
     <clientMessaging id="fix44">
         <property id="SequenceIDStorageFileName">./fixSequences.txt</property>
         <conf:reference id="CLIENTMESSAGING_QUICKFIX_INIFILE" type="qfixini">
-            <conf:param name="session">fix44</conf:param>
-            <conf:param name="defaults">fix44</conf:param>
-            <conf:param name="defaults">thisIsSomethingCommon</conf:param>
+            <conf:parameter name="session">fix44</conf:parameter>
+            <conf:parameter name="defaults">fix44</conf:parameter>
+            <conf:parameter name="defaults">thisIsSomethingCommon</conf:parameter>
         </conf:reference>
     </clientMessaging>
 
     <clientMessaging id="integral">
         <conf:reference id="QUOTESESSION_QUICKFIX_INIFILE" type="qfixini">
-            <conf:param name="session">integralQuote</conf:param>
-            <conf:param name="defaults">integralQuote</conf:param>
-            <conf:param name="defaults">thisIsSomethingCommon</conf:param>
+            <conf:parameter name="session">integralQuote</conf:parameter>
+            <conf:parameter name="defaults">integralQuote</conf:parameter>
+            <conf:parameter name="defaults">thisIsSomethingCommon</conf:parameter>
         </conf:reference>
         <conf:reference id="ORDERSESSION_QUICKFIX_INIFILE" type="qfixini">
-            <conf:param name="session">integralOrder</conf:param>
-            <conf:param name="defaults">integralOrder</conf:param>
-            <conf:param name="defaults">thisIsSomethingCommon</conf:param>
+            <conf:parameter name="session">integralOrder</conf:parameter>
+            <conf:parameter name="defaults">integralOrder</conf:parameter>
+            <conf:parameter name="defaults">thisIsSomethingCommon</conf:parameter>
         </conf:reference>
     </clientMessaging>
 
@@ -29,10 +29,10 @@
         <property id="ALIAS">baxterrfqmkr</property>
         <property id="PASSWORD">bax1234</property>
         <conf:reference id="KEYFILE" type="asis">
-            <conf:param name="file">baxterrfqmkr.jks</conf:param>
+            <conf:parameter name="file">baxterrfqmkr.jks</conf:parameter>
         </conf:reference>
         <conf:reference id="PROPERTIES_CONTEXT" type="asis">
-            <conf:param name="file">fxintegrateAP.properties</conf:param>
+            <conf:parameter name="file">fxintegrateAP.properties</conf:parameter>
         </conf:reference>
     </clientMessaging>
 

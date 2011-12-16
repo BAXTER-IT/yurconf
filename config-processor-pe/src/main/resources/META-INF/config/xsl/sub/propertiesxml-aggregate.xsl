@@ -7,7 +7,6 @@
     <xsl:import href="./propertiesxml/price-engine-admintool.xsl" />
     <xsl:import href="./propertiesxml/price-engine-dbserver.xsl" />
     <xsl:import href="./propertiesxml/price-engine-broadcast.xsl" />
-    <xsl:import href="./propertiesxml/price-engine-validator.xsl" />
     <xsl:import href="./propertiesxml/price-engine-blotterserver.xsl" />
     <xsl:import href="./propertiesxml/price-engine-blotter.xsl" />
     <xsl:import href="./propertiesxml/trading-tool.xsl" />

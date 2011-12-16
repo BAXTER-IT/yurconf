@@ -60,4 +60,25 @@ public class TestConfigID
 	ConfigID.fromURLPath("/com.baxter.pe/price-engine-broadcast/a/b/c/d");
   }
 
+  @Test
+  public void testToURLPath_noVariants()
+  {
+	final ConfigID cid = new ConfigID("prod", "comp", "t1");
+	assertEquals("/prod/comp/t1", cid.toURLPath());
+  }
+
+  @Test
+  public void testToURLPath_1Variant()
+  {
+	final ConfigID cid = new ConfigID("prod", "comp", "t2", "test");
+	assertEquals("/prod/comp/test/t2", cid.toURLPath());
+  }
+
+  @Test
+  public void testToURLPath_3Variants()
+  {
+	final ConfigID cid = new ConfigID("prod", "comp", "t3", "extra", "test", "dummy");
+	assertEquals("/prod/comp/extra,test,dummy/t3", cid.toURLPath());
+  }
+
 }

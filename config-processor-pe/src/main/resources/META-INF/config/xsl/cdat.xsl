@@ -15,17 +15,8 @@
                 <xsl:with-param name="prefix" select="'currencies'" />
             </xsl:apply-templates>
         </xsl:variable>
-        <xsl:apply-templates select="$root/curr:configuration" />
-    </xsl:template>
-
-    <xsl:template
-        match="curr:configuration[$configurationComponentId='price-engine-validator'][/conf:request/conf:parameter[@id='epp']/text() = 'true']">
-        <xsl:apply-templates select="curr:currencyPair/c:component[@id=$configurationComponentId]/curr:port[@id='epp']"
-         />
-    </xsl:template>
-
-    <xsl:template match="curr:configuration">
-        <xsl:apply-templates select="curr:*/c:component[@id=$configurationComponentId]/curr:port[@id='default']" />
+        <xsl:apply-templates
+            select="$root/curr:configuration/curr:*/c:component[@id=$configurationComponentId]/curr:port" />
     </xsl:template>
 
     <xsl:template match="curr:port">

@@ -10,7 +10,6 @@
     <xsl:param name="configurationProductId" select="'N/A'"/>
     <xsl:param name="configurationVersion" select="'N/A'"/>
     <xsl:param name="configurationComponentId" select="'N/A'"/>
-    <xsl:param name="configurationVariant" select="'N/A'"/>
     
     <xsl:template name="input-dump">
         <xsl:text>Hello!</xsl:text>
@@ -23,9 +22,6 @@
         <xsl:call-template name="CR"/>
         <xsl:text>ComponentID: </xsl:text>
         <xsl:value-of select="$configurationComponentId" />
-        <xsl:call-template name="CR"/>
-        <xsl:text>Variant: </xsl:text>
-        <xsl:value-of select="$configurationVariant" />
         <xsl:call-template name="CR"/>
         <xsl:text>Version: </xsl:text>
         <xsl:value-of select="$configurationVersion" />
