@@ -133,7 +133,7 @@ class DefaultEnvironment implements Environment
   public List<String> getVariants()
   {
 	final String variantsLine = System.getProperty(PREFIX + PROP_VARIANTS);
-	return variantsLine == null ? this.defaultVariants : Arrays.asList(variantsLine.split(","));
+	return (variantsLine == null || variantsLine.isEmpty()) ? this.defaultVariants : Arrays.asList(variantsLine.split(","));
   }
 
   @Override

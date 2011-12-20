@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:curr="http://baxter-it.com/price-engine/conf/currencies" xmlns:c="http://baxter-it.com/config/component"
-    exclude-result-prefixes="xs curr c" version="2.0">
+    xmlns:conf="http://baxter-it.com/config"
+    exclude-result-prefixes="xs curr c conf" version="2.0">
 
     <xsl:import href="baxterxsl:repo-base.xsl" />
     <xsl:import href="baxterxsl:text-fmt.xsl" />
