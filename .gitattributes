@@ -53,6 +53,8 @@ config-processor/src/main/java/com/baxter/config/processor/impl/AsIsProcessor.ja
 config-processor/src/main/java/com/baxter/config/processor/impl/BaxterProtocol.java -text
 config-processor/src/main/java/com/baxter/config/processor/impl/DirectoryProcessor.java -text
 config-processor/src/main/java/com/baxter/config/processor/impl/JustLogErrorListener.java -text
+config-processor/src/main/java/com/baxter/config/processor/impl/VariantDirectory.java -text
+config-processor/src/main/java/com/baxter/config/processor/impl/VariantFile.java -text
 config-processor/src/main/java/com/baxter/config/processor/impl/XSLTProcessor.java -text
 config-processor/src/main/java/com/baxter/config/processor/repo/Repository.java -text
 config-processor/src/main/java/com/baxter/config/processor/repo/RepositoryException.java -text
@@ -83,6 +85,8 @@ config-processor/src/site/xdoc/index.xml -text
 config-processor/src/site/xdoc/packaging.xml -text
 config-processor/src/test/java/com/baxter/config/processor/TestProcessorFactory.java -text
 config-processor/src/test/java/com/baxter/config/processor/desc/TestLoader.java -text
+config-processor/src/test/java/com/baxter/config/processor/impl/TestVariantDirectory.java -text
+config-processor/src/test/java/com/baxter/config/processor/impl/TestVariantFile.java -text
 config-processor/src/test/java/com/baxter/config/processor/upgrade/TestAbstractFileCommand.java -text
 config-processor/src/test/java/com/baxter/config/processor/upgrade/TestAddFileCommand.java -text
 config-processor/src/test/java/com/baxter/config/processor/upgrade/TestMoveFileCommand.java -text

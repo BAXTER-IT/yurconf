@@ -51,8 +51,7 @@ public class DirectoryProcessor extends AbstractProcessor
   private void readVariant(final Map<String, File> files, final String dirName, final String variant)
   {
 	final File productDir = getFactory().getRepository().getProductDirectory(getDescriptor().getProductId());
-	final String directory = dirName + ((variant == null) ? "" : ("(" + variant + ")"));
-	final File workdir = new File(productDir, directory);
+	final File workdir = new VariantDirectory(productDir, dirName, variant);
 	if (workdir.isDirectory())
 	{
 	  putFileEntries(files, workdir, null, variant);

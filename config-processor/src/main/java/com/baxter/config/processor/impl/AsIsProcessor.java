@@ -50,8 +50,7 @@ public class AsIsProcessor extends AbstractProcessor
 	  while (!variants.isEmpty())
 	  {
 		final String variant = variants.pop();
-		final String variantFileName = filename + "-" + variant;
-		final File variantFile = new File(productDir, variantFileName);
+		final File variantFile = new VariantFile(productDir, filename, variant);
 		if (variantFile.isFile())
 		{
 		  return variantFile;
