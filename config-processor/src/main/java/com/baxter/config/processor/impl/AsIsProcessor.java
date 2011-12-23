@@ -7,25 +7,23 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Stack;
 
 import org.apache.commons.io.IOUtils;
 
-import com.baxter.config.om.ConfigParameter;
+import com.baxter.config.processor.AbstractProcessor;
 import com.baxter.config.processor.ProcessorContext;
 import com.baxter.config.processor.ProcessorException;
 import com.baxter.config.processor.ProcessorFactory;
 import com.baxter.config.processor.desc.Descriptor;
 
 /**
- * Default implementation of Configuration XSLT Processor.
+ * Default implementation of As Is Configuration Processor.
  * 
  * @author ykryshchuk
  * @since ${developmentVersion}
  */
-public class AsIsProcessor extends AbstractXSLTProcessor
+public class AsIsProcessor extends AbstractProcessor
 {
 
   private static final String PARAM_FILE = "file";
@@ -39,18 +37,6 @@ public class AsIsProcessor extends AbstractXSLTProcessor
   public AsIsProcessor(final Descriptor descriptor, final ProcessorFactory processorFactory)
   {
 	super(descriptor, processorFactory);
-  }
-
-  private String getParameterByName(final List<ConfigParameter> parameters, final String name)
-  {
-	for (ConfigParameter param : parameters)
-	{
-	  if (name.equals(param.getName()))
-	  {
-		return param.getValue();
-	  }
-	}
-	throw new NoSuchElementException("No parameter " + name);
   }
 
   private File getRequestedFile(final ProcessorContext context)

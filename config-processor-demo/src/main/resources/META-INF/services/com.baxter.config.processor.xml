@@ -6,7 +6,9 @@
 		</processor>
 		<processor class="com.baxter.config.processor.impl.AsIsProcessor" type="asis">
 		</processor>
-		<processor class="com.baxter.config.processor.impl.XSLTProcessor" type="log4j">
+	    <processor class="com.baxter.config.processor.impl.DirectoryProcessor" type="dir">
+	    </processor>
+	    <processor class="com.baxter.config.processor.impl.XSLTProcessor" type="log4j">
 			<parameter name="stylesheet">log4j.xsl</parameter>
 		</processor>
         <processor class="com.baxter.config.processor.impl.XSLTProcessor" type="logback">

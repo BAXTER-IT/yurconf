@@ -71,7 +71,7 @@ public class Request
 	return path.substring(1);
   }
 
-  URL getUrl()
+  public URL getUrl()
   {
 	return this.url;
   }

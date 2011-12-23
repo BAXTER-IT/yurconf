@@ -3,9 +3,13 @@
  */
 package com.baxter.config.processor;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.baxter.config.om.ConfigParameter;
 import com.baxter.config.om.Version;
 import com.baxter.config.processor.desc.Descriptor;
 
@@ -101,6 +105,18 @@ public abstract class AbstractProcessor
   public ProcessorFactory getFactory()
   {
 	return this.factory;
+  }
+
+  protected static String getParameterByName(final List<ConfigParameter> parameters, final String name)
+  {
+	for (ConfigParameter param : parameters)
+	{
+	  if (name.equals(param.getName()))
+	  {
+		return param.getValue();
+	  }
+	}
+	throw new NoSuchElementException("No parameter " + name);
   }
 
 }

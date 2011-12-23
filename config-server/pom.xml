@@ -141,7 +141,6 @@
 			<groupId>com.baxter.pe</groupId>
 			<artifactId>price-engine-config-processor</artifactId>
 			<version>[1.0,)</version>
-		    <optional>true</optional>
 		    <scope>runtime</scope>
 		</dependency>
 		<dependency>
