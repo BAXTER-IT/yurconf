@@ -231,7 +231,6 @@
     <module>config-om</module>
     <module>config-processor</module>
     <module>config-processor-demo</module>
-    <module>config-processor-pe</module>
   </modules>
 
   <dependencyManagement>

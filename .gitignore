@@ -28,4 +28,5 @@ config-server/.project
 config-server/.settings
 config-server/jmeter
 config-server/target
+config-server/xxx.*
 /target

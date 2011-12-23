@@ -138,11 +138,11 @@
 			<artifactId>config-processor-demo</artifactId>
 		</dependency>
 		<!-- TODO review the ways to add processors to application -->
-		<dependency>
+		<!--dependency>
 			<groupId>com.baxter.pe</groupId>
-			<artifactId>config-processor-pe</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
+			<artifactId>price-engine-config-processor</artifactId>
+			<version>1.0</version>
+		</dependency-->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
