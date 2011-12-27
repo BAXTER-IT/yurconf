@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -32,7 +33,7 @@ class DefaultEnvironment implements Environment
   static final String PROP_VERSION = "version";
   static final String PROP_VARIANTS = "variants";
 
-  private static final String DEFAULT_REST_URL = "http://localhost:8080/baxter-config/rest/";
+  private static final String DEFAULT_REST_URL = "http://localhost:8080/baxter-config/rest";
 
   private static final String CONFIG_RESOURCE = "META-INF/services/com.baxter.config.properties";
 
@@ -53,7 +54,14 @@ class DefaultEnvironment implements Environment
 	this.defaultComponentId = defaultProperties.getProperty(PROP_COMPONENT_ID);
 	this.defaultVersion = Version.valueOf(defaultProperties.getProperty(PROP_VERSION));
 	final String defaultVariantsLine = defaultProperties.getProperty(PROP_VARIANTS);
-	this.defaultVariants = Arrays.asList(defaultVariantsLine.split(","));
+	if (defaultVariantsLine == null)
+	{
+	  this.defaultVariants = Collections.emptyList();
+	}
+	else
+	{
+	  this.defaultVariants = Arrays.asList(defaultVariantsLine.split(","));
+	}
   }
 
   private static Properties loadDefaultsFromResource()

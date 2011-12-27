@@ -33,14 +33,18 @@ public class Request
 	this.configId = configId;
 	this.version = version;
 	this.parameters = parameters.toArray(new ConfigParameter[parameters.size()]);
-	final String path = buildRequestPath(this.configId, this.version, this.parameters);
-	// the context shall end with a slash, the spec thus must be a relative one
-	this.url = new URL(restUrl, path);
+	this.url = buildRequestURL(restUrl, this.configId, this.version, this.parameters);
   }
 
-  private static String buildRequestPath(final ConfigID configId, final Version version, final ConfigParameter[] parameters)
+  private static URL buildRequestURL(final URL restUrl, final ConfigID configId, final Version version,
+	  final ConfigParameter[] parameters) throws MalformedURLException
   {
-	final StringBuilder path = new StringBuilder(configId.toURLPath());
+	final StringBuilder path = new StringBuilder(restUrl.toString());
+	if (path.charAt(path.length() - 1) == '/')
+	{
+	  path.deleteCharAt(path.length() - 1);
+	}
+	path.append(configId.toURLPath());
 	if (version != null)
 	{
 	  path.append("?");
@@ -67,8 +71,7 @@ public class Request
 		}
 	  }
 	}
-	// return without leading slash
-	return path.substring(1);
+	return new URL(path.toString());
   }
 
   public URL getUrl()

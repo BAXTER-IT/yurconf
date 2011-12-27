@@ -36,6 +36,9 @@
         <xsl:text>/</xsl:text>
         <!-- Is there any variant? -->
         <xsl:choose>
+            <xsl:when test="@skipVariants='true'">
+                <!-- do not add any variants -->
+            </xsl:when>
             <xsl:when test="conf:variant">
                 <xsl:value-of select="conf:variant/@id" separator="," />
                 <xsl:text>/</xsl:text>

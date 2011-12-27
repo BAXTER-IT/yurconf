@@ -38,7 +38,7 @@ enum BaxterProtocol
 	{
 	  final String xslPath = href.substring(prefix.length());
 	  final String xslResourcePath = "/META-INF/config/xsl/" + xslPath;
-	  LOGGER.debug("XSL resource path: {}", xslResourcePath);
+	  LOGGER.trace("XSL resource path: {}", xslResourcePath);
 	  final InputStream xslStream = getClass().getResourceAsStream(xslResourcePath);
 	  final Source xslSource = new StreamSource(xslStream, href);
 	  return xslSource;
@@ -70,10 +70,7 @@ enum BaxterProtocol
 	  try
 	  {
 		final File file = getRepositoryFile(href, processor);
-		if (LOGGER.isDebugEnabled())
-		{
-		  LOGGER.debug("Repo file: {}", file.getAbsolutePath());
-		}
+		LOGGER.trace("Repo file: {}", file.getAbsolutePath());
 		return new StreamSource(new FileInputStream(file), href);
 	  }
 	  catch (final FileNotFoundException e)
@@ -88,7 +85,7 @@ enum BaxterProtocol
 	Result getResult(final String href, final AbstractXSLTProcessor processor) throws TransformerException
 	{
 	  final File repoFile = getRepositoryFile(href, processor);
-	  LOGGER.debug("Output result file {}", repoFile.getAbsolutePath());
+	  LOGGER.trace("Output result file {}", repoFile.getAbsolutePath());
 	  return new StreamResult(repoFile);
 	}
 
