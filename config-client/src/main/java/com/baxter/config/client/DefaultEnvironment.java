@@ -15,8 +15,8 @@ import java.util.Properties;
 import com.baxter.config.om.Version;
 
 /**
- * Default implementation of configuration environment. The values are provided in a resource file, but these settings can be
- * overwritten with system properties.
+ * Default implementation of configuration environment. The values are provided in a resource file ({@link #CONFIG_RESOURCE}), but
+ * these settings can be overwritten by system properties.
  * 
  * @author ykryshchuk
  * @since ${developmentVersion}
@@ -32,8 +32,6 @@ class DefaultEnvironment implements Environment
   static final String PROP_COMPONENT_ID = "componentId";
   static final String PROP_VERSION = "version";
   static final String PROP_VARIANTS = "variants";
-
-  private static final String DEFAULT_REST_URL = "http://localhost:8080/baxter-config/rest";
 
   private static final String CONFIG_RESOURCE = "META-INF/services/com.baxter.config.properties";
 
@@ -85,6 +83,7 @@ class DefaultEnvironment implements Environment
 	  catch (final IOException e)
 	  {
 		// Failed to load the configuration file
+		// TODO should we do some log?
 	  }
 	}
 	return properties;
@@ -104,14 +103,8 @@ class DefaultEnvironment implements Environment
 		throw new IllegalStateException("Cannot build Rest URL", e);
 	  }
 	}
-	try
-	{
-	  return new URL(DEFAULT_REST_URL);
-	}
-	catch (final MalformedURLException e2)
-	{
-	  throw new IllegalStateException("Cannot build default Rest URL", e2);
-	}
+	// No defaults. If the Rest URL has not been configured, then client is not available
+	return null;
   }
 
   static DefaultEnvironment getInstance()
