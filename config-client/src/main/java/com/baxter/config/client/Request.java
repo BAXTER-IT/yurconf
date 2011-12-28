@@ -58,16 +58,16 @@ public class Request
 		if (i != 0)
 		{
 		  path.append("&");
-		  path.append(parameters[i].getName());
-		  path.append("=");
-		  try
-		  {
-			path.append(URLEncoder.encode(parameters[i].getValue(), "UTF-8"));
-		  }
-		  catch (final UnsupportedEncodingException e)
-		  {
-			throw new IllegalStateException("Cannot encode parameter value for URL", e);
-		  }
+		}
+		path.append(parameters[i].getName());
+		path.append("=");
+		try
+		{
+		  path.append(URLEncoder.encode(parameters[i].getValue(), "UTF-8"));
+		}
+		catch (final UnsupportedEncodingException e)
+		{
+		  throw new IllegalStateException("Cannot encode parameter value for URL", e);
 		}
 	  }
 	}
