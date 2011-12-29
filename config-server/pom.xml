@@ -136,13 +136,6 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>config-processor-demo</artifactId>
 		</dependency>
-		<!-- TODO review the ways to add processors to application -->
-		<dependency>
-			<groupId>com.baxter.pe</groupId>
-			<artifactId>price-engine-config-processor</artifactId>
-			<version>[1.0,)</version>
-		    <scope>runtime</scope>
-		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -157,6 +150,13 @@
 			<artifactId>commons-io</artifactId>
 		</dependency>
 		<!-- <dependency> <groupId>net.sf.saxon</groupId> <artifactId>saxon-xpath</artifactId> <scope>runtime</scope> </dependency> -->
+        <!-- TODO review the ways to add processors to application -->
+        <dependency>
+            <groupId>com.baxter.pe</groupId>
+            <artifactId>price-engine-config-processor</artifactId>
+            <version>[1.0,)</version>
+            <scope>runtime</scope>
+        </dependency>
 	</dependencies>
 
 	<properties>
