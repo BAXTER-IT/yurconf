@@ -11,7 +11,10 @@
 
   <xsl:template match="bcl:configuration">
     <log4j:configuration debug="true">
-      <xsl:apply-templates select="*[c:component[@id=$configurationComponentId]]"/>
+      <xsl:apply-templates select="bcl:console-appender[c:component[@id=$configurationComponentId]]"/>
+      <xsl:apply-templates select="bcl:rolling-file-appender[c:component[@id=$configurationComponentId]]"/>
+      <xsl:apply-templates select="bcl:logger[c:component[@id=$configurationComponentId]][@name!='ROOT']"/>
+      <xsl:apply-templates select="bcl:logger[c:component[@id=$configurationComponentId]][@name='ROOT']"/>
     </log4j:configuration>
   </xsl:template>
 
