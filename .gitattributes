@@ -69,6 +69,7 @@ config-processor/src/main/java/com/baxter/config/processor/upgrade/UpgradeContex
 config-processor/src/main/java/com/baxter/config/processor/upgrade/UpgradeException.java -text
 config-processor/src/main/java/com/baxter/config/processor/util/URLLister.java -text
 config-processor/src/main/resources/META-INF/config/xsl/conf-reference.xsl -text
+config-processor/src/main/resources/META-INF/config/xsl/jvm-base.xsl -text
 config-processor/src/main/resources/META-INF/config/xsl/log4j-base.xsl -text
 config-processor/src/main/resources/META-INF/config/xsl/logback-base.xsl -text
 config-processor/src/main/resources/META-INF/config/xsl/repo-base.xsl -text
