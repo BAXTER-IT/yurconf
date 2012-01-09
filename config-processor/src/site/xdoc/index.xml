@@ -33,11 +33,34 @@
 
                 <p>In order to use this processor you define it in descriptor as following: </p>
                 <source><![CDATA[
-<processor class="com.baxter.config.processor.impl.AsIsProcessor" type="bin" /> 
+<processor class="com.baxter.config.processor.impl.AsIsProcessor" type="asis" /> 
 				]]></source>
                 <p>Then you can request a configuration file with URL:
-                        <code>http://localhost/config/com.baxter.demo/myfile.dat/bin</code> this will return a source
+                        <code>http://localhost/config/com.baxter.demo/myfile.dat/bin?file=myfile.dat</code> this will return a source
                         <code>myfile.dat</code> without any modifications. </p>
+
+                <p>If more then one <b>variants</b> is specified in the request the last one will be the selected.</p>
+            </subsection>
+
+            <subsection name="Directory Processor">
+
+                <code>com.baxter.config.processor.impl.DirectoryProcessor</code>
+
+                <p>The purpose of this processor is to deliver the content of a directory (the configuration sources), without any
+                    transformation or modification. Typical usage of such a processor would be to return the binary
+                    configuration files.</p>
+                    
+                    <p>It will create a zip from the content of the folder and its sub folders, and deliver it to the client</p>
+
+                <p>In order to use this processor you define it in descriptor as following: </p>
+                <source><![CDATA[
+<processor class="com.baxter.config.processor.impl.DirectoryProcessor" type="dir" /> 
+        ]]></source>
+                <p>Then you can request a configuration file with URL:
+                        <code>http://localhost/config/com.baxter.demo/myDir/bin?dir=myDir</code> this will return a source
+                        <code>myDirt</code> without any modifications in zip format. </p>
+                        
+                        <p>If more then one <b>variants</b> is specified in the request the last one will be the selected.</p>
 
             </subsection>
 
