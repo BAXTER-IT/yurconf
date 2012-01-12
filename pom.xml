@@ -4,7 +4,7 @@
 
     <groupId>com.baxter.config</groupId>
     <artifactId>baxter-config</artifactId>
-    <version>1.0.1.2</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Baxter Configuration</name>
@@ -17,8 +17,8 @@
     <inceptionYear>2011</inceptionYear>
 
     <scm>
-        <developerConnection>scm:svn:svn://192.168.9.221/baxter-config/tags/baxter-config-1.0.1.2</developerConnection>
-        <connection>scm:svn:svn://192.168.9.221/baxter-config/tags/baxter-config-1.0.1.2</connection>
+        <developerConnection>scm:svn:svn://192.168.9.221/baxter-config/trunk</developerConnection>
+        <connection>scm:svn:svn://192.168.9.221/baxter-config/trunk</connection>
     </scm>
 
     <issueManagement>
