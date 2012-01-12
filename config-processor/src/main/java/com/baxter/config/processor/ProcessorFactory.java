@@ -90,7 +90,8 @@ public class ProcessorFactory
   }
 
   /**
-   * Returns the processor for specified request. Each call to this method returns new instance of processor.
+   * Returns the processor for specified request. Each call to this method
+   * returns new instance of processor.
    * 
    * @param configId
    *          configuration identifier
@@ -132,8 +133,13 @@ public class ProcessorFactory
   {
 	try
 	{
+	  LOGGER.debug("Looking for available processors in classpath...");
 	  final Enumeration<URL> descriptorResources = Thread.currentThread().getContextClassLoader()
 		  .getResources(DESCRIPTOR_RESOURCE);
+	  if (!descriptorResources.hasMoreElements())
+	  {
+		LOGGER.warn("Could not find any processor in classpath");
+	  }
 	  while (descriptorResources.hasMoreElements())
 	  {
 		final URL descriptorResource = descriptorResources.nextElement();
@@ -145,7 +151,8 @@ public class ProcessorFactory
 		  try
 		  {
 			final Descriptor existingDescriptor = this.repository.getDescriptor(descriptor.getProductId());
-			// Now check if this descriptor is newer than the descriptor stored in the repository
+			// Now check if this descriptor is newer than the descriptor stored
+			// in the repository
 			// if this is newer one then apply update
 			final Version existingVersion = Version.valueOf(existingDescriptor.getVersion());
 			final Version availableVersion = Version.valueOf(descriptor.getVersion());
@@ -168,7 +175,8 @@ public class ProcessorFactory
 		  }
 		  catch (final RepositoryException e)
 		  {
-			// if there is no descriptor in repository then just copy entire package
+			// if there is no descriptor in repository then just copy entire
+			// package
 			LOGGER.info("Could not find {} in repository", descriptor);
 			this.repository.installPackage(descriptor);
 		  }
@@ -213,7 +221,8 @@ public class ProcessorFactory
 	{
 	  final Class<? extends AbstractProcessor> processorClass = Class.forName(processorDescriptor.getClassName()).asSubclass(
 		  AbstractProcessor.class);
-	  final Constructor<? extends AbstractProcessor> processorConstructor = processorClass.getConstructor(Descriptor.class, ProcessorFactory.class);
+	  final Constructor<? extends AbstractProcessor> processorConstructor = processorClass.getConstructor(Descriptor.class,
+		  ProcessorFactory.class);
 	  final AbstractProcessor processor = processorConstructor.newInstance(descriptor, this);
 	  for (Parameter parameter : processorDescriptor.getParameters())
 	  {

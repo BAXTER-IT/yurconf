@@ -21,6 +21,7 @@ config-om/src/site/xdoc/index.xml -text
 config-om/src/test/java/com/baxter/config/om/TestConfigID.java -text
 config-om/src/test/java/com/baxter/config/om/TestVersion.java -text
 config-processor-demo/pom.xml -text
+config-processor-demo/src/jmeter/test-plan.jmx -text
 config-processor-demo/src/main/resources/META-INF/config/default/hello-world.xml -text
 config-processor-demo/src/main/resources/META-INF/config/default/log-mycomponent1.xml -text
 config-processor-demo/src/main/resources/META-INF/config/default/log-other.component.xml -text
@@ -112,8 +113,6 @@ config-processor/src/test/resources/xslt/merge/input.xml -text
 config-processor/src/test/resources/xslt/merge/input1.xml -text
 config-processor/src/test/resources/xslt/merge/input2.xml -text
 config-server/pom.xml -text
-config-server/src/jmeter/com-baxter-demo-test-plan.jmx -text
-config-server/src/jmeter/com-baxter-pe-test-plan.jmx -text
 config-server/src/main/java/com/baxter/config/servlet/RestfulServlet.java -text
 config-server/src/main/resources/log4j.xml -text
 config-server/src/main/webapp/WEB-INF/web.xml -text

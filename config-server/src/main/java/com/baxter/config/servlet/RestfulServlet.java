@@ -30,8 +30,9 @@ import com.baxter.config.processor.ProcessorException;
 import com.baxter.config.processor.ProcessorFactory;
 
 /**
- * The Restful Servlet on Configuration Server. This is a main entry point to the configuration system for the clients. This
- * servlet processes the requests for configuration and delivers the configuration files.
+ * The Restful Servlet on Configuration Server. This is a main entry point to
+ * the configuration system for the clients. This servlet processes the requests
+ * for configuration and delivers the configuration files.
  * 
  * @author ykryshchuk
  * @since ${developmentVersion}
@@ -61,7 +62,8 @@ public class RestfulServlet extends HttpServlet
 	  + ".baxter-configuration-repository";
 
   /**
-   * Processor factory reference. This instance is initialized in {@link #init()} method.
+   * Processor factory reference. This instance is initialized in
+   * {@link #init()} method.
    */
   private ProcessorFactory processorFactory;
 
@@ -71,7 +73,10 @@ public class RestfulServlet extends HttpServlet
 	final ServletConfig servletConfig = getServletConfig();
 	final String repositoryParam = servletConfig.getServletContext().getInitParameter(CTX_PARAM_REPOSITORY);
 	LOGGER.debug("Parameter {} = {}", CTX_PARAM_REPOSITORY, repositoryParam);
-	final String repositoryRootPath = (repositoryParam == null) ? DEFAULT_REPO_PATH : repositoryParam;
+	final String repositoryProperty = System.getProperty(CTX_PARAM_REPOSITORY);
+	LOGGER.debug("Property {} = {}", CTX_PARAM_REPOSITORY, repositoryProperty);
+	final String repositoryRootPath = (repositoryParam == null) ? ((repositoryProperty == null) ? DEFAULT_REPO_PATH
+	    : repositoryProperty) : repositoryParam;
 	try
 	{
 	  this.processorFactory = ProcessorFactory.getInstance(new File(repositoryRootPath));
@@ -86,7 +91,7 @@ public class RestfulServlet extends HttpServlet
   @Override
   protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException
   {
-	LOGGER.trace("New configuration request: {}?{}", request.getRequestURL(), request.getQueryString() );
+	LOGGER.trace("New configuration request: {}?{}", request.getRequestURL(), request.getQueryString());
 	final String pathInfo = request.getPathInfo();
 	final String versionParam = request.getParameter(PARAM_VERSION);
 	final List<ConfigParameter> params = new ArrayList<ConfigParameter>();

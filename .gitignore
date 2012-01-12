@@ -14,6 +14,7 @@ config-om/target
 config-processor-demo/.classpath
 config-processor-demo/.project
 config-processor-demo/.settings
+config-processor-demo/jmeter
 config-processor-demo/src/META-INF
 config-processor-demo/target
 config-processor/.classpath
