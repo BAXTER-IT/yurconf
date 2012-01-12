@@ -86,6 +86,7 @@ public class RestfulServlet extends HttpServlet
   @Override
   protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException
   {
+	LOGGER.trace("New configuration request: {}?{}", request.getRequestURL(), request.getQueryString() );
 	final String pathInfo = request.getPathInfo();
 	final String versionParam = request.getParameter(PARAM_VERSION);
 	final List<ConfigParameter> params = new ArrayList<ConfigParameter>();
@@ -101,7 +102,7 @@ public class RestfulServlet extends HttpServlet
 		}
 	  }
 	}
-	LOGGER.trace("Request pathInfo {} and version {}, params: {}", new Object[] { pathInfo, versionParam, params });
+	LOGGER.debug("Request pathInfo {} and version {}, params: {}", new Object[] { pathInfo, versionParam, params });
 	try
 	{
 	  if (pathInfo == null)
