@@ -29,7 +29,7 @@
         <xsl:text>JAVA_OPTS="$JAVA_OPTS </xsl:text>
         <xsl:value-of select="$opt"/>
         <xsl:text>"</xsl:text>
-        <xsl:call-template name="CRLF"/>
+        <xsl:call-template name="LF"/>
     </xsl:template>
 
     <xsl:template name="build-jvm-options">
@@ -73,10 +73,10 @@
     <xsl:template
         match="j:configuration[/conf:request/conf:parameter[@id='osfamily']/text()='unix']"
         mode="script-start">
-        <xsl:text># !/bin/bash</xsl:text>
-        <xsl:call-template name="CRLF"/>
+        <xsl:text>#!/bin/bash</xsl:text>
+        <xsl:call-template name="LF"/>
         <xsl:text># JVM Parameters for Unix</xsl:text>
-        <xsl:call-template name="CRLF"/>
+        <xsl:call-template name="LF"/>
         <xsl:call-template name="build-jvm-options"/>
     </xsl:template>
 
@@ -84,7 +84,8 @@
         match="j:configuration[/conf:request/conf:parameter[@id='osfamily']/text()='unix']"
         mode="script-end">
         <xsl:text>export JAVA_OPTS</xsl:text>
-        <xsl:call-template name="CRLF"/>
+        <xsl:call-template name="LF"/>
+        <xsl:call-template name="LF"/>
     </xsl:template>
 
     <xsl:template match="j:debug/@suspend[.='true']">
