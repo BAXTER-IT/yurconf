@@ -115,6 +115,7 @@ config-processor/src/test/resources/xslt/merge/input2.xml -text
 config-server/pom.xml -text
 config-server/src/jetty/config-server.xml -text
 config-server/src/jetty/override-web.xml -text
+config-server/src/main/assembly/bundle.xml -text
 config-server/src/main/java/com/baxter/config/servlet/RestfulServlet.java -text
 config-server/src/main/resources/log4j.xml -text
 config-server/src/main/scripts/start-config-server.cmd -text
