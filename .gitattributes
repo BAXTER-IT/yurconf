@@ -12,6 +12,8 @@ config-client/src/test/java/com/baxter/config/client/ConfigPropertyReplacer.java
 config-client/src/test/java/com/baxter/config/client/TestDefaultEnvironment.java -text
 config-client/src/test/java/com/baxter/config/client/TestRequestBuilder.java -text
 config-client/src/test/resources/META-INF/services/com.baxter.config.properties -text
+config-distribution/pom.xml -text
+config-distribution/src/site/site.xml -text
 config-om/pom.xml -text
 config-om/src/main/java/com/baxter/config/om/ConfigID.java -text
 config-om/src/main/java/com/baxter/config/om/ConfigParameter.java -text
@@ -113,8 +115,11 @@ config-processor/src/test/resources/xslt/merge/input.xml -text
 config-processor/src/test/resources/xslt/merge/input1.xml -text
 config-processor/src/test/resources/xslt/merge/input2.xml -text
 config-server/pom.xml -text
+config-server/src/main/assembly/standalone-with-processors.xml -text
 config-server/src/main/java/com/baxter/config/servlet/RestfulServlet.java -text
 config-server/src/main/resources/log4j.xml -text
+config-server/src/main/scripts/start-config-server.cmd -text
+config-server/src/main/scripts/start-config-server.sh -text
 config-server/src/main/webapp/WEB-INF/web.xml -text
 config-server/src/site/resources/uml/concept.png -text
 config-server/src/site/resources/uml/concept.uxf -text
