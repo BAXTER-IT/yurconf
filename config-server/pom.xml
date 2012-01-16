@@ -13,49 +13,178 @@
     <packaging>war</packaging>
 
     <name>Baxter Configuration Server</name>
-
+    <description>Baxter Configuration Server web application.</description>
+    
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
                 <configuration>
-                    <descriptors>
-                        <descriptor>src/main/assembly/standalone-with-processors.xml</descriptor>
-                    </descriptors>
-                    <attach>true</attach>
+                    <doCheck>false</doCheck>
+                    <doUpdate>false</doUpdate>
+                    <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>build-standalone-zip</id>
-                        <phase>package</phase>
+                        <phase>prepare-package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>create</goal>
                         </goals>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>jetty-distribution</artifactId>
-                        <version>${jetty.version}</version>
-                        <type>zip</type>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.baxter.config</groupId>
-                        <artifactId>config-processor-demo</artifactId>
-                        <version>[1.0,)</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.baxter.pe</groupId>
-                        <artifactId>price-engine-config-processor</artifactId>
-                        <version>[1.0,)</version>
-                    </dependency>
-                </dependencies>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>filter-jetty-resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${jetty.resources.dir}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/jetty</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/scripts</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-jetty-distribution</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.eclipse.jetty</groupId>
+                                    <artifactId>jetty-distribution</artifactId>
+                                    <type>zip</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <excludes>*/contexts/*.xml,*/contexts/test.d/**,*/javadoc/**,*/webapps/*.war</excludes>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>Package-Unix</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>unix-maven-plugin</artifactId>
+                        <configuration>
+                            <debug>false</debug>
+                            <revision>${buildNumber}</revision>
+                            <contact>Baxter</contact>
+                            <contactEmail>info@baxter-it.com</contactEmail>
+                            <description>${project.description}</description>
+                            <assembly>
+                                <mkdirs>
+                                    <paths>
+                                        <path>${installation.unix.home.dir}</path>
+                                        <path>${installation.unix.home.dir}/contexts/config-server</path>
+                                        <path>${installation.unix.home.dir}/repository</path>
+                                    </paths>
+                                </mkdirs>
+                                <copy-file>
+                                    <path>${jetty.resources.dir}/config-server.xml</path>
+                                    <toDir>${installation.unix.home.dir}/contexts</toDir>
+                                    <attributes>
+                                        <mode>664</mode>
+                                    </attributes>
+                                </copy-file>
+                                <copy-file>
+                                    <path>${jetty.resources.dir}/override-web.xml</path>
+                                    <toDir>${installation.unix.home.dir}/contexts/config-server</toDir>
+                                    <attributes>
+                                        <mode>664</mode>
+                                    </attributes>
+                                </copy-file>
+                                <copy-file>
+                                    <path>${project.build.directory}/${project.build.finalName}.war</path>
+                                    <toDir>${installation.unix.home.dir}</toDir>
+                                    <attributes>
+                                        <mode>664</mode>
+                                    </attributes>
+                                </copy-file>
+                                <copy-directory>
+                                    <from>${unpacked.jetty.dir}</from>
+                                    <to>${installation.unix.home.dir}</to>
+                                </copy-directory>
+                                <copy-directory>
+                                    <from>${jetty.resources.dir}</from>
+                                    <to>${installation.unix.home.dir}/bin</to>
+                                    <includes>
+                                        <include>*.sh</include>
+                                    </includes>
+                                    <fileAttributes>
+                                        <mode>775</mode>
+                                    </fileAttributes>
+                                </copy-directory>
+                            </assembly>
+                            <deb>
+                                <priority>optional</priority>
+                                <section>${installation.group.name}</section>
+                            </deb>
+                            <rpm>
+                                <group>${installation.group.name}</group>
+                            </rpm>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>build-deb-installer</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>package-deb-attached</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>build-rpm-installer</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>package-rpm-attached</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    
+                </plugins>
+            </build>
+            <properties>
+                <installation.home.dir>${installation.unix.home.dir}</installation.home.dir>
+                <installation.unix.home.dir>/opt/baxter/config-server</installation.unix.home.dir>
+                <installation.unix.dist.dir>${installation.unix.home.dir}/dist</installation.unix.dist.dir>
+                <installation.group.name>Baxter Configuration Server</installation.group.name>
+            </properties>
+        </profile>
+    </profiles>
+    
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -86,6 +215,8 @@
     </dependencies>
 
     <properties>
+        <unpacked.jetty.dir>${project.build.directory}/jetty-distribution-${jetty.version}</unpacked.jetty.dir>
+        <jetty.resources.dir>${project.build.directory}/jetty-resources</jetty.resources.dir>
         <jira.component>${project.artifactId}</jira.component>
     </properties>
 

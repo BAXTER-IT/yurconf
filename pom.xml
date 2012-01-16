@@ -27,6 +27,15 @@
         <url>http://jira.baxter-fx.com/jira/BrowseProject.jspa?id=10320</url>
     </issueManagement>
 
+    <licenses>
+        <license>
+            <name>Baxter</name>
+            <url>http://baxter.com/licenses/BAXTER-CONFIG-1.0.txt</url>
+            <comments>Some comments to a license</comments>
+            <distribution>manual</distribution>
+        </license>
+    </licenses>
+    
     <distributionManagement>
         <repository>
             <id>release.baxter</id>
@@ -106,6 +115,16 @@
                     <artifactId>chronos-report-maven-plugin</artifactId>
                     <version>${chronos.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>unix-maven-plugin</artifactId>
+                    <version>1.0-alpha-5</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>1.0</version>
+                </plugin>
                 <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build 
           itself. -->
                 <plugin>
@@ -122,6 +141,20 @@
                                         <versionRange>[1.2,)</versionRange>
                                         <goals>
                                             <goal>generate</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-dependency-plugin</artifactId>
+                                        <versionRange>[2.2,)</versionRange>
+                                        <goals>
+                                            <goal>unpack</goal>
+                                            <goal>copy-dependencies</goal>
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
@@ -237,7 +270,6 @@
         <module>config-processor</module>
         <module>config-processor-demo</module>
         <module>config-server</module>
-        <module>config-distribution</module>
     </modules>
 
     <dependencyManagement>
@@ -250,6 +282,11 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>config-processor</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>config-processor-demo</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -312,6 +349,12 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava-io</artifactId>
                 <version>r03</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-distribution</artifactId>
+                <version>${jetty.version}</version>
+                <type>zip</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
