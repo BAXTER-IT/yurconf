@@ -234,6 +234,7 @@
     </dependencies>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <unpacked.jetty.dir>${project.build.directory}/jetty-distribution-${jetty.version}</unpacked.jetty.dir>
         <jetty.resources.dir>${project.build.directory}/jetty-resources</jetty.resources.dir>
         <jira.component>${project.artifactId}</jira.component>
