@@ -108,6 +108,10 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>chronos-jmeter-maven-plugin</artifactId>
                     <version>${chronos.version}</version>
+                    <configuration>
+                        <jMeterRemoteLocation>${jmeter.download.url}</jMeterRemoteLocation>
+                        <jmeterhome>${jmeter.home}</jmeterhome>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -379,9 +383,12 @@
     <properties>
         <jira.component />
         <saxon.version>8.9</saxon.version>
-        <chronos.version>1.0-beta-1</chronos.version>
+        <chronos.version>1.0-beta-3</chronos.version>
         <slf4j.version>1.6.1</slf4j.version>
         <jetty.version>8.1.0.RC4</jetty.version>
+        <!-- To be overriden in settings.xml -->
+        <jmeter.home>${project.basedir}/jmeter</jmeter.home>
+        <jmeter.download.url>http://www.eu.apache.org/dist/jakarta/jmeter/binaries/apache-jmeter-2.6.zip</jmeter.download.url>
     </properties>
-
+    
 </project>
