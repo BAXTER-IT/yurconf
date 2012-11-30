@@ -226,9 +226,55 @@
         </xsl:apply-templates>
     </xsl:template>
 
+    <xsl:template match="j:heap/@new">
+        <xsl:apply-templates select="/j:configuration" mode="append-opt">
+            <xsl:with-param name="opt">
+                <xsl:text>-Xmn</xsl:text>
+                <xsl:value-of select="."/>
+            </xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
+    
+    <xsl:template match="j:heap/@perm">
+        <xsl:apply-templates select="/j:configuration" mode="append-opt">
+            <xsl:with-param name="opt">
+                <xsl:text>-XX:PermSize=</xsl:text>
+                <xsl:value-of select="."/>
+            </xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
+    
+    <xsl:template match="j:heap/@maxperm">
+        <xsl:apply-templates select="/j:configuration" mode="append-opt">
+            <xsl:with-param name="opt">
+                <xsl:text>-XX:MaxPermSize=</xsl:text>
+                <xsl:value-of select="."/>
+            </xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
+    
+    <!--
+      Heap sample:
+      
+      <heap initial="16M" maximum="64M" new="120K" perm="128M" maxperm="128M" /> 
+     -->
     <xsl:template match="j:heap">
         <xsl:apply-templates select="@initial"/>
         <xsl:apply-templates select="@maximum"/>
+        <xsl:apply-templates select="@new"/>
+        <xsl:apply-templates select="@perm"/>
+        <xsl:apply-templates select="@maxperm"/>
+    </xsl:template>
+
+    <!--
+      GC sample:
+      
+      <gc disableExplicit="true" logFile="/var/log/appgc.log" formatDate="true" />
+     -->
+    <xsl:template match="j:gc">
+        <xsl:apply-templates select="@disableExplicit"/>
+        <xsl:apply-templates select="@logFile"/>
+        <xsl:apply-templates select="@formatDate"/>
     </xsl:template>
 
 </xsl:stylesheet>
