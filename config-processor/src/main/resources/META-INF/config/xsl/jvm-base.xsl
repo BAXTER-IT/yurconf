@@ -46,7 +46,7 @@
 		<xsl:apply-templates
 			select="j:gclog[c:component[@id=$configurationComponentId]]" />
 		<xsl:apply-templates
-			select="j:jmx[c:component[@id=$configurationComponentId]]" />
+			select="j:jmx/c:component[@id=$configurationComponentId]/j:port" />
 		<xsl:apply-templates
 			select="j:system[c:component[@id=$configurationComponentId]]" />
 		<xsl:call-template name="conf-opts" />
@@ -107,7 +107,7 @@
 		<xsl:text>suspend=y</xsl:text>
 	</xsl:template>
 
-	<xsl:template match="j:debug/@suspend[.='false']">
+	<xsl:template match="j:debug/@suspend">
 		<xsl:text>suspend=n</xsl:text>
 	</xsl:template>
 
@@ -117,7 +117,8 @@
 			<xsl:with-param name="opt">
 				<xsl:text>-agentlib:jdwp=</xsl:text>
 				<xsl:text>transport=</xsl:text>
-				<xsl:value-of select="../../@transport" />
+				<!-- xsl:value-of select="../../@transport" / -->
+				<xsl:text>dt_socket</xsl:text>
 				<xsl:text>,</xsl:text>
 				<xsl:text>address=</xsl:text>
 				<xsl:if test="../../@listenHost">
@@ -366,16 +367,6 @@
 		<xsl:apply-templates select="@rfcDate" />
 	</xsl:template>
 
-	<xsl:template match="j:jmx/@port">
-		<xsl:apply-templates select="/j:configuration"
-			mode="append-opt">
-			<xsl:with-param name="opt">
-				<xsl:text>-Dcom.sun.management.jmxremote.port=</xsl:text>
-				<xsl:value-of select="." />
-			</xsl:with-param>
-		</xsl:apply-templates>
-	</xsl:template>
-
 	<xsl:template match="j:jmx/@auth">
 		<xsl:apply-templates select="/j:configuration"
 			mode="append-opt">
@@ -396,17 +387,23 @@
 		</xsl:apply-templates>
 	</xsl:template>
 
-	<!-- JMX sample: <jmx port="10001" auth="false" ssl="false" /> -->
-	<xsl:template match="j:jmx">
+	<!-- JMX sample: <jmx auth="false" ssl="false"><c:component id="cd-me"><port>10001</port></c:component></jmx> -->
+	<xsl:template match="j:jmx/c:component/j:port">
 		<xsl:apply-templates select="/j:configuration"
 			mode="append-opt">
 			<xsl:with-param name="opt">
 				<xsl:text>-Dcom.sun.management.jmxremote</xsl:text>
 			</xsl:with-param>
 		</xsl:apply-templates>
-		<xsl:apply-templates select="@port" />
-		<xsl:apply-templates select="@auth" />
-		<xsl:apply-templates select="@ssl" />
+		<xsl:apply-templates select="/j:configuration"
+			mode="append-opt">
+			<xsl:with-param name="opt">
+				<xsl:text>-Dcom.sun.management.jmxremote.port=</xsl:text>
+				<xsl:value-of select="." />
+			</xsl:with-param>
+		</xsl:apply-templates>
+		<xsl:apply-templates select="../../@auth" />
+		<xsl:apply-templates select="../../@ssl" />
 	</xsl:template>
 
 </xsl:stylesheet>
