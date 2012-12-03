@@ -10,7 +10,10 @@
     
     <xsl:template match="bcl:configuration">
         <configuration>
-            <xsl:apply-templates select="*[c:component[@id=$configurationComponentId]]"/>
+            <xsl:apply-templates select="bcl:console-appender[c:component[@id=$configurationComponentId]]"/>
+            <xsl:apply-templates select="bcl:file-appender[c:component[@id=$configurationComponentId]]"/>
+            <xsl:apply-templates select="bcl:rolling-file-appender[c:component[@id=$configurationComponentId]]"/>
+            <xsl:apply-templates select="bcl:logger[c:component[@id=$configurationComponentId]]"/>
         </configuration>
     </xsl:template>
 
@@ -115,6 +118,7 @@
     <xsl:template match="bcl:rolling-file-appender/@backupIndex">
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <fileNamePattern>
+                <xsl:call-template name="build-log-directory-name"/>
                 <xsl:value-of select="../@file"/>
                 <xsl:text>-%i</xsl:text>
             </fileNamePattern>
