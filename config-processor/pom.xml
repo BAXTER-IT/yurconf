@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -14,47 +15,33 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>com.sun.tools.jxc.maven2</groupId>
-				<artifactId>maven-jaxb-schemagen-plugin</artifactId>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
 				<executions>
 					<execution>
+						<id>generate-xsd</id>
 						<phase>generate-resources</phase>
 						<goals>
-							<goal>generate</goal>
+							<goal>schemagen</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
-					<srcdir>${project.build.sourceDirectory}</srcdir>
-					<destdir>${project.reporting.outputDirectory}/xsd</destdir>
+					<transformSchemas>
+- 						<transformSchema>
+							<uri>http://baxter-it.com/config/descriptor</uri>
+							<toPrefix>cpd</toPrefix>
+							<toFile>processor.xsd</toFile>
+						</transformSchema>
+					</transformSchemas>
 					<includes>
-						<include>com/baxter/config/processor/desc/*</include>
+						<include>com/baxter/config/processor/desc/*.java</include>
 					</includes>
-					<schemas>
-						<schema>
-							<namespace>http://baxter-it.com/config/descriptor</namespace>
-							<file>processor.xsd</file>
-						</schema>
-					</schemas>
-					<verbose>true</verbose>
+					<excludes>
+						<exclude>com/baxter/config/processor/desc/Loader.java</exclude>
+					</excludes>
+					<outputDirectory>${project.reporting.outputDirectory}/xsd</outputDirectory>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>javax.xml.bind</groupId>
-						<artifactId>jaxb-api</artifactId>
-						<version>2.2</version>
-					</dependency>
-					<dependency>
-						<groupId>com.sun.xml.bind</groupId>
-						<artifactId>jaxb-xjc</artifactId>
-						<version>2.2</version>
-					</dependency>
-					<dependency>
-						<groupId>com.sun.xml.bind</groupId>
-						<artifactId>jaxb-impl</artifactId>
-						<version>2.2</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
