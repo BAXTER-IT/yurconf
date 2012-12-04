@@ -38,11 +38,11 @@
 			<p>Here are some samples for configuration requests.</p>
 
 			<ul>
-				<li>http://localhost:8080/config/com.baxter.pe/price-engine-dbserver/log4j?version=1.0</li>
-				<li>http://localhost:8080/config/com.baxter.pe/price-engine-broadcast/logback</li>
-				<li>http://localhost:8080/config/properties/com.baxter.pe/price-engine-blotterserver/properties</li>
-				<li>http://localhost:8080/config/com.baxter.config/some-file-as-is.xml/asis</li>
-				<li>http://localhost:8080/config-server/rest/com.baxter.pe/price-engine-validator/propertiesxml?epp=true</li>
+				<li>http://localhost:8080/config/rest/com.baxter.pe/price-engine-dbserver/log4j?version=1.0</li>
+				<li>http://localhost:8080/config/rest/com.baxter.pe/price-engine-broadcast/logback</li>
+				<li>http://localhost:8080/config/rest/com.baxter.cd/cd-me/ini</li>
+				<li>http://localhost:8080/config/rest/com.baxter.config/some-file-as-is.xml/asis</li>
+				<li>http://localhost:8080/config/rest/com.baxter.pe/price-engine-validator/propertiesxml?epp=true</li>
 			</ul>
 
 			<subsection name="Configuration Base">

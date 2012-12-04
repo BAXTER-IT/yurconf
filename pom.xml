@@ -106,11 +106,11 @@
 							<pluginExecutions>
 								<pluginExecution>
 									<pluginExecutionFilter>
-										<groupId>com.sun.tools.jxc.maven2</groupId>
-										<artifactId>maven-jaxb-schemagen-plugin</artifactId>
-										<versionRange>[1.2,)</versionRange>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>jaxb2-maven-plugin</artifactId>
+										<versionRange>[1.5,)</versionRange>
 										<goals>
-											<goal>generate</goal>
+											<goal>schemagen</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>

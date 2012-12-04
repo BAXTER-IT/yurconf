@@ -44,6 +44,10 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<dependencies>
