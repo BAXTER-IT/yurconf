@@ -26,8 +26,8 @@
 	<inceptionYear>2011</inceptionYear>
 
 	<scm>
-		<developerConnection>scm:svn:svn://192.168.9.229/pe/baxter-config/trunk</developerConnection>
-		<connection>scm:svn:svn://192.168.9.229/pe/baxter-config/trunk</connection>
+		<developerConnection>scm:svn:svn://svn/pe/baxter-config/trunk</developerConnection>
+		<connection>scm:svn:svn://svn/pe/baxter-config/trunk</connection>
 	</scm>
 
 	<issueManagement>
