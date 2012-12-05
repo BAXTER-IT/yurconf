@@ -15,10 +15,12 @@
 	<packaging>pom</packaging>
 
 	<name>Baxter Configuration</name>
+
 	<description>
 	  Baxter Configuration project. 
 	  It consists of several modules, which are: Client API, Web Application and Products Connectors.
 	</description>
+
 	<url>http://qa/products/configuration</url>
 
 	<inceptionYear>2011</inceptionYear>
