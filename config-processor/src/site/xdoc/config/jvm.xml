@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+  <properties>
+    <title>JVM Configuration Source</title>
+    <author email="ykryshchuk@n-ix.com.ua">Yuriy Kryshchuk</author>
+  </properties>
+
+  <body>
+
+    <section name="Overview">
+    </section>
+
+    <section name="Schema">
+      <p>
+        This is an
+        <a href="../xsd/baxter-config-jvm.xsd">XSD Schema</a>
+        for JVM configuration source.
+      </p>
+      <p>
+        Typical location of the JVM configuration source is
+        <code>jvm.xml</code>
+        in product configuration repository. For the CD project that is
+        typically
+        <code>/var/local/baxter-config/com/baxter/cd/jvm.xml</code>
+        , the path may differ. Please also consider the logging
+        <a href="./variants.html">variants</a>
+        .
+      </p>
+      <p>
+        The root element is
+        <code>configuration</code>
+        from the
+        <code>http://baxter-it.com/config/jvm</code>
+        namespace. The root element nests possible configuration elements from the same namespace. Every configuration
+        element shall be marked with appropriate nested
+        <code>&lt;c:component...&gt;</code>
+      </p>
+      <p>Current format is still under development.
+      </p>
+      <p>The JVM configuration will be read by the application start script or launcher application. This kind of
+        configuration contains JVM settings and system properties to be passed to Java process.
+      </p>
+    </section>
+
+    <section name="Sample">
+      <source><![CDATA[
+<configuration xmlns="http://baxter-it.com/config/jvm"
+    xmlns:c="http://baxter-it.com/config/component" xmlns:conf="http://baxter-it.com/config">
+
+  <!-- This will tell processor to prepare JVM parameters for a logging franework -->
+  <logging id="default" framework="logback">
+    <c:component id="cmp1"/>
+    <!--
+      Following will render a system property pointing to the logback configuration XML on a server. 
+      The logback requires url to end with an .xml to be properly handled.
+    -->
+    <conf:reference id="log" type="logback">
+      <conf:parameter name="alias">logback-remote.xml</conf:parameter>
+    </conf:reference>            
+  </logging>      
+  
+  <!-- Heap configuration -->
+  <heap id="smallheap" initial="64M" maximum="64M" maxperm="32M" perm="32M" new="8M">
+    <c:component id="cmp1"/>
+  </heap>
+  
+  <!-- Prepare for the JMX server -->
+  <jmx id="unsecure" auth="false" ssl="false">
+    <c:component id="cmp1">
+      <port>22001</port>
+    </c:component>
+    <c:component id="cmp2">
+      <port>22002</port>
+    </c:component>
+  </jmx>
+
+  <!-- This will add the system property to point on remote statistics configuration file -->        
+  <system id="statistics.configuration" name="statistics.configuration" >
+    <c:component id="cmp2"/>
+    <c:component id="cmp1"/>
+    <conf:reference id="lmp" type="asis">
+      <conf:parameter name="file">mydir/statistics-configuration.xml</conf:parameter>
+    </conf:reference>
+  </system>
+
+  <!-- Generic JVM option -->  
+  <option id="dgc" value="-XX:+Dummy">
+    <c:component id="cmp1"/>
+  </option>
+  
+  <gc id="cms" type="cms" disableExplicit="true">
+    <c:component id="cmp1"/>
+  </gc>
+  
+  <gclog id="gcl1" file="/var/log/cmp1-gc.log">
+    <c:component id="cmp1"/>
+  </gclog>
+            
+  <gclog id="gcl2" file="/var/log/cmp2-gc.log" rfcDate="false">
+    <c:component id="cmp2"/>
+  </gclog>
+            
+</configuration>
+    ]]></source>
+
+      <p>This configuration source will be transformed (for component cmp1 running on unix with CD processor) into
+      </p>
+      <source><![CDATA[
+#!/bin/bash
+# JVM Parameters for Unix
+JAVA_OPTS="$JAVA_OPTS -Dlogback.configurationFile=http://configserver:4040/config-server/rest/com.foo/cmp1/logback?version=1.0&alias=logback-remote.xml"
+JAVA_OPTS="$JAVA_OPTS -XX:+Dummy"
+JAVA_OPTS="$JAVA_OPTS -XX:+UseParNewGC"
+JAVA_OPTS="$JAVA_OPTS -XX:+DisableExplicitGC"
+JAVA_OPTS="$JAVA_OPTS -XX:+UseConcMarkSweepGC"
+JAVA_OPTS="$JAVA_OPTS -Xms64M"
+JAVA_OPTS="$JAVA_OPTS -Xmx64M"
+JAVA_OPTS="$JAVA_OPTS -Xmn8M"
+JAVA_OPTS="$JAVA_OPTS -XX:MaxPermSize=32M"
+JAVA_OPTS="$JAVA_OPTS -XX:PermSize=32M"
+JAVA_OPTS="$JAVA_OPTS -Xloggc:/var/log/cmp1-gc.log"
+JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote"
+JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.port=22001"
+JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=false"
+JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote.ssl=false"
+JAVA_OPTS="$JAVA_OPTS -Dstatistics.configuration=configserver:4040/config-server/rest/com.foo/cmp1/asis?version=1.0&file=mydir%2Fstatistics-configuration.xml"
+JAVA_OPTS="$JAVA_OPTS -Dcom.baxter.config.restUrl=http://configserver:4040/config-server/rest"
+JAVA_OPTS="$JAVA_OPTS -Dcd.logs.dir=$LOG_PATH"
+export JAVA_OPTS
+    ]]></source>
+    
+    <p>If there is a <code>devel</code> variant for the JVM configuration, that contains following:</p>
+    
+    <source><![CDATA[
+<configuration xmlns="http://baxter-it.com/config/jvm"
+    xmlns:c="http://baxter-it.com/config/component" xmlns:conf="http://baxter-it.com/config">
+
+  <gclog id="gcl1" rfcDate="true">
+  </gclog>
+  
+  <debug id="nowait" suspend="false">
+    <c:component id="cmp1">
+      <port>8787</port>
+    </c:component>
+  </debug>
+        
+</configuration>    
+    ]]></source>
+    
+    <p>then additional options will be included in JAVA_OPTS:</p>
+    <source><![CDATA[
+JAVA_OPTS="$JAVA_OPTS -XX:-PrintGCDateStamps"
+JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n"
+JAVA_OPTS="$JAVA_OPTS -Dcom.baxter.config.variants=devel"
+    ]]></source>
+    
+    </section>
+
+    <section name="Conventions">
+      <p>
+        The full settings depend on an environment variable LOG_PATH, which has to be set. Later that can be eliminated
+        in favor of a hard defined location.
+      </p>
+    </section>
+
+  </body>
+
+</document>
