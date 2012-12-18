@@ -1,31 +1,194 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document xmlns="http://maven.apache.org/XDOC/2.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
-	<properties>
-		<title>Logging Configuration Source</title>
-		<author email="ykryshchuk@n-ix.com.ua">Yuriy Kryshchuk</author>
-	</properties>
+  <properties>
+    <title>Logging Configuration Source</title>
+    <author email="ykryshchuk@n-ix.com.ua">Yuriy Kryshchuk</author>
+  </properties>
 
-	<body>
+  <body>
 
-		<section name="Overview">
-		</section>
-		
-		<section name="Schema">
-			<p>This is an <a href="../xsd/baxter-config-log.xsd">XSD Schema</a> for logging configuration source.</p>
-			<iframe src="../xsd/baxter-config-log.xsd" width="100%" height="600"></iframe>
-		</section>
-		
-		<section name="Sample">
-			<p>TODO sample XML here....</p>
-		</section>
-		
-		<section name="Conventions">
-			<p>Describe processing conventions here...</p>
-		</section>
+    <section name="Overview">
+    </section>
 
-	</body>
+    <section name="Schema">
+      <p>
+        This is an
+        <a href="../xsd/baxter-config-log.xsd">XSD Schema</a>
+        for logging configuration source.
+      </p>
+      <p>
+        Typical location of the logging configuration source is
+        <code>log.xml</code>
+        in product configuration repository. For the CD project that is
+        typically
+        <code>/var/local/baxter-config/com/baxter/cd/log.xml</code>
+        , the path may differ. Please also consider the logging
+        <a href="./variants.html">variants</a>
+        .
+      </p>
+      <p>
+        The root element is
+        <code>configuration</code>
+        from the
+        <code>http://baxter-it.com/config/log</code>
+        namespace. The root element nests possible configuration elements from the same namespace. Every configuration
+        element shall be marked with appropriate nested
+        <code>&lt;c:component...&gt;</code>
+      </p>
+      <ul>
+        <li>
+          <code>logger</code>
+          - defines a logger. Each logger has its own name. Special case is a logger with name
+          <code>ROOT</code>
+          . Use logger element to declare the loggers available for a particular component. It might have optional
+          <code>level</code>
+          and
+          <code>additivity</code>
+          attributes. The logger may nest one or more
+          <code>appender-ref</code>
+          elements that point to logging appenders.
+        </li>
+        <li>
+          <code>console-appender</code>
+          - defines the appender to write to a console. It nests
+          <code>layout</code>
+          element.
+        </li>
+        <li>
+          <code>file-appender</code>
+          - defines the appender to write to a file. It nests
+          <code>layout</code>
+          element.
+        </li>
+        <li>
+          <code>rolling-file-appender</code>
+          - defines the appender to write to a file. It nests
+          <code>layout</code>
+          element.
+        </li>
+      </ul>
+      <p>Current format is still under development. Newer version will simplify the way to assign appenders for
+        components. A kind of generic configuration will be supported as well.
+      </p>
+    </section>
+
+    <section name="Sample">
+      <source><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://baxter-it.com/config/log" xmlns:c="http://baxter-it.com/config/component">
+
+    <logger id="ROOT" name="ROOT" level="ERROR">
+        <appender-ref ref="CONSOLE"/>
+        <c:component id="cmp1"/>
+        <c:component id="cmp2"/>
+    </logger>
+    
+    <logger id="logfile1" name="com.foo" level="TRACE" additivity="false">
+        <appender-ref ref="FILE1"/>
+        <c:component id="cmp1"/>
+        <c:component id="cmp2"/>
+    </logger>
+    
+    <logger id="logfile2" name="com.bar.foo" level="DEBUG" additivity="true">
+        <appender-ref ref="FILE2"/>
+        <c:component id="cmp1"/>
+    </logger>    
+
+    <logger id="logfile2" name="com.foo.bar" level="TRACE" additivity="true">
+        <appender-ref ref="FILE2"/>
+        <c:component id="cmp2"/>
+    </logger>    
+
+    <rolling-file-appender id="rollingFile1" name="FILE1" file="1.log" maxSize="100MB" backupIndex="10">
+        <layout>[%d{ISO8601}][%p][%t] - %m%n</layout>
+        <c:component id="cmp1"/>
+        <c:component id="cmp2"/>
+    </rolling-file-appender>
+    
+    <rolling-file-appender id="rollingFile2" name="FILE2" file="2.log" maxSize="500KB" backupIndex="30">
+        <layout>[%d{ISO8601}][%p][%t] - %m%n</layout>
+        <c:component id="cmp2"/>
+    </rolling-file-appender>
+    
+    <console-appender id="CONSOLE" name="CONSOLE">
+        <layout>%c{1} [%d{ISO8601}] %m%n</layout>
+        <c:component id="cmp1"/>
+        <c:component id="cmp2"/>
+    </console-appender>
+        
+</configuration>
+    ]]></source>
+
+      <p>This configuration source will be transformed (for component cmp2 in case of logback with CD processor) into
+      </p>
+      <source><![CDATA[
+<configuration>
+
+  <appender class="ch.qos.logback.core.ConsoleAppender" name="CONSOLE">
+    <encoder>
+      <pattern>%c{1} [%d{ISO8601}] %m%n</pattern>
+    </encoder>
+  </appender>
+  
+  <appender class="ch.qos.logback.core.rolling.RollingFileAppender" name="FILE1">
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>100MB</maxFileSize>
+    </triggeringPolicy>  
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <file>${cd.logs.dir}/1.log<file>
+      <fileNamePattern>${cd.logs.dir}/1.log-%i</fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>10</maxIndex>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%c{1} [%d{ISO8601}] %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender class="ch.qos.logback.core.rolling.RollingFileAppender" name="FILE2">
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>500KB</maxFileSize>
+    </triggeringPolicy>  
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <file>${cd.logs.dir}/2.log<file>
+      <fileNamePattern>${cd.logs.dir}/2.log-%i</fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>30</maxIndex>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%c{1} [%d{ISO8601}] %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="com.foo" level="TRACE" additivity="false">
+      <appender-ref ref="FILE1"/>
+  </logger>
+  
+  <logger name="com.foo.bar" level="TRACE" additivity="true">
+      <appender-ref ref="FILE2"/>
+  </logger>    
+
+  <root level="error">
+    <appender-ref ref="CONSOLE"/>
+  </root>
+  
+</configuration>
+    ]]></source>
+    </section>
+
+    <section name="Conventions">
+      <p>
+        An example above renders the
+        <code>${cd.logs.dir}</code>
+        , that is specific for a product processor, and in case of CD the log files for all components are expected to
+        appear in one directory, that is specified by system property
+        <code>cd.logs.dir</code>
+        at startup.
+      </p>
+    </section>
+
+  </body>
 
 </document>
