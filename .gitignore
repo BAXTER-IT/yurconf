@@ -28,6 +28,10 @@ config-server/.classpath
 config-server/.project
 config-server/.settings
 config-server/jmeter
+config-server/src/main/unix/scripts/post-install
+config-server/src/main/unix/scripts/post-remove
+config-server/src/main/unix/scripts/pre-install
+config-server/src/main/unix/scripts/pre-remove
 config-server/target
 config-server/xxx.*
 /target

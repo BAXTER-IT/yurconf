@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.baxter</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.0.12</version>
+		<version>1.0.13</version>
 	</parent>
 
 	<groupId>com.baxter.config</groupId>
@@ -232,12 +232,6 @@
 				<artifactId>guava-io</artifactId>
 				<version>r03</version>
 			</dependency>
-			<dependency>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-distribution</artifactId>
-				<version>${jetty.version}</version>
-				<type>zip</type>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -275,7 +269,7 @@
 
 	<properties>
 		<jira.onlyCurrentVersion>false</jira.onlyCurrentVersion>
-		<jira.fixVersionIds>10406,10493,10503</jira.fixVersionIds>
+		<jira.fixVersionIds>10406,10493,10503,11390</jira.fixVersionIds>
 		<jira.sortColumnNames>Fix Version DESC</jira.sortColumnNames>
 		<!-- SITE PROPERTIES. We can reference these properties from the site sources -->
 		<releaseVersion>${project.version}</releaseVersion>
