@@ -182,6 +182,10 @@
                                     <path>${jetty.filtered.dir}/jetty.conf</path>
                                     <toFile>${jetty.startup.file}</toFile>
                                 </copyFile>
+                                <copyFile>
+                                    <path>${jetty.filtered.dir}/config-server-web.xml</path>
+                                    <toFile>${overriden.web.xml}</toFile>
+                                </copyFile>
                                 <copy-directory>
                                     <from>${jetty.filtered.dir}/contexts</from>
                                     <to>${jetty.contexts.dir}</to>
@@ -293,6 +297,7 @@
         <jetty.config.file>${unix.config.dir}/jetty-${project.artifactId}.xml</jetty.config.file>
         <jetty.startup.file>${unix.config.dir}/jetty-${project.artifactId}.conf</jetty.startup.file>
         <jetty.contexts.dir>${unix.application.var.dir}/jetty-contexts</jetty.contexts.dir>
+        <overriden.web.xml>${unix.config.dir}/config-server-web.xml</overriden.web.xml>
         <unix-svc.dir>${project.build.directory}/scripts/unix-svc</unix-svc.dir>
         <unix-scripts.dir>${project.build.directory}/scripts/unix-scripts</unix-scripts.dir>
         <config.processors.lib.dir>/usr/share/configuration-processors</config.processors.lib.dir>

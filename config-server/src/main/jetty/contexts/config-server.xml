@@ -8,6 +8,6 @@
     <Set name="extractWAR">true</Set>
     <Set name="copyWebDir">false</Set>
     <Set name="defaultsDescriptor"><SystemProperty name="jetty.home" default="."/>/etc/webdefault.xml</Set>
-    <Set name="overrideDescriptor">${unix.config.dir}/config-server-web.xml</Set>
+    <Set name="overrideDescriptor">${overriden.web.xml}</Set>
     
 </Configure>
