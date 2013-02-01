@@ -103,32 +103,30 @@
 		<xsl:call-template name="LF" />
 	</xsl:template>
 
-	<xsl:template match="j:debug/@suspend[.='true']">
-		<xsl:text>suspend=y</xsl:text>
-	</xsl:template>
-
-	<xsl:template match="j:debug/@suspend">
-		<xsl:text>suspend=n</xsl:text>
-	</xsl:template>
-
 	<xsl:template match="j:debug/c:component/j:port">
 		<xsl:apply-templates select="/j:configuration"
 			mode="append-opt">
 			<xsl:with-param name="opt">
 				<xsl:text>-agentlib:jdwp=</xsl:text>
-				<xsl:text>transport=</xsl:text>
-				<!-- xsl:value-of select="../../@transport" / -->
-				<xsl:text>dt_socket</xsl:text>
-				<xsl:text>,</xsl:text>
-				<xsl:text>address=</xsl:text>
+				<xsl:text>transport=dt_socket</xsl:text>
+			    <!-- Address host:port -->
+				<xsl:text>,address=</xsl:text>
 				<xsl:if test="../../@listenHost">
 					<xsl:value-of select="../../@listenHost" />
 					<xsl:text>:</xsl:text>
 				</xsl:if>
 				<xsl:value-of select="." />
-				<xsl:text>,</xsl:text>
-				<xsl:text>server=y,</xsl:text>
-				<xsl:apply-templates select="../../@suspend" />
+			    <!-- Allow debugger to attach -->
+				<xsl:text>,server=y</xsl:text>
+			    <!-- Do suspend ? by default yes -->
+			    <xsl:choose>
+                    <xsl:when test="../../@suspend = 'true'">
+                        <xsl:text>,suspend=y</xsl:text>
+                    </xsl:when>
+			        <xsl:when test="../../@suspend = 'false'">
+			            <xsl:text>,suspend=n</xsl:text>
+			        </xsl:when>
+                </xsl:choose>
 			</xsl:with-param>
 		</xsl:apply-templates>
 	</xsl:template>
