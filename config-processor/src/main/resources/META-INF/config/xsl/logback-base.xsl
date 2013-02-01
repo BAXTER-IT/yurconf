@@ -10,9 +10,8 @@
     
     <xsl:template match="bcl:configuration">
         <configuration>
-            <xsl:apply-templates select="bcl:console-appender[c:component[@id=$configurationComponentId]]"/>
-            <xsl:apply-templates select="bcl:file-appender[c:component[@id=$configurationComponentId]]"/>
-            <xsl:apply-templates select="bcl:rolling-file-appender[c:component[@id=$configurationComponentId]]"/>
+            <xsl:variable name="refs" select="bcl:logger[c:component[@id=$configurationComponentId]]/bcl:appender-ref/@ref" />
+            <xsl:apply-templates select="(bcl:console-appender | bcl:file-appender | bcl:rolling-file-appender)[@name=$refs]"/>
             <xsl:apply-templates select="bcl:logger[c:component[@id=$configurationComponentId]]"/>
         </configuration>
     </xsl:template>
@@ -80,7 +79,7 @@
     <xsl:template match="bcl:file-appender">
         <appender class="ch.qos.logback.core.FileAppender">
             <xsl:apply-templates select="@name"/>
-            <xsl:apply-templates select="@file"/>
+            <xsl:call-template name="log-file" />
             <xsl:apply-templates />
         </appender>
     </xsl:template>
@@ -94,7 +93,7 @@
     <xsl:template match="bcl:rolling-file-appender">
         <appender class="ch.qos.logback.core.rolling.RollingFileAppender">
             <xsl:apply-templates select="@name"/>
-            <xsl:apply-templates select="@file"/>
+            <xsl:call-template name="log-file" />
             <xsl:apply-templates select="@backupIndex"/>
             <xsl:apply-templates select="@maxSize"/>
             <xsl:apply-templates />
@@ -118,8 +117,9 @@
     <xsl:template match="bcl:rolling-file-appender/@backupIndex">
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <fileNamePattern>
-                <xsl:call-template name="build-log-directory-name"/>
-                <xsl:value-of select="../@file"/>
+                <xsl:call-template name="build-log-file-path">
+                    <xsl:with-param name="file" select="../@file" />
+                </xsl:call-template>
                 <xsl:text>-%i</xsl:text>
             </fileNamePattern>
             <minIndex>
@@ -132,15 +132,29 @@
     </xsl:template>
     
     <xsl:template name="build-log-directory-name">
-        <xsl:text>--NOT IMPLEMENTED--</xsl:text>
+        <xsl:text>--NOT IMPLEMENTED--/</xsl:text>
     </xsl:template>
     
-    <xsl:template match="bcl:rolling-file-appender/@file | bcl:file-appender/@file">
+    <xsl:template name="log-file">
         <file>
-            <xsl:call-template name="build-log-directory-name"/>
-            <xsl:value-of select="."/>
+            <xsl:call-template name="build-log-file-path">
+                <xsl:with-param name="file" select="@file"/>
+            </xsl:call-template>
         </file>
     </xsl:template>
-
+    
+    <xsl:template name="build-log-file-path">
+        <xsl:param name="file" select="'DEFAULT'" />
+        <xsl:call-template name="build-log-directory-name"/>
+        <xsl:choose>
+            <xsl:when test="empty($file)">
+                <xsl:value-of select="$configurationComponentId" />
+                <xsl:text>.log</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$file" />
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 
 </xsl:stylesheet>
