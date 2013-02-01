@@ -282,7 +282,7 @@
 		<jetty.version>8.1.0.RC4</jetty.version>
 		<!-- To be overriden in settings.xml -->
 		<jmeter.home>${project.basedir}/jmeter</jmeter.home>
-		<jmeter.download.url>http://www.eu.apache.org/dist/jakarta/jmeter/binaries/apache-jmeter-2.6.zip</jmeter.download.url>
+		<jmeter.download.url>http://archive.apache.org/dist/jmeter/binaries/apache-jmeter-2.6.zip</jmeter.download.url>
 	</properties>
 
 </project>
