@@ -275,7 +275,6 @@
     <properties>
         <unix-maven-plugin.scripts.dir>${basedir}/src/main/unix/scripts</unix-maven-plugin.scripts.dir>
         <unix-maven-plugin.scripts.src.dir>${basedir}/src/main/scripts/unix-plugin</unix-maven-plugin.scripts.src.dir>
-        <unix.application.group.name>Config</unix.application.group.name>
         <debian.dep.jre>openjdk-6-jre</debian.dep.jre>
         <debian.dep.lsb-base>lsb-base(&gt;= 3.2-13)</debian.dep.lsb-base>
         <debian.dep.jetty>jetty</debian.dep.jetty>
@@ -300,7 +299,6 @@
         <overriden.web.xml>${unix.config.dir}/config-server-web.xml</overriden.web.xml>
         <unix-svc.dir>${project.build.directory}/scripts/unix-svc</unix-svc.dir>
         <unix-scripts.dir>${project.build.directory}/scripts/unix-scripts</unix-scripts.dir>
-        <config.processors.lib.dir>/usr/share/configuration-processors</config.processors.lib.dir>
         
         <jira.component>${project.artifactId}</jira.component>
     </properties>
