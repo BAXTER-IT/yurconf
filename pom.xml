@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.baxter</groupId>
         <artifactId>parent</artifactId>
-        <version>1.0.14</version>
+        <version>1.0.15</version>
     </parent>
 
     <groupId>com.baxter.config</groupId>
@@ -56,19 +56,9 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <artifactId>maven-changes-plugin</artifactId>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <version>2.9-SNAPSHOT</version>
-                </plugin>
-                <plugin>
                     <artifactId>maven-site-plugin</artifactId>
                     <configuration>
                         <reportPlugins combine.children="append">
-                            <plugin>
-                                <artifactId>maven-changes-plugin</artifactId>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <version>2.9-SNAPSHOT</version>
-                            </plugin>
                             <plugin>
                                 <groupId>org.apache.maven.plugins</groupId>
                                 <artifactId>maven-javadoc-plugin</artifactId>
