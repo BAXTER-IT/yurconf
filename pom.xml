@@ -31,7 +31,7 @@
 
 	<issueManagement>
 		<system>JIRA</system>
-		<url>https://baxter-it.atlassian.net/browse/CFG</url>
+		<url>https://baxter-it.atlassian.net/browse/BrowseProject.jspa?id=10320</url>
 	</issueManagement>
 
 	<licenses>
@@ -54,12 +54,10 @@
 
 		<pluginManagement>
 			<plugins>
-                            <plugin>
+      <plugin>
                                 <artifactId>maven-changes-plugin</artifactId>
-                                <configuration>
-                                    <webUser>mavenreader</webUser>
-                                    <webPassword>mavenreader99</webPassword>
-                                </configuration>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <version>2.9-SNAPSHOT</version>
                                 </plugin>
 				<plugin>
 					<artifactId>maven-site-plugin</artifactId>
