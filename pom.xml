@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.baxter</groupId>
         <artifactId>parent</artifactId>
-        <version>1.1.0</version>
+        <version>1.1.1</version>
     </parent>
 
     <groupId>com.baxter.config</groupId>
@@ -18,7 +18,8 @@
 
     <description>
 	  Baxter Configuration project. 
-	  It consists of several modules, which are: Client API, Web Application and Products Connectors.
+	  It consists of several modules, which are: 
+	  Client API, Web Application and Products Connectors (Processors).
 	</description>
 
     <url>http://qa/products/configuration</url>
