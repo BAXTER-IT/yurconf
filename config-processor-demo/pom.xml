@@ -185,10 +185,6 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>wagon-maven-plugin</artifactId>
                 </plugin>
-                <plugin>
-                    <groupId>com.github.goldin</groupId>
-                    <artifactId>sshexec-maven-plugin</artifactId>
-                </plugin>
             </plugins>
         </build>
     </profile>
