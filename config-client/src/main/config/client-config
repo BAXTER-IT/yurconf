@@ -6,7 +6,7 @@
 #
 
 # This property points to the base URL of the configuration REST services  
-url=http://cdbdm:4040/config-server/rest
+url=http://localhost:4040/config-server/rest
 
 # This property defines this host effective variants.
 # Could list several variants separated by comma. May be empty.
