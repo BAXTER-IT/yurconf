@@ -126,6 +126,7 @@ config-server/src/main/scripts/unix-plugin/post-remove -text
 config-server/src/main/scripts/unix-plugin/pre-install -text
 config-server/src/main/scripts/unix-plugin/pre-remove -text
 config-server/src/main/scripts/unix-service/debian-service-init-script.sh -text
+config-server/src/main/unix/deb/conffiles -text
 config-server/src/main/webapp/WEB-INF/web.xml -text
 config-server/src/site/resources/uml/concept.png -text
 config-server/src/site/resources/uml/concept.uxf -text
