@@ -16,6 +16,21 @@ else
     RUNASDAEMON=false
 fi
 
+# Configuration file that keeps server binding info
+CONFIG_FILE="${unix.config.dir}/configuration-server"
+
+# Listening host
+JETTY_HOST="$(cat $CONFIG_FILE | grep "host=" |  cut -d= -f2)"
+if [ ! "x" = "x$JETTY_HOST" ]; then
+    JAVA_OPTS="$JAVA_OPTS -Djetty.host=$JETTY_HOST"
+fi
+
+# Listening port
+JETTY_PORT="$(cat $CONFIG_FILE | grep "port=" |  cut -d= -f2)"
+if [ ! "x" = "x$JETTY_PORT" ]; then
+    JAVA_OPTS="$JAVA_OPTS -Djetty.port=$JETTY_PORT"
+fi
+
 JAVA_OPTS="$JAVA_OPTS -DSTART=${jetty.startup.file}"
 PROGRAM="/usr/bin/java $JAVA_OPTS -jar /usr/share/jetty/start.jar ${jetty.config.file}"
 

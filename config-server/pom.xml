@@ -326,10 +326,10 @@
         <unix.application.var.dir>/var/local/baxter/${unix.service.name}</unix.application.var.dir>
         <unix.application.out>${unix.application.log.dir}/${unix.service.name}.out</unix.application.out>
         <jetty.filtered.dir>${project.build.directory}/jetty-filtered</jetty.filtered.dir>
-        <jetty.config.file>${unix.config.dir}/jetty-${project.artifactId}.xml</jetty.config.file>
-        <jetty.startup.file>${unix.config.dir}/jetty-${project.artifactId}.conf</jetty.startup.file>
+        <jetty.config.file>${unix.application.var.dir}/jetty-${project.artifactId}.xml</jetty.config.file>
+        <jetty.startup.file>${unix.application.var.dir}/jetty-${project.artifactId}.conf</jetty.startup.file>
         <jetty.contexts.dir>${unix.application.var.dir}/jetty-contexts</jetty.contexts.dir>
-        <overriden.web.xml>${unix.config.dir}/config-server-web.xml</overriden.web.xml>
+        <overriden.web.xml>${unix.application.var.dir}/config-server-web.xml</overriden.web.xml>
         <unix-svc.dir>${project.build.directory}/scripts/unix-svc</unix-svc.dir>
         <unix-scripts.dir>${project.build.directory}/scripts/unix-scripts</unix-scripts.dir>
         
