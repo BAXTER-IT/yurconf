@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -15,11 +16,11 @@
     <description>Baxter Configuration Server web application.</description>
 
     <build>
-        
+
         <pluginManagement>
-            
+
             <plugins>
-                
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
@@ -35,7 +36,7 @@
                         </filesets>
                     </configuration>
                 </plugin>
-                
+
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
                     <executions>
@@ -140,46 +141,40 @@
                         </execution>
                     </executions>
                 </plugin>
-                
+
             </plugins>
-            
+
         </pluginManagement>
-        
+
         <plugins>
-            
+
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
             </plugin>
-            
+
         </plugins>
-        
+
     </build>
 
     <profiles>
-        
+
         <profile>
-            
+
             <id>UnixInstaller</id>
-            
+
             <activation>
                 <os>
                     <family>unix</family>
                 </os>
             </activation>
-            
+
             <build>
                 <plugins>
                     <plugin>
                         <artifactId>unix-maven-plugin</artifactId>
                         <groupId>org.codehaus.mojo</groupId>
                         <configuration>
-                            <debug>true</debug>
-                            <contact>${project.organization.name}</contact>
-                            <contactEmail>info@baxter-it.com</contactEmail>
-                            <description>${project.description}</description>
                             <deb>
-                                <priority>optional</priority>
-                                <section>${unix.application.group.name}</section>
                                 <depends>${debian.depends}</depends>
                                 <preDepends>${debian.predepends}</preDepends>
                             </deb>
@@ -235,17 +230,12 @@
                         <executions>
                             <execution>
                                 <id>build-deb-installer</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>package-deb-attached</goal>
-                                </goals>
                                 <configuration>
                                     <assembly combine.children="append">
                                         <copyFile>
                                             <path>${unix-svc.dir}/debian-service-init-script.sh</path>
                                             <toFile>${debian.service.init.script}</toFile>
-                                            <!-- TODO for some reaso the debian package manager does not make 
-                                        the file executable -->
+                                            <!-- TODO for some reaso the debian package manager does not make the file executable -->
                                             <attributes>
                                                 <mode>0755</mode>
                                             </attributes>
@@ -253,14 +243,14 @@
                                     </assembly>
                                 </configuration>
                             </execution>
-                            
+
                         </executions>
                     </plugin>
                 </plugins>
             </build>
-            
+
         </profile>
-        
+
         <profile>
             <id>APT</id>
             <build>
@@ -272,9 +262,9 @@
                 </plugins>
             </build>
         </profile>
-        
+
     </profiles>
-    
+
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -332,7 +322,7 @@
         <overriden.web.xml>${unix.application.var.dir}/config-server-web.xml</overriden.web.xml>
         <unix-svc.dir>${project.build.directory}/scripts/unix-svc</unix-svc.dir>
         <unix-scripts.dir>${project.build.directory}/scripts/unix-scripts</unix-scripts.dir>
-        
+
         <jira.component>${project.artifactId}</jira.component>
     </properties>
 

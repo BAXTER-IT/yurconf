@@ -1,0 +1,13 @@
+#
+# Baxter products client configuration.
+#
+# This file points to the configuration server.
+# Used by all Baxter product applications installed on this host.
+#
+
+# This property points to the base URL of the configuration REST services  
+url=http://cdbdm:4040/config-server/rest
+
+# This property defines this host effective variants.
+# Could list several variants separated by comma. May be empty.
+variants=

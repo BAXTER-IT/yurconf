@@ -146,13 +146,7 @@
                     <artifactId>unix-maven-plugin</artifactId>
                     <groupId>org.codehaus.mojo</groupId>
                     <configuration>
-                        <debug>true</debug>
-                        <contact>${project.organization.name}</contact>
-                        <contactEmail>info@baxter-it.com</contactEmail>
-                        <description>${project.description}</description>
                         <deb>
-                            <priority>optional</priority>
-                            <section>${unix.application.group.name}</section>
                             <depends>config-server</depends>
                         </deb>
                         <assembly combine.children="append">
@@ -162,15 +156,6 @@
                             </copyFile>
                         </assembly>
                     </configuration>
-                    <executions>
-                        <execution>
-                            <id>build-deb-installer</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>package-deb-attached</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
             </plugins>
         </build>

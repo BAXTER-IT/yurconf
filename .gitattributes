@@ -1,10 +1,12 @@
 * text=auto !eol
 config-client/pom.xml -text
+config-client/src/main/config/client-config -text
 config-client/src/main/java/com/baxter/config/client/Configuration.java -text
 config-client/src/main/java/com/baxter/config/client/DefaultEnvironment.java -text
 config-client/src/main/java/com/baxter/config/client/Environment.java -text
 config-client/src/main/java/com/baxter/config/client/Request.java -text
 config-client/src/main/java/com/baxter/config/client/RequestBuilder.java -text
+config-client/src/main/unix/deb/conffiles -text
 config-client/src/site/fml/faq.fml -text
 config-client/src/site/site.xml -text
 config-client/src/site/xdoc/index.xml -text

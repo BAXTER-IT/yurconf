@@ -9,7 +9,8 @@
 	</parent>
 
 	<artifactId>config-om</artifactId>
-	<name>Configuration Object Model</name>
+    
+	<name>Baxter Configuration Object Model</name>
 
 	<properties>
 		<jira.component>${project.artifactId}</jira.component>
