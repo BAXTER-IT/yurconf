@@ -106,6 +106,38 @@
                                 </resources>
                             </configuration>
                         </execution>
+                        <execution>
+                            <id>filter-package-config</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${unix.config.source}</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>src/main/config</directory>
+                                        <filtering>true</filtering>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>create-deb-conffiles</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${project.build.directory}/unix/root-deb/assembly/DEBIAN</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>src/main/unix/deb</directory>
+                                        <filtering>true</filtering>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
                     </executions>
                 </plugin>
                 
@@ -189,6 +221,10 @@
                                 <copy-directory>
                                     <from>${jetty.filtered.dir}/contexts</from>
                                     <to>${jetty.contexts.dir}</to>
+                                </copy-directory>
+                                <copy-directory>
+                                    <from>${unix.config.source}</from>
+                                    <to>${unix.config.dir}</to>
                                 </copy-directory>
                                 <copyFile>
                                     <path>${project.build.directory}/${project.build.finalName}.war</path>
@@ -282,6 +318,7 @@
         <unix.application.start.script>/usr/bin/start-${unix.service.name}</unix.application.start.script>
         <unix.application.start.script.src>start-jetty.sh</unix.application.start.script.src>
         <unix.config.dir>/etc/baxter</unix.config.dir>
+        <unix.config.source>${project.build.directory}/package-config</unix.config.source>
         <unix.service.name>configuration-server</unix.service.name>
         <unix.application.doc.dir>/usr/share/doc/baxter/${unix.service.name}</unix.application.doc.dir>
         <unix.application.lib.dir>/usr/lib/baxter/${unix.service.name}</unix.application.lib.dir>
