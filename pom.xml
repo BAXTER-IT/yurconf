@@ -60,21 +60,6 @@
 						<contactEmail>info@baxter-it.com</contactEmail>
 						<description>${project.description}</description>
 					</configuration>
-					<executions>
-						<execution>
-							<id>build-deb-installer</id>
-							<phase>package</phase>
-							<goals>
-								<goal>package-deb-attached</goal>
-							</goals>
-							<configuration>
-								<deb>
-									<priority>optional</priority>
-									<section>${unix.application.group.name}</section>
-								</deb>
-							</configuration>
-						</execution>
-					</executions>
 				</plugin>
 				<plugin>
 					<artifactId>maven-site-plugin</artifactId>
@@ -286,6 +271,35 @@
 					<url>dav:https://repository-baxter.forge.cloudbees.com/private/sites/config/</url>
 				</site>
 			</distributionManagement>
+		</profile>
+
+		<profile>
+			<id>DEB</id>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<artifactId>unix-maven-plugin</artifactId>
+							<groupId>org.codehaus.mojo</groupId>
+							<executions>
+								<execution>
+									<id>build-deb-installer</id>
+									<phase>package</phase>
+									<goals>
+										<goal>package-deb-attached</goal>
+									</goals>
+									<configuration>
+										<deb>
+											<priority>optional</priority>
+											<section>${unix.application.group.name}</section>
+										</deb>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
 		</profile>
 
 	</profiles>
