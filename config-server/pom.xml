@@ -296,7 +296,7 @@
     <properties>
         <unix-maven-plugin.scripts.dir>${basedir}/src/main/unix/scripts</unix-maven-plugin.scripts.dir>
         <unix-maven-plugin.scripts.src.dir>${basedir}/src/main/scripts/unix-plugin</unix-maven-plugin.scripts.src.dir>
-        <debian.dep.jre>openjdk-6-jre</debian.dep.jre>
+        <debian.dep.jre>openjdk-7-jre</debian.dep.jre>
         <debian.dep.lsb-base>lsb-base(&gt;= 3.2-13)</debian.dep.lsb-base>
         <debian.dep.jetty>jetty</debian.dep.jetty>
         <debian.depends>${debian.dep.jre},${debian.dep.lsb-base},${debian.dep.jetty}</debian.depends>
