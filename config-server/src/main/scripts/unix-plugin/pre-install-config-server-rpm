@@ -1,0 +1,8 @@
+
+#
+# Verify the product user exists or create one
+#
+echo "Verifying if user exists..."
+if ! getent passwd ${unix.user} > /dev/null; then
+    adduser -M --system --user-group ${unix.user}
+fi

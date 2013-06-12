@@ -1,10 +1,13 @@
 #! /bin/sh
+#
+# configuration-server	Start/stop Baxter Configuration service
+#
 ### BEGIN INIT INFO
 # Provides:          ${unix.service.name}
-# Required-Start:    $local_fs $remote_fs $network $syslog
-# Required-Stop:     $local_fs $remote_fs $network $syslog
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
+# Required-Start:    $local_fs $network
+# Required-Stop:     $local_fs $network
+# Default-Start:     3 4 5
+# Default-Stop:      0 1 2 6
 # Short-Description: ${project.name} initscript
 # Description:       This script controls the Baxter ${project.name} service
 ### END INIT INFO

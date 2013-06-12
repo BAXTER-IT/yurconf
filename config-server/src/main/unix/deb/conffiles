@@ -1,1 +1,2 @@
 /etc/baxter/configuration-server
+${unix.application.var.dir}/repository

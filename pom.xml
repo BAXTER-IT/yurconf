@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -51,13 +52,14 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<artifactId>unix-maven-plugin</artifactId>
-					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>2.5</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<debug>true</debug>
-						<contact>${project.organization.name}</contact>
-						<contactEmail>info@baxter-it.com</contactEmail>
-						<description>${project.description}</description>
+						<source>1.6</source>
+						<target>1.6</target>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -273,13 +275,31 @@
 		</profile>
 
 		<profile>
-			<id>DEB</id>
+			<id>UnixInstaller</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
 			<build>
 				<pluginManagement>
 					<plugins>
 						<plugin>
 							<artifactId>unix-maven-plugin</artifactId>
 							<groupId>org.codehaus.mojo</groupId>
+							<configuration>
+								<debug>true</debug>
+								<contact>${project.organization.name}</contact>
+								<contactEmail>info@baxter-it.com</contactEmail>
+								<description>${project.description}</description>
+								<deb>
+									<priority>optional</priority>
+									<section>${unix.application.group.name}</section>
+								</deb>
+								<rpm>
+									<group>${unix.application.group.name}</group>
+								</rpm>
+							</configuration>
 							<executions>
 								<execution>
 									<id>build-deb-installer</id>
@@ -288,10 +308,15 @@
 										<goal>package-deb-attached</goal>
 									</goals>
 									<configuration>
-										<deb>
-											<priority>optional</priority>
-											<section>${unix.application.group.name}</section>
-										</deb>
+									</configuration>
+								</execution>
+								<execution>
+									<id>build-rpm-installer</id>
+									<phase>package</phase>
+									<goals>
+										<goal>package-rpm-attached</goal>
+									</goals>
+									<configuration>
 									</configuration>
 								</execution>
 							</executions>
@@ -299,13 +324,16 @@
 					</plugins>
 				</pluginManagement>
 			</build>
+			<properties>
+				<unix.application.group.name>Config</unix.application.group.name>
+				<unix.application.lib.dir>/usr/share/java</unix.application.lib.dir>
+				<config.processors.lib.dir>/usr/share/configuration-processors</config.processors.lib.dir>
+			</properties>
 		</profile>
 
 	</profiles>
 
 	<properties>
-		<unix.application.group.name>Config</unix.application.group.name>
-		<config.processors.lib.dir>/usr/share/configuration-processors</config.processors.lib.dir>
 		<jira.onlyCurrentVersion>false</jira.onlyCurrentVersion>
 		<jira.fixVersionIds>10406,10493,10503,11390</jira.fixVersionIds>
 		<jira.sortColumnNames>Fix Version DESC</jira.sortColumnNames>

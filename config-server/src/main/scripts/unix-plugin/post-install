@@ -1,18 +1,2 @@
 #!/bin/sh
 
-#
-# The following is needed until we find a way to set the attributes by plugin
-# TODO
-#
-echo "WARN: Changing the attributes for files and dirs"
-chmod +x /etc/init.d/${unix.service.name}
-chmod +x ${unix.application.start.script}
-
-chown -R ${unix.user}:${unix.group} ${unix.application.log.dir}
-chown -R ${unix.user}:${unix.group} ${unix.application.var.dir}
-chown -R ${unix.user}:${unix.group} ${unix.application.lib.dir}
-chown -R ${unix.user}:${unix.group} ${unix.application.doc.dir}
-chown -R ${unix.user}:${unix.group} ${config.processors.lib.dir}
-
-echo "Registering ${unix.service.name} service..."
-update-rc.d ${unix.service.name} defaults

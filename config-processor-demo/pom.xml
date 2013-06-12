@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -11,170 +12,184 @@
 	<artifactId>config-processor-demo</artifactId>
 	<name>Demo Configuration Processor</name>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-config-server</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
+	<profiles>
+
+		<profile>
+			<id>UnixInstaller</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>unix-maven-plugin</artifactId>
+						<groupId>org.codehaus.mojo</groupId>
 						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>${project.groupId}</groupId>
-									<artifactId>config-server</artifactId>
-									<type>war</type>
-								</artifactItem>
-							</artifactItems>
-							<outputDirectory>${config.server.war.dir}</outputDirectory>
-							<stripVersion>true</stripVersion>
+							<deb>
+								<depends>config-server</depends>
+							</deb>
+							<assembly combine.children="append">
+								<copyFile>
+									<path>${project.build.directory}/${project.build.finalName}.jar</path>
+									<toDir>${unix.application.lib.dir}</toDir>
+								</copyFile>
+								<symlink>
+									<value>${unix.application.lib.dir}/${project.build.finalName}.jar</value>
+									<path>${config.processors.lib.dir}/${project.artifactId}.jar</path>
+								</symlink>
+							</assembly>
 						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-				<configuration>
-					<webApp>${config.server.war.dir}/config-server.war</webApp>
-					<contextPath>/config-server</contextPath>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<stopKey>foo</stopKey>
-					<stopPort>9999</stopPort>
-					<connectors>
-						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>8099</port>
-							<maxIdleTime>60000</maxIdleTime>
-						</connector>
-					</connectors>
-				</configuration>
-				<executions>
-					<execution>
-						<id>start-jetty</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>deploy-war</goal>
-						</goals>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>APT</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>wagon-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>IT</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy-config-server</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>copy</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>${project.groupId}</groupId>
+											<artifactId>config-server</artifactId>
+											<type>war</type>
+										</artifactItem>
+									</artifactItems>
+									<outputDirectory>${config.server.war.dir}</outputDirectory>
+									<stripVersion>true</stripVersion>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.mortbay.jetty</groupId>
+						<artifactId>maven-jetty-plugin</artifactId>
 						<configuration>
-							<scanIntervalSeconds>0</scanIntervalSeconds>
-							<daemon>true</daemon>
-							<systemProperties>
-								<systemProperty>
-									<name>com.baxter.config.Repository</name>
-									<value>${project.build.directory}/test-repo-root</value>
-								</systemProperty>
-							</systemProperties>
-							<webAppConfig>
-								<extraClasspath>${project.build.outputDirectory}</extraClasspath>
-							</webAppConfig>
+							<webApp>${config.server.war.dir}/config-server.war</webApp>
+							<contextPath>/config-server</contextPath>
+							<scanIntervalSeconds>10</scanIntervalSeconds>
+							<stopKey>foo</stopKey>
+							<stopPort>9999</stopPort>
+							<connectors>
+								<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+									<port>8099</port>
+									<maxIdleTime>60000</maxIdleTime>
+								</connector>
+							</connectors>
 						</configuration>
-					</execution>
-					<execution>
-						<id>stop-jetty</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>stop</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>chronos-jmeter-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>run-jmeter-demo-tests</id>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>jmeter</goal>
-						</goals>
+						<executions>
+							<execution>
+								<id>start-jetty</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>deploy-war</goal>
+								</goals>
+								<configuration>
+									<scanIntervalSeconds>0</scanIntervalSeconds>
+									<daemon>true</daemon>
+									<systemProperties>
+										<systemProperty>
+											<name>com.baxter.config.Repository</name>
+											<value>${project.build.directory}/test-repo-root</value>
+										</systemProperty>
+									</systemProperties>
+									<webAppConfig>
+										<extraClasspath>${project.build.outputDirectory}</extraClasspath>
+									</webAppConfig>
+								</configuration>
+							</execution>
+							<execution>
+								<id>stop-jetty</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>chronos-jmeter-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>run-jmeter-demo-tests</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>jmeter</goal>
+								</goals>
+								<configuration>
+									<dataid>jmeterDemoProcessors</dataid>
+									<input>${basedir}/src/jmeter/test-plan.jmx</input>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-site-plugin</artifactId>
 						<configuration>
-							<dataid>jmeterDemoProcessors</dataid>
-							<input>${basedir}/src/jmeter/test-plan.jmx</input>
+							<reportPlugins combine.children="append">
+								<plugin>
+									<groupId>org.codehaus.mojo</groupId>
+									<artifactId>chronos-report-maven-plugin</artifactId>
+									<version>${chronos.version}</version>
+									<reportSets>
+										<reportSet>
+											<id>jmeterDemoProcessorsReports</id>
+											<reports>
+												<report>report</report>
+											</reports>
+											<configuration>
+												<dataid>jmeterDemoProcessors</dataid>
+												<title>Demo Processors Tests</title>
+												<description>Shows the JMeter tests run for ${project.name}</description>
+											</configuration>
+										</reportSet>
+									</reportSets>
+								</plugin>
+							</reportPlugins>
 						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-site-plugin</artifactId>
-				<configuration>
-					<reportPlugins combine.children="append">
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>chronos-report-maven-plugin</artifactId>
-							<version>${chronos.version}</version>
-							<reportSets>
-								<reportSet>
-									<id>jmeterDemoProcessorsReports</id>
-									<reports>
-										<report>report</report>
-									</reports>
-									<configuration>
-										<dataid>jmeterDemoProcessors</dataid>
-										<title>Demo Processors Tests</title>
-										<description>Shows the JMeter tests run for ${project.name}</description>
-									</configuration>
-								</reportSet>
-							</reportSets>
-						</plugin>
-					</reportPlugins>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-    
-    <profiles>
-    
-    <profile>
-        
-        <id>UnixInstaller</id>
-        
-        <activation>
-            <os>
-                <family>unix</family>
-            </os>
-        </activation>
-        
-        <build>
-            <plugins>
-                <plugin>
-                    <artifactId>unix-maven-plugin</artifactId>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <configuration>
-                        <deb>
-                            <depends>config-server</depends>
-                        </deb>
-                        <assembly combine.children="append">
-                            <copyFile>
-                                <path>${project.build.directory}/${project.build.finalName}.jar</path>
-                                <toDir>${config.processors.lib.dir}</toDir>
-                            </copyFile>
-                        </assembly>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </build>
-        
-    </profile>
-    
-    <profile>
-        <id>APT</id>
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>wagon-maven-plugin</artifactId>
-                </plugin>
-            </plugins>
-        </build>
-    </profile>
-    
-    </profiles>
+					</plugin>
+				</plugins>
+			</build>
+			<dependencies>
+				<dependency>
+					<groupId>${project.groupId}</groupId>
+					<artifactId>config-server</artifactId>
+					<type>war</type>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+			<properties>
+				<config.server.war.dir>${project.build.directory}/config-server-war</config.server.war.dir>
+			</properties>
+		</profile>
+
+	</profiles>
 
 	<dependencies>
 		<dependency>
@@ -182,16 +197,6 @@
 			<artifactId>config-processor</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>config-server</artifactId>
-			<type>war</type>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
-
-	<properties>
-		<config.server.war.dir>${project.build.directory}/config-server-war</config.server.war.dir>
-	</properties>
 
 </project>

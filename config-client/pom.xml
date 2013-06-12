@@ -1,169 +1,145 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <artifactId>baxter-config</artifactId>
-        <groupId>com.baxter.config</groupId>
-        <version>1.2.5-SNAPSHOT</version>
-    </parent>
+	<parent>
+		<artifactId>baxter-config</artifactId>
+		<groupId>com.baxter.config</groupId>
+		<version>1.2.5-SNAPSHOT</version>
+	</parent>
 
-    <artifactId>config-client</artifactId>
+	<artifactId>config-client</artifactId>
 
-    <name>Baxter Configuration Client</name>
+	<name>Baxter Configuration Client</name>
 
-    <build>
-        
-        <pluginManagement>
-            
-            <plugins>
-                
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.6</source>
-                        <target>1.6</target>
-                    </configuration>
-                </plugin>
-                
-            </plugins>
-            
-        </pluginManagement>
+	<build>
 
-        <plugins>
+		<plugins>
 
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest combine.children="append">
-                            <addClasspath>true</addClasspath>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest combine.children="append">
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
 
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <!-- TODO this can be moved to parent pom -->
-                        <id>get-component-dependencies</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${component.dependencies.dir}</outputDirectory>
-                            <includeScope>runtime</includeScope>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <!-- TODO This execution can be moved to parent pom -->
-                        <id>create-deb-conffiles</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/unix/root-deb/assembly/DEBIAN</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/unix/deb</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+		</plugins>
 
-        </plugins>
+	</build>
 
-    </build>
+	<profiles>
 
-    <profiles>
+		<profile>
+			<id>UnixInstaller</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<!-- TODO this can be moved to parent pom -->
+								<id>get-component-dependencies</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy-dependencies</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${component.dependencies.dir}</outputDirectory>
+									<includeScope>runtime</includeScope>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<!-- TODO This execution can be moved to parent pom -->
+								<id>create-deb-conffiles</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${project.build.directory}/unix/root-deb/assembly/DEBIAN</outputDirectory>
+									<resources>
+										<resource>
+											<directory>src/main/unix/deb</directory>
+											<filtering>true</filtering>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>unix-maven-plugin</artifactId>
+						<configuration>
+							<assembly combine.children="append">
+								<copyFile>
+									<path>src/main/config/client-config</path>
+									<toFile>/etc/baxter/config</toFile>
+								</copyFile>
+								<copyFile>
+									<path>${project.build.directory}/${project.build.finalName}.jar</path>
+									<toDir>${unix.application.lib.dir}</toDir>
+								</copyFile>
+								<copy-directory>
+									<from>${component.dependencies.dir}</from>
+									<to>${unix.application.lib.dir}</to>
+								</copy-directory>
+							</assembly>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<properties>
+				<component.dependencies.dir>${project.build.directory}/component-dependencies</component.dependencies.dir>
+			</properties>
+		</profile>
 
-        <profile>
+		<profile>
+			<id>APT</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>wagon-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 
-            <id>UnixInstaller</id>
+	</profiles>
 
-            <activation>
-                <os>
-                    <family>unix</family>
-                </os>
-            </activation>
+	<dependencies>
 
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>unix-maven-plugin</artifactId>
-                        <configuration>
-                            <assembly combine.children="append">
-                                <copyFile>
-                                    <path>src/main/config/client-config</path>
-                                    <toFile>/etc/baxter/config</toFile>
-                                </copyFile>
-                                <copyFile>
-                                    <path>${project.build.directory}/${project.build.finalName}.jar</path>
-                                    <toDir>${unix.application.lib.dir}</toDir>
-                                </copyFile>
-                                <symlink>
-                                    <path>${unix.application.lib.dir}/${project.artifactId}.jar</path>
-                                    <value>${unix.application.lib.dir}/${project.build.finalName}.jar</value>
-                                </symlink>
-                                <copy-directory>
-                                    <from>${component.dependencies.dir}</from>
-                                    <to>${unix.application.lib.dir}</to>
-                                </copy-directory>
-                            </assembly>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>config-om</artifactId>
+		</dependency>
 
-        </profile>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
-        <profile>
-            <id>APT</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>wagon-maven-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+	</dependencies>
 
-    </profiles>
-    
-    <dependencies>
-        
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>config-om</artifactId>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        
-    </dependencies>
-
-    <properties>
-        <jira.component>${project.artifactId}</jira.component>
-        <unix.application.lib.dir>/usr/share/java</unix.application.lib.dir>
-        <component.dependencies.dir>${project.build.directory}/component-dependencies</component.dependencies.dir>
-    </properties>
+	<properties>
+		<jira.component>${project.artifactId}</jira.component>
+	</properties>
 
 </project>
