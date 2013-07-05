@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -19,6 +20,14 @@
 		<pluginManagement>
 
 			<plugins>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>rpm-maven-plugin</artifactId>
+					<version>2.1-alpha-2</version>
+					<extensions>true</extensions>
+				</plugin>
+
 				<plugin>
 					<artifactId>maven-resources-plugin</artifactId>
 					<executions>
@@ -271,6 +280,90 @@
 							</execution>
 						</executions>
 					</plugin>
+
+					<plugin>
+						<!-- TODO Shall completely move to this plugin for RPM builds. -->
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>rpm-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>build-rpm-for-san</id>
+								<phase>package</phase>
+								<goals>
+									<goal>attached-rpm</goal>
+								</goals>
+								<configuration>
+									<group>${unix.application.group.name}</group>
+									<classifier>san</classifier>
+									<defaultUsername>${unix.user}</defaultUsername>
+									<defaultGroupname>${unix.group}</defaultGroupname>
+									<mappings>
+										<mapping>
+											<directory>${san.dest.root}</directory>
+											<artifact>
+												<classifiers>
+													<classifier />
+												</classifiers>
+											</artifact>
+										</mapping>
+										<mapping>
+											<directory>${san.dest.root}</directory>
+											<filemode>755</filemode>
+											<sources>
+												<source>
+													<location>src/main/scripts/start-jetty-san.sh</location>
+													<destination>start-config-server</destination>
+													<filter>true</filter>
+												</source>
+											</sources>
+										</mapping>
+										<mapping>
+											<directory>${san.dest.root}/etc</directory>
+											<configuration>noreplace</configuration>
+											<sources>
+												<source>
+													<location>src/main/config/configuration-server</location>
+													<filter>true</filter>
+												</source>
+												<source>
+													<location>src/main/jetty/config-server-web-san.xml</location>
+													<destination>config-server-web.xml</destination>
+													<filter>true</filter>
+												</source>
+											</sources>
+										</mapping>
+										<mapping>
+											<directory>${san.dest.root}/etc/jetty</directory>
+											<configuration />
+											<sources>
+												<source>
+													<location>src/main/jetty/san</location>
+													<filter>true</filter>
+												</source>
+											</sources>
+										</mapping>
+										<mapping>
+											<directory>${san.dest.root}/repository</directory>
+										</mapping>
+										<mapping>
+											<directory>${san.dest.root}/log</directory>
+										</mapping>
+										<mapping>
+											<directory>${san.dest.root}/processors</directory>
+										</mapping>
+									</mappings>
+									<requires>
+										<require>java-1.7.0-openjdk</require>
+									</requires>
+									<preinstallScriptlet>
+										<scriptFile>${unix-maven-plugin.scripts.dir}/pre-install-config-server-rpm</scriptFile>
+										<fileEncoding>utf-8</fileEncoding>
+									</preinstallScriptlet>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
 				</plugins>
 			</build>
 			<properties>
@@ -300,6 +393,7 @@
 				<debian.dep.jetty>jetty</debian.dep.jetty>
 				<debian.depends>${debian.dep.jre},${debian.dep.lsb-base},${debian.dep.jetty}</debian.depends>
 				<debian.predepends>sed</debian.predepends>
+				<san.dest.root>/opt/baxter/config-server</san.dest.root>
 			</properties>
 		</profile>
 
