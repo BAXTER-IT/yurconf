@@ -297,6 +297,7 @@
 									<classifier>san</classifier>
 									<defaultUsername>${unix.user}</defaultUsername>
 									<defaultGroupname>${unix.group}</defaultGroupname>
+									<targetOS>noarch</targetOS>
 									<mappings>
 										<mapping>
 											<directory>${san.dest.root}</directory>
