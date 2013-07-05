@@ -281,6 +281,46 @@
 						</executions>
 					</plugin>
 
+				</plugins>
+			</build>
+			<properties>
+				<unix-maven-plugin.scripts.dir>${basedir}/src/main/unix/scripts</unix-maven-plugin.scripts.dir>
+				<unix-maven-plugin.scripts.src.dir>${basedir}/src/main/scripts/unix-plugin</unix-maven-plugin.scripts.src.dir>
+				<unix.user>baxter</unix.user>
+				<unix.group>baxter</unix.group>
+				<unix.service.name>configuration-server</unix.service.name>
+				<unix.service.script>/etc/init.d/${unix.service.name}</unix.service.script>
+				<unix.service.rh.script>/etc/rc.d/init.d/${unix.service.name}</unix.service.rh.script>
+				<unix.config.source>${project.build.directory}/package-config</unix.config.source>
+				<unix-svc.dir>${project.build.directory}/scripts/unix-svc</unix-svc.dir>
+				<unix-scripts.dir>${project.build.directory}/scripts/unix-scripts</unix-scripts.dir>
+				<unix.application.doc.dir>/usr/share/doc/baxter/${unix.service.name}</unix.application.doc.dir>
+				<unix.application.log.dir>/var/log/baxter/${unix.service.name}</unix.application.log.dir>
+				<unix.application.var.dir>/var/local/baxter/${unix.service.name}</unix.application.var.dir>
+				<unix.application.file>${project.build.finalName}.war</unix.application.file>
+				<unix.application.start.script>/usr/bin/start-${unix.service.name}</unix.application.start.script>
+				<unix.application.start.script.src>start-jetty.sh</unix.application.start.script.src>
+				<unix.application.out>${unix.application.log.dir}/${unix.service.name}.out</unix.application.out>
+				<jetty.config.file>${unix.application.var.dir}/jetty-${project.artifactId}.xml</jetty.config.file>
+				<jetty.startup.file>${unix.application.var.dir}/jetty-${project.artifactId}.conf</jetty.startup.file>
+				<jetty.contexts.dir>${unix.application.var.dir}/jetty-contexts</jetty.contexts.dir>
+				<overriden.web.xml>${unix.application.var.dir}/config-server-web.xml</overriden.web.xml>
+				<debian.dep.jre>openjdk-7-jre</debian.dep.jre>
+				<debian.dep.lsb-base>lsb-base(&gt;= 3.2-13)</debian.dep.lsb-base>
+				<debian.dep.jetty>jetty</debian.dep.jetty>
+				<debian.depends>${debian.dep.jre},${debian.dep.lsb-base},${debian.dep.jetty}</debian.depends>
+				<debian.predepends>sed</debian.predepends>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>SAN</id>
+			<!-- Never liked their idea to create such an RPM. But it is required 
+				for now. -->
+			<!-- This profile fails on clouds jenkins. Has to be executed on a git 
+				tag. -->
+			<build>
+				<plugins>
 					<plugin>
 						<!-- TODO Shall completely move to this plugin for RPM builds. -->
 						<groupId>org.codehaus.mojo</groupId>
@@ -354,9 +394,6 @@
 											<directory>${san.dest.root}/processors</directory>
 										</mapping>
 									</mappings>
-									<requires>
-										<require>java-1.7.0-openjdk</require>
-									</requires>
 									<preinstallScriptlet>
 										<scriptFile>${unix-maven-plugin.scripts.dir}/pre-install-config-server-rpm</scriptFile>
 										<fileEncoding>utf-8</fileEncoding>
@@ -365,36 +402,9 @@
 							</execution>
 						</executions>
 					</plugin>
-
 				</plugins>
 			</build>
 			<properties>
-				<unix-maven-plugin.scripts.dir>${basedir}/src/main/unix/scripts</unix-maven-plugin.scripts.dir>
-				<unix-maven-plugin.scripts.src.dir>${basedir}/src/main/scripts/unix-plugin</unix-maven-plugin.scripts.src.dir>
-				<unix.user>baxter</unix.user>
-				<unix.group>baxter</unix.group>
-				<unix.service.name>configuration-server</unix.service.name>
-				<unix.service.script>/etc/init.d/${unix.service.name}</unix.service.script>
-				<unix.service.rh.script>/etc/rc.d/init.d/${unix.service.name}</unix.service.rh.script>
-				<unix.config.source>${project.build.directory}/package-config</unix.config.source>
-				<unix-svc.dir>${project.build.directory}/scripts/unix-svc</unix-svc.dir>
-				<unix-scripts.dir>${project.build.directory}/scripts/unix-scripts</unix-scripts.dir>
-				<unix.application.doc.dir>/usr/share/doc/baxter/${unix.service.name}</unix.application.doc.dir>
-				<unix.application.log.dir>/var/log/baxter/${unix.service.name}</unix.application.log.dir>
-				<unix.application.var.dir>/var/local/baxter/${unix.service.name}</unix.application.var.dir>
-				<unix.application.file>${project.build.finalName}.war</unix.application.file>
-				<unix.application.start.script>/usr/bin/start-${unix.service.name}</unix.application.start.script>
-				<unix.application.start.script.src>start-jetty.sh</unix.application.start.script.src>
-				<unix.application.out>${unix.application.log.dir}/${unix.service.name}.out</unix.application.out>
-				<jetty.config.file>${unix.application.var.dir}/jetty-${project.artifactId}.xml</jetty.config.file>
-				<jetty.startup.file>${unix.application.var.dir}/jetty-${project.artifactId}.conf</jetty.startup.file>
-				<jetty.contexts.dir>${unix.application.var.dir}/jetty-contexts</jetty.contexts.dir>
-				<overriden.web.xml>${unix.application.var.dir}/config-server-web.xml</overriden.web.xml>
-				<debian.dep.jre>openjdk-7-jre</debian.dep.jre>
-				<debian.dep.lsb-base>lsb-base(&gt;= 3.2-13)</debian.dep.lsb-base>
-				<debian.dep.jetty>jetty</debian.dep.jetty>
-				<debian.depends>${debian.dep.jre},${debian.dep.lsb-base},${debian.dep.jetty}</debian.depends>
-				<debian.predepends>sed</debian.predepends>
 				<san.dest.root>/opt/baxter/config-server</san.dest.root>
 			</properties>
 		</profile>
