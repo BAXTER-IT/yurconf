@@ -267,7 +267,7 @@
         <xsl:apply-templates select="@maxperm" />
     </xsl:template>
 
-    <xsl:template match="j:gc/@disableExplicit[text()='true']">
+    <xsl:template match="j:gc[@disableExplicit='true']/@disableExplicit">
         <xsl:apply-templates select="/j:configuration" mode="append-opt">
             <xsl:with-param name="opt">
                 <xsl:text>-XX:-DisableExplicitGC</xsl:text>
@@ -275,7 +275,7 @@
         </xsl:apply-templates>
     </xsl:template>
 
-    <xsl:template match="j:gc/@type[text()='cms']">
+    <xsl:template match="j:gc[@type='cms']/@type">
         <xsl:apply-templates select="/j:configuration" mode="append-opt">
             <xsl:with-param name="opt">
                 <xsl:text>-XX:+UseConcMarkSweepGC</xsl:text>
@@ -297,7 +297,7 @@
         </xsl:apply-templates>
     </xsl:template>
 
-    <xsl:template match="j:gclog/@rfcDate[text()='false']">
+    <xsl:template match="j:gclog[@rfcDate='false']/@rfcDate">
         <xsl:apply-templates select="/j:configuration" mode="append-opt">
             <xsl:with-param name="opt">
                 <xsl:text>-XX:-PrintGCTimeStamps</xsl:text>
@@ -305,7 +305,7 @@
         </xsl:apply-templates>
     </xsl:template>
 
-    <xsl:template match="j:gclog/@rfcDate[text()='true']">
+    <xsl:template match="j:gclog[@rfcDate='true']/@rfcDate">
         <xsl:apply-templates select="/j:configuration" mode="append-opt">
             <xsl:with-param name="opt">
                 <xsl:text>-XX:-PrintGCDateStamps</xsl:text>

@@ -94,7 +94,8 @@ public class Repository
    * @throws ProcessorException
    *           if failed to upgrade
    */
-  public void upgradePackage(final Descriptor descriptor, final Upgrade upgrade, final ProcessorFactory processorFactory ) throws ProcessorException
+  public void upgradePackage(final Descriptor descriptor, final Upgrade upgrade, final ProcessorFactory processorFactory)
+	  throws ProcessorException
   {
 	final UpgradeContext upgradeContext = new UpgradeContext()
 	{
@@ -104,17 +105,34 @@ public class Repository
 	  {
 		return descriptor;
 	  }
-	  
+
 	  @Override
 	  public ProcessorFactory getProcessorFactory()
 	  {
-	    return processorFactory;
+		return processorFactory;
 	  }
 
 	};
-	for (AbstractUpgradeFile command : upgrade.getCommands())
+	final List<? extends AbstractUpgradeFile> upgradeCommands = upgrade.getCommands();
+	if (upgradeCommands == null)
 	{
-	  CommandFactory.getInstance().getCommand(command).upgrade(upgradeContext);
+	  LOGGER.info("No commands found for {}", upgrade);
+	}
+	else
+	{
+	  for (AbstractUpgradeFile command : upgradeCommands)
+	  {
+		CommandFactory.getInstance().getCommand(command).upgrade(upgradeContext);
+	  }
+	}
+	try
+	{
+	  installPackageDescriptor(descriptor);
+	}
+	catch (IOException e)
+	{
+	  LOGGER.error("Failed to install package descriptor", e);
+	  throw new ProcessorException(e);
 	}
   }
 
@@ -150,19 +168,24 @@ public class Repository
 		resourceStream.close();
 	  }
 	}
+	installPackageDescriptor(descriptor);
+  }
 
+  private void installPackageDescriptor(final Descriptor descriptor) throws IOException
+  {
+	final File productDirectory = getProductDirectory(descriptor.getProductId());
 	// Copy processor descriptor to repository
 	final InputStream descriptorStream = descriptor.getUrl().openStream();
 	try
 	{
 	  final File targetDescriptor = new File(productDirectory, TARGET_DESCRIPTOR_FILENAME);
+	  LOGGER.debug("Installing descrptor for {}", descriptor);
 	  FileUtils.copyInputStreamToFile(descriptorStream, targetDescriptor);
 	}
 	finally
 	{
 	  descriptorStream.close();
 	}
-
   }
 
   /**

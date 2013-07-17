@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -191,7 +192,7 @@
 										<path>${config.processors.lib.dir}</path>
 									</paths>
 									<attributes>
-										<mode>0644</mode>
+										<mode>0775</mode>
 									</attributes>
 								</mkdirs>
 								<mkdirs>
@@ -210,7 +211,7 @@
 									<path>${unix-scripts.dir}/${unix.application.start.script.src}</path>
 									<toFile>${unix.application.start.script}</toFile>
 									<attributes>
-										<mode>0755</mode>
+										<mode>0775</mode>
 									</attributes>
 								</copyFile>
 								<copyFile>
@@ -345,6 +346,8 @@
 													<classifier />
 												</classifiers>
 											</artifact>
+											<username>${unix.user}</username>
+											<groupname>${unix.group}</groupname>
 										</mapping>
 										<mapping>
 											<directory>${san.dest.root}</directory>
@@ -356,6 +359,8 @@
 													<filter>true</filter>
 												</source>
 											</sources>
+											<username>${unix.user}</username>
+											<groupname>${unix.group}</groupname>
 										</mapping>
 										<mapping>
 											<directory>${san.dest.root}/etc</directory>
@@ -371,6 +376,8 @@
 													<filter>true</filter>
 												</source>
 											</sources>
+											<username>${unix.user}</username>
+											<groupname>${unix.group}</groupname>
 										</mapping>
 										<mapping>
 											<directory>${san.dest.root}/etc/jetty</directory>
@@ -381,15 +388,23 @@
 													<filter>true</filter>
 												</source>
 											</sources>
+											<username>${unix.user}</username>
+											<groupname>${unix.group}</groupname>
 										</mapping>
 										<mapping>
 											<directory>${san.dest.root}/repository</directory>
+											<username>${unix.user}</username>
+											<groupname>${unix.group}</groupname>
 										</mapping>
 										<mapping>
 											<directory>${san.dest.root}/log</directory>
+											<username>${unix.user}</username>
+											<groupname>${unix.group}</groupname>
 										</mapping>
 										<mapping>
 											<directory>${san.dest.root}/processors</directory>
+											<username>${unix.user}</username>
+											<groupname>${unix.group}</groupname>
 										</mapping>
 									</mappings>
 									<preinstallScriptlet>
