@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -15,43 +16,6 @@
 	<description>Baxter Configuration Server web application.</description>
 
 	<build>
-
-		<pluginManagement>
-
-			<plugins>
-
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>rpm-maven-plugin</artifactId>
-					<version>2.1-alpha-3</version>
-					<extensions>true</extensions>
-				</plugin>
-
-				<plugin>
-					<artifactId>maven-resources-plugin</artifactId>
-					<executions>
-						<execution>
-							<id>filter-jetty</id>
-							<phase>process-resources</phase>
-							<goals>
-								<goal>copy-resources</goal>
-							</goals>
-							<configuration>
-								<outputDirectory>${jetty.filtered.dir}</outputDirectory>
-								<resources>
-									<resource>
-										<directory>src/main/jetty</directory>
-										<filtering>true</filtering>
-									</resource>
-								</resources>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-
-			</plugins>
-
-		</pluginManagement>
 
 		<plugins>
 
@@ -73,352 +37,330 @@
 				</os>
 			</activation>
 			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-clean-plugin</artifactId>
-						<configuration>
-							<filesets>
-								<fileset>
-									<directory>${unix-maven-plugin.scripts.dir}</directory>
-									<includes>
-										<include>*</include>
-									</includes>
-									<followSymlinks>false</followSymlinks>
-								</fileset>
-							</filesets>
-						</configuration>
-					</plugin>
-					<plugin>
-						<artifactId>maven-resources-plugin</artifactId>
-						<executions>
-							<execution>
-								<!-- Filters the package control scripts -->
-								<id>filter-pkg-control-files</id>
-								<phase>process-resources</phase>
-								<goals>
-									<goal>copy-resources</goal>
-								</goals>
-								<configuration>
-									<outputDirectory>${unix-maven-plugin.scripts.dir}</outputDirectory>
-									<resources>
-										<resource>
-											<directory>${unix-maven-plugin.scripts.src.dir}</directory>
-											<filtering>true</filtering>
-										</resource>
-									</resources>
-								</configuration>
-							</execution>
-							<execution>
-								<!-- Filters Unix service scripts -->
-								<id>filter-svc-files</id>
-								<phase>process-resources</phase>
-								<goals>
-									<goal>copy-resources</goal>
-								</goals>
-								<configuration>
-									<outputDirectory>${unix-svc.dir}</outputDirectory>
-									<resources>
-										<resource>
-											<directory>src/main/scripts/unix-service</directory>
-											<filtering>true</filtering>
-										</resource>
-									</resources>
-								</configuration>
-							</execution>
-							<execution>
-								<!-- Filters Unix scripts -->
-								<id>filter-scripts</id>
-								<phase>process-resources</phase>
-								<goals>
-									<goal>copy-resources</goal>
-								</goals>
-								<configuration>
-									<outputDirectory>${unix-scripts.dir}</outputDirectory>
-									<resources>
-										<resource>
-											<directory>src/main/scripts</directory>
-											<filtering>true</filtering>
-											<includes>
-												<include>*.sh</include>
-											</includes>
-										</resource>
-									</resources>
-								</configuration>
-							</execution>
-							<execution>
-								<!-- Filters server own configuration -->
-								<id>filter-package-config</id>
-								<phase>process-resources</phase>
-								<goals>
-									<goal>copy-resources</goal>
-								</goals>
-								<configuration>
-									<outputDirectory>${unix.config.source}</outputDirectory>
-									<resources>
-										<resource>
-											<directory>src/main/config</directory>
-											<filtering>true</filtering>
-										</resource>
-									</resources>
-								</configuration>
-							</execution>
-							<execution>
-								<id>create-deb-conffiles</id>
-								<phase>prepare-package</phase>
-								<goals>
-									<goal>copy-resources</goal>
-								</goals>
-								<configuration>
-									<outputDirectory>${project.build.directory}/unix/root-deb/assembly/DEBIAN</outputDirectory>
-									<resources>
-										<resource>
-											<directory>src/main/unix/deb</directory>
-											<filtering>true</filtering>
-										</resource>
-									</resources>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<artifactId>unix-maven-plugin</artifactId>
-						<groupId>org.codehaus.mojo</groupId>
-						<configuration>
-							<assembly combine.children="append">
-								<mkdirs>
-									<paths>
-										<path>${unix.application.doc.dir}</path>
-										<path>${config.processors.lib.dir}</path>
-									</paths>
-									<attributes>
-										<mode>0775</mode>
-									</attributes>
-								</mkdirs>
-								<mkdirs>
-									<paths>
-										<path>${unix.application.log.dir}</path>
-										<path>${unix.application.var.dir}</path>
-										<path>${unix.application.var.dir}/repository</path>
-									</paths>
-									<attributes>
-										<user>${unix.user}</user>
-										<group>${unix.group}</group>
-										<mode>0775</mode>
-									</attributes>
-								</mkdirs>
-								<copyFile>
-									<path>${unix-scripts.dir}/${unix.application.start.script.src}</path>
-									<toFile>${unix.application.start.script}</toFile>
-									<attributes>
-										<mode>0775</mode>
-									</attributes>
-								</copyFile>
-								<copyFile>
-									<path>${project.build.directory}/${project.build.finalName}.war</path>
-									<toFile>${unix.application.lib.dir}/${unix.application.file}</toFile>
-									<attributes>
-										<mode>0644</mode>
-									</attributes>
-								</copyFile>
-								<copyFile>
-									<path>${jetty.filtered.dir}/jetty.xml</path>
-									<toFile>${jetty.config.file}</toFile>
-								</copyFile>
-								<copyFile>
-									<path>${jetty.filtered.dir}/jetty.conf</path>
-									<toFile>${jetty.startup.file}</toFile>
-								</copyFile>
-								<copyFile>
-									<path>${jetty.filtered.dir}/config-server-web.xml</path>
-									<toFile>${overriden.web.xml}</toFile>
-								</copyFile>
-								<copy-directory>
-									<from>${jetty.filtered.dir}/contexts</from>
-									<to>${jetty.contexts.dir}</to>
-								</copy-directory>
-								<copy-directory>
-									<from>${unix.config.source}</from>
-									<to>/etc/baxter</to>
-								</copy-directory>
-							</assembly>
-						</configuration>
-						<executions>
-							<execution>
-								<id>build-deb-installer</id>
-								<configuration>
-									<deb>
-										<depends>${debian.depends}</depends>
-										<preDepends>${debian.predepends}</preDepends>
-									</deb>
-									<assembly combine.children="append">
-										<!-- Service Init script, placed typically in /etc/init.d -->
-										<copyFile>
-											<path>${unix-svc.dir}/service-init-script-deb.sh</path>
-											<toFile>${unix.service.script}</toFile>
-											<attributes>
-												<mode>0755</mode>
-											</attributes>
-										</copyFile>
-									</assembly>
-								</configuration>
-							</execution>
-							<execution>
-								<id>build-rpm-installer</id>
-								<configuration>
-									<assembly combine.children="append">
-										<!-- Service Init script, placed typically in /etc/init.d -->
-										<copyFile>
-											<path>${unix-svc.dir}/service-init-script-rpm.sh</path>
-											<toFile>${unix.service.rh.script}</toFile>
-											<attributes>
-												<mode>0755</mode>
-											</attributes>
-										</copyFile>
-									</assembly>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-
-				</plugins>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<artifactId>maven-resources-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>filter-jetty</id>
+									<phase>process-resources</phase>
+									<goals>
+										<goal>copy-resources</goal>
+									</goals>
+									<configuration>
+										<outputDirectory>${jetty.filtered.dir}</outputDirectory>
+										<resources>
+											<resource>
+												<directory>src/main/jetty</directory>
+												<filtering>true</filtering>
+											</resource>
+										</resources>
+										<filters>
+											<filter>${basedir}/src/main/unix/filter/default.properties</filter>
+										</filters>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
 			</build>
 			<properties>
-				<unix-maven-plugin.scripts.dir>${basedir}/src/main/unix/scripts</unix-maven-plugin.scripts.dir>
-				<unix-maven-plugin.scripts.src.dir>${basedir}/src/main/scripts/unix-plugin</unix-maven-plugin.scripts.src.dir>
-				<unix.user>baxter</unix.user>
-				<unix.group>baxter</unix.group>
 				<unix.service.name>configuration-server</unix.service.name>
-				<unix.service.script>/etc/init.d/${unix.service.name}</unix.service.script>
-				<unix.service.rh.script>/etc/rc.d/init.d/${unix.service.name}</unix.service.rh.script>
-				<unix.config.source>${project.build.directory}/package-config</unix.config.source>
-				<unix-svc.dir>${project.build.directory}/scripts/unix-svc</unix-svc.dir>
-				<unix-scripts.dir>${project.build.directory}/scripts/unix-scripts</unix-scripts.dir>
 				<unix.application.doc.dir>/usr/share/doc/baxter/${unix.service.name}</unix.application.doc.dir>
 				<unix.application.log.dir>/var/log/baxter/${unix.service.name}</unix.application.log.dir>
 				<unix.application.var.dir>/var/local/baxter/${unix.service.name}</unix.application.var.dir>
-				<unix.application.file>${project.build.finalName}.war</unix.application.file>
-				<unix.application.start.script>/usr/bin/start-${unix.service.name}</unix.application.start.script>
-				<unix.application.start.script.src>start-jetty.sh</unix.application.start.script.src>
-				<unix.application.out>${unix.application.log.dir}/${unix.service.name}.out</unix.application.out>
-				<jetty.config.file>${unix.application.var.dir}/jetty-${project.artifactId}.xml</jetty.config.file>
-				<jetty.startup.file>${unix.application.var.dir}/jetty-${project.artifactId}.conf</jetty.startup.file>
-				<jetty.contexts.dir>${unix.application.var.dir}/jetty-contexts</jetty.contexts.dir>
-				<overriden.web.xml>${unix.application.var.dir}/config-server-web.xml</overriden.web.xml>
-				<debian.dep.jre>openjdk-7-jre</debian.dep.jre>
-				<debian.dep.lsb-base>lsb-base(&gt;= 3.2-13)</debian.dep.lsb-base>
-				<debian.dep.jetty>jetty</debian.dep.jetty>
-				<debian.depends>${debian.dep.jre},${debian.dep.lsb-base},${debian.dep.jetty}</debian.depends>
-				<debian.predepends>sed</debian.predepends>
+				<unix.application.jetty.dir>${unix.application.var.dir}/jetty</unix.application.jetty.dir>
+				<unix.application.start.script>start-${unix.service.name}</unix.application.start.script>
+				<jetty.filtered.dir>${project.build.directory}/jetty/default</jetty.filtered.dir>
 			</properties>
 		</profile>
 
 		<profile>
-			<id>SAN</id>
-			<!-- Never liked their idea to create such an RPM. But it is required 
-				for now. -->
-			<!-- This profile fails on clouds jenkins. Has to be executed on a git 
-				tag. -->
+			<id>DEB</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
 			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<artifactId>maven-resources-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>filter-deb-spec-files</id>
+									<configuration>
+										<filters>
+											<filter>${basedir}/src/main/unix/filter/default.properties</filter>
+										</filters>
+									</configuration>
+								</execution>
+								<execution>
+									<id>filter-deb-script-files</id>
+									<configuration>
+										<filters>
+											<filter>${basedir}/src/main/unix/filter/default.properties</filter>
+										</filters>
+									</configuration>
+								</execution>
+								<execution>
+									<id>filter-deb-control-files</id>
+									<configuration>
+										<filters>
+											<filter>${basedir}/src/main/unix/filter/default.properties</filter>
+										</filters>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+						<plugin>
+							<artifactId>unix-maven-plugin</artifactId>
+							<groupId>org.codehaus.mojo</groupId>
+							<executions>
+								<execution>
+									<id>build-deb-installer</id>
+									<configuration>
+										<deb>
+											<depends>openjdk-7-jre,lsb-base(&gt;= 3.2-13),jetty</depends>
+											<preDepends>sed</preDepends>
+										</deb>
+										<assembly combine.children="append">
+											<mkdirs>
+												<paths>
+													<path>${config.processors.lib.dir}</path>
+													<path>${unix.application.doc.dir}</path>
+													<path>${unix.application.log.dir}</path>
+													<path>${unix.application.var.dir}/repository</path>
+												</paths>
+											</mkdirs>
+											<copyFile>
+												<path>${deb.scripts.dir}/start-jetty.sh</path>
+												<toFile>${unix.application.bin.dir}/${unix.application.start.script}</toFile>
+												<attributes>
+												<user>${unix.user}</user>
+												<group>${unix.group}</group>
+													<mode>0775</mode>
+												</attributes>
+											</copyFile>
+											<!-- Service Init script, placed typically in /etc/init.d -->
+											<copyFile>
+												<path>${deb.scripts.dir}/service-init-script.sh</path>
+												<toFile>/etc/init.d/${unix.service.name}</toFile>
+												<attributes>
+													<mode>0775</mode>
+												</attributes>
+											</copyFile>
+											<copyFile>
+												<path>${project.build.directory}/${project.build.finalName}.war</path>
+												<toDir>${unix.application.lib.dir}</toDir>
+											</copyFile>
+											<copy-directory>
+												<from>${jetty.filtered.dir}</from>
+												<to>${unix.application.jetty.dir}</to>
+											</copy-directory>
+											<copyFile>
+												<path>src/main/config/configuration-server</path>
+												<toDir>${unix.config.dir}</toDir>
+											</copyFile>
+										</assembly>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
 				<plugins>
 					<plugin>
-						<!-- TODO Shall completely move to this plugin for RPM builds. -->
+						<artifactId>unix-maven-plugin</artifactId>
 						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>rpm-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>build-rpm-for-san</id>
-								<phase>package</phase>
-								<goals>
-									<goal>attached-rpm</goal>
-								</goals>
-								<configuration>
-									<group>${unix.application.group.name}</group>
-									<classifier>san</classifier>
-									<defaultUsername>${unix.user}</defaultUsername>
-									<defaultGroupname>${unix.group}</defaultGroupname>
-									<needarch>false</needarch>
-									<mappings>
-										<mapping>
-											<directory>${san.dest.root}</directory>
-											<artifact>
-												<classifiers>
-													<classifier />
-												</classifiers>
-											</artifact>
-											<username>${unix.user}</username>
-											<groupname>${unix.group}</groupname>
-										</mapping>
-										<mapping>
-											<directory>${san.dest.root}</directory>
-											<filemode>755</filemode>
-											<sources>
-												<source>
-													<location>src/main/scripts/start-jetty-san.sh</location>
-													<destination>start-config-server</destination>
-													<filter>true</filter>
-												</source>
-											</sources>
-											<username>${unix.user}</username>
-											<groupname>${unix.group}</groupname>
-										</mapping>
-										<mapping>
-											<directory>${san.dest.root}/etc</directory>
-											<configuration>noreplace</configuration>
-											<sources>
-												<source>
-													<location>src/main/config/configuration-server</location>
-													<filter>true</filter>
-												</source>
-												<source>
-													<location>src/main/jetty/config-server-web-san.xml</location>
-													<destination>config-server-web.xml</destination>
-													<filter>true</filter>
-												</source>
-											</sources>
-											<username>${unix.user}</username>
-											<groupname>${unix.group}</groupname>
-										</mapping>
-										<mapping>
-											<directory>${san.dest.root}/etc/jetty</directory>
-											<configuration />
-											<sources>
-												<source>
-													<location>src/main/jetty/san</location>
-													<filter>true</filter>
-												</source>
-											</sources>
-											<username>${unix.user}</username>
-											<groupname>${unix.group}</groupname>
-										</mapping>
-										<mapping>
-											<directory>${san.dest.root}/repository</directory>
-											<username>${unix.user}</username>
-											<groupname>${unix.group}</groupname>
-										</mapping>
-										<mapping>
-											<directory>${san.dest.root}/log</directory>
-											<username>${unix.user}</username>
-											<groupname>${unix.group}</groupname>
-										</mapping>
-										<mapping>
-											<directory>${san.dest.root}/processors</directory>
-											<username>${unix.user}</username>
-											<groupname>${unix.group}</groupname>
-										</mapping>
-									</mappings>
-									<preinstallScriptlet>
-										<scriptFile>${unix-maven-plugin.scripts.dir}/pre-install-config-server-rpm</scriptFile>
-										<fileEncoding>utf-8</fileEncoding>
-									</preinstallScriptlet>
-								</configuration>
-							</execution>
-						</executions>
 					</plugin>
 				</plugins>
 			</build>
-			<properties>
-				<san.dest.root>/opt/baxter/config-server</san.dest.root>
-			</properties>
+		</profile>
+
+		<profile>
+			<id>RPM</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>rpm-maven-plugin</artifactId>
+							<configuration>
+								<requires>
+									<require>java &gt;= 1.6.0</require>
+									<require>jetty6</require>
+								</requires>
+							</configuration>
+							<executions>
+								<execution>
+									<id>build-rpm-installer</id>
+									<configuration>
+										<classifier>std</classifier>
+										<filters>
+											<filter>${basedir}/src/main/unix/filter/default.properties</filter>
+										</filters>
+										<mappings>
+											<mapping>
+												<directory>${unix.config.dir}</directory>
+												<configuration>noreplace</configuration>
+												<sources>
+													<source>
+														<location>src/main/config/configuration-server</location>
+														<filter>false</filter>
+													</source>
+												</sources>
+											</mapping>
+											<mapping>
+												<directory>${unix.application.bin.dir}</directory>
+												<filemode>755</filemode>
+												<sources>
+													<source>
+														<location>src/main/scripts/start-jetty.sh</location>
+														<destination>${unix.application.start.script}</destination>
+														<filter>true</filter>
+													</source>
+												</sources>
+											</mapping>
+											<mapping>
+												<directory>${config.processors.lib.dir}</directory>
+											</mapping>
+											<mapping>
+												<directory>${unix.application.doc.dir}</directory>
+											</mapping>
+											<mapping>
+												<directory>${unix.application.log.dir}</directory>
+											</mapping>
+											<mapping>
+												<configuration>noreplace</configuration>
+												<directory>${unix.application.var.dir}/repository</directory>
+											</mapping>
+											<mapping>
+												<directory>${unix.application.lib.dir}</directory>
+												<artifact>
+													<classifiers>
+														<classifier />
+													</classifiers>
+												</artifact>
+											</mapping>
+											<mapping>
+												<directory>${unix.application.jetty.dir}</directory>
+												<sources>
+													<source>
+														<location>${jetty.filtered.dir}</location>
+														<filter>true</filter>
+													</source>
+												</sources>
+											</mapping>
+										</mappings>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>rpm-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>SAN</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>rpm-maven-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>build-rpm-installer-san</id>
+									<phase>package</phase>
+									<goals>
+										<goal>attached-rpm</goal>
+									</goals>
+									<configuration>
+										<classifier>san</classifier>
+										<filters>
+											<filter>${basedir}/src/main/unix/filter/rpm-san.properties</filter>
+										</filters>
+										<mappings>
+											<mapping>
+												<directory>${san.root}/etc</directory>
+												<configuration>noreplace</configuration>
+												<sources>
+													<source>
+														<location>src/main/config/configuration-server</location>
+														<filter>false</filter>
+													</source>
+												</sources>
+											</mapping>
+											<mapping>
+												<directory>${san.root}/bin</directory>
+												<filemode>755</filemode>
+												<sources>
+													<source>
+														<location>src/main/scripts/start-jetty.sh</location>
+														<destination>${unix.application.start.script}</destination>
+														<filter>true</filter>
+													</source>
+												</sources>
+											</mapping>
+											<mapping>
+												<directory>${san.config.processors.lib.dir}</directory>
+											</mapping>
+											<mapping>
+												<directory>${san.root}/doc</directory>
+											</mapping>
+											<mapping>
+												<directory>${san.root}/log</directory>
+											</mapping>
+											<mapping>
+												<configuration>noreplace</configuration>
+												<directory>${san.config-server.root}/repository</directory>
+											</mapping>
+											<mapping>
+												<directory>${san.root}/lib</directory>
+												<artifact>
+													<classifiers>
+														<classifier />
+													</classifiers>
+												</artifact>
+											</mapping>
+											<mapping>
+												<directory>${san.config-server.root}/jetty</directory>
+												<sources>
+													<source>
+														<location>${basedir}/src/main/jetty</location>
+														<filter>true</filter>
+													</source>
+												</sources>
+											</mapping>
+										</mappings>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
 		</profile>
 
 		<profile>
@@ -465,7 +407,6 @@
 	</dependencies>
 
 	<properties>
-		<jetty.filtered.dir>${project.build.directory}/jetty-filtered</jetty.filtered.dir>
 		<jira.component>${project.artifactId}</jira.component>
 	</properties>
 

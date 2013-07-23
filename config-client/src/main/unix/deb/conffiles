@@ -1,1 +1,1 @@
-/etc/baxter/config
+${unix.config}

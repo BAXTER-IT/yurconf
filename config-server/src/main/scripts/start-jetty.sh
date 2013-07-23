@@ -17,7 +17,7 @@ else
 fi
 
 # Configuration file that keeps server binding info
-CONFIG_FILE="/etc/baxter/configuration-server"
+CONFIG_FILE="${f.unix.config}"
 
 # Listening host
 JETTY_HOST="$(cat $CONFIG_FILE | grep "host=" |  cut -d= -f2)"
@@ -45,13 +45,13 @@ if [ "x" == "x$JETTY_JAR" ]; then
 	exit 1
 fi
 
-JAVA_OPTS="$JAVA_OPTS -DSTART=${jetty.startup.file}"
-PROGRAM="/usr/bin/java $JAVA_OPTS -jar $JETTY_JAR ${jetty.config.file}"
+JAVA_OPTS="$JAVA_OPTS -DSTART=${f.jetty.startup.file}"
+PROGRAM="java $JAVA_OPTS -jar $JETTY_JAR ${f.jetty.config.file}"
 
 # Run in terminal or as a daemon?
 if $RUNASDAEMON ; then
     # The output of stderr and stdout will be stored in this file
-    exec $PROGRAM > ${unix.application.out} 2>&1
+    exec $PROGRAM > ${f.out.file} 2>&1
 else
     $PROGRAM
 fi

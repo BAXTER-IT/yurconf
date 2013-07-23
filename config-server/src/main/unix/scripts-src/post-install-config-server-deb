@@ -4,8 +4,8 @@
 # TODO
 #
 echo "WARN: Changing the attributes for files and dirs"
-chmod +x ${unix.service.script}
-chmod +x ${unix.application.start.script}
+chmod 755 ${unix.application.bin.dir}/${unix.application.start.script}
+chmod 755 /etc/init.d/${unix.service.name}
 chown -R ${unix.user}:${unix.group} ${unix.application.log.dir}
 chown -R ${unix.user}:${unix.group} ${unix.application.var.dir}
 

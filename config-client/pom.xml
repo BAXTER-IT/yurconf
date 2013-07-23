@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -11,6 +12,11 @@
 	<artifactId>config-client</artifactId>
 
 	<name>Baxter Configuration Client</name>
+	<description>
+		Baxter Configuration Client. Contains the resources 
+		needed by applications to read remote configuration 
+		from a Baxter Configuration Server. 
+	</description>
 
 	<build>
 
@@ -59,48 +65,6 @@
 							</execution>
 						</executions>
 					</plugin>
-					<plugin>
-						<artifactId>maven-resources-plugin</artifactId>
-						<executions>
-							<execution>
-								<!-- TODO This execution can be moved to parent pom -->
-								<id>create-deb-conffiles</id>
-								<phase>prepare-package</phase>
-								<goals>
-									<goal>copy-resources</goal>
-								</goals>
-								<configuration>
-									<outputDirectory>${project.build.directory}/unix/root-deb/assembly/DEBIAN</outputDirectory>
-									<resources>
-										<resource>
-											<directory>src/main/unix/deb</directory>
-											<filtering>true</filtering>
-										</resource>
-									</resources>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>unix-maven-plugin</artifactId>
-						<configuration>
-							<assembly combine.children="append">
-								<copyFile>
-									<path>src/main/config/client-config</path>
-									<toFile>/etc/baxter/config</toFile>
-								</copyFile>
-								<copyFile>
-									<path>${project.build.directory}/${project.build.finalName}.jar</path>
-									<toDir>${unix.application.lib.dir}</toDir>
-								</copyFile>
-								<copy-directory>
-									<from>${component.dependencies.dir}</from>
-									<to>${unix.application.lib.dir}</to>
-								</copy-directory>
-							</assembly>
-						</configuration>
-					</plugin>
 				</plugins>
 			</build>
 			<properties>
@@ -109,7 +73,242 @@
 		</profile>
 
 		<profile>
+			<id>DEB</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<artifactId>maven-resources-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>filter-deb-spec-files</id>
+									<configuration>
+										<filters>
+											<filter>${basedir}/src/main/unix/filter/default.properties</filter>
+										</filters>
+									</configuration>
+								</execution>
+								<execution>
+									<id>filter-deb-script-files</id>
+									<configuration>
+										<filters>
+											<filter>${basedir}/src/main/unix/filter/default.properties</filter>
+										</filters>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>unix-maven-plugin</artifactId>
+							<configuration>
+								<assembly combine.children="append">
+									<copyFile>
+										<path>src/main/config/client-config</path>
+										<toFile>${unix.config}</toFile>
+									</copyFile>
+									<copyFile>
+										<path>${project.build.directory}/${project.build.finalName}.jar</path>
+										<toDir>${unix.application.lib.dir}</toDir>
+									</copyFile>
+									<symlink>
+										<value>${unix.application.lib.dir}/${project.build.finalName}.jar</value>
+										<path>${unix.application.lib.dir}/${project.artifactId}.jar</path>
+									</symlink>
+									<copy-directory>
+										<from>${component.dependencies.dir}</from>
+										<to>${unix.application.lib.dir}</to>
+									</copy-directory>
+									<copy-directory>
+										<from>${deb.scripts.dir}</from>
+										<to>${unix.application.bin.dir}</to>
+										<fileAttributes>
+											<mode>755</mode>
+										</fileAttributes>
+										<includes>
+											<include>*.sh</include>
+										</includes>
+									</copy-directory>
+								</assembly>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>unix-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>RPM</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>rpm-maven-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>build-rpm-installer</id>
+									<configuration>
+										<classifier>std</classifier>
+										<filters>
+											<filter>${basedir}/src/main/unix/filter/default.properties</filter>
+										</filters>
+										<mappings>
+											<mapping>
+												<directory>${unix.config.dir}</directory>
+												<configuration>noreplace</configuration>
+												<sources>
+													<source>
+														<location>src/main/config/client-config</location>
+														<destination>config</destination>
+														<filter>false</filter>
+													</source>
+												</sources>
+											</mapping>
+											<mapping>
+												<directory>${unix.application.bin.dir}</directory>
+												<filemode>755</filemode>
+												<sources>
+													<source>
+														<location>src/main/scripts</location>
+														<includes>
+															<include>*.sh</include>
+														</includes>
+														<filter>true</filter>
+													</source>
+												</sources>
+											</mapping>
+											<mapping>
+												<directory>${unix.application.lib.dir}</directory>
+												<artifact>
+													<classifiers>
+														<classifier />
+													</classifiers>
+												</artifact>
+												<sources>
+													<source>
+														<location>${component.dependencies.dir}</location>
+													</source>
+													<softlinkSource>
+														<location>${unix.application.lib.dir}/${project.build.finalName}.jar</location>
+														<destination>${project.artifactId}.jar</destination>
+													</softlinkSource>
+												</sources>
+											</mapping>
+										</mappings>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>rpm-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>SAN</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>rpm-maven-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>build-rpm-installer-san</id>
+									<phase>package</phase>
+									<goals>
+										<goal>attached-rpm</goal>
+									</goals>
+									<configuration>
+										<classifier>san</classifier>
+										<filters>
+											<filter>${basedir}/src/main/unix/filter/rpm-san.properties</filter>
+										</filters>
+										<mappings>
+											<mapping>
+												<directory>${san.root}/etc</directory>
+												<configuration>noreplace</configuration>
+												<sources>
+													<source>
+														<location>src/main/config/client-config</location>
+														<destination>config</destination>
+														<filter>false</filter>
+													</source>
+												</sources>
+											</mapping>
+											<mapping>
+												<directory>${san.root}/bin</directory>
+												<filemode>755</filemode>
+												<sources>
+													<source>
+														<location>src/main/scripts</location>
+														<includes>
+															<include>*.sh</include>
+														</includes>
+														<filter>true</filter>
+													</source>
+												</sources>
+											</mapping>
+											<mapping>
+												<directory>${san.root}/lib</directory>
+												<artifact>
+													<classifiers>
+														<classifier />
+													</classifiers>
+												</artifact>
+												<sources>
+													<source>
+														<location>${component.dependencies.dir}</location>
+													</source>
+													<softlinkSource>
+														<location>${san.root}/lib/${project.build.finalName}.jar</location>
+														<destination>${project.artifactId}.jar</destination>
+													</softlinkSource>
+												</sources>
+											</mapping>
+										</mappings>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+
+		<profile>
 			<id>APT</id>
+			<!-- This profile is used for development purposes only. When deploying 
+				the artifact, this profile will push DEB file to remote directory for later 
+				adding ot to APT repository. -->
 			<build>
 				<plugins>
 					<plugin>

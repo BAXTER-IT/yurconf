@@ -8,7 +8,7 @@
     <!-- Add or override context init parameter -->
     <context-param>
         <param-name>com.baxter.config.Repository</param-name>
-        <param-value>${unix.application.var.dir}/repository</param-value>
+        <param-value>${f.repository}</param-value>
     </context-param>
 
 </web-app>

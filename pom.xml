@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -60,6 +61,12 @@
 						<source>1.6</source>
 						<target>1.6</target>
 					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>rpm-maven-plugin</artifactId>
+					<version>2.1-alpha-3</version>
+					<extensions>true</extensions>
 				</plugin>
 				<plugin>
 					<artifactId>maven-site-plugin</artifactId>
@@ -280,24 +287,120 @@
 					<family>unix</family>
 				</os>
 			</activation>
+			<properties>
+				<unix.application.group.name>Config</unix.application.group.name>
+				<unix.config.dir>/etc/baxter</unix.config.dir>
+				<unix.config>${unix.config.dir}/config</unix.config>
+				<unix.user>baxter</unix.user>
+				<unix.group>baxter</unix.group>
+				<unix.application.lib.dir>/usr/share/java</unix.application.lib.dir>
+				<unix.application.bin.dir>/usr/bin</unix.application.bin.dir>
+				<config.processors.lib.dir>/usr/share/configuration-processors</config.processors.lib.dir>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>DEB</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
 			<build>
 				<pluginManagement>
 					<plugins>
+						<plugin>
+							<artifactId>maven-clean-plugin</artifactId>
+							<configuration>
+								<filesets>
+									<fileset>
+										<directory>${unix-maven-plugin.scripts.dir}</directory>
+										<includes>
+											<include>*</include>
+										</includes>
+										<followSymlinks>false</followSymlinks>
+									</fileset>
+								</filesets>
+							</configuration>
+						</plugin>
+						<plugin>
+							<artifactId>maven-resources-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>filter-deb-spec-files</id>
+									<phase>prepare-package</phase>
+									<goals>
+										<goal>copy-resources</goal>
+									</goals>
+									<configuration>
+										<outputDirectory>${project.build.directory}/unix/root-deb/assembly/DEBIAN</outputDirectory>
+										<resources>
+											<resource>
+												<directory>src/main/unix/deb</directory>
+												<filtering>true</filtering>
+											</resource>
+										</resources>
+									</configuration>
+								</execution>
+								<execution>
+									<!-- Filters the package control scripts -->
+									<id>filter-deb-control-files</id>
+									<phase>prepare-package</phase>
+									<goals>
+										<goal>copy-resources</goal>
+									</goals>
+									<configuration>
+										<outputDirectory>${unix-maven-plugin.scripts.dir}</outputDirectory>
+										<resources>
+											<resource>
+												<directory>${unix-maven-plugin.scripts.src.dir}</directory>
+												<filtering>true</filtering>
+											</resource>
+										</resources>
+									</configuration>
+								</execution>
+								<execution>
+									<id>filter-deb-script-files</id>
+									<phase>prepare-package</phase>
+									<goals>
+										<goal>copy-resources</goal>
+									</goals>
+									<configuration>
+										<outputDirectory>${deb.scripts.dir}</outputDirectory>
+										<resources>
+											<resource>
+												<directory>src/main/scripts</directory>
+												<filtering>true</filtering>
+											</resource>
+										</resources>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
 						<plugin>
 							<artifactId>unix-maven-plugin</artifactId>
 							<groupId>org.codehaus.mojo</groupId>
 							<configuration>
 								<debug>true</debug>
 								<contact>${project.organization.name}</contact>
-								<contactEmail>info@baxter-it.com</contactEmail>
+								<contactEmail>info.config@baxter-it.com</contactEmail>
 								<description>${project.description}</description>
 								<deb>
 									<priority>optional</priority>
 									<section>${unix.application.group.name}</section>
 								</deb>
-								<rpm>
-									<group>${unix.application.group.name}</group>
-								</rpm>
+								<defaults>
+									<fileAttributes>
+										<user>${unix.user}</user>
+										<group>${unix.group}</group>
+										<mode>644</mode>
+									</fileAttributes>
+									<directoryAttributes>
+										<user>${unix.user}</user>
+										<group>${unix.group}</group>
+										<mode>755</mode>
+									</directoryAttributes>
+								</defaults>
 							</configuration>
 							<executions>
 								<execution>
@@ -309,24 +412,65 @@
 									<configuration>
 									</configuration>
 								</execution>
-								<execution>
-									<id>build-rpm-installer</id>
-									<phase>package</phase>
-									<goals>
-										<goal>package-rpm-attached</goal>
-									</goals>
-									<configuration>
-									</configuration>
-								</execution>
 							</executions>
 						</plugin>
 					</plugins>
 				</pluginManagement>
 			</build>
 			<properties>
-				<unix.application.group.name>Config</unix.application.group.name>
-				<unix.application.lib.dir>/usr/share/java</unix.application.lib.dir>
-				<config.processors.lib.dir>/usr/share/configuration-processors</config.processors.lib.dir>
+				<deb.scripts.dir>${project.build.directory}/scripts/deb-filtered</deb.scripts.dir>
+				<unix-maven-plugin.scripts.src.dir>${basedir}/src/main/unix/scripts-src</unix-maven-plugin.scripts.src.dir>
+				<unix-maven-plugin.scripts.dir>${basedir}/src/main/unix/scripts</unix-maven-plugin.scripts.dir>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>RPM</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>rpm-maven-plugin</artifactId>
+							<configuration>
+								<group>${unix.application.group.name}</group>
+								<defaultUsername>${unix.user}</defaultUsername>
+								<defaultGroupname>${unix.group}</defaultGroupname>
+								<defaultFilemode>644</defaultFilemode>
+								<defaultDirmode>755</defaultDirmode>
+								<needarch>false</needarch>
+							</configuration>
+							<executions>
+								<execution>
+									<id>build-rpm-installer</id>
+									<phase>package</phase>
+									<goals>
+										<goal>attached-rpm</goal>
+									</goals>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+
+		<profile>
+			<id>SAN</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<properties>
+				<san.root>/opt/baxter</san.root>
+				<san.config-server.root>${san.root}/config-server</san.config-server.root>
+				<san.config.processors.lib.dir>${san.config-server.root}/processors</san.config.processors.lib.dir>
 			</properties>
 		</profile>
 
@@ -334,7 +478,7 @@
 
 	<properties>
 		<jira.onlyCurrentVersion>false</jira.onlyCurrentVersion>
-		<jira.fixVersionIds>10406,10493,10503,11390</jira.fixVersionIds>
+		<jira.fixVersionIds>10406,10493,10503,11390,11696</jira.fixVersionIds>
 		<jira.sortColumnNames>Fix Version DESC</jira.sortColumnNames>
 		<!-- SITE PROPERTIES. We can reference these properties from the site sources -->
 		<releaseVersion>${project.version}</releaseVersion>

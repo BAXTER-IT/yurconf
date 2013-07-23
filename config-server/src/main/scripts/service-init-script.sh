@@ -55,7 +55,7 @@ doStart()
     # Daemon will be started with this user
     MARKER_FOUND=false
     if start-stop-daemon --test --start --quiet --chuid $DAEMONUSER --make-pidfile --pidfile $PIDFILE --background --exec $DAEMON > /dev/null; then
-        OUTFILE="${unix.application.out}"
+        OUTFILE="${f.out.file}"
         rm -f $OUTFILE
         ARGS="--daemon"
         if start-stop-daemon --start --quiet --chuid $DAEMONUSER --make-pidfile --pidfile $PIDFILE --background --exec $DAEMON -- $ARGS ; then
