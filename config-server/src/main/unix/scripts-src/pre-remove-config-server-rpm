@@ -1,7 +1,0 @@
-
-#
-# After we removed the package we do not need the service anymore
-#
-echo "Unregistering ${unix.service.name} service..."
-chkconfig --del ${unix.service.name}
-    

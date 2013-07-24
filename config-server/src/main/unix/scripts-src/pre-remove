@@ -5,3 +5,9 @@
 #
 echo "Stopping ${unix.service.name} service(s)..."
 service ${unix.service.name} stop
+
+#
+# When we remove the package we do not need the service anymore
+#
+echo "Unregistering ${unix.service.name} service..."
+update-rc.d -f ${unix.service.name} remove

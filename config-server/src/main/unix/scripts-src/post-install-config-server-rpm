@@ -1,3 +1,0 @@
-
-echo "Registering ${unix.service.name} service..."
-chkconfig --add ${unix.service.name}

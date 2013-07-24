@@ -61,6 +61,14 @@
 										</filters>
 									</configuration>
 								</execution>
+								<execution>
+									<id>filter-control-files</id>
+									<configuration>
+										<filters>
+											<filter>${basedir}/src/main/unix/filter/default.properties</filter>
+										</filters>
+									</configuration>
+								</execution>
 							</executions>
 						</plugin>
 					</plugins>
@@ -106,14 +114,6 @@
 										</filters>
 									</configuration>
 								</execution>
-								<execution>
-									<id>filter-deb-control-files</id>
-									<configuration>
-										<filters>
-											<filter>${basedir}/src/main/unix/filter/default.properties</filter>
-										</filters>
-									</configuration>
-								</execution>
 							</executions>
 						</plugin>
 						<plugin>
@@ -140,8 +140,8 @@
 												<path>${deb.scripts.dir}/start-jetty.sh</path>
 												<toFile>${unix.application.bin.dir}/${unix.application.start.script}</toFile>
 												<attributes>
-												<user>${unix.user}</user>
-												<group>${unix.group}</group>
+													<user>${unix.user}</user>
+													<group>${unix.group}</group>
 													<mode>0775</mode>
 												</attributes>
 											</copyFile>
@@ -199,6 +199,9 @@
 									<require>java &gt;= 1.6.0</require>
 									<require>jetty6</require>
 								</requires>
+								<preinstallScriptlet>
+									<scriptFile>src/main/unix/scripts/rpm-pre-install</scriptFile>
+								</preinstallScriptlet>
 							</configuration>
 							<executions>
 								<execution>

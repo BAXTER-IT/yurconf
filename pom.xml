@@ -287,6 +287,34 @@
 					<family>unix</family>
 				</os>
 			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<artifactId>maven-resources-plugin</artifactId>
+							<executions>
+								<execution>
+									<!-- Filters the package control scripts -->
+									<id>filter-control-files</id>
+									<phase>prepare-package</phase>
+									<goals>
+										<goal>copy-resources</goal>
+									</goals>
+									<configuration>
+										<outputDirectory>${unix-maven-plugin.scripts.dir}</outputDirectory>
+										<resources>
+											<resource>
+												<directory>${unix-maven-plugin.scripts.src.dir}</directory>
+												<filtering>true</filtering>
+											</resource>
+										</resources>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
 			<properties>
 				<unix.application.group.name>Config</unix.application.group.name>
 				<unix.config.dir>/etc/baxter</unix.config.dir>
@@ -337,23 +365,6 @@
 										<resources>
 											<resource>
 												<directory>src/main/unix/deb</directory>
-												<filtering>true</filtering>
-											</resource>
-										</resources>
-									</configuration>
-								</execution>
-								<execution>
-									<!-- Filters the package control scripts -->
-									<id>filter-deb-control-files</id>
-									<phase>prepare-package</phase>
-									<goals>
-										<goal>copy-resources</goal>
-									</goals>
-									<configuration>
-										<outputDirectory>${unix-maven-plugin.scripts.dir}</outputDirectory>
-										<resources>
-											<resource>
-												<directory>${unix-maven-plugin.scripts.src.dir}</directory>
 												<filtering>true</filtering>
 											</resource>
 										</resources>
