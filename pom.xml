@@ -323,6 +323,8 @@
 				<unix.application.lib.dir>/usr/share/java</unix.application.lib.dir>
 				<unix.application.bin.dir>/usr/bin</unix.application.bin.dir>
 				<config.processors.lib.dir>/usr/share/configuration-processors</config.processors.lib.dir>
+				<unix-maven-plugin.scripts.src.dir>${basedir}/src/main/unix/scripts-src</unix-maven-plugin.scripts.src.dir>
+				<unix-maven-plugin.scripts.dir>${basedir}/src/main/unix/scripts</unix-maven-plugin.scripts.dir>
 			</properties>
 		</profile>
 
@@ -429,8 +431,6 @@
 			</build>
 			<properties>
 				<deb.scripts.dir>${project.build.directory}/scripts/deb-filtered</deb.scripts.dir>
-				<unix-maven-plugin.scripts.src.dir>${basedir}/src/main/unix/scripts-src</unix-maven-plugin.scripts.src.dir>
-				<unix-maven-plugin.scripts.dir>${basedir}/src/main/unix/scripts</unix-maven-plugin.scripts.dir>
 			</properties>
 		</profile>
 
