@@ -477,6 +477,25 @@
 					<family>unix</family>
 				</os>
 			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>rpm-maven-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>build-rpm-installer-san</id>
+									<phase>package</phase>
+									<goals>
+										<goal>attached-rpm</goal>
+									</goals>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
 			<properties>
 				<san.root>/opt/baxter</san.root>
 				<san.config-server.root>${san.root}/config-server</san.config-server.root>
