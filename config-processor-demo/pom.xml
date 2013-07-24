@@ -133,11 +133,6 @@
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
 							<artifactId>rpm-maven-plugin</artifactId>
-							<configuration>
-								<requires>
-									<require>config-server</require>
-								</requires>
-							</configuration>
 							<executions>
 								<execution>
 									<id>build-rpm-installer-san</id>
