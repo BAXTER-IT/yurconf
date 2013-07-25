@@ -164,7 +164,6 @@
 								<execution>
 									<id>build-rpm-installer</id>
 									<configuration>
-										<classifier>std</classifier>
 										<filters>
 											<filter>${basedir}/src/main/unix/filter/default.properties</filter>
 										</filters>
@@ -242,12 +241,7 @@
 							<executions>
 								<execution>
 									<id>build-rpm-installer-san</id>
-									<phase>package</phase>
-									<goals>
-										<goal>attached-rpm</goal>
-									</goals>
 									<configuration>
-										<classifier>san</classifier>
 										<filters>
 											<filter>${basedir}/src/main/unix/filter/rpm-san.properties</filter>
 										</filters>
