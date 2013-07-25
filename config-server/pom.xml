@@ -118,7 +118,7 @@
 						</plugin>
 						<plugin>
 							<artifactId>unix-maven-plugin</artifactId>
-							<groupId>org.codehaus.mojo</groupId>
+							<groupId>no.arktekk.unix</groupId>
 							<executions>
 								<execution>
 									<id>build-deb-installer</id>
@@ -175,7 +175,7 @@
 				<plugins>
 					<plugin>
 						<artifactId>unix-maven-plugin</artifactId>
-						<groupId>org.codehaus.mojo</groupId>
+						<groupId>no.arktekk.unix</groupId>
 					</plugin>
 				</plugins>
 			</build>
