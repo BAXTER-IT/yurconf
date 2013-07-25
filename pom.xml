@@ -51,6 +51,11 @@
 
 		<pluginManagement>
 			<plugins>
+				<dependency>
+					<groupId>no.arktekk.unix</groupId>
+					<artifactId>unix-maven-plugin</artifactId>
+					<version>1.0-alpha-6</version>
+				</dependency>
 				<plugin>
 					<groupId>no.arktekk.unix</groupId>
 					<artifactId>unix-maven-plugin</artifactId>
