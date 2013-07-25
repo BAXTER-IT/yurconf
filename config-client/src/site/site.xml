@@ -8,7 +8,6 @@
 
     <menu name="Configuration Client" inherit="top" inheritAsRef="true">
       <item name="Summary" href="index.html"/>
-      <item name="FAQs" href="faq.html"/>
     </menu>
 
   </body>
