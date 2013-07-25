@@ -51,6 +51,11 @@
 
 		<pluginManagement>
 			<plugins>
+				<dependency>
+					<groupId>no.arktekk.unix</groupId>
+					<artifactId>unix-maven-plugin</artifactId>
+					<version>1.0-alpha-6</version>
+				</dependency>
 				<plugin>
 					<artifactId>maven-clean-plugin</artifactId>
 					<version>2.5</version>
@@ -392,7 +397,7 @@
 						</plugin>
 						<plugin>
 							<artifactId>unix-maven-plugin</artifactId>
-							<groupId>org.codehaus.mojo</groupId>
+							<groupId>no.arktekk.unix</groupId>
 							<configuration>
 								<debug>true</debug>
 								<contact>${project.organization.name}</contact>
