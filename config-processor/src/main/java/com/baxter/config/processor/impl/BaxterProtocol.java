@@ -31,7 +31,7 @@ enum BaxterProtocol
    */
   XSL
   {
-	private final String prefix = "baxterxsl:";
+	private static final String prefix = "baxterxsl:";
 
 	@Override
 	Source getSource(final String href, final AbstractXSLTProcessor processor)
@@ -40,18 +40,17 @@ enum BaxterProtocol
 	  final String xslResourcePath = "/META-INF/config/xsl/" + xslPath;
 	  LOGGER.trace("XSL resource path: {}", xslResourcePath);
 	  final InputStream xslStream = getClass().getResourceAsStream(xslResourcePath);
-	  final Source xslSource = new StreamSource(xslStream, href);
-	  return xslSource;
+	  return new StreamSource(xslStream, href);
 	}
 
 	@Override
-	Result getResult(String href, AbstractXSLTProcessor processor) throws TransformerException
+	Result getResult(final String href, final AbstractXSLTProcessor processor) throws TransformerException
 	{
 	  throw new UnsupportedOperationException("Result not supported");
 	}
 
 	@Override
-	boolean supports(String href)
+	boolean supports(final String href)
 	{
 	  return href.startsWith(prefix);
 	}
@@ -62,7 +61,7 @@ enum BaxterProtocol
    */
   REPO
   {
-	private final String prefix = "baxterrepo:";
+	private final static String prefix = "baxterrepo:";
 
 	@Override
 	Source getSource(final String href, final AbstractXSLTProcessor processor) throws TransformerException
@@ -148,7 +147,7 @@ enum BaxterProtocol
    */
   static BaxterProtocol protocolFor(final String href)
   {
-	for (BaxterProtocol protocol : values())
+	for (final BaxterProtocol protocol : values())
 	{
 	  if (protocol.supports(href))
 	  {

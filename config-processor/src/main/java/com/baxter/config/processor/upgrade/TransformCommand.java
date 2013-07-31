@@ -33,7 +33,7 @@ import com.baxter.config.processor.impl.XSLTProcessor;
  * @author xpdev
  * @since ${developmentVersion}
  */
-public class TransformCommand extends AbstractFileCommand implements UpgradeCommand
+public final class TransformCommand extends AbstractFileCommand implements UpgradeCommand
 {
   private final String stylesheet;
 
@@ -89,7 +89,7 @@ public class TransformCommand extends AbstractFileCommand implements UpgradeComm
 	}
 
 	@Override
-	public void setContentType(String contentType, String encoding)
+	public void setContentType(final String contentType, final String encoding)
 	{
 	}
 
@@ -135,7 +135,7 @@ public class TransformCommand extends AbstractFileCommand implements UpgradeComm
 	}
 
 	@Override
-	protected Source getXmlSource(ProcessorContext context) throws ParserConfigurationException, ProcessorException
+	protected Source getXmlSource(final ProcessorContext context) throws ParserConfigurationException, ProcessorException
 	{
 	  final Source originalSource = super.getXmlSource(context);
 	  if (DOMSource.class.isInstance(originalSource))
@@ -161,7 +161,7 @@ public class TransformCommand extends AbstractFileCommand implements UpgradeComm
 			throw new UpgradeException(e);
 		  }
 		  final List<String> filenames = listFilenames(baseURL);
-		  for (String filename : filenames)
+		  for (final String filename : filenames)
 		  {
 			final Element sourceElement = doc.createElementNS(AbstractXSLTProcessor.XML_NS_CONF, "source");
 			final File sourceFile = new File(repoDir, filename);

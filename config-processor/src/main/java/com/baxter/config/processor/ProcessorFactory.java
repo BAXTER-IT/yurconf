@@ -32,7 +32,7 @@ import com.baxter.config.processor.repo.RepositoryException;
  * @author ykryshchuk
  * @since ${developmentVersion}
  */
-public class ProcessorFactory
+public final class ProcessorFactory
 {
 
   /**

@@ -11,7 +11,7 @@ import java.net.URL;
  * @author ykryshchuk
  * @since ${developmentVersion}
  */
-public class Configuration
+public final class Configuration
 {
 
   private static final Configuration INSTANCE = new Configuration(DefaultEnvironment.getInstance());

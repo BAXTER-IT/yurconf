@@ -94,20 +94,7 @@ public class RestfulServlet extends HttpServlet
 	LOGGER.trace("New configuration request: {}?{}", request.getRequestURL(), request.getQueryString());
 	final String pathInfo = request.getPathInfo();
 	final String versionParam = request.getParameter(PARAM_VERSION);
-	final List<ConfigParameter> params = new ArrayList<ConfigParameter>();
-	for (Enumeration<?> paramNames = request.getParameterNames(); paramNames.hasMoreElements();)
-	{
-	  final String parameterName = String.valueOf(paramNames.nextElement());
-	  if (!PARAM_VERSION.equals(parameterName))
-	  {
-		for (String value : request.getParameterValues(parameterName))
-		{
-		  final ConfigParameter cParam = new ConfigParameter(parameterName, value);
-		  params.add(cParam);
-		}
-	  }
-	}
-	LOGGER.debug("Request pathInfo {} and version {}, params: {}", new Object[] { pathInfo, versionParam, params });
+	LOGGER.debug("Request pathInfo {} and version {}", new Object[] { pathInfo, versionParam });
 	try
 	{
 	  if (pathInfo == null)
@@ -121,48 +108,7 @@ public class RestfulServlet extends HttpServlet
 		final AbstractProcessor processor = processorFactory.getProcessor(configId, version);
 		try
 		{
-		  final ProcessorContext thisContext = new ProcessorContext()
-		  {
-
-			@Override
-			public void setContentType(final String contentType, final String encoding)
-			{
-			  response.setContentType(contentType + ";charset=" + encoding);
-			}
-
-			@Override
-			public OutputStream getOutputStream() throws IOException
-			{
-			  return response.getOutputStream();
-			}
-
-			@Override
-			public ConfigID getConfigID()
-			{
-			  return configId;
-			}
-
-			@Override
-			public URL getConfigurationBaseUrl()
-			{
-			  try
-			  {
-				return new URL(request.getRequestURL().toString().replace(pathInfo, ""));
-			  }
-			  catch (final MalformedURLException e)
-			  {
-				LOGGER.error("Failed to construct configuration base URL", e);
-				return null;
-			  }
-			}
-
-			@Override
-			public List<ConfigParameter> getParameters()
-			{
-			  return params;
-			}
-
-		  };
+		  final ProcessorContext thisContext = new RequestProcessorContext(request, response, configId, pathInfo);
 		  processor.process(thisContext);
 		}
 		catch (final ProcessorException e)
@@ -181,6 +127,80 @@ public class RestfulServlet extends HttpServlet
 	{
 	  LOGGER.error("Failed to process request input", e);
 	  response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+	}
+  }
+
+  /**
+   * Processor context for servlet request. 
+   * @author ykryshchuk
+   * @since ${developmentVersion}
+   */
+  private final class RequestProcessorContext implements ProcessorContext
+  {
+	private final HttpServletRequest request;
+	private final HttpServletResponse response;
+	private final List<ConfigParameter> params = new ArrayList<ConfigParameter>();
+	private final ConfigID configId;
+	private final String pathInfo;
+
+	private RequestProcessorContext(final HttpServletRequest request, final HttpServletResponse response,
+	    final ConfigID configId, final String pathInfo)
+	{
+	  this.request = request;
+	  this.response = response;
+	  this.configId = configId;
+	  this.pathInfo = pathInfo;
+	  for (final Enumeration<?> paramNames = request.getParameterNames(); paramNames.hasMoreElements();)
+	  {
+		final String parameterName = String.valueOf(paramNames.nextElement());
+		if (!PARAM_VERSION.equals(parameterName))
+		{
+		  for (final String value : request.getParameterValues(parameterName))
+		  {
+			final ConfigParameter cParam = new ConfigParameter(parameterName, value);
+			params.add(cParam);
+		  }
+		}
+	  }
+	  LOGGER.debug("Parameters read from request: {}", params);
+	}
+
+	@Override
+	public void setContentType(final String contentType, final String encoding)
+	{
+	  response.setContentType(contentType + ";charset=" + encoding);
+	}
+
+	@Override
+	public OutputStream getOutputStream() throws IOException
+	{
+	  return response.getOutputStream();
+	}
+
+	@Override
+	public ConfigID getConfigID()
+	{
+	  return configId;
+	}
+
+	@Override
+	public URL getConfigurationBaseUrl()
+	{
+	  try
+	  {
+		return new URL(request.getRequestURL().toString().replace(pathInfo, ""));
+	  }
+	  catch (final MalformedURLException e)
+	  {
+		LOGGER.error("Failed to construct configuration base URL", e);
+		return null;
+	  }
+	}
+
+	@Override
+	public List<ConfigParameter> getParameters()
+	{
+	  return params;
 	}
   }
 

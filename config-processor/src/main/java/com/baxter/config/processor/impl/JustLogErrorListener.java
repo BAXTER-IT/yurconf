@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * @author ykryshchuk
  * @since ${developmentVersion}
  */
-class JustLogErrorListener implements ErrorListener
+final class JustLogErrorListener implements ErrorListener
 {
   private static final ErrorListener INSTANCE = new JustLogErrorListener();
   

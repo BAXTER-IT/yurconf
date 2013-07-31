@@ -158,7 +158,7 @@ public abstract class URLLister
 	{
 	  final List<String> list = new ArrayList<String>();
 
-	  for (File f : root.listFiles())
+	  for (final File f : root.listFiles())
 	  {
 		final String path = prefix == null ? f.getName() : prefix + "/" + f.getName();
 		if (f.isDirectory())
@@ -281,7 +281,7 @@ public abstract class URLLister
 	boolean accept(String path);
   }
 
-  private static class RegexpFilenameAcceptor implements FilenameAcceptor
+  private static final class RegexpFilenameAcceptor implements FilenameAcceptor
   {
 
 	private final Pattern pattern;
@@ -299,7 +299,7 @@ public abstract class URLLister
 	}
   }
 
-  private static class MaskFilenameAcceptor implements FilenameAcceptor
+  private static final class MaskFilenameAcceptor implements FilenameAcceptor
   {
 
 	private final String mask;
