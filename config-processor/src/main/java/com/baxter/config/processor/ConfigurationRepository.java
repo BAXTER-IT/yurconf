@@ -68,5 +68,4 @@ public interface ConfigurationRepository
    *           if failed to copy a resource
    */
   void installPackage(final Descriptor descriptor) throws IOException, ProcessorException;
-
 }
