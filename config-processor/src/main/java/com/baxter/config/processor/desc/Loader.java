@@ -23,7 +23,7 @@ import com.baxter.config.processor.ProcessorException;
  * @since ${developmentVersion}
  */
 @XmlTransient
-public class Loader
+public final class Loader
 {
 
   /**
@@ -53,7 +53,7 @@ public class Loader
 	catch (final JAXBException e)
 	{
 	  LOGGER.error("Failed to create JAXBContext", e);
-	  throw new ExceptionInInitializerError("Cannot initialize Descriptor Loader");
+	  throw new ExceptionInInitializerError(e);
 	}
   }
 
@@ -92,7 +92,7 @@ public class Loader
 		catch (final MalformedURLException e)
 		{
 		  LOGGER.error("Cannot set descriptor URL", e);
-		  throw new ProcessorException("Unable to setup descriptor");
+		  throw new ProcessorException("Unable to setup descriptor", e);
 		}
 		return descriptor;
 	  }

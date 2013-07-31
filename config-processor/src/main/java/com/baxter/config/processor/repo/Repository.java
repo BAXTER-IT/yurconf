@@ -30,7 +30,7 @@ import com.baxter.config.processor.util.URLLister;
  * @author xpdev
  * @since ${developmentVersion}
  */
-public class Repository
+public final class Repository
 {
 
   /**
@@ -120,7 +120,7 @@ public class Repository
 	}
 	else
 	{
-	  for (AbstractUpgradeFile command : upgradeCommands)
+	  for (final AbstractUpgradeFile command : upgradeCommands)
 	  {
 		CommandFactory.getInstance().getCommand(command).upgrade(upgradeContext);
 	  }
@@ -129,7 +129,7 @@ public class Repository
 	{
 	  installPackageDescriptor(descriptor);
 	}
-	catch (IOException e)
+	catch (final IOException e)
 	{
 	  LOGGER.error("Failed to install package descriptor", e);
 	  throw new ProcessorException(e);
@@ -154,7 +154,7 @@ public class Repository
 	final File productDirectory = getProductDirectory(descriptor.getProductId());
 
 	// Perform default configuration copying
-	for (String filePath : entryPaths)
+	for (final String filePath : entryPaths)
 	{
 	  final URL resourceURL = new URL(descriptor.getSourceUrl(), filePath);
 	  final InputStream resourceStream = resourceURL.openStream();

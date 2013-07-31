@@ -23,17 +23,12 @@ public class Request
 {
 
   private final URL url;
-  private final ConfigID configId;
-  private final Version version;
-  private final ConfigParameter[] parameters;
 
   Request(final URL restUrl, final ConfigID configId, final Version version, final List<ConfigParameter> parameters)
 	  throws MalformedURLException
   {
-	this.configId = configId;
-	this.version = version;
-	this.parameters = parameters.toArray(new ConfigParameter[parameters.size()]);
-	this.url = buildRequestURL(restUrl, this.configId, this.version, this.parameters);
+	final ConfigParameter[] params = parameters.toArray(new ConfigParameter[parameters.size()]);
+	this.url = buildRequestURL(restUrl, configId, version, params);
   }
 
   private static URL buildRequestURL(final URL restUrl, final ConfigID configId, final Version version,

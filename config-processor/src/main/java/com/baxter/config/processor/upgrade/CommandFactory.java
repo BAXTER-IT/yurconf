@@ -13,7 +13,7 @@ import com.baxter.config.processor.desc.UpgradeTransform;
  * @author xpdev
  * @since ${developmentVersion}
  */
-public class CommandFactory
+public final class CommandFactory
 {
 
   private static final CommandFactory INSTANCE = new CommandFactory();

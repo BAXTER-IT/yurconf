@@ -11,11 +11,11 @@ import java.util.Arrays;
  * @author ykryshchuk
  * @since ${developmentVersion}
  */
-public class Version implements Comparable<Version>
+public final class Version implements Comparable<Version>
 {
   private final int[] parts;
 
-  private Version(int... parts)
+  private Version(final int... parts)
   {
 	this.parts = parts;
   }
@@ -37,10 +37,12 @@ public class Version implements Comparable<Version>
 	}
 	else
 	{
-	  String[] splitedVersion = line.split("[.]", -1);
-	  int[] parts = new int[splitedVersion.length];
+	  final String[] splitedVersion = line.split("[.]", -1);
+	  final int[] parts = new int[splitedVersion.length];
 	  if (splitedVersion.length == 0)
+	  {
 		throw new IllegalArgumentException(line + " is not a valid version format!");
+	  }
 
 	  try
 	  {
@@ -49,7 +51,7 @@ public class Version implements Comparable<Version>
 		  parts[i] = Integer.valueOf(splitedVersion[i]);
 		}
 	  }
-	  catch (NumberFormatException e)
+	  catch (final NumberFormatException e)
 	  {
 		throw new IllegalArgumentException(line + " is not a valid version format!", e);
 	  }
@@ -83,30 +85,40 @@ public class Version implements Comparable<Version>
   }
 
   @Override
-  public boolean equals(Object obj)
+  public boolean equals(final Object obj)
   {
 	if (this == obj)
+	{
 	  return true;
+	}
 	if (obj == null)
+	{
 	  return false;
+	}
 	if (getClass() != obj.getClass())
+	{
 	  return false;
-	Version other = (Version) obj;
+	}
+	final Version other = (Version) obj;
 	if (!Arrays.equals(parts, other.parts))
+	{
 	  return false;
+	}
 	return true;
   }
 
   @Override
   public String toString()
   {
-	StringBuilder sb = new StringBuilder();
+	final StringBuilder sb = new StringBuilder();
 	for (int i = 0; i < parts.length; i++)
 	{
 	  sb.append(parts[i]);
 
 	  if (i < parts.length - 1)
+	  {
 		sb.append(".");
+	  }
 	}
 
 	return sb.toString();

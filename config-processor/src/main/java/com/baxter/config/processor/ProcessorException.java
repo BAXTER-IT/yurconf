@@ -29,4 +29,10 @@ public class ProcessorException extends Exception
 	super(cause);
   }
 
+  /** {@inheritDoc} */
+  public ProcessorException(final String message, final Throwable cause)
+  {
+	super(message, cause);
+  }
+
 }

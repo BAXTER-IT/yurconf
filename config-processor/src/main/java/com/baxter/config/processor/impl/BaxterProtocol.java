@@ -31,29 +31,28 @@ enum BaxterProtocol
    */
   XSL
   {
-	private final String prefix = "baxterxsl:";
+	private static final String PREFIX = "baxterxsl:";
 
 	@Override
 	Source getSource(final String href, final AbstractXSLTProcessor processor)
 	{
-	  final String xslPath = href.substring(prefix.length());
+	  final String xslPath = href.substring(PREFIX.length());
 	  final String xslResourcePath = "/META-INF/config/xsl/" + xslPath;
 	  LOGGER.trace("XSL resource path: {}", xslResourcePath);
 	  final InputStream xslStream = getClass().getResourceAsStream(xslResourcePath);
-	  final Source xslSource = new StreamSource(xslStream, href);
-	  return xslSource;
+	  return new StreamSource(xslStream, href);
 	}
 
 	@Override
-	Result getResult(String href, AbstractXSLTProcessor processor) throws TransformerException
+	Result getResult(final String href, final AbstractXSLTProcessor processor) throws TransformerException
 	{
 	  throw new UnsupportedOperationException("Result not supported");
 	}
 
 	@Override
-	boolean supports(String href)
+	boolean supports(final String href)
 	{
-	  return href.startsWith(prefix);
+	  return href.startsWith(PREFIX);
 	}
   },
 
@@ -62,7 +61,7 @@ enum BaxterProtocol
    */
   REPO
   {
-	private final String prefix = "baxterrepo:";
+	private static final String PREFIX = "baxterrepo:";
 
 	@Override
 	Source getSource(final String href, final AbstractXSLTProcessor processor) throws TransformerException
@@ -91,7 +90,7 @@ enum BaxterProtocol
 
 	private File getRepositoryFile(final String href, final AbstractXSLTProcessor processor)
 	{
-	  final String repoPath = href.substring(prefix.length());
+	  final String repoPath = href.substring(PREFIX.length());
 	  if (repoPath.startsWith("/"))
 	  {
 		return new File(processor.getFactory().getRepository().getRoot(), repoPath.substring(1));
@@ -106,7 +105,7 @@ enum BaxterProtocol
 	@Override
 	boolean supports(final String href)
 	{
-	  return href.startsWith(prefix);
+	  return href.startsWith(PREFIX);
 	}
   },
   ;
@@ -148,7 +147,7 @@ enum BaxterProtocol
    */
   static BaxterProtocol protocolFor(final String href)
   {
-	for (BaxterProtocol protocol : values())
+	for (final BaxterProtocol protocol : values())
 	{
 	  if (protocol.supports(href))
 	  {

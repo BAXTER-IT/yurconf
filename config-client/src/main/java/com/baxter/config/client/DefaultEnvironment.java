@@ -22,7 +22,7 @@ import com.baxter.config.om.Version;
  * @since ${developmentVersion}
  * 
  */
-class DefaultEnvironment implements Environment
+final class DefaultEnvironment implements Environment
 {
 
   static final String PREFIX = "com.baxter.config.";
