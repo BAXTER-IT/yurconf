@@ -15,10 +15,10 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.baxter.config.processor.ConfigurationRepository;
 import com.baxter.config.processor.ProcessorFactory;
 import com.baxter.config.processor.desc.Descriptor;
 import com.baxter.config.processor.desc.FilenameProvider;
-import com.baxter.config.processor.repo.Repository;
 import com.google.common.io.Files;
 
 /**
@@ -43,7 +43,7 @@ public class TestAbstractFileCommand
 	when(descriptor.getXslUrl()).thenReturn(getClass().getResource("config/xsl/"));
 	when(descriptor.getProductId()).thenReturn(TEST_PRODUCT_ID);
 	
-	final Repository repository = mock(Repository.class);
+	final ConfigurationRepository repository = mock(ConfigurationRepository.class);
 	when( repository.getProductDirectory(TEST_PRODUCT_ID)).thenReturn(this.pseudoRoot);
 	
 	final ProcessorFactory processorFactory = mock(ProcessorFactory.class);

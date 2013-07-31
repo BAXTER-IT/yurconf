@@ -14,6 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.baxter.config.processor.ConfigurationRepository;
 import com.baxter.config.processor.ProcessorException;
 import com.baxter.config.processor.ProcessorFactory;
 import com.baxter.config.processor.desc.AbstractUpgradeFile;
@@ -30,25 +31,25 @@ import com.baxter.config.processor.util.URLLister;
  * @author xpdev
  * @since ${developmentVersion}
  */
-public final class Repository
+public class RepositoryImpl implements ConfigurationRepository
 {
 
   /**
    * Logger instance.
    */
-  private static final Logger LOGGER = LoggerFactory.getLogger(Repository.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryImpl.class);
 
   /**
    * Descriptor file name in repository.
    */
   private static final String TARGET_DESCRIPTOR_FILENAME = ".descriptor.xml";
 
-  /**
+  /**=
    * Configuration repository root.
    */
   private final File root;
 
-  private Repository(final File root) throws RepositoryException
+  private RepositoryImpl(final File root) throws RepositoryException
   {
 	this.root = root;
 	try
@@ -61,39 +62,25 @@ public final class Repository
 	}
   }
 
-  public static Repository getInstance(final File root) throws RepositoryException
+  public static RepositoryImpl getInstance(final File root) throws RepositoryException
   {
-	return new Repository(root);
+	return new RepositoryImpl(root);
   }
 
+  @Override
   public File getRoot()
   {
 	return root;
   }
 
-  /**
-   * Returns the root directory for specified product.
-   * 
-   * @param productId
-   *          product identifier
-   * @return directory
-   */
+  @Override
   public File getProductDirectory(final String productId)
   {
 	final String productPath = productId.replace('.', File.separatorChar);
 	return new File(getRoot(), productPath);
   }
 
-  /**
-   * Upgrades the package in repository.
-   * 
-   * @param descriptor
-   *          the package descriptor
-   * @param upgrade
-   *          upgrade to execute
-   * @throws ProcessorException
-   *           if failed to upgrade
-   */
+  @Override
   public void upgradePackage(final Descriptor descriptor, final Upgrade upgrade, final ProcessorFactory processorFactory)
 	  throws ProcessorException
   {
@@ -136,15 +123,7 @@ public final class Repository
 	}
   }
 
-  /**
-   * Install a configuration processor package into repository. Copies all necessary resources from processor package to a local
-   * repository.
-   * 
-   * @param descriptor
-   *          the processor descriptor
-   * @throws IOException
-   *           if failed to copy a resource
-   */
+  @Override
   public void installPackage(final Descriptor descriptor) throws IOException, ProcessorException
   {
 	LOGGER.info("Installing {} in repository", descriptor);
@@ -188,17 +167,7 @@ public final class Repository
 	}
   }
 
-  /**
-   * Loads a product processors descriptor from this repository.
-   * 
-   * @param productId
-   *          product identifier
-   * @return processors descriptor
-   * @throws ProcessorException
-   *           if failed to load the descriptor from file
-   * @throws RepositoryException
-   *           if the descriptor file has not been found in repository
-   */
+  @Override
   public Descriptor getDescriptor(final String productId) throws ProcessorException
   {
 	final File descriptorFile = new File(getProductDirectory(productId), TARGET_DESCRIPTOR_FILENAME);

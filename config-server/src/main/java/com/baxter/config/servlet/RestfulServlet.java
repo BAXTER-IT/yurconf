@@ -25,6 +25,7 @@ import com.baxter.config.om.ConfigID;
 import com.baxter.config.om.ConfigParameter;
 import com.baxter.config.om.Version;
 import com.baxter.config.processor.AbstractProcessor;
+import com.baxter.config.processor.FileBasedProcessorFactory;
 import com.baxter.config.processor.ProcessorContext;
 import com.baxter.config.processor.ProcessorException;
 import com.baxter.config.processor.ProcessorFactory;
@@ -79,7 +80,7 @@ public class RestfulServlet extends HttpServlet
 	    : repositoryProperty) : repositoryParam;
 	try
 	{
-	  this.processorFactory = ProcessorFactory.getInstance(new File(repositoryRootPath));
+	  this.processorFactory = FileBasedProcessorFactory.getInstance(new File(repositoryRootPath));
 	}
 	catch (final ProcessorException e)
 	{
