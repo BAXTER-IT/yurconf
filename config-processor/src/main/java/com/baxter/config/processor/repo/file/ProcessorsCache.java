@@ -1,12 +1,13 @@
 /**
  * 
  */
-package com.baxter.config.processor;
+package com.baxter.config.processor.repo.file;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.baxter.config.om.ConfigID;
+import com.baxter.config.processor.AbstractProcessor;
 
 /**
  * Processors cache. Contains all loaded processors.

@@ -28,6 +28,7 @@ import com.baxter.config.processor.AbstractProcessor;
 import com.baxter.config.processor.ProcessorContext;
 import com.baxter.config.processor.ProcessorException;
 import com.baxter.config.processor.ProcessorFactory;
+import com.baxter.config.processor.repo.file.ProcessorFactoryImpl;
 
 /**
  * The Restful Servlet on Configuration Server. This is a main entry point to
@@ -79,7 +80,7 @@ public class RestfulServlet extends HttpServlet
 	    : repositoryProperty) : repositoryParam;
 	try
 	{
-	  this.processorFactory = ProcessorFactory.getInstance(new File(repositoryRootPath));
+	  this.processorFactory = ProcessorFactoryImpl.getInstance(new File(repositoryRootPath));
 	}
 	catch (final ProcessorException e)
 	{

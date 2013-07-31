@@ -80,7 +80,7 @@ public abstract class AbstractProcessor
    *          version to check
    * @return true if version is null or smaller or equal than processor's version
    */
-  boolean isVersionSupported(final Version version)
+  public boolean isVersionSupported(final Version version)
   {
 	if (version == null)
 	{
@@ -109,7 +109,7 @@ public abstract class AbstractProcessor
 
   protected static String getParameterByName(final List<ConfigParameter> parameters, final String name)
   {
-	for (ConfigParameter param : parameters)
+	for (final ConfigParameter param : parameters)
 	{
 	  if (name.equals(param.getName()))
 	  {

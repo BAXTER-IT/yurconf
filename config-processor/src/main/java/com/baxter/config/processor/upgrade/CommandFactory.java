@@ -23,7 +23,7 @@ public final class CommandFactory
 
   }
 
-  public static final CommandFactory getInstance()
+  public static CommandFactory getInstance()
   {
 	return INSTANCE;
   }
