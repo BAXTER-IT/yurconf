@@ -248,6 +248,9 @@
 										<mappings>
 											<mapping>
 												<directory>${san.root}/etc</directory>
+											</mapping>
+											<mapping>
+												<directory>${san.root}/etc</directory>
 												<configuration>noreplace</configuration>
 												<sources>
 													<source>
@@ -256,6 +259,9 @@
 														<filter>false</filter>
 													</source>
 												</sources>
+											</mapping>
+											<mapping>
+												<directory>${san.root}/bin</directory>
 											</mapping>
 											<mapping>
 												<directory>${san.root}/bin</directory>
@@ -269,6 +275,9 @@
 														<filter>true</filter>
 													</source>
 												</sources>
+											</mapping>
+											<mapping>
+												<directory>${san.root}/lib</directory>
 											</mapping>
 											<mapping>
 												<directory>${san.root}/lib</directory>

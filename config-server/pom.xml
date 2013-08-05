@@ -300,6 +300,9 @@
 										<mappings>
 											<mapping>
 												<directory>${san.root}/etc</directory>
+											</mapping>
+											<mapping>
+												<directory>${san.root}/etc</directory>
 												<configuration>noreplace</configuration>
 												<sources>
 													<source>
@@ -307,6 +310,9 @@
 														<filter>false</filter>
 													</source>
 												</sources>
+											</mapping>
+											<mapping>
+												<directory>${san.root}/bin</directory>
 											</mapping>
 											<mapping>
 												<directory>${san.root}/bin</directory>
@@ -334,11 +340,17 @@
 											</mapping>
 											<mapping>
 												<directory>${san.root}/lib</directory>
+											</mapping>
+											<mapping>
+												<directory>${san.root}/lib</directory>
 												<artifact>
 													<classifiers>
 														<classifier />
 													</classifiers>
 												</artifact>
+											</mapping>
+											<mapping>
+												<directory>${san.config-server.root}/jetty</directory>
 											</mapping>
 											<mapping>
 												<directory>${san.config-server.root}/jetty</directory>
