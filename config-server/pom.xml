@@ -299,6 +299,9 @@
 										</filters>
 										<mappings>
 											<mapping>
+												<directory>${san.root}</directory>
+											</mapping>
+											<mapping>
 												<directory>${san.root}/etc</directory>
 											</mapping>
 											<mapping>
@@ -348,6 +351,9 @@
 														<classifier />
 													</classifiers>
 												</artifact>
+											</mapping>
+											<mapping>
+												<directory>${san.config-server.root}</directory>
 											</mapping>
 											<mapping>
 												<directory>${san.config-server.root}/jetty</directory>
