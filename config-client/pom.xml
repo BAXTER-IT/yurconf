@@ -247,6 +247,9 @@
 										</filters>
 										<mappings>
 											<mapping>
+												<directory>${san.root}</directory>
+											</mapping>
+											<mapping>
 												<directory>${san.root}/etc</directory>
 											</mapping>
 											<mapping>
