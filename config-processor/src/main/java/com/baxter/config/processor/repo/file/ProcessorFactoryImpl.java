@@ -236,7 +236,7 @@ public final class ProcessorFactoryImpl implements ProcessorFactory
           processorDescriptor.getClassName()).asSubclass(
           AbstractProcessor.class);
       final Constructor<? extends AbstractProcessor> processorConstructor = processorClass
-          .getConstructor(Descriptor.class, ProcessorFactoryImpl.class);
+          .getConstructor(Descriptor.class, ProcessorFactory.class);
       final AbstractProcessor processor = processorConstructor.newInstance(
           descriptor, this);
       for (final Parameter parameter : processorDescriptor.getParameters())
