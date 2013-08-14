@@ -40,7 +40,7 @@ if [ -f /usr/share/jetty6/lib/start.jar ]; then
     JAVA_OPTS="$JAVA_OPTS -Djetty.home=/usr/share/jetty6"                                                                                                       
 fi                                                 
 
-if [ "x" == "x$JETTY_JAR" ]; then
+if [ "x" = "x$JETTY_JAR" ]; then
 	echo "Cannot find Jetty Jar"
 	exit 1
 fi
