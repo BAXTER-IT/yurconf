@@ -3,8 +3,6 @@
 # Reads client configuration from ${f.etc.config}
 #
 
-set -e
-
 # Configuration file that keeps environment start point configuration
 CONFIG_FILE="${f.etc.config}"
 
