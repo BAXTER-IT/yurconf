@@ -9,6 +9,12 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.baxter.config.om.ConfigID;
 import com.baxter.config.om.ConfigParameter;
 import com.baxter.config.om.Version;
@@ -21,6 +27,8 @@ import com.baxter.config.om.Version;
  */
 public class Request
 {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(Request.class);
 
   private final URL url;
 
@@ -74,4 +82,18 @@ public class Request
 	return this.url;
   }
 
+  public <T> T loadObject(final Class<T> objectClass) throws ConfigurationException
+  {
+	try
+	{
+	  final JAXBContext ctx = JAXBContext.newInstance(objectClass);
+	  final Unmarshaller unmarshaller = ctx.createUnmarshaller();
+	  return objectClass.cast(unmarshaller.unmarshal(getUrl()));
+	}
+	catch (final Exception e)
+	{
+	  LOGGER.error("Failed to get configuration", e);
+	  throw new ConfigurationException("Could not read config", e);
+	}
+  }
 }

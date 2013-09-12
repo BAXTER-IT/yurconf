@@ -39,6 +39,10 @@ if [ -f /usr/share/jetty6/lib/start.jar ]; then
     JETTY_JAR="/usr/share/jetty6/lib/start.jar"
     JAVA_OPTS="$JAVA_OPTS -Djetty.home=/usr/share/jetty6"                                                                                                       
 fi                                                 
+if [ -f $(dirname $(readlink -f $0))/../lib/jetty-${jetty.standalone.version}.jar ]; then                                                                                                       
+    JETTY_JAR="$(dirname $(readlink -f $0))/../lib/start-${jetty.standalone.version}.jar"
+    JAVA_OPTS="$JAVA_OPTS -Djetty.home=$(dirname $(readlink -f $0))/.."
+fi                                                 
 
 if [ "x" = "x$JETTY_JAR" ]; then
 	echo "Cannot find Jetty Jar"
@@ -46,7 +50,18 @@ if [ "x" = "x$JETTY_JAR" ]; then
 fi
 
 JAVA_OPTS="$JAVA_OPTS -DSTART=${f.jetty.startup.file}"
-PROGRAM="java $JAVA_OPTS -jar $JETTY_JAR ${f.jetty.config.file}"
+JAVA_OPTS="$JAVA_OPTS -Djetty.contextsDir=${f.jetty.contexts}"
+JAVA_OPTS="$JAVA_OPTS -Dprocessors.dir=${f.processors.dir}"
+JAVA_OPTS="$JAVA_OPTS -Dconfig-server.war=${f.web.app}"
+JAVA_OPTS="$JAVA_OPTS -Dconfig-server-web.xml=${f.web.xml}"
+
+if [ "x" = "x$JAVA_HOME" ]; then
+	JAVA="java"
+else
+	JAVA="$JAVA_HOME/bin/java"
+fi
+
+PROGRAM="$JAVA $JAVA_OPTS -jar $JETTY_JAR ${f.jetty.config.file}"
 
 # Run in terminal or as a daemon?
 if $RUNASDAEMON ; then

@@ -87,7 +87,7 @@
                 <!-- the ContextHandlerCollection to modify once a webapp is added or removed (Allows Hot Deployment) -->
                 <Set name="contexts"><Ref id="Contexts" /></Set>
                 <!-- the directory which will contain your context.xml files -->
-                <Set name="configurationDir">${f.jetty.contexts}</Set>
+                <Set name="configurationDir"><SystemProperty name="jetty.contextsDir" /></Set>
                 <!-- the interval in milliseconds to periodically scan the configurationDir -->
                 <Set name="scanInterval">5</Set>
             </New>

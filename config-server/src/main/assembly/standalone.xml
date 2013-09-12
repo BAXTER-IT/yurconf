@@ -1,0 +1,70 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+
+    <id>standalone</id>
+
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <files>
+        <file>
+            <outputDirectory>log</outputDirectory>
+            <source>src/etc/README.TXT</source>
+        </file>
+        <file>
+            <outputDirectory>repository</outputDirectory>
+            <source>src/etc/README.TXT</source>
+        </file>
+        <file>
+            <outputDirectory>processors</outputDirectory>
+            <source>src/etc/README.TXT</source>
+        </file>
+        <file>
+            <outputDirectory>etc</outputDirectory>
+            <source>src/main/config/configuration-server</source>
+            <fileMode>0664</fileMode>
+        </file>
+        <file>
+            <outputDirectory>bin</outputDirectory>
+            <source>src/main/scripts/start-jetty.sh</source>
+            <destName>configuration-server</destName>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+            <fileMode>0555</fileMode>
+        </file>
+    </files>
+
+    <fileSets>
+        <fileSet>
+            <outputDirectory>lib</outputDirectory>
+            <directory>${project.build.directory}/jetty-libs</directory>
+        </fileSet>
+        <fileSet>
+            <outputDirectory>etc</outputDirectory>
+            <directory>src/main/jetty</directory>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+            <includes>
+                <include>jetty-standalone.conf</include>
+                <include>jetty.xml</include>
+                <include>config-server-web.xml</include>
+                <include>webdefault.xml</include>
+                <include>contexts/config-server.xml</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <useProjectArtifact>true</useProjectArtifact>
+            <includes>
+                <include>com.baxter.config:config-server:war</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
+
+</assembly>

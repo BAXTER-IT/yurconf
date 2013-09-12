@@ -2,12 +2,13 @@
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
 <Configure class="org.mortbay.jetty.webapp.WebAppContext">
     
+    <!-- TODO all variables has to be changed to system properties, that is, no need to filter most of the config files -->
     <Set name="contextPath">/config-server</Set>
-    <Set name="war">${f.web.app}</Set>
+    <Set name="war"><SystemProperty name="config-server.war"/></Set>
     
     <Set name="extractWAR">true</Set>
     <Set name="copyWebDir">false</Set>
     <Set name="defaultsDescriptor"><SystemProperty name="jetty.home" default="."/>/etc/webdefault.xml</Set>
-    <Set name="overrideDescriptor">${f.web.xml}</Set>
+    <Set name="overrideDescriptor"><SystemProperty name="config-server-web.xml"/></Set>
     
 </Configure>
