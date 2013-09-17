@@ -3,12 +3,23 @@
     xmlns:j="http://baxter-it.com/config/jvm" xmlns:c="http://baxter-it.com/config/component"
     xmlns:conf="http://baxter-it.com/config" exclude-result-prefixes="xs c j conf" version="2.0">
 
+    <xsl:import href="baxterxsl:repo-base.xsl" />
     <xsl:import href="baxterxsl:text-fmt.xsl" />
     <xsl:import href="baxterxsl:conf-reference.xsl" />
 
     <xsl:output encoding="UTF-8" method="text" />
 
     <xsl:param name="configurationComponentId" />
+
+    <xsl:template match="/">
+        <xsl:variable name="root">
+            <xsl:copy-of select="conf:configuration-source/conf:request" />
+            <xsl:apply-templates select="conf:configuration-source/conf:request" mode="load-document-with-variants">
+                <xsl:with-param name="prefix" select="'jvm'" />
+            </xsl:apply-templates>
+        </xsl:variable>
+        <xsl:apply-templates select="$root/j:configuration" />
+    </xsl:template>
 
     <xsl:template match="j:configuration[/conf:request/conf:parameter[@id='osfamily']/text()='windows']"
         mode="append-opt">
@@ -363,6 +374,11 @@
         </xsl:apply-templates>
         <xsl:apply-templates select="../../@auth" />
         <xsl:apply-templates select="../../@ssl" />
+    </xsl:template>
+
+    <xsl:template match="j:configuration">
+        <xsl:apply-templates select="." mode="script-start" />
+        <xsl:apply-templates select="." mode="script-end" />
     </xsl:template>
 
 </xsl:stylesheet>

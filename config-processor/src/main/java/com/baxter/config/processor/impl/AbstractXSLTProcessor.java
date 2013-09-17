@@ -55,7 +55,8 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 
   protected static final String XML_NS_CONF = "http://baxter-it.com/config";
 
-  private static final DocumentBuilderFactory DBF = DocumentBuilderFactory.newInstance();
+  private static final DocumentBuilderFactory DBF = DocumentBuilderFactory
+      .newInstance();
 
   private final TransformerFactory transformerFactory;
 
@@ -81,23 +82,26 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
    * @param descriptor
    *          configuration processor descriptor
    */
-  protected AbstractXSLTProcessor(final Descriptor descriptor, final ProcessorFactory processorFactory)
+  protected AbstractXSLTProcessor(final Descriptor descriptor,
+      final ProcessorFactory processorFactory)
   {
-	super(descriptor, processorFactory);
-	this.transformerFactory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", Thread.currentThread()
-	    .getContextClassLoader());
-	this.transformerFactory.setURIResolver(new BaxterURIResolver());
-	this.transformerFactory.setAttribute(FeatureKeys.OUTPUT_URI_RESOLVER, new BaxterOutputURIResolver());
+    super(descriptor, processorFactory);
+    transformerFactory = TransformerFactory.newInstance(
+        "net.sf.saxon.TransformerFactoryImpl", Thread.currentThread()
+            .getContextClassLoader());
+    transformerFactory.setURIResolver(new BaxterURIResolver());
+    transformerFactory.setAttribute(FeatureKeys.OUTPUT_URI_RESOLVER,
+        new BaxterOutputURIResolver());
   }
 
   public String getStylesheet()
   {
-	return this.stylesheet;
+    return stylesheet;
   }
 
   public void setStylesheet(final String stylesheet)
   {
-	this.stylesheet = stylesheet;
+    this.stylesheet = stylesheet;
   }
 
   /**
@@ -107,19 +111,20 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
    * @throws ProcessorException
    *           if cannot create transformer
    */
-  protected Transformer getTransformer(final ConfigID configurationIdentifier) throws ProcessorException
+  protected Transformer getTransformer(final ConfigID configurationIdentifier)
+      throws ProcessorException
   {
-	try
-	{
-	  final Transformer transformer = getTemplates().newTransformer();
-	  setupTransformer(transformer, configurationIdentifier);
-	  return transformer;
-	}
-	catch (final TransformerConfigurationException e)
-	{
-	  logger.error("Could not create transformer", e);
-	  throw new ProcessorException(e);
-	}
+    try
+    {
+      final Transformer transformer = getTemplates().newTransformer();
+      setupTransformer(transformer, configurationIdentifier);
+      return transformer;
+    }
+    catch (final TransformerConfigurationException e)
+    {
+      logger.error("Could not create transformer", e);
+      throw new ProcessorException(e);
+    }
   }
 
   /**
@@ -129,45 +134,45 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
    */
   protected Templates getTemplates() throws ProcessorException
   {
-	rLock.lock();
-	try
-	{
-	  if (this.templates == null)
-	  {
-		rLock.unlock();
-		wLock.lock();
-		try
-		{
-		  if (this.templates == null)
-		  {
-			try
-			{
-			  this.templates = transformerFactory.newTemplates(getXslSource());
-			}
-			catch (final TransformerConfigurationException e)
-			{
-			  logger.error("Failed to build Templates", e);
-			  throw new ProcessorException(e);
-			}
-			catch (final IOException e)
-			{
-			  logger.error("Failed to read XSL source", e);
-			  throw new ProcessorException(e);
-			}
-		  }
-		}
-		finally
-		{
-		  rLock.lock();
-		  wLock.unlock();
-		}
-	  }
-	}
-	finally
-	{
-	  rLock.unlock();
-	}
-	return this.templates;
+    rLock.lock();
+    try
+    {
+      if (templates == null)
+      {
+        rLock.unlock();
+        wLock.lock();
+        try
+        {
+          if (templates == null)
+          {
+            try
+            {
+              templates = transformerFactory.newTemplates(getXslSource());
+            }
+            catch (final TransformerConfigurationException e)
+            {
+              logger.error("Failed to build Templates", e);
+              throw new ProcessorException(e);
+            }
+            catch (final IOException e)
+            {
+              logger.error("Failed to read XSL source", e);
+              throw new ProcessorException(e);
+            }
+          }
+        }
+        finally
+        {
+          rLock.lock();
+          wLock.unlock();
+        }
+      }
+    }
+    finally
+    {
+      rLock.unlock();
+    }
+    return templates;
   }
 
   /**
@@ -177,46 +182,66 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
    */
   protected Source getXslSource() throws IOException
   {
-	if (getStylesheet() == null)
-	{
-	  throw new IllegalStateException("Stylesheet not configured");
-	}
-	final URL stylesheetUrl = new URL(getDescriptor().getXslUrl(), getStylesheet());
-	return new StreamSource(stylesheetUrl.openStream(), stylesheetUrl.toString());
+    if (getStylesheet() == null)
+    {
+      throw new IllegalStateException("Stylesheet not configured");
+    }
+    if (BaxterProtocol.XSL.supports(getStylesheet()))
+    {
+      try
+      {
+        return BaxterProtocol.XSL.getSource(getStylesheet(),
+            AbstractXSLTProcessor.this);
+      }
+      catch (final TransformerException e)
+      {
+        throw new IOException("Failed to resolve to baxterxsl", e);
+      }
+    }
+    else
+    {
+      final URL stylesheetUrl = new URL(getDescriptor().getXslUrl(),
+          getStylesheet());
+      return new StreamSource(stylesheetUrl.openStream(),
+          stylesheetUrl.toString());
+    }
   }
 
-  protected Source getXmlSource(final ProcessorContext context) throws ParserConfigurationException, ProcessorException
+  protected Source getXmlSource(final ProcessorContext context)
+      throws ParserConfigurationException, ProcessorException
   {
-	final DocumentBuilder docBuilder = DBF.newDocumentBuilder();
-	final Document doc = docBuilder.newDocument();
-	final Element configSrc = doc.createElementNS(XML_NS_CONF, "configuration-source");
-	final ConfigID configId = context.getConfigID();
-	if (configId != null)
-	{
-	  final Element request = doc.createElementNS(XML_NS_CONF, "request");
-	  request.setAttribute("productId", configId.getProductId());
-	  request.setAttribute("componentId", configId.getComponentId());
-	  request.setAttribute("type", configId.getType());
-	  request.setAttribute("base", context.getConfigurationBaseUrl().toString());
-	  // add config variants
-	  for (String cVariant : configId.getVariants())
-	  {
-		final Element variant = doc.createElementNS(XML_NS_CONF, "variant");
-		variant.setAttribute("id", cVariant);
-		request.appendChild(variant);
-	  }
-	  // add config parameters
-	  for (ConfigParameter cParam : context.getParameters())
-	  {
-		final Element param = doc.createElementNS(XML_NS_CONF, "parameter");
-		param.setAttribute("id", cParam.getName());
-		param.setTextContent(cParam.getValue());
-		request.appendChild(param);
-	  }
-	  configSrc.appendChild(request);
-	}
-	doc.appendChild(configSrc);
-	return new DOMSource(doc);
+    final DocumentBuilder docBuilder = DBF.newDocumentBuilder();
+    final Document doc = docBuilder.newDocument();
+    final Element configSrc = doc.createElementNS(XML_NS_CONF,
+        "configuration-source");
+    final ConfigID configId = context.getConfigID();
+    if (configId != null)
+    {
+      final Element request = doc.createElementNS(XML_NS_CONF, "request");
+      request.setAttribute("productId", configId.getProductId());
+      request.setAttribute("componentId", configId.getComponentId());
+      request.setAttribute("type", configId.getType());
+      request
+          .setAttribute("base", context.getConfigurationBaseUrl().toString());
+      // add config variants
+      for (final String cVariant : configId.getVariants())
+      {
+        final Element variant = doc.createElementNS(XML_NS_CONF, "variant");
+        variant.setAttribute("id", cVariant);
+        request.appendChild(variant);
+      }
+      // add config parameters
+      for (final ConfigParameter cParam : context.getParameters())
+      {
+        final Element param = doc.createElementNS(XML_NS_CONF, "parameter");
+        param.setAttribute("id", cParam.getName());
+        param.setTextContent(cParam.getValue());
+        request.appendChild(param);
+      }
+      configSrc.appendChild(request);
+    }
+    doc.appendChild(configSrc);
+    return new DOMSource(doc);
   }
 
   /**
@@ -227,60 +252,66 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
    * @param configurationId
    *          actual requestetd configuration, may be null
    */
-  protected void setupTransformer(final Transformer transformer, final ConfigID configurationId)
+  protected void setupTransformer(final Transformer transformer,
+      final ConfigID configurationId)
   {
-	transformer.setParameter(XSLT_PARAM_PRODUCT_ID, getDescriptor().getProductId());
-	transformer.setParameter(XSLT_PARAM_VERSION, getDescriptor().getVersion());
-	if (configurationId != null)
-	{
-	  transformer.setParameter(XSLT_PARAM_COMPONENT_ID, configurationId.getComponentId());
-	}
-	transformer.setErrorListener(JustLogErrorListener.getInstance());
-	transformer.setURIResolver(this.transformerFactory.getURIResolver());
+    transformer.setParameter(XSLT_PARAM_PRODUCT_ID, getDescriptor()
+        .getProductId());
+    transformer.setParameter(XSLT_PARAM_VERSION, getDescriptor().getVersion());
+    if (configurationId != null)
+    {
+      transformer.setParameter(XSLT_PARAM_COMPONENT_ID,
+          configurationId.getComponentId());
+    }
+    transformer.setErrorListener(JustLogErrorListener.getInstance());
+    transformer.setURIResolver(transformerFactory.getURIResolver());
   }
 
   private class BaxterOutputURIResolver implements OutputURIResolver
   {
 
-	private final OutputURIResolver standardResolver = StandardOutputResolver.getInstance();
+    private final OutputURIResolver standardResolver = StandardOutputResolver
+        .getInstance();
 
-	@Override
-	public void close(final Result result) throws TransformerException
-	{
-	  this.standardResolver.close(result);
-	}
+    @Override
+    public void close(final Result result) throws TransformerException
+    {
+      standardResolver.close(result);
+    }
 
-	@Override
-	public Result resolve(final String href, final String base) throws TransformerException
-	{
-	  if (BaxterProtocol.REPO.supports(href))
-	  {
-		return BaxterProtocol.REPO.getResult(href, AbstractXSLTProcessor.this);
-	  }
-	  else
-	  {
-		return standardResolver.resolve(href, base);
-	  }
-	}
+    @Override
+    public Result resolve(final String href, final String base)
+        throws TransformerException
+    {
+      if (BaxterProtocol.REPO.supports(href))
+      {
+        return BaxterProtocol.REPO.getResult(href, AbstractXSLTProcessor.this);
+      }
+      else
+      {
+        return standardResolver.resolve(href, base);
+      }
+    }
 
   }
 
   private class BaxterURIResolver implements URIResolver
   {
 
-	@Override
-	public Source resolve(final String href, final String base) throws TransformerException
-	{
-	  try
-	  {
-		final BaxterProtocol protocol = BaxterProtocol.protocolFor(href);
-		return protocol.getSource(href, AbstractXSLTProcessor.this);
-	  }
-	  catch (final IllegalArgumentException e)
-	  {
-		return null;
-	  }
-	}
+    @Override
+    public Source resolve(final String href, final String base)
+        throws TransformerException
+    {
+      try
+      {
+        final BaxterProtocol protocol = BaxterProtocol.protocolFor(href);
+        return protocol.getSource(href, AbstractXSLTProcessor.this);
+      }
+      catch (final IllegalArgumentException e)
+      {
+        return null;
+      }
+    }
 
   }
 

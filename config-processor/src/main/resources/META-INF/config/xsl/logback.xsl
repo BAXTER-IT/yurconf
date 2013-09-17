@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:bcl="http://baxter-it.com/config/log"
-    xmlns:c="http://baxter-it.com/config/component"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs bcl c" version="2.0">
+    xmlns:c="http://baxter-it.com/config/component" xmlns:conf="http://baxter-it.com/config" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs bcl c conf" version="2.0">
+
+    <xsl:import href="baxterxsl:repo-base.xsl" />
+    <xsl:import href="baxterxsl:conf-reference.xsl" />
 
     <xsl:output encoding="UTF-8" method="xml" />
     <xsl:param name="configurationComponentId"/>
     
+    <xsl:template match="/">
+        <xsl:variable name="root">
+            <xsl:copy-of select="conf:configuration-source/conf:request" />
+            <xsl:apply-templates select="conf:configuration-source/conf:request" mode="load-document-with-variants">
+                <xsl:with-param name="prefix" select="'log'" />
+            </xsl:apply-templates>
+        </xsl:variable>
+        <xsl:apply-templates select="$root/bcl:configuration" />
+    </xsl:template>
     
     <xsl:template match="bcl:configuration">
         <configuration>
@@ -131,10 +143,6 @@
         </rollingPolicy>
     </xsl:template>
     
-    <xsl:template name="build-log-directory-name">
-        <xsl:text>--NOT IMPLEMENTED--/</xsl:text>
-    </xsl:template>
-    
     <xsl:template name="log-file">
         <file>
             <xsl:call-template name="build-log-file-path">
@@ -145,7 +153,6 @@
     
     <xsl:template name="build-log-file-path">
         <xsl:param name="file" select="'DEFAULT'" />
-        <xsl:call-template name="build-log-directory-name"/>
         <xsl:choose>
             <xsl:when test="empty($file)">
                 <xsl:value-of select="$configurationComponentId" />

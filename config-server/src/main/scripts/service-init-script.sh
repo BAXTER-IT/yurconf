@@ -20,7 +20,8 @@ set -e
 PIDFILE="/var/run/${unix.service.name}.pid"
 
 # Daemon start script
-DAEMON="${unix.application.start.script}"
+# TODO add full path
+DAEMON="${unix.application.bin.dir}/${unix.application.start.script}"
 DAEMONUSER=${unix.user}
 
 MAX_WAIT_CHILD_ITER=50
