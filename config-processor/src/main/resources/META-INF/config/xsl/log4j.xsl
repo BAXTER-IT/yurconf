@@ -7,6 +7,16 @@
 
     <xsl:param name="configurationComponentId" />
 
+    <xsl:template match="/">
+        <xsl:variable name="root">
+            <xsl:copy-of select="conf:configuration-source/conf:request" />
+            <xsl:apply-templates select="conf:configuration-source/conf:request" mode="load-document-with-variants">
+                <xsl:with-param name="prefix" select="'log'"/>
+            </xsl:apply-templates>
+        </xsl:variable>            
+        <xsl:apply-templates select="$root/bcl:configuration" />
+    </xsl:template>
+
     <xsl:template match="bcl:configuration">
         <log4j:configuration debug="true">
             <xsl:variable name="refs"

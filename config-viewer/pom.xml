@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.baxter.config</groupId>
+        <artifactId>baxter-config</artifactId>
+        <version>1.3.5.4-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>config-viewer</artifactId>
+    <packaging>war</packaging>
+
+    <name>Configuration Viewer Template</name>
+    <description>
+        Provides template instruments for another product configuration viewers. 
+        Other viewers should typically overlay this application.
+    </description>
+
+    <build>
+
+        <pluginManagement>
+
+            <plugins>
+
+                <plugin>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <configuration>
+                        <archiveClasses>true</archiveClasses>
+                        <attachClasses>true</attachClasses>
+                    </configuration>
+                </plugin>
+
+            </plugins>
+
+        </pluginManagement>
+
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-dd-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/dd.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://baxter-it.com/config/types"
+    xmlns:tns="http://baxter-it.com/config/types" elementFormDefault="qualified">
+
+    <xs:simpleType name="TBoolean">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="true" />
+            <xs:enumeration value="false" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TSize">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d+(K|M|G)B?" />
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

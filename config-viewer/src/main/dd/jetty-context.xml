@@ -1,0 +1,14 @@
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+<Configure class="org.mortbay.jetty.webapp.WebAppContext">
+
+    <Set name="contextPath">/config-viewer-sample</Set>
+
+    <!-- Use absolute path to specify WAR location -->
+    <Set name="war">${config.viewer.war}</Set>
+
+    <Set name="extractWAR">true</Set>
+    <Set name="copyWebDir">false</Set>
+    <Set name="defaultsDescriptor"><SystemProperty name="jetty.home" default="." />/etc/webdefault.xml</Set>
+
+</Configure>

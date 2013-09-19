@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://baxter-it.com/config/log"
+    xmlns:t="http://baxter-it.com/config/types" xmlns:c="http://baxter-it.com/config/component" xmlns:tns="http://baxter-it.com/config/log"
+    elementFormDefault="qualified">
+
+    <xs:import schemaLocation="types.xsd" namespace="http://baxter-it.com/config/types" />
+    <xs:import schemaLocation="component.xsd" namespace="http://baxter-it.com/config/component" />
+
+    <xs:element name="configuration">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="console-appender" type="tns:TConsoleAppender" />
+                <xs:element name="rolling-file-appender" type="tns:TRollingFileAppender" />
+                <xs:element name="logger" type="tns:TLogger" />
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="TAbstractAppender">
+        <xs:sequence>
+            <xs:element name="layout" type="xs:string" />
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:NCName" use="required" />
+        <xs:attribute name="name" type="xs:string" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="TConsoleAppender">
+        <xs:complexContent>
+            <xs:extension base="tns:TAbstractAppender">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TRollingFileAppender">
+        <xs:complexContent>
+            <xs:extension base="tns:TAbstractAppender">
+                <xs:attribute name="file" type="xs:anyURI" use="required" />
+                <xs:attribute name="maxSize" type="t:TSize" use="required" />
+                <xs:attribute name="backupIndex" type="xs:positiveInteger" use="required" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TLogger">
+        <xs:complexContent>
+            <xs:extension base="c:TWithComponents">
+                <xs:sequence>
+                    <xs:element name="appender-ref" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:attribute name="ref" type="xs:IDREF" use="required" />
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="name" type="xs:string" use="required" />
+                <xs:attribute name="level" type="tns:TLevel" use="required" />
+                <xs:attribute name="additivity" type="t:TBoolean" use="optional" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="TLevel">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ERROR" />
+            <xs:enumeration value="WARN" />
+            <xs:enumeration value="INFO" />
+            <xs:enumeration value="DEBUG" />
+            <xs:enumeration value="TRACE" />
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
