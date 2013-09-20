@@ -519,9 +519,6 @@
 	</profiles>
 
 	<properties>
-		<jira.onlyCurrentVersion>false</jira.onlyCurrentVersion>
-		<jira.fixVersionIds>10406,10493,10503,11390,11696</jira.fixVersionIds>
-		<jira.sortColumnNames>Fix Version DESC</jira.sortColumnNames>
 		<!-- SITE PROPERTIES. We can reference these properties from the site sources -->
 		<releaseVersion>${project.version}</releaseVersion>
 		<!-- SITE PROPERTIES END -->
