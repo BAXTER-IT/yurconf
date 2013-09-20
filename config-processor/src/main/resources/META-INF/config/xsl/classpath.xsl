@@ -3,7 +3,7 @@
     xmlns:j="http://baxter-it.com/config/jvm" xmlns:c="http://baxter-it.com/config/component" xmlns:conf="http://baxter-it.com/config"
     xmlns="http://baxter-it.com/config/om/jvm" exclude-result-prefixes="xs j c conf" version="2.0">
 
-    <xsl:import href="baxterxsl:repo-base.xsl" />
+    <xsl:import href="repo-base.xsl" />
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="no" />
 

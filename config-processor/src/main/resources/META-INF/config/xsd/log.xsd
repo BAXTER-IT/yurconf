@@ -21,7 +21,7 @@
             <xs:element name="layout" type="xs:string" />
         </xs:sequence>
         <xs:attribute name="id" type="xs:NCName" use="required" />
-        <xs:attribute name="name" type="xs:string" use="required" />
+        <xs:attribute name="name" type="xs:string" use="optional" />
     </xs:complexType>
 
     <xs:complexType name="TConsoleAppender">
@@ -34,9 +34,9 @@
     <xs:complexType name="TRollingFileAppender">
         <xs:complexContent>
             <xs:extension base="tns:TAbstractAppender">
-                <xs:attribute name="file" type="xs:anyURI" use="required" />
-                <xs:attribute name="maxSize" type="t:TSize" use="required" />
-                <xs:attribute name="backupIndex" type="xs:positiveInteger" use="required" />
+                <xs:attribute name="file" type="xs:anyURI" use="optional" />
+                <xs:attribute name="maxSize" type="t:TSize" use="optional" />
+                <xs:attribute name="backupIndex" type="xs:positiveInteger" use="optional" />
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
@@ -51,8 +51,8 @@
                         </xs:complexType>
                     </xs:element>
                 </xs:sequence>
-                <xs:attribute name="name" type="xs:string" use="required" />
-                <xs:attribute name="level" type="tns:TLevel" use="required" />
+                <xs:attribute name="name" type="xs:string" use="optional" />
+                <xs:attribute name="level" type="tns:TLevel" use="optional" />
                 <xs:attribute name="additivity" type="t:TBoolean" use="optional" />
             </xs:extension>
         </xs:complexContent>

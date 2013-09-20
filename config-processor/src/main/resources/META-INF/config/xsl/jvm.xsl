@@ -3,9 +3,9 @@
     xmlns:j="http://baxter-it.com/config/jvm" xmlns:c="http://baxter-it.com/config/component"
     xmlns:conf="http://baxter-it.com/config" exclude-result-prefixes="xs c j conf" version="2.0">
 
-    <xsl:import href="baxterxsl:repo-base.xsl" />
-    <xsl:import href="baxterxsl:text-fmt.xsl" />
-    <xsl:import href="baxterxsl:conf-reference.xsl" />
+    <xsl:import href="repo-base.xsl" />
+    <xsl:import href="text-fmt.xsl" />
+    <xsl:import href="conf-reference.xsl" />
 
     <xsl:output encoding="UTF-8" method="text" />
 

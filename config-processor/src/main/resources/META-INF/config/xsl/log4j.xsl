@@ -3,6 +3,9 @@
     xmlns:c="http://baxter-it.com/config/component" xmlns:log4j="http://jakarta.apache.org/log4j/"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs bcl c " version="2.0">
 
+    <xsl:import href="repo-base.xsl" />
+    <xsl:import href="conf-reference.xsl" />
+
     <xsl:output encoding="UTF-8" method="xml" doctype-system="log4j.dtd" />
 
     <xsl:param name="configurationComponentId" />
