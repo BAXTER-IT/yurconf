@@ -8,6 +8,7 @@
                 <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##any"/>
             </xs:sequence>
             <xs:attribute name="id" type="xs:NCName" use="required" />
+            <xs:anyAttribute namespace="##any" />
         </xs:complexType>
     </xs:element>
 

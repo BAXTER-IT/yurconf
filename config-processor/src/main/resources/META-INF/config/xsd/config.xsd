@@ -35,4 +35,12 @@
         <xs:attribute name="id" type="xs:NCName" use="required" />
     </xs:complexType>
 
+    <xs:attribute name="skip">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="all" />
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
 </xs:schema>
