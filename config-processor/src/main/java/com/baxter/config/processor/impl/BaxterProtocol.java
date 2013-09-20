@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.URI;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -16,6 +17,8 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.baxter.config.processor.AbstractProcessor;
 
 /**
  * Custom Baxter Protocols for XSLT Processing.
@@ -31,28 +34,28 @@ enum BaxterProtocol
    */
   XSL
   {
-	private static final String PREFIX = "baxterxsl:";
+	private static final String SCHEME = "baxterxsl";
 
 	@Override
-	Source getSource(final String href, final AbstractXSLTProcessor processor)
+	Source getSource(final URI uri, final AbstractProcessor processor)
 	{
-	  final String xslPath = href.substring(PREFIX.length());
+	  final String xslPath = uri.getSchemeSpecificPart();
 	  final String xslResourcePath = "/META-INF/config/xsl/" + xslPath;
 	  LOGGER.trace("XSL resource path: {}", xslResourcePath);
 	  final InputStream xslStream = getClass().getResourceAsStream(xslResourcePath);
-	  return new StreamSource(xslStream, href);
+	  return new StreamSource(xslStream, uri.toString());
 	}
 
 	@Override
-	Result getResult(final String href, final AbstractXSLTProcessor processor) throws TransformerException
+	Result getResult(final URI uri, final AbstractProcessor processor) throws TransformerException
 	{
 	  throw new UnsupportedOperationException("Result not supported");
 	}
 
 	@Override
-	boolean supports(final String href)
+	boolean supports(final URI uri)
 	{
-	  return href.startsWith(PREFIX);
+	  return SCHEME.equals(uri.getScheme());
 	}
   },
 
@@ -61,36 +64,36 @@ enum BaxterProtocol
    */
   REPO
   {
-	private static final String PREFIX = "baxterrepo:";
+	private static final String SCHEME = "baxterrepo";
 
 	@Override
-	Source getSource(final String href, final AbstractXSLTProcessor processor) throws TransformerException
+	Source getSource(final URI uri, final AbstractProcessor processor) throws TransformerException
 	{
 	  try
 	  {
-		final File file = getRepositoryFile(href, processor);
+		final File file = getRepositoryFile(uri, processor);
 		LOGGER.trace("Repo file: {}", file.getAbsolutePath());
-		return new StreamSource(new FileInputStream(file), href);
+		return new StreamSource(new FileInputStream(file), uri.toString());
 	  }
 	  catch (final FileNotFoundException e)
 	  {
 		LOGGER.debug("Failed to lookup the file in repository", e);
-		LOGGER.warn("Could not resolve {} to repository file", href);
+		LOGGER.warn("Could not resolve {} to repository file", uri);
 		throw new TransformerException(e);
 	  }
 	}
 
 	@Override
-	Result getResult(final String href, final AbstractXSLTProcessor processor) throws TransformerException
+	Result getResult(final URI uri, final AbstractProcessor processor) throws TransformerException
 	{
-	  final File repoFile = getRepositoryFile(href, processor);
+	  final File repoFile = getRepositoryFile(uri, processor);
 	  LOGGER.trace("Output result file {}", repoFile.getAbsolutePath());
 	  return new StreamResult(repoFile);
 	}
 
-	private File getRepositoryFile(final String href, final AbstractXSLTProcessor processor)
+	private File getRepositoryFile(final URI uri, final AbstractProcessor processor)
 	{
-	  final String repoPath = href.substring(PREFIX.length());
+	  final String repoPath = uri.getSchemeSpecificPart();
 	  if (repoPath.startsWith("/"))
 	  {
 		return new File(processor.getFactory().getRepository().getRoot(), repoPath.substring(1));
@@ -103,9 +106,9 @@ enum BaxterProtocol
 	}
 
 	@Override
-	boolean supports(final String href)
+	boolean supports(final URI uri)
 	{
-	  return href.startsWith(PREFIX);
+	  return SCHEME.equals(uri.getScheme());
 	}
   },
   ;
@@ -123,9 +126,9 @@ enum BaxterProtocol
    * @throws TransformerException
    *           if failed to get source for any reason
    */
-  abstract Source getSource(String href, AbstractXSLTProcessor processor) throws TransformerException;
+  abstract Source getSource(URI uri, AbstractProcessor processor) throws TransformerException;
 
-  abstract Result getResult(String href, AbstractXSLTProcessor processor) throws TransformerException;
+  abstract Result getResult(URI uri, AbstractProcessor processor) throws TransformerException;
 
   /**
    * Determines if the protocol supports specified href.
@@ -134,27 +137,27 @@ enum BaxterProtocol
    *          reference to test
    * @return true if this protocol can be used to access source specified by href
    */
-  abstract boolean supports(String href);
+  abstract boolean supports(URI uri);
 
   /**
-   * Determines the protocol element to be used to access the specified href.
+   * Determines the protocol element to be used to access the specified uri.
    * 
-   * @param href
+   * @param uri
    *          source reference
-   * @return protocol element
-   * @throws IllegalArgumentException
-   *           if protocol specified by href is not supported
+   * @return protocol element or null if no one can handle this
    */
-  static BaxterProtocol protocolFor(final String href)
+  static BaxterProtocol protocolFor(final URI uri)
   {
-	for (final BaxterProtocol protocol : values())
-	{
-	  if (protocol.supports(href))
+	if (uri != null) {
+	  for (final BaxterProtocol protocol : values())
 	  {
-		return protocol;
+		if (protocol.supports(uri))
+		{
+		  return protocol;
+		}
 	  }
 	}
-	throw new IllegalArgumentException("Unsupported protocol");
+	return null;
   }
 
 }
