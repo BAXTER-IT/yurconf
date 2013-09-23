@@ -5,6 +5,7 @@ package com.baxter.config.processor;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 
 import com.baxter.config.processor.desc.Descriptor;
 import com.baxter.config.processor.desc.Upgrade;
@@ -44,6 +45,8 @@ public interface ConfigurationRepository
    *           if the descriptor file has not been found in repository
    */
   Descriptor getDescriptor(final String productId) throws ProcessorException;
+  
+  Iterator<Descriptor> getDescriptors() throws ProcessorException;
 
   /**
    * Upgrades the package in repository.

@@ -40,14 +40,17 @@ public class Descriptor
 
   @XmlAttribute(name = "productId", required = true)
   private String productId;
+  
+  @XmlAttribute(name = "viewer", required = false)
+  private String viewerStylesheet;
 
   @XmlElementWrapper(name = "processors")
   @XmlElement(name = "processor")
-  private List<Processor> processors = new ArrayList<Processor>();
+  private final List<Processor> processors = new ArrayList<Processor>();
 
   @XmlElementWrapper(name = "upgrades")
   @XmlElement(name = "from")
-  private List<Upgrade> upgrades = new ArrayList<Upgrade>();
+  private final List<Upgrade> upgrades = new ArrayList<Upgrade>();
 
   public URL getUrl()
   {
@@ -67,8 +70,8 @@ public class Descriptor
   void setUrl(final URL url) throws MalformedURLException
   {
 	this.url = url;
-	this.sourceUrl = url == null ? null : new URL(url, "../config/default/");
-	this.xslUrl = url == null ? null : new URL(url, "../config/xsl/");
+	this.sourceUrl = url == null ? null : new URL(url, "./config/default/");
+	this.xslUrl = url == null ? null : new URL(url, "./config/xsl/");
   }
 
   public String getProductId()
@@ -85,6 +88,11 @@ public class Descriptor
   {
 	return processors;
   }
+  
+  public String getViewerStylesheet()
+  {
+	return viewerStylesheet;
+  }
 
   /**
    * Returns the latest available upgrade from the specified version.
@@ -97,7 +105,7 @@ public class Descriptor
   {
 	Version maxToVersion = null;
 	Upgrade latestUpgrade = null;
-	for (Upgrade upgrade : this.upgrades)
+	for (final Upgrade upgrade : this.upgrades)
 	{
 	  if (fromVersion.equals(upgrade.getFromVersion()))
 	  {
@@ -112,12 +120,12 @@ public class Descriptor
 	return latestUpgrade;
   }
 
-  void setVersion(String version)
+  void setVersion(final String version)
   {
 	this.version = version;
   }
 
-  void setProductId(String productId)
+  void setProductId(final String productId)
   {
 	this.productId = productId;
   }

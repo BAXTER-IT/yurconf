@@ -6,16 +6,19 @@
     <xsl:param name="configurationVersion" />
     <xsl:param name="configurationComponentId" />
 
-    <!--
-        Renders the configuration URL for current reference element.
-        Note: the original "request" element shall be available at current context's root. 
-    -->
+    <!-- Renders the configuration URL for current reference element. Note: the original "request" element shall be available 
+        at current context's root. -->
     <xsl:template match="conf:reference" mode="url">
+        <xsl:param name="productId" />
+        <xsl:param name="componentId" />
         <!-- first render the base URL (path to rest servlet) -->
         <xsl:value-of select="/conf:request/@base" />
         <xsl:text>/</xsl:text>
         <!-- now put the productId -->
         <xsl:choose>
+            <xsl:when test="$productId">
+                <xsl:value-of select="$productId" />
+            </xsl:when>
             <xsl:when test="@productId">
                 <xsl:value-of select="@productId" />
             </xsl:when>
@@ -26,6 +29,9 @@
         <xsl:text>/</xsl:text>
         <!-- now put the componentId -->
         <xsl:choose>
+            <xsl:when test="$componentId">
+                <xsl:value-of select="$componentId" />
+            </xsl:when>
             <xsl:when test="@componentId">
                 <xsl:value-of select="@componentId" />
             </xsl:when>

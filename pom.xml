@@ -182,7 +182,6 @@
 		<module>config-processor</module>
 		<module>config-processor-demo</module>
 		<module>config-server</module>
-		<module>config-viewer</module>
 	</modules>
 
 	<dependencyManagement>

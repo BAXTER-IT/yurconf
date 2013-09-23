@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -181,6 +182,19 @@ final class RepositoryImpl implements ConfigurationRepository
 	else
 	{
 	  throw new RepositoryException("Descriptor not found");
+	}
+  }
+
+  @Override
+  public Iterator<Descriptor> getDescriptors() throws ProcessorException
+  {
+	try
+	{
+	  return new DescriptorsIterator();
+	}
+	catch (final IOException e)
+	{
+	  throw new ProcessorException("Failed to iterate the processors", e);
 	}
   }
 
