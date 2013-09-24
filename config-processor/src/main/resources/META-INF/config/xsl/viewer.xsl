@@ -19,11 +19,18 @@
         <html>
             <head>
                 <xsl:call-template name="viewer-title" />
+                <style type="text/css">
+                    <xsl:call-template name="css" />
+                </style>
             </head>
             <body>
                 <xsl:apply-templates select="$root/conf:request" />
             </body>
         </html>
+    </xsl:template>
+
+    <xsl:template name="css">
+        <!-- Put your styles here -->
     </xsl:template>
 
     <xsl:template match="conf:request">
@@ -43,11 +50,16 @@
                         <xsl:attribute name="value"> <xsl:value-of select="conf:variant/@id"
                             separator="," /> </xsl:attribute>
                     </input>
+                    <xsl:call-template name="form" />
                     <input type="submit" value="Refresh" />
                 </p>
             </form>
         </p>
         <hr />
+    </xsl:template>
+
+    <xsl:template name="form">
+        <!-- put extra controls here -->
     </xsl:template>
 
     <xsl:template name="load-sources">

@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -168,6 +168,7 @@ public class ViewerServlet extends AbstractRepositoryServlet
 	private final HttpServletResponse response;
 	private final ConfigID configId;
 	private final URL configBaseUrl;
+	private final List<ConfigParameter> params = new ArrayList<ConfigParameter>();
 
 	private RequestProcessorContext(final HttpServletRequest request, final HttpServletResponse response, final String productId)
 	{
@@ -182,7 +183,6 @@ public class ViewerServlet extends AbstractRepositoryServlet
 		}
 	  }
 	  this.configId = new ConfigID(productId, "config-server", "viewer", variants);
-
 	  try
 	  {
 		final URI uri = new URI(request.getRequestURL().toString()).resolve(getServletContext().getContextPath() + "/rest");
@@ -192,6 +192,18 @@ public class ViewerServlet extends AbstractRepositoryServlet
 	  {
 		logger.error("Failed to determine config base url", e);
 		throw new IllegalStateException(e);
+	  }
+	  for (final Enumeration<?> paramNames = request.getParameterNames(); paramNames.hasMoreElements();)
+	  {
+		final String parameterName = String.valueOf(paramNames.nextElement());
+		if (!"version".equals(parameterName) && !"variants".equals(parameterName))
+		{
+		  for (final String value : request.getParameterValues(parameterName))
+		  {
+			final ConfigParameter cParam = new ConfigParameter(parameterName, value);
+			params.add(cParam);
+		  }
+		}
 	  }
 	}
 
@@ -217,7 +229,7 @@ public class ViewerServlet extends AbstractRepositoryServlet
 	@Override
 	public List<ConfigParameter> getParameters()
 	{
-	  return Collections.emptyList();
+	  return params;
 	}
 
 	@Override
