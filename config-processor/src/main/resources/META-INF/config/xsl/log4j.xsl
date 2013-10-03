@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:bcl="http://baxter-it.com/config/log"
-    xmlns:c="http://baxter-it.com/config/component" xmlns:log4j="http://jakarta.apache.org/log4j/"
-    xmlns:conf="http://baxter-it.com/config"
+    xmlns:c="http://baxter-it.com/config/component" xmlns:log4j="http://jakarta.apache.org/log4j/" xmlns:conf="http://baxter-it.com/config"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs bcl c conf" version="2.0">
 
     <xsl:import href="repo-base.xsl" />
@@ -15,9 +14,9 @@
         <xsl:variable name="root">
             <xsl:copy-of select="conf:configuration-source/conf:request" />
             <xsl:apply-templates select="conf:configuration-source/conf:request" mode="load-document-with-variants">
-                <xsl:with-param name="prefix" select="'log'"/>
+                <xsl:with-param name="prefix" select="'log'" />
             </xsl:apply-templates>
-        </xsl:variable>            
+        </xsl:variable>
         <xsl:apply-templates select="$root/bcl:configuration" />
     </xsl:template>
 
@@ -25,10 +24,36 @@
         <log4j:configuration debug="true">
             <xsl:variable name="refs"
                 select="bcl:logger[c:component[@id=$configurationComponentId]]/bcl:appender-ref/@ref" />
-            <xsl:apply-templates select="(bcl:console-appender | bcl:rolling-file-appender)[@name=$refs]" />
+            <xsl:apply-templates
+                select="(bcl:console-appender | bcl:rolling-file-appender | bcl:generic-appender )[@name=$refs or c:component/@id=$configurationComponentId]" />
             <xsl:apply-templates select="bcl:logger[c:component[@id=$configurationComponentId]][@name!='ROOT']" />
             <xsl:apply-templates select="bcl:logger[c:component[@id=$configurationComponentId]][@name='ROOT']" />
         </log4j:configuration>
+    </xsl:template>
+
+    <xsl:template match="c:component" mode="deep-copy-generic">
+    </xsl:template>
+
+    <xsl:template match="*" mode="deep-copy-generic">
+        <xsl:param name="name" select="name()"></xsl:param>
+        <xsl:element name="{$name}">
+            <xsl:copy-of select="@*" />
+            <xsl:apply-templates select="*" mode="deep-copy-generic" />
+            <xsl:if test="text()">
+                <xsl:value-of select="text()" />
+            </xsl:if>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template match="bcl:generic-appender">
+        <xsl:comment>
+            <xsl:text>Using of generic appenders in log configuration source. </xsl:text>
+            <xsl:text>This is not portable across the different logging frameworks. </xsl:text>
+            <xsl:text>Use it on your own risk. </xsl:text>
+        </xsl:comment>
+        <xsl:apply-templates select="." mode="deep-copy-generic">
+            <xsl:with-param name="name" select="'appender'" />
+        </xsl:apply-templates>
     </xsl:template>
 
     <xsl:template match="bcl:console-appender">
