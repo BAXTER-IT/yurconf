@@ -380,6 +380,11 @@
                                                         <destination>${unix.application.start.script}</destination>
                                                         <filter>true</filter>
                                                     </source>
+                                                    <source>
+                                                        <location>src/main/scripts/wrapper.sh</location>
+                                                        <destination>${unix.service.name}</destination>
+                                                        <filter>true</filter>
+                                                    </source>
                                                 </sources>
                                             </mapping>
                                             <mapping>

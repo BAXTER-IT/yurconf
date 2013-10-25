@@ -30,6 +30,14 @@
         <file>
             <outputDirectory>bin</outputDirectory>
             <source>src/main/scripts/start-jetty.sh</source>
+            <destName>start-configuration-server</destName>
+            <filtered>true</filtered>
+            <lineEnding>unix</lineEnding>
+            <fileMode>0555</fileMode>
+        </file>
+        <file>
+            <outputDirectory>bin</outputDirectory>
+            <source>src/main/scripts/wrapper.sh</source>
             <destName>configuration-server</destName>
             <filtered>true</filtered>
             <lineEnding>unix</lineEnding>

@@ -6,6 +6,10 @@
 
         <release version="DEV" date="TODAY" description="Improvements">
         
+            <action type="fix" issue="PE-3810" date="2013-10-25" dev="ykryshchuk">
+                Added start/stop wrapper scripts for config server.
+            </action>
+            
             <action type="fix" issue="PE-935" date="2013-10-25" dev="ykryshchuk">
                 Fixed variants handling in conf:reference elements.
             </action>

@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 #
 # Starts the ${project.name} within a Jetty Web Container.
 # Should be typically called by unix service script.
@@ -65,8 +65,11 @@ PROGRAM="$JAVA $JAVA_OPTS -jar $JETTY_JAR ${f.jetty.config.file}"
 
 # Run in terminal or as a daemon?
 if $RUNASDAEMON ; then
+	if [ "x$OUTDIR" == "x" ]; then
+		OUTDIR="${f.out.dir}"
+	fi
     # The output of stderr and stdout will be stored in this file
-    exec $PROGRAM > ${f.out.file} 2>&1
+    exec $PROGRAM > $OUTDIR/${unix.service.name}.out 2>&1
 else
     $PROGRAM
 fi

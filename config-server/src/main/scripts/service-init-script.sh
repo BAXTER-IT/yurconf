@@ -36,7 +36,7 @@ waitForMarker() {
     IDX=0
     while [ $IDX -ne $MAX_WAIT_MARKER_ITER ]; do
         # Only standard marker should be considered
-        MARKER=$(cat $OUT | grep -e 'Application started' -e 'OK....' -e 'Started in ' -e '::Started ')
+        MARKER=$(cat $OUT | grep -e 'Application started' -e 'OK....' -e 'Started in ' -e '::Started ' -e '::INFO:  Started')
         if [ "x$MARKER" != "x" ]; then
             return 0
         else
@@ -56,7 +56,7 @@ doStart()
     # Daemon will be started with this user
     MARKER_FOUND=false
     if start-stop-daemon --test --start --quiet --chuid $DAEMONUSER --make-pidfile --pidfile $PIDFILE --background --exec $DAEMON > /dev/null; then
-        OUTFILE="${f.out.file}"
+        OUTFILE="${f.out.dir}/${unix.service.name}.out"
         rm -f $OUTFILE
         ARGS="--daemon"
         if start-stop-daemon --start --quiet --chuid $DAEMONUSER --make-pidfile --pidfile $PIDFILE --background --exec $DAEMON -- $ARGS ; then
