@@ -45,14 +45,20 @@
             <xsl:when test="@skipVariants='true'">
                 <!-- do not add any variants -->
             </xsl:when>
-            <xsl:when test="conf:variant">
-                <xsl:value-of select="conf:variant/@id" separator="," />
-                <xsl:text>/</xsl:text>
-            </xsl:when>
-            <xsl:when test="/conf:request/conf:variant">
-                <xsl:value-of select="/conf:request/conf:variant/@id" separator="," />
-                <xsl:text>/</xsl:text>
-            </xsl:when>
+            <xsl:otherwise>
+                <xsl:variable name="variants">
+                    <!-- Prepend direct variants -->
+                    <xsl:copy-of select="conf:variant[@prepend='true'][@disabled='false' or not(@disabled)]" />
+                    <!-- Put variants from request -->
+                    <xsl:copy-of select="/conf:request/conf:variant[not(@id=current()/conf:variant/@id)]" />
+                    <!-- Append direct variants -->
+                    <xsl:copy-of select="conf:variant[@prepend='false' or not(@prepend)][@disabled='false' or not(@disabled)]" />
+                </xsl:variable>
+                <xsl:if test="$variants/conf:variant">
+                    <xsl:value-of select="$variants/conf:variant/@id" separator="," />
+                    <xsl:text>/</xsl:text>
+                </xsl:if>
+            </xsl:otherwise>
         </xsl:choose>
         <!-- config type. Mandatory parameter -->
         <xsl:value-of select="@type" />

@@ -3,21 +3,31 @@
     xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
 
     <body>
-    
+
+        <release version="DEV" date="TODAY" description="Improvements">
+        
+            <action type="fix" issue="PE-935" date="2013-10-25" dev="ykryshchuk">
+                Fixed variants handling in conf:reference elements.
+            </action>
+            
+        </release>
+
         <release version="1.3.7.2" date="2013-10-03" description="Santander fix">
-        
-        <action type="add" issue="SANPRJ-828" dev="ykryshchuk" due-to="SAN">
-            Added support for generic log appenders.
-        </action>
-        
+
+            <action type="add" issue="SANPRJ-828" dev="ykryshchuk" due-to="SAN">
+                Added support for generic log
+                appenders.
+            </action>
+
         </release>
 
         <release version="1.3.7" date="2013-09-24" description="Config Viewer">
-        
+
             <action type="add" issue="CFG-43" dev="ykryshchuk" system="JIRA">
-                Implemented simple config viewer at "/config-server/view" path.
+                Implemented simple config viewer at
+                "/config-server/view" path.
             </action>
-            
+
         </release>
 
     </body>
