@@ -4,7 +4,7 @@
 
     <body>
 
-        <release version="DEV" date="TODAY" description="Improvements">
+        <release version="1.3.7.3" date="2013-10-25" description="Improvements">
         
             <action type="fix" issue="PE-3810" date="2013-10-25" dev="ykryshchuk">
                 Added start/stop wrapper scripts for config server.
