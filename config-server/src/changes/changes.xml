@@ -4,16 +4,30 @@
 
     <body>
 
+        <release version="1.3.7.4" date="2013-10-31" description="Maintenance release">
+
+            <action type="fix" issue="PE-3839" date="2013-10-31" dev="ykryshchuk">
+                Support for read-only repositories.
+            </action>
+
+            <action type="fix" issue="PE-3858" date="2013-10-31" dev="ykryshchuk">
+                Improved startup scripts.
+            </action>
+
+        </release>
+
         <release version="1.3.7.3" date="2013-10-25" description="Improvements">
-        
+
             <action type="fix" issue="PE-3810" date="2013-10-25" dev="ykryshchuk">
-                Added start/stop wrapper scripts for config server.
+                Added start/stop wrapper scripts for config
+                server.
             </action>
-            
+
             <action type="fix" issue="PE-935" date="2013-10-25" dev="ykryshchuk">
-                Fixed variants handling in conf:reference elements.
+                Fixed variants handling in conf:reference
+                elements.
             </action>
-            
+
         </release>
 
         <release version="1.3.7.2" date="2013-10-03" description="Santander fix">
