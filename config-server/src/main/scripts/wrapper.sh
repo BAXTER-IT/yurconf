@@ -25,6 +25,9 @@ fi
 if [ "x$PIDDIR" == "x" ]; then
 	PIDDIR="${f.pid.dir}"
 fi
+if [ ! -d $PIDDIR ]; then
+	mkdir -p $PIDDIR
+fi
 if [ ! -w $PIDDIR ]; then
 	echo "PID Directory $PIDDIR is not writable, please check it"
 	exit 2
@@ -43,6 +46,10 @@ SERVICENAME="${unix.service.name}"
 
 if [ "x$OUTDIR" == "x" ]; then
 	OUTDIR="${f.out.dir}"
+fi
+if [ ! -w $OUTDIR ]; then
+	echo "OUT Directory $OUTDIR is not writable, please check it"
+	exit 2
 fi
 OUTFILE="$OUTDIR/${unix.service.name}.out"
 export OUTFILE 
