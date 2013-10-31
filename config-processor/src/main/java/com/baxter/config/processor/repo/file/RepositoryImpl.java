@@ -81,6 +81,7 @@ final class RepositoryImpl implements ConfigurationRepository
   public void upgradePackage(final Descriptor descriptor, final Upgrade upgrade, final ProcessorFactory processorFactory)
 	  throws ProcessorException
   {
+	quoteForMutation(descriptor + " " + upgrade);
 	final UpgradeContext upgradeContext = new UpgradeContext()
 	{
 
@@ -120,13 +121,23 @@ final class RepositoryImpl implements ConfigurationRepository
 	}
   }
 
+  void quoteForMutation(final Object reason)
+  {
+	final File rootDir = getRoot();
+	if (!rootDir.canWrite())
+	{
+	  LOGGER.error("Cannot quote for mutation: {}", reason);
+	  System.exit(5);
+	}
+  }
+
   @Override
   public void installPackage(final Descriptor descriptor) throws IOException, ProcessorException
   {
+	quoteForMutation("Installing " + descriptor);
 	LOGGER.info("Installing {} in repository", descriptor);
 	final URLLister urlLister = URLLister.getInstance(descriptor.getSourceUrl());
 	final List<String> entryPaths = urlLister.list(descriptor.getSourceUrl());
-
 	final File productDirectory = getProductDirectory(descriptor.getProductId());
 
 	// Perform default configuration copying
