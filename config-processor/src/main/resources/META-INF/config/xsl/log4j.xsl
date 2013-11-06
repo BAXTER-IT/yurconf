@@ -21,7 +21,7 @@
     </xsl:template>
 
     <xsl:template match="bcl:configuration">
-        <log4j:configuration debug="true">
+        <log4j:configuration debug="false">
             <xsl:variable name="refs"
                 select="bcl:logger[c:component[@id=$configurationComponentId]]/bcl:appender-ref/@ref" />
             <xsl:apply-templates
