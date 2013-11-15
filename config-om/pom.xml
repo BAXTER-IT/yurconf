@@ -8,12 +8,11 @@
 		<version>1.3.7.5-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>config-om</artifactId>
+	<artifactId>baxter-config-om</artifactId>
 
 	<name>Baxter Configuration Object Model</name>
 
 	<properties>
-		<jira.component>${project.artifactId}</jira.component>
 	</properties>
 
 </project>

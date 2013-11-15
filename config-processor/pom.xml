@@ -8,7 +8,7 @@
 		<version>1.3.7.5-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>config-processor</artifactId>
+	<artifactId>baxter-config-processor</artifactId>
 	<name>Configuration Processors</name>
 
 	<build>
@@ -52,7 +52,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>config-om</artifactId>
+			<artifactId>baxter-config-om</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -86,7 +86,6 @@
 	</dependencies>
 
 	<properties>
-		<jira.component>${project.artifactId}</jira.component>
 	</properties>
 
 </project>

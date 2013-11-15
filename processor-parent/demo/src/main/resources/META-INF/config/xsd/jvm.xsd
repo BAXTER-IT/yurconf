@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://baxter-it.com/config/jvm"
+    xmlns:t="http://baxter-it.com/config/types" xmlns:c="http://baxter-it.com/config/component" xmlns:conf="http://baxter-it.com/config"
+    xmlns:tns="http://baxter-it.com/config/jvm" elementFormDefault="qualified">
+
+    <xs:import schemaLocation="types.xsd" namespace="http://baxter-it.com/config/types" />
+    <xs:import schemaLocation="config.xsd" namespace="http://baxter-it.com/config" />
+    <xs:import schemaLocation="component.xsd" namespace="http://baxter-it.com/config/component" />
+
+    <xs:element name="configuration">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="logging" type="tns:TLogging" />
+                <xs:element name="heap" type="tns:THeap" />
+                <xs:element name="jmx" type="tns:TJMX" />
+                <xs:element name="gc" type="tns:TGC" />
+                <xs:element name="gclog" type="tns:TGCLog" />
+                <xs:element name="system" type="tns:TSystem" />
+                <xs:element name="option" type="tns:TOption" />
+                <xs:element name="classpath" type="tns:TClasspath" />
+                <xs:element name="debug" type="tns:TDebug" />
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="port" type="xs:positiveInteger">
+    </xs:element>
+
+    <xs:complexType name="THeap">
+        <xs:complexContent>
+            <xs:extension base="c:TWithComponents">
+                <xs:attribute name="initial" type="t:TSize" use="optional" />
+                <xs:attribute name="maximum" type="t:TSize" use="optional" />
+                <xs:attribute name="new" type="t:TSize" use="optional" />
+                <xs:attribute name="perm" type="t:TSize" use="optional" />
+                <xs:attribute name="maxperm" type="t:TSize" use="optional" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TJMX">
+        <xs:complexContent>
+            <xs:extension base="c:TWithComponents">
+                <xs:attribute name="auth" type="t:TBoolean" use="optional" />
+                <xs:attribute name="ssl" type="t:TBoolean" use="optional" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TLogging">
+        <xs:complexContent>
+            <xs:extension base="c:TWithComponents">
+                <xs:sequence>
+                    <xs:element ref="conf:reference" minOccurs="0"/>
+                </xs:sequence>
+                <xs:attribute name="framework" type="tns:TLoggingFramework" use="optional" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TDebug">
+        <xs:complexContent>
+            <xs:extension base="c:TWithComponents">
+                <xs:attribute name="suspend" type="t:TBoolean" use="optional" />
+                <xs:attribute name="listenHost" type="xs:string" use="optional" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:complexType name="TOption">
+        <xs:complexContent>
+            <xs:extension base="c:TWithComponents">
+                <xs:attribute name="value" type="xs:string" use="optional" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TClasspath">
+        <xs:complexContent>
+            <xs:extension base="c:TWithComponents">
+                <xs:attribute name="url" type="xs:anyURI" use="optional" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TSystem">
+        <xs:complexContent>
+            <xs:extension base="c:TWithComponents">
+                <xs:sequence>
+                    <xs:element ref="conf:reference" minOccurs="0" />
+                </xs:sequence>
+                <xs:attribute name="name" type="xs:NCName" use="optional" />
+                <xs:attribute name="value" type="xs:string" use="optional" />
+                <xs:attribute name="param" type="xs:positiveInteger" use="optional" />
+                <xs:attribute name="var" type="xs:NCName" use="optional" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TGCLog">
+        <xs:complexContent>
+            <xs:extension base="c:TWithComponents">
+                <xs:attribute name="rfcDate" type="t:TBoolean" use="optional" />
+                <xs:attribute name="file" type="xs:string" use="optional" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="TGC">
+        <xs:complexContent>
+            <xs:extension base="c:TWithComponents">
+                <xs:attribute name="disableExplicit" type="t:TBoolean" use="optional" />
+                <xs:attribute name="type" type="tns:TGCType" use="optional" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="TGCType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="cms" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TLoggingFramework">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="logback" />
+            <xs:enumeration value="log4j" />
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

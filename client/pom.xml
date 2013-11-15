@@ -1,0 +1,313 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>baxter-config</artifactId>
+        <groupId>com.baxter.config</groupId>
+        <version>1.3.7.5-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>baxter-config-client</artifactId>
+
+    <name>Baxter Configuration Client</name>
+    <description>
+		Baxter Configuration Client. Contains the resources 
+		needed by applications to read remote configuration 
+		from a Baxter Configuration Server. 
+	</description>
+
+    <build>
+
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest combine.children="append">
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+    <profiles>
+
+        <profile>
+            <id>UnixInstaller</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <!-- TODO this can be moved to parent pom -->
+                                <id>get-component-dependencies</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${component.dependencies.dir}</outputDirectory>
+                                    <includeScope>runtime</includeScope>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <component.dependencies.dir>${project.build.directory}/component-dependencies</component.dependencies.dir>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>DEB</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>filter-deb-spec-files</id>
+                                <configuration>
+                                    <filters>
+                                        <filter>${basedir}/src/main/unix/filter/default.properties</filter>
+                                    </filters>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>filter-deb-script-files</id>
+                                <configuration>
+                                    <filters>
+                                        <filter>${basedir}/src/main/unix/filter/default.properties</filter>
+                                    </filters>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>no.arktekk.unix</groupId>
+                        <artifactId>unix-maven-plugin</artifactId>
+                        <configuration>
+                            <deb combine.children="append">
+                                <replaces>config-client</replaces>
+                            </deb>
+                            <assembly combine.children="append">
+                                <copyFile>
+                                    <path>src/main/config/client-config</path>
+                                    <toFile>${unix.config}</toFile>
+                                </copyFile>
+                                <copyFile>
+                                    <path>${project.build.directory}/${project.build.finalName}.jar</path>
+                                    <toDir>${unix.application.lib.dir}</toDir>
+                                </copyFile>
+                                <symlink>
+                                    <value>${unix.application.lib.dir}/${project.build.finalName}.jar</value>
+                                    <path>${unix.application.lib.dir}/${project.artifactId}.jar</path>
+                                </symlink>
+                                <copy-directory>
+                                    <from>${component.dependencies.dir}</from>
+                                    <to>${unix.application.lib.dir}</to>
+                                </copy-directory>
+                                <copy-directory>
+                                    <from>${deb.scripts.dir}</from>
+                                    <to>${unix.application.bin.dir}</to>
+                                    <fileAttributes>
+                                        <mode>755</mode>
+                                    </fileAttributes>
+                                    <includes>
+                                        <include>*.sh</include>
+                                    </includes>
+                                </copy-directory>
+                            </assembly>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>RPM</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>rpm-maven-plugin</artifactId>
+                        <configuration>
+                            <conflicts combine.children="append">
+                                <conflict>config-client</conflict>
+                            </conflicts>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>build-std-rpm-installer</id>
+                                <configuration>
+                                    <filters>
+                                        <filter>${basedir}/src/main/unix/filter/default.properties</filter>
+                                    </filters>
+                                    <mappings>
+                                        <mapping>
+                                            <directory>${unix.config.dir}</directory>
+                                            <configuration>noreplace</configuration>
+                                            <sources>
+                                                <source>
+                                                    <location>src/main/config/client-config</location>
+                                                    <destination>config</destination>
+                                                    <filter>false</filter>
+                                                </source>
+                                            </sources>
+                                        </mapping>
+                                        <mapping>
+                                            <directory>${unix.application.bin.dir}</directory>
+                                            <filemode>755</filemode>
+                                            <sources>
+                                                <source>
+                                                    <location>src/main/scripts</location>
+                                                    <includes>
+                                                        <include>*.sh</include>
+                                                    </includes>
+                                                    <filter>true</filter>
+                                                </source>
+                                            </sources>
+                                        </mapping>
+                                        <mapping>
+                                            <directory>${unix.application.lib.dir}</directory>
+                                            <artifact>
+                                                <classifiers>
+                                                    <classifier />
+                                                </classifiers>
+                                            </artifact>
+                                            <sources>
+                                                <source>
+                                                    <location>${component.dependencies.dir}</location>
+                                                </source>
+                                                <softlinkSource>
+                                                    <location>${unix.application.lib.dir}/${project.build.finalName}.jar</location>
+                                                    <destination>${project.artifactId}.jar</destination>
+                                                </softlinkSource>
+                                            </sources>
+                                        </mapping>
+                                    </mappings>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>build-alt-rpm-installer</id>
+                                <configuration>
+                                    <filters>
+                                        <filter>${basedir}/src/main/unix/filter/rpm-san.properties</filter>
+                                    </filters>
+                                    <mappings>
+                                        <mapping>
+                                            <directory>${san.root}</directory>
+                                        </mapping>
+                                        <mapping>
+                                            <directory>${san.root}/etc</directory>
+                                        </mapping>
+                                        <mapping>
+                                            <directory>${san.root}/etc</directory>
+                                            <configuration>noreplace</configuration>
+                                            <sources>
+                                                <source>
+                                                    <location>src/main/config/client-config</location>
+                                                    <destination>config</destination>
+                                                    <filter>false</filter>
+                                                </source>
+                                            </sources>
+                                        </mapping>
+                                        <mapping>
+                                            <directory>${san.root}/bin</directory>
+                                        </mapping>
+                                        <mapping>
+                                            <directory>${san.root}/bin</directory>
+                                            <filemode>755</filemode>
+                                            <sources>
+                                                <source>
+                                                    <location>src/main/scripts</location>
+                                                    <includes>
+                                                        <include>*.sh</include>
+                                                    </includes>
+                                                    <filter>true</filter>
+                                                </source>
+                                            </sources>
+                                        </mapping>
+                                        <mapping>
+                                            <directory>${san.root}/lib</directory>
+                                        </mapping>
+                                        <mapping>
+                                            <directory>${san.root}/lib</directory>
+                                            <artifact>
+                                                <classifiers>
+                                                    <classifier />
+                                                </classifiers>
+                                            </artifact>
+                                            <sources>
+                                                <source>
+                                                    <location>${component.dependencies.dir}</location>
+                                                </source>
+                                                <softlinkSource>
+                                                    <location>${san.root}/lib/${project.build.finalName}.jar</location>
+                                                    <destination>${project.artifactId}.jar</destination>
+                                                </softlinkSource>
+                                            </sources>
+                                        </mapping>
+                                    </mappings>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>APT</id>
+            <!-- This profile is used for development purposes only. When deploying the artifact, this profile will push 
+                DEB file to remote directory for later adding ot to APT repository. -->
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>wagon-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>baxter-config-om</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <properties>
+        <jira.component>${project.artifactId}</jira.component>
+    </properties>
+
+</project>

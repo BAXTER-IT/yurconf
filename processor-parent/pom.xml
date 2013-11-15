@@ -1,0 +1,416 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.baxter.config</groupId>
+        <artifactId>baxter-config</artifactId>
+        <version>1.3.7.5-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>baxter-config-processor-parent</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Configuration Processor Parent</name>
+    <description>
+    The template for a configuration processor.
+    </description>
+
+    <modules>
+        <module>demo</module>
+    </modules>
+
+    <build>
+
+        <pluginManagement>
+
+            <plugins>
+
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>get-common-xsd</id>
+                            <phase>generate-resources</phase>
+                            <goals>
+                                <goal>unpack</goal>
+                            </goals>
+                            <configuration>
+                                <artifactItems>
+                                    <artifactItem>
+                                        <groupId>com.baxter.config</groupId>
+                                        <artifactId>baxter-config-processor</artifactId>
+                                    </artifactItem>
+                                </artifactItems>
+                                <includes>META-INF/config/xsd/*.xsd</includes>
+                                <outputDirectory>src/main/resources</outputDirectory>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>assembly-schemas</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                            <configuration>
+                                <descriptors>
+                                    <descriptor>src/main/assembly/schemas.xml</descriptor>
+                                </descriptors>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-assembly-plugin</artifactId>
+                                        <versionRange>[1.0,)</versionRange>
+                                        <goals>
+                                            <goal>single</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-dependency-plugin</artifactId>
+                                        <versionRange>[1.0,)</versionRange>
+                                        <goals>
+                                            <goal>unpack</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute />
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+
+            </plugins>
+
+        </pluginManagement>
+
+    </build>
+
+    <profiles>
+
+        <profile>
+            <id>IT</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-config-server</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>com.baxter.config</groupId>
+                                            <artifactId>baxter-config-server</artifactId>
+                                            <type>war</type>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <outputDirectory>${config.server.war.dir}</outputDirectory>
+                                    <stripVersion>true</stripVersion>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.mortbay.jetty</groupId>
+                        <artifactId>maven-jetty-plugin</artifactId>
+                        <configuration>
+                            <webApp>${config.server.war.dir}/baxter-config-server.war</webApp>
+                            <contextPath>/config-server</contextPath>
+                            <webAppConfig>
+                                <extraClasspath>${project.build.outputDirectory}</extraClasspath>
+                            </webAppConfig>
+                            <scanIntervalSeconds>10</scanIntervalSeconds>
+                            <stopKey>foo</stopKey>
+                            <stopPort>9999</stopPort>
+                            <connectors>
+                                <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                                    <port>8099</port>
+                                    <maxIdleTime>60000</maxIdleTime>
+                                </connector>
+                            </connectors>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-jetty</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>deploy-war</goal>
+                                </goals>
+                                <configuration>
+                                    <scanIntervalSeconds>0</scanIntervalSeconds>
+                                    <daemon>true</daemon>
+                                    <systemProperties>
+                                        <systemProperty>
+                                            <name>com.baxter.config.Repository</name>
+                                            <value>${project.build.directory}/test-repo-root</value>
+                                        </systemProperty>
+                                    </systemProperties>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>stop-jetty</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>chronos-jmeter-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>run-jmeter-tests</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>jmeter</goal>
+                                </goals>
+                                <configuration>
+                                    <dataid>jmeterProcessors</dataid>
+                                    <input>${basedir}/src/jmeter/test-plan.jmx</input>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-site-plugin</artifactId>
+                        <configuration>
+                            <reportPlugins combine.children="append">
+                                <plugin>
+                                    <groupId>org.codehaus.mojo</groupId>
+                                    <artifactId>chronos-report-maven-plugin</artifactId>
+                                    <version>${chronos.dep.version}</version>
+                                    <reportSets>
+                                        <reportSet>
+                                            <id>jmeterProcessorsReports</id>
+                                            <reports>
+                                                <report>report</report>
+                                            </reports>
+                                            <configuration>
+                                                <dataid>jmeterProcessors</dataid>
+                                                <title>Processors Tests</title>
+                                                <description>Shows the JMeter tests run for ${project.name}</description>
+                                            </configuration>
+                                        </reportSet>
+                                    </reportSets>
+                                </plugin>
+                            </reportPlugins>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <chronos.dep.version>1.0-beta-3</chronos.dep.version>
+                <config.server.war.dir>${project.build.directory}/config-server-war</config.server.war.dir>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>DEB</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <artifactId>unix-maven-plugin</artifactId>
+                            <groupId>no.arktekk.unix</groupId>
+                            <version>1.0-alpha-6</version>
+                            <configuration>
+                                <debug>true</debug>
+                                <contact>${project.organization.name}</contact>
+                                <contactEmail>info.config@baxter-it.com</contactEmail>
+                                <description>${project.description}</description>
+                                <deb>
+                                    <priority>optional</priority>
+                                    <section>${unix.application.group.name}</section>
+                                </deb>
+                                <defaults>
+                                    <fileAttributes>
+                                        <user>${unix.user}</user>
+                                        <group>${unix.group}</group>
+                                        <mode>644</mode>
+                                    </fileAttributes>
+                                    <directoryAttributes>
+                                        <user>${unix.user}</user>
+                                        <group>${unix.group}</group>
+                                        <mode>755</mode>
+                                    </directoryAttributes>
+                                </defaults>
+                            </configuration>
+                            <executions>
+                                <execution>
+                                    <id>build-deb-installer</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>package-deb-attached</goal>
+                                    </goals>
+                                    <configuration>
+                                        <deb>
+                                            <depends>${deb.config-server.dep}</depends>
+                                        </deb>
+                                        <assembly combine.children="append">
+                                            <copyFile>
+                                                <path>${project.build.directory}/${project.build.finalName}.jar</path>
+                                                <toDir>${unix.application.lib.dir}</toDir>
+                                            </copyFile>
+                                            <symlink>
+                                                <value>${unix.application.lib.dir}/${project.build.finalName}.jar</value>
+                                                <path>${config.processors.lib.dir}/${project.artifactId}.jar</path>
+                                            </symlink>
+                                        </assembly>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+            <properties>
+                <deb.config-server.dep>baxter-config-server(&gt;=${config.dep.version})</deb.config-server.dep>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>RPM</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>rpm-maven-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>build-std-rpm-installer</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>attached-rpm</goal>
+                                    </goals>
+                                    <configuration>
+                                        <requires>
+                                            <require>baxter-config-server-std &gt;= ${config.dep.version}</require>
+                                        </requires>
+                                        <mappings>
+                                            <mapping>
+                                                <directory>${unix.application.lib.dir}</directory>
+                                                <artifact>
+                                                    <classifiers>
+                                                        <classifier />
+                                                    </classifiers>
+                                                </artifact>
+                                            </mapping>
+                                            <mapping>
+                                                <directory>${config.processors.lib.dir}</directory>
+                                                <sources>
+                                                    <softlinkSource>
+                                                        <location>${unix.application.lib.dir}/${project.build.finalName}.jar</location>
+                                                        <destination>${project.artifactId}.jar</destination>
+                                                    </softlinkSource>
+                                                </sources>
+                                            </mapping>
+                                        </mappings>
+                                    </configuration>
+                                </execution>
+                                <execution>
+                                    <id>build-alt-rpm-installer</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>attached-rpm</goal>
+                                    </goals>
+                                    <configuration>
+                                        <requires>
+                                            <require>baxter-config-server-alt &gt;= ${config.dep.version}</require>
+                                        </requires>
+                                        <mappings>
+                                            <mapping>
+                                                <directory>${unix.application.alt.lib.dir}</directory>
+                                                <artifact>
+                                                    <classifiers>
+                                                        <classifier />
+                                                    </classifiers>
+                                                </artifact>
+                                            </mapping>
+                                            <mapping>
+                                                <directory>${config.processors.alt.lib.dir}</directory>
+                                                <sources>
+                                                    <softlinkSource>
+                                                        <location>${unix.application.alt.lib.dir}/${project.build.finalName}.jar</location>
+                                                        <destination>${project.artifactId}.jar</destination>
+                                                    </softlinkSource>
+                                                </sources>
+                                            </mapping>
+                                        </mappings>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+
+    </profiles>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.baxter.config</groupId>
+            <artifactId>baxter-config-processor</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baxter.config</groupId>
+            <artifactId>baxter-config-server</artifactId>
+            <type>war</type>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <properties>
+        <config.dep.version>${project.version}</config.dep.version>
+    </properties>
+
+</project>
