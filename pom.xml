@@ -74,8 +74,8 @@
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<source>1.6</source>
-						<target>1.6</target>
+						<source>1.7</source>
+						<target>1.7</target>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -339,6 +339,7 @@
 				<unix.group>baxter</unix.group>
 				<unix.application.lib.dir>/usr/share/java</unix.application.lib.dir>
 				<unix.application.bin.dir>/usr/bin</unix.application.bin.dir>
+                <unix.service.dir>/etc/rc.d/init.d</unix.service.dir>
 				<config.processors.lib.dir>/usr/share/configuration-processors</config.processors.lib.dir>
 				<unix-maven-plugin.scripts.src.dir>${basedir}/src/main/unix/scripts-src</unix-maven-plugin.scripts.src.dir>
 				<unix-maven-plugin.scripts.dir>${basedir}/src/main/unix/scripts</unix-maven-plugin.scripts.dir>
@@ -483,48 +484,27 @@
 										<classifier>std</classifier>
 									</configuration>
 								</execution>
+                                <execution>
+                                    <id>build-rpm-installer-san</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>attached-rpm</goal>
+                                    </goals>
+                                    <configuration>
+                                        <name>baxter-${project.artifactId}</name>
+                                        <classifier>san</classifier>
+                                    </configuration>
+                                </execution>
 							</executions>
 						</plugin>
 					</plugins>
 				</pluginManagement>
 			</build>
-		</profile>
-
-		<profile>
-			<id>SAN</id>
-			<activation>
-				<os>
-					<family>unix</family>
-				</os>
-			</activation>
-			<build>
-				<pluginManagement>
-					<plugins>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>rpm-maven-plugin</artifactId>
-							<executions>
-								<execution>
-									<id>build-rpm-installer-san</id>
-									<phase>package</phase>
-									<goals>
-										<goal>attached-rpm</goal>
-									</goals>
-									<configuration>
-										<name>baxter-${project.artifactId}</name>
-										<classifier>san</classifier>
-									</configuration>
-								</execution>
-							</executions>
-						</plugin>
-					</plugins>
-				</pluginManagement>
-			</build>
-			<properties>
-				<san.root>/opt/baxter</san.root>
-				<san.config-server.root>${san.root}/config-server</san.config-server.root>
-				<san.config.processors.lib.dir>${san.config-server.root}/processors</san.config.processors.lib.dir>
-			</properties>
+            <properties>
+                <san.root>/opt/baxter</san.root>
+                <san.config-server.root>${san.root}/config-server</san.config-server.root>
+                <san.config.processors.lib.dir>${san.config-server.root}/processors</san.config.processors.lib.dir>
+            </properties>
 		</profile>
 
 	</profiles>

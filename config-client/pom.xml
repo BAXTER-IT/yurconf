@@ -212,6 +212,69 @@
 										</mappings>
 									</configuration>
 								</execution>
+                                <execution>
+                                    <id>build-rpm-installer-san</id>
+                                    <configuration>
+                                        <filters>
+                                            <filter>${basedir}/src/main/unix/filter/rpm-san.properties</filter>
+                                        </filters>
+                                        <mappings>
+                                            <mapping>
+                                                <directory>${san.root}</directory>
+                                            </mapping>
+                                            <mapping>
+                                                <directory>${san.root}/etc</directory>
+                                            </mapping>
+                                            <mapping>
+                                                <directory>${san.root}/etc</directory>
+                                                <configuration>noreplace</configuration>
+                                                <sources>
+                                                    <source>
+                                                        <location>src/main/config/client-config</location>
+                                                        <destination>config</destination>
+                                                        <filter>false</filter>
+                                                    </source>
+                                                </sources>
+                                            </mapping>
+                                            <mapping>
+                                                <directory>${san.root}/bin</directory>
+                                            </mapping>
+                                            <mapping>
+                                                <directory>${san.root}/bin</directory>
+                                                <filemode>755</filemode>
+                                                <sources>
+                                                    <source>
+                                                        <location>src/main/scripts</location>
+                                                        <includes>
+                                                            <include>*.sh</include>
+                                                        </includes>
+                                                        <filter>true</filter>
+                                                    </source>
+                                                </sources>
+                                            </mapping>
+                                            <mapping>
+                                                <directory>${san.root}/lib</directory>
+                                            </mapping>
+                                            <mapping>
+                                                <directory>${san.root}/lib</directory>
+                                                <artifact>
+                                                    <classifiers>
+                                                        <classifier />
+                                                    </classifiers>
+                                                </artifact>
+                                                <sources>
+                                                    <source>
+                                                        <location>${component.dependencies.dir}</location>
+                                                    </source>
+                                                    <softlinkSource>
+                                                        <location>${san.root}/lib/${project.build.finalName}.jar</location>
+                                                        <destination>${project.artifactId}.jar</destination>
+                                                    </softlinkSource>
+                                                </sources>
+                                            </mapping>
+                                        </mappings>
+                                    </configuration>
+                                </execution>
 							</executions>
 						</plugin>
 					</plugins>
@@ -222,90 +285,6 @@
 						<artifactId>rpm-maven-plugin</artifactId>
 					</plugin>
 				</plugins>
-			</build>
-		</profile>
-
-		<profile>
-			<id>SAN</id>
-			<activation>
-				<os>
-					<family>unix</family>
-				</os>
-			</activation>
-			<build>
-				<pluginManagement>
-					<plugins>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>rpm-maven-plugin</artifactId>
-							<executions>
-								<execution>
-									<id>build-rpm-installer-san</id>
-									<configuration>
-										<filters>
-											<filter>${basedir}/src/main/unix/filter/rpm-san.properties</filter>
-										</filters>
-										<mappings>
-											<mapping>
-												<directory>${san.root}</directory>
-											</mapping>
-											<mapping>
-												<directory>${san.root}/etc</directory>
-											</mapping>
-											<mapping>
-												<directory>${san.root}/etc</directory>
-												<configuration>noreplace</configuration>
-												<sources>
-													<source>
-														<location>src/main/config/client-config</location>
-														<destination>config</destination>
-														<filter>false</filter>
-													</source>
-												</sources>
-											</mapping>
-											<mapping>
-												<directory>${san.root}/bin</directory>
-											</mapping>
-											<mapping>
-												<directory>${san.root}/bin</directory>
-												<filemode>755</filemode>
-												<sources>
-													<source>
-														<location>src/main/scripts</location>
-														<includes>
-															<include>*.sh</include>
-														</includes>
-														<filter>true</filter>
-													</source>
-												</sources>
-											</mapping>
-											<mapping>
-												<directory>${san.root}/lib</directory>
-											</mapping>
-											<mapping>
-												<directory>${san.root}/lib</directory>
-												<artifact>
-													<classifiers>
-														<classifier />
-													</classifiers>
-												</artifact>
-												<sources>
-													<source>
-														<location>${component.dependencies.dir}</location>
-													</source>
-													<softlinkSource>
-														<location>${san.root}/lib/${project.build.finalName}.jar</location>
-														<destination>${project.artifactId}.jar</destination>
-													</softlinkSource>
-												</sources>
-											</mapping>
-										</mappings>
-									</configuration>
-								</execution>
-							</executions>
-						</plugin>
-					</plugins>
-				</pluginManagement>
 			</build>
 		</profile>
 

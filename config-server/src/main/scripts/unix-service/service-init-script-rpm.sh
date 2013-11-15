@@ -113,11 +113,11 @@ doStop()
     if [ -f $PIDFILE ]; then
         PID=$(cat $PIDFILE)
         if [ -n "$PID" ]; then
-            if [ ! "x" = "x$(ps --no-headers --ppid $PID)" ]; then
-                pkill -P $PID
+            if [ ! "x" = "x$(ps --no-headers -p $PID)" ]; then
+                kill $PID
                 # Wait maximum times
                 ITER=0
-                while  [ ! "x" = "x$(ps --no-headers --ppid $PID)" ]; do
+                while  [ ! "x" = "x$(ps --no-headers -p $PID)" ]; do
                     # TODO some applications may require a time to shut down. Need to check if processes quit, then continue
                     sleep 0.1
                     ITER=$(expr $ITER + 1)
@@ -125,6 +125,11 @@ doStop()
                         break
                     fi 
                 done
+            fi
+            if [ ! "x" = "x$(ps --no-headers -p $PID)" ]; then
+            	echo "Still alive... killing it"
+                kill -9 $PID
+                sleep 1
             fi
         fi
     	rm -f $PIDFILE
