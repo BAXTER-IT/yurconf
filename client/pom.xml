@@ -215,17 +215,17 @@
                                 <id>build-alt-rpm-installer</id>
                                 <configuration>
                                     <filters>
-                                        <filter>${basedir}/src/main/unix/filter/rpm-san.properties</filter>
+                                        <filter>${basedir}/src/main/unix/filter/rpm-alt.properties</filter>
                                     </filters>
                                     <mappings>
                                         <mapping>
-                                            <directory>${san.root}</directory>
+                                            <directory>${unix.application.alt.root}</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.root}/etc</directory>
+                                            <directory>${unix.application.alt.root}/etc</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.root}/etc</directory>
+                                            <directory>${unix.application.alt.root}/etc</directory>
                                             <configuration>noreplace</configuration>
                                             <sources>
                                                 <source>
@@ -236,10 +236,10 @@
                                             </sources>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.root}/bin</directory>
+                                            <directory>${unix.application.alt.root}/bin</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.root}/bin</directory>
+                                            <directory>${unix.application.alt.root}/bin</directory>
                                             <filemode>755</filemode>
                                             <sources>
                                                 <source>
@@ -252,10 +252,10 @@
                                             </sources>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.root}/lib</directory>
+                                            <directory>${unix.application.alt.root}/lib</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.root}/lib</directory>
+                                            <directory>${unix.application.alt.root}/lib</directory>
                                             <artifact>
                                                 <classifiers>
                                                     <classifier />
@@ -266,7 +266,7 @@
                                                     <location>${component.dependencies.dir}</location>
                                                 </source>
                                                 <softlinkSource>
-                                                    <location>${san.root}/lib/${project.build.finalName}.jar</location>
+                                                    <location>${unix.application.alt.root}/lib/${project.build.finalName}.jar</location>
                                                     <destination>${project.artifactId}.jar</destination>
                                                 </softlinkSource>
                                             </sources>

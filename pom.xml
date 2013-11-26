@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.baxter</groupId>
         <artifactId>parent</artifactId>
-        <version>1.2.2</version>
+        <version>1.2.3</version>
     </parent>
 
     <groupId>com.baxter.config</groupId>
@@ -222,6 +222,13 @@
                 <artifactId>guava-io</artifactId>
                 <version>r03</version>
             </dependency>
+            <dependency>
+                <groupId>com.baxter.log</groupId>
+                <artifactId>baxter-log-connector-bom</artifactId>
+                <type>pom</type>
+                <version>1.0.1</version>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -229,6 +236,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
@@ -299,7 +307,6 @@
         <!-- SITE PROPERTIES END -->
         <unix.application.group.name>Config</unix.application.group.name>
         <unix.config.dir>/etc/baxter</unix.config.dir>
-        <unix.config>${unix.config.dir}/config</unix.config>
         <unix.service.dir>/etc/rc.d/init.d</unix.service.dir>
         <saxon.version>8.9</saxon.version>
         <chronos.version>1.0-beta-3</chronos.version>
@@ -307,9 +314,8 @@
         <!-- To be overriden in settings.xml -->
         <jmeter.home>${project.basedir}/jmeter</jmeter.home>
         <jmeter.download.url>http://archive.apache.org/dist/jmeter/binaries/apache-jmeter-2.6.zip</jmeter.download.url>
-        <san.root>${unix.application.alt.root}</san.root>
-        <san.config-server.root>${unix.application.alt.root}/config-server</san.config-server.root>
-        <san.config.processors.lib.dir>${san.config-server.root}/processors</san.config.processors.lib.dir>
+        <alt.config-server.root>${unix.application.alt.root}/config-server</alt.config-server.root>
+        <alt.config.processors.lib.dir>${alt.config-server.root}/processors</alt.config.processors.lib.dir>
         <!-- Standard installation directories -->
         <config.processors.lib.dir>/usr/share/configuration-processors</config.processors.lib.dir>
         <!-- Alternative installation directories -->

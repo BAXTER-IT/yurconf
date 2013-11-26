@@ -330,17 +330,17 @@
                                 <id>build-alt-rpm-installer</id>
                                 <configuration>
                                     <filters>
-                                        <filter>${basedir}/src/main/unix/filter/rpm-san.properties</filter>
+                                        <filter>${basedir}/src/main/unix/filter/rpm-alt.properties</filter>
                                     </filters>
                                     <mappings>
                                         <mapping>
-                                            <directory>${san.root}</directory>
+                                            <directory>${unix.application.alt.root}</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.root}/etc</directory>
+                                            <directory>${unix.application.alt.root}/etc</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.root}/etc</directory>
+                                            <directory>${unix.application.alt.root}/etc</directory>
                                             <configuration>noreplace</configuration>
                                             <sources>
                                                 <source>
@@ -350,10 +350,10 @@
                                             </sources>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.root}/bin</directory>
+                                            <directory>${unix.application.alt.root}/bin</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.root}/bin</directory>
+                                            <directory>${unix.application.alt.root}/bin</directory>
                                             <filemode>755</filemode>
                                             <sources>
                                                 <source>
@@ -369,23 +369,23 @@
                                             </sources>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.config.processors.lib.dir}</directory>
+                                            <directory>${alt.config.processors.lib.dir}</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.root}/doc</directory>
+                                            <directory>${unix.application.alt.root}/doc</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.root}/log</directory>
+                                            <directory>${unix.application.alt.root}/log</directory>
                                         </mapping>
                                         <mapping>
                                             <configuration>noreplace</configuration>
-                                            <directory>${san.config-server.root}/repository</directory>
+                                            <directory>${alt.config-server.root}/repository</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.root}/lib</directory>
+                                            <directory>${unix.application.alt.root}/lib</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.root}/lib</directory>
+                                            <directory>${unix.application.alt.root}/lib</directory>
                                             <artifact>
                                                 <classifiers>
                                                     <classifier />
@@ -393,13 +393,13 @@
                                             </artifact>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.config-server.root}</directory>
+                                            <directory>${alt.config-server.root}</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.config-server.root}/jetty</directory>
+                                            <directory>${alt.config-server.root}/jetty</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${san.config-server.root}/jetty</directory>
+                                            <directory>${alt.config-server.root}/jetty</directory>
                                             <sources>
                                                 <source>
                                                     <location>${basedir}/src/main/jetty</location>
