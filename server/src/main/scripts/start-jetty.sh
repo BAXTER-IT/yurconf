@@ -54,6 +54,9 @@ JAVA_OPTS="$JAVA_OPTS -Djetty.contextsDir=${f.jetty.contexts}"
 JAVA_OPTS="$JAVA_OPTS -Dprocessors.dir=${f.processors.dir}"
 JAVA_OPTS="$JAVA_OPTS -Dconfig-server.war=${f.web.app}"
 JAVA_OPTS="$JAVA_OPTS -Dconfig-server-web.xml=${f.web.xml}"
+# In fact, only one of below is needed at the time. TODO look for a way to detect which framework is in use
+JAVA_OPTS="$JAVA_OPTS -Dlog4j.configuration=${f.log.config}"
+JAVA_OPTS="$JAVA_OPTS -Dlogback.configurationFile=${f.log.config}"
 
 if [ "x" = "x$JAVA_HOME" ]; then
 	JAVA="java"

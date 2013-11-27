@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -176,7 +177,7 @@
                                 <id>build-deb-installer</id>
                                 <configuration>
                                     <deb combine.children="append">
-                                        <depends>openjdk-7-jre,lsb-base(&gt;= 3.2-13),jetty</depends>
+                                        <depends>openjdk-7-jre,lsb-base(&gt;= 3.2-13),jetty,baxter-log-connector</depends>
                                         <preDepends>sed</preDepends>
                                         <replaces>config-server</replaces>
                                     </deb>
@@ -216,6 +217,10 @@
                                         </copy-directory>
                                         <copyFile>
                                             <path>src/main/config/configuration-server</path>
+                                            <toDir>${unix.config.dir}</toDir>
+                                        </copyFile>
+                                        <copyFile>
+                                            <path>src/main/config/configuration-server-log.xml</path>
                                             <toDir>${unix.config.dir}</toDir>
                                         </copyFile>
                                     </assembly>
@@ -258,6 +263,9 @@
                                     <filters>
                                         <filter>${basedir}/src/main/unix/filter/default.properties</filter>
                                     </filters>
+                                    <requires combine.children="append">
+                                        <require>baxter-log-connector-std</require>
+                                    </requires>
                                     <mappings>
                                         <mapping>
                                             <directory>${unix.config.dir}</directory>
@@ -266,6 +274,10 @@
                                                 <source>
                                                     <location>src/main/config/configuration-server</location>
                                                     <filter>false</filter>
+                                                </source>
+                                                <source>
+                                                    <location>src/main/config/configuration-server-log.xml</location>
+                                                    <filter>true</filter>
                                                 </source>
                                             </sources>
                                         </mapping>
@@ -332,6 +344,9 @@
                                     <filters>
                                         <filter>${basedir}/src/main/unix/filter/rpm-alt.properties</filter>
                                     </filters>
+                                    <requires combine.children="append">
+                                        <require>baxter-log-connector-alt</require>
+                                    </requires>
                                     <mappings>
                                         <mapping>
                                             <directory>${unix.application.alt.root}</directory>
@@ -346,6 +361,10 @@
                                                 <source>
                                                     <location>src/main/config/configuration-server</location>
                                                     <filter>false</filter>
+                                                </source>
+                                                <source>
+                                                    <location>src/main/config/configuration-server-log.xml</location>
+                                                    <filter>true</filter>
                                                 </source>
                                             </sources>
                                         </mapping>
@@ -447,11 +466,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <scope>runtime</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>

@@ -28,6 +28,11 @@
             <fileMode>0664</fileMode>
         </file>
         <file>
+            <outputDirectory>etc</outputDirectory>
+            <source>src/main/config/configuration-server-log.xml</source>
+            <fileMode>0664</fileMode>
+        </file>
+        <file>
             <outputDirectory>bin</outputDirectory>
             <source>src/main/scripts/start-jetty.sh</source>
             <destName>start-configuration-server</destName>

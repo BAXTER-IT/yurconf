@@ -3,6 +3,19 @@
     xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
 
     <body>
+    
+        <release version="1.5" date="2013-11-27" description="Packaging improvements">
+
+            <action type="fix" issue="CFG-48" date="2013-11-27" dev="ykryshchuk">
+                Logging config file has been extracted from WAR file.
+            </action>
+            
+            <action type="fix" issue="PE-3856" date="2013-11-27" dev="ykryshchuk">
+                Logging jars have been extracted to separate packages. Now can switch between logback and log4j.
+            </action>
+            
+        </release>
+
 
         <release version="1.4" date="2013-11-15" description="Maintenance release">
 
