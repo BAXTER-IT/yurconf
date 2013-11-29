@@ -220,7 +220,11 @@
                                             <toDir>${unix.config.dir}</toDir>
                                         </copyFile>
                                         <copyFile>
-                                            <path>src/main/config/configuration-server-log.xml</path>
+                                            <path>src/main/config/configuration-server-log4j.xml</path>
+                                            <toDir>${unix.config.dir}</toDir>
+                                        </copyFile>
+                                        <copyFile>
+                                            <path>src/main/config/configuration-server-logback.xml</path>
                                             <toDir>${unix.config.dir}</toDir>
                                         </copyFile>
                                     </assembly>
@@ -276,9 +280,17 @@
                                                     <filter>false</filter>
                                                 </source>
                                                 <source>
-                                                    <location>src/main/config/configuration-server-log.xml</location>
+                                                    <location>src/main/config/configuration-server-log4j.xml</location>
                                                     <filter>true</filter>
                                                 </source>
+                                                <source>
+                                                    <location>src/main/config/configuration-server-logback.xml</location>
+                                                    <filter>true</filter>
+                                                </source>
+                                                <softlinkSource>
+                                                    <destination>configuration-server-log.xml</destination>
+                                                    <location>configuration-server-log4j.xml</location>
+                                                </softlinkSource>
                                             </sources>
                                         </mapping>
                                         <mapping>
@@ -363,9 +375,17 @@
                                                     <filter>false</filter>
                                                 </source>
                                                 <source>
-                                                    <location>src/main/config/configuration-server-log.xml</location>
+                                                    <location>src/main/config/configuration-server-log4j.xml</location>
                                                     <filter>true</filter>
                                                 </source>
+                                                <source>
+                                                    <location>src/main/config/configuration-server-logback.xml</location>
+                                                    <filter>true</filter>
+                                                </source>
+                                                <softlinkSource>
+                                                    <destination>configuration-server-log.xml</destination>
+                                                    <location>configuration-server-log4j.xml</location>
+                                                </softlinkSource>
                                             </sources>
                                         </mapping>
                                         <mapping>

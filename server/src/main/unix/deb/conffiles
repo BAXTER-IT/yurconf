@@ -1,2 +1,5 @@
 ${unix.config.dir}/configuration-server
+${unix.config.dir}/configuration-server-log.xml
+${unix.config.dir}/configuration-server-log4j.xml
+${unix.config.dir}/configuration-server-logback.xml
 ${unix.application.var.dir}/repository
