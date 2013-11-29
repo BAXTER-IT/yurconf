@@ -68,7 +68,7 @@ PROGRAM="$JAVA $JAVA_OPTS -jar $JETTY_JAR ${f.jetty.config.file}"
 
 # Run in terminal or as a daemon?
 if $RUNASDAEMON ; then
-	if [ "x$OUTDIR" == "x" ]; then
+	if [ "x$OUTDIR" = "x" ]; then
 		OUTDIR="${f.out.dir}"
 	fi
     # The output of stderr and stdout will be stored in this file
