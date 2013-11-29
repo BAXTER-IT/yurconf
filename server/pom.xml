@@ -226,6 +226,10 @@
                                             <path>src/main/config/configuration-server-logback.xml</path>
                                             <toDir>${unix.config.dir}</toDir>
                                         </copyFile>
+                                        <symlink>
+                                          <path>${unix.config.dir}/configuration-server-log.xml</path>
+                                          <value>${unix.config.dir}/configuration-server-logback.xml</value>
+                                        </symlink>
                                     </assembly>
                                 </configuration>
                             </execution>
