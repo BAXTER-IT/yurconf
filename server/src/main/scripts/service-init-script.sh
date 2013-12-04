@@ -28,6 +28,7 @@ MAX_WAIT_CHILD_ITER=50
 MAX_WAIT_THIS_ITER=20
 MAX_WAIT_MARKER_ITER=500
 
+# TODO instead of waiting for the marker we should ping config server via http?
 waitForMarker() {
     OUT="$1"
     while [ ! -f $OUT ]; do
@@ -36,7 +37,7 @@ waitForMarker() {
     IDX=0
     while [ $IDX -ne $MAX_WAIT_MARKER_ITER ]; do
         # Only standard marker should be considered
-        MARKER=$(cat $OUT | grep -e 'Application started' -e 'OK....' -e 'Started in ' -e '::Started ' -e '::INFO:  Started')
+        MARKER=$(cat $OUT | grep -e 'Application started' -e 'OK....' -e 'Started in ' -e '::Started ' -e '::INFO:  Started' -e ' Started ')
         if [ "x$MARKER" != "x" ]; then
             return 0
         else
