@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -176,7 +177,7 @@
                                 <id>build-deb-installer</id>
                                 <configuration>
                                     <deb combine.children="append">
-                                        <depends>openjdk-7-jre,lsb-base(&gt;= 3.2-13),jetty,baxter-log-connector</depends>
+                                        <depends>openjdk-7-jre,lsb-base(&gt;= 3.2-13),jetty</depends>
                                         <preDepends>sed</preDepends>
                                         <replaces>config-server</replaces>
                                     </deb>
@@ -219,16 +220,12 @@
                                             <toDir>${unix.config.dir}</toDir>
                                         </copyFile>
                                         <copyFile>
-                                            <path>src/main/config/configuration-server-log4j.xml</path>
-                                            <toDir>${unix.config.dir}</toDir>
-                                        </copyFile>
-                                        <copyFile>
                                             <path>src/main/config/configuration-server-logback.xml</path>
                                             <toDir>${unix.config.dir}</toDir>
                                         </copyFile>
                                         <symlink>
-                                          <path>${unix.config.dir}/configuration-server-log.xml</path>
-                                          <value>${unix.config.dir}/configuration-server-logback.xml</value>
+                                            <path>${unix.config.dir}/configuration-server-log.xml</path>
+                                            <value>${unix.config.dir}/configuration-server-logback.xml</value>
                                         </symlink>
                                     </assembly>
                                 </configuration>
@@ -270,9 +267,6 @@
                                     <filters>
                                         <filter>${basedir}/src/main/unix/filter/default.properties</filter>
                                     </filters>
-                                    <requires combine.children="append">
-                                        <require>baxter-log-connector-std</require>
-                                    </requires>
                                     <mappings>
                                         <mapping>
                                             <directory>${unix.config.dir}</directory>
@@ -283,16 +277,12 @@
                                                     <filter>false</filter>
                                                 </source>
                                                 <source>
-                                                    <location>src/main/config/configuration-server-log4j.xml</location>
-                                                    <filter>true</filter>
-                                                </source>
-                                                <source>
                                                     <location>src/main/config/configuration-server-logback.xml</location>
                                                     <filter>true</filter>
                                                 </source>
                                                 <softlinkSource>
                                                     <destination>configuration-server-log.xml</destination>
-                                                    <location>configuration-server-log4j.xml</location>
+                                                    <location>configuration-server-logback.xml</location>
                                                 </softlinkSource>
                                             </sources>
                                         </mapping>
@@ -359,9 +349,6 @@
                                     <filters>
                                         <filter>${basedir}/src/main/unix/filter/rpm-alt.properties</filter>
                                     </filters>
-                                    <requires combine.children="append">
-                                        <require>baxter-log-connector-alt</require>
-                                    </requires>
                                     <mappings>
                                         <mapping>
                                             <directory>${unix.application.alt.root}</directory>
@@ -378,16 +365,12 @@
                                                     <filter>false</filter>
                                                 </source>
                                                 <source>
-                                                    <location>src/main/config/configuration-server-log4j.xml</location>
-                                                    <filter>true</filter>
-                                                </source>
-                                                <source>
                                                     <location>src/main/config/configuration-server-logback.xml</location>
                                                     <filter>true</filter>
                                                 </source>
                                                 <softlinkSource>
                                                     <destination>configuration-server-log.xml</destination>
-                                                    <location>configuration-server-log4j.xml</location>
+                                                    <location>configuration-server-logback.xml</location>
                                                 </softlinkSource>
                                             </sources>
                                         </mapping>
@@ -489,7 +472,14 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <artifactId>logback-classic</artifactId>
+            <groupId>ch.qos.logback</groupId>
+        </dependency>
+        <dependency>
+            <artifactId>logback-core</artifactId>
+            <groupId>ch.qos.logback</groupId>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
