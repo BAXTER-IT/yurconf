@@ -3,6 +3,14 @@
     xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
 
     <body>
+
+        <release version="1.4.0.4" date="2013-12-05" description="Script improvements">
+        
+            <action type="fix" issue="CFG-50" date="2013-12-05" dev="ykryshchuk">
+                Improved RedHat service init script to start up the Configuration Server service.
+            </action>
+        
+        </release>
     
         <release version="1.4.0.2" date="2013-11-29" description="Packaging improvements">
 

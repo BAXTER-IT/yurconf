@@ -44,6 +44,12 @@ MAX_WAIT_MARKER_ITER=500
 
 SERVICENAME="${unix.service.name}"
 
+# Configuration file that keeps server binding info
+CONFIG_FILE="${f.unix.config}"
+
+# Listening port
+JETTY_PORT="$(cat $CONFIG_FILE | grep "port=" |  cut -d= -f2)"
+
 if [ "x$OUTDIR" == "x" ]; then
 	OUTDIR="${f.out.dir}"
 fi
@@ -70,6 +76,9 @@ waitForMarker() {
             if running $PIDFILE ; then
                 sleep 0.5
                 IDX=$(expr $IDX + 1)
+                if [ "x" = "x$(netstat -pan | grep $JETTY_PORT)" ]; then
+                    return 0
+                fi
             else
                 return 2
             fi
