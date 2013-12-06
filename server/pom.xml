@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -9,50 +10,47 @@
     </parent>
 
     <artifactId>baxter-config-server</artifactId>
-    <packaging>war</packaging>
 
     <name>Baxter Configuration Server</name>
-    <description>Baxter Configuration Server web application.</description>
+    <description>Baxter Configuration Server application.</description>
 
     <build>
 
         <plugins>
 
             <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
+                <artifactId>maven-war-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>get-jetty-libs</id>
-                        <phase>prepare-package</phase>
+                        <id>build-war</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>copy</goal>
+                            <goal>war</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/jetty-libs</outputDirectory>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.mortbay.jetty</groupId>
-                                    <artifactId>jetty</artifactId>
-                                    <version>${jetty.standalone.version}</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.mortbay.jetty</groupId>
-                                    <artifactId>start</artifactId>
-                                    <version>${jetty.standalone.version}</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.mortbay.jetty</groupId>
-                                    <artifactId>jetty-util</artifactId>
-                                    <version>${jetty.standalone.version}</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>javax.servlet</groupId>
-                                    <artifactId>servlet-api</artifactId>
-                                </artifactItem>
-                            </artifactItems>
+                            <classifier>deployable</classifier>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <addMavenDescriptor>true</addMavenDescriptor>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>${application.main.class}</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <Date>${maven.build.timestamp}</Date>
+                            <Revision>${buildNumber}</Revision>
+                            <Branch>${scmBranch}</Branch>
+                            <Class-Path>jetty-server.jar jetty-servlet.jar commons-io.jar</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -76,67 +74,25 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>filter-control-files</id>
+                        <configuration>
+                            <filters>
+                                <filter>${basedir}/src/main/unix/filter/default.properties</filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
 
     </build>
 
     <profiles>
-
-        <profile>
-            <id>UnixInstaller</id>
-            <activation>
-                <os>
-                    <family>unix</family>
-                </os>
-            </activation>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <artifactId>maven-resources-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <id>filter-jetty</id>
-                                    <phase>process-resources</phase>
-                                    <goals>
-                                        <goal>copy-resources</goal>
-                                    </goals>
-                                    <configuration>
-                                        <outputDirectory>${jetty.filtered.dir}</outputDirectory>
-                                        <resources>
-                                            <resource>
-                                                <directory>src/main/jetty</directory>
-                                                <filtering>true</filtering>
-                                            </resource>
-                                        </resources>
-                                        <filters>
-                                            <filter>${basedir}/src/main/unix/filter/default.properties</filter>
-                                        </filters>
-                                    </configuration>
-                                </execution>
-                                <execution>
-                                    <id>filter-control-files</id>
-                                    <configuration>
-                                        <filters>
-                                            <filter>${basedir}/src/main/unix/filter/default.properties</filter>
-                                        </filters>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-            <properties>
-                <unix.service.name>configuration-server</unix.service.name>
-                <unix.application.doc.dir>/usr/share/doc/baxter/${unix.service.name}</unix.application.doc.dir>
-                <unix.application.log.dir>/var/log/baxter/${unix.service.name}</unix.application.log.dir>
-                <unix.application.var.dir>/var/local/baxter/${unix.service.name}</unix.application.var.dir>
-                <unix.application.jetty.dir>${unix.application.var.dir}/jetty</unix.application.jetty.dir>
-                <unix.application.start.script>start-${unix.service.name}</unix.application.start.script>
-                <jetty.filtered.dir>${project.build.directory}/jetty/default</jetty.filtered.dir>
-            </properties>
-        </profile>
 
         <profile>
             <id>DEB</id>
@@ -147,6 +103,7 @@
             </activation>
             <build>
                 <plugins>
+
                     <plugin>
                         <artifactId>maven-resources-plugin</artifactId>
                         <executions>
@@ -168,6 +125,7 @@
                             </execution>
                         </executions>
                     </plugin>
+
                     <plugin>
                         <artifactId>unix-maven-plugin</artifactId>
                         <groupId>no.arktekk.unix</groupId>
@@ -190,7 +148,7 @@
                                             </paths>
                                         </mkdirs>
                                         <copyFile>
-                                            <path>${deb.scripts.dir}/start-jetty.sh</path>
+                                            <path>${deb.scripts.dir}/start-configuration-server.sh</path>
                                             <toFile>${unix.application.bin.dir}/${unix.application.start.script}</toFile>
                                             <attributes>
                                                 <user>${unix.user}</user>
@@ -198,29 +156,28 @@
                                                 <mode>0775</mode>
                                             </attributes>
                                         </copyFile>
-                                        <!-- Service Init script, placed typically in /etc/init.d -->
                                         <copyFile>
-                                            <path>${deb.scripts.dir}/service-init-script.sh</path>
+                                            <path>${deb.scripts.dir}/wrapper/service-init-script-deb.sh</path>
                                             <toFile>/etc/init.d/${unix.service.name}</toFile>
                                             <attributes>
                                                 <mode>0775</mode>
                                             </attributes>
                                         </copyFile>
                                         <copyFile>
-                                            <path>${project.build.directory}/${project.build.finalName}.war</path>
+                                            <path>${project.build.directory}/${project.build.finalName}.jar</path>
                                             <toDir>${unix.application.lib.dir}</toDir>
                                         </copyFile>
-                                        <copy-directory>
-                                            <from>${jetty.filtered.dir}</from>
-                                            <to>${unix.application.jetty.dir}</to>
-                                        </copy-directory>
                                         <copyFile>
-                                            <path>src/main/config/configuration-server</path>
-                                            <toDir>${unix.config.dir}</toDir>
+                                            <path>src/main/resources/server.properties</path>
+                                            <toFile>${unix.config.dir}/configuration-server</toFile>
                                         </copyFile>
                                         <copyFile>
-                                            <path>src/main/config/configuration-server-logback.xml</path>
-                                            <toDir>${unix.config.dir}</toDir>
+                                            <path>src/main/resources/logback.xml</path>
+                                            <toFile>${unix.config.dir}/configuration-server-logback.xml</toFile>
+                                        </copyFile>
+                                        <copyFile>
+                                            <path>src/main/resources/log4j.xml</path>
+                                            <toFile>${unix.config.dir}/configuration-server-log4j.xml</toFile>
                                         </copyFile>
                                         <symlink>
                                             <path>${unix.config.dir}/configuration-server-log.xml</path>
@@ -272,11 +229,18 @@
                                             <configuration>noreplace</configuration>
                                             <sources>
                                                 <source>
-                                                    <location>src/main/config/configuration-server</location>
+                                                    <location>src/main/resources/server.properties</location>
+                                                    <destination>configuration-server</destination>
                                                     <filter>false</filter>
                                                 </source>
                                                 <source>
-                                                    <location>src/main/config/configuration-server-logback.xml</location>
+                                                    <location>src/main/resources/logback.xml</location>
+                                                    <destination>configuration-server-logback.xml</destination>
+                                                    <filter>true</filter>
+                                                </source>
+                                                <source>
+                                                    <location>src/main/resources/log4j.xml</location>
+                                                    <destination>configuration-server-log4j.xml</destination>
                                                     <filter>true</filter>
                                                 </source>
                                                 <softlinkSource>
@@ -290,7 +254,7 @@
                                             <filemode>755</filemode>
                                             <sources>
                                                 <source>
-                                                    <location>src/main/scripts/start-jetty.sh</location>
+                                                    <location>src/main/scripts/start-configuration-server.sh</location>
                                                     <destination>${unix.application.start.script}</destination>
                                                     <filter>true</filter>
                                                 </source>
@@ -303,7 +267,7 @@
                                             <groupname>root</groupname>
                                             <sources>
                                                 <source>
-                                                    <location>src/main/scripts/unix-service/service-init-script-rpm.sh</location>
+                                                    <location>src/main/scripts/wrapper/service-init-script-rpm.sh</location>
                                                     <destination>configuration-server</destination>
                                                     <filter>true</filter>
                                                 </source>
@@ -330,15 +294,6 @@
                                                 </classifiers>
                                             </artifact>
                                         </mapping>
-                                        <mapping>
-                                            <directory>${unix.application.jetty.dir}</directory>
-                                            <sources>
-                                                <source>
-                                                    <location>${jetty.filtered.dir}</location>
-                                                    <filter>true</filter>
-                                                </source>
-                                            </sources>
-                                        </mapping>
                                     </mappings>
                                 </configuration>
                             </execution>
@@ -360,11 +315,18 @@
                                             <configuration>noreplace</configuration>
                                             <sources>
                                                 <source>
-                                                    <location>src/main/config/configuration-server</location>
+                                                    <location>src/main/resources/server.properties</location>
+                                                    <destination>configuration-server</destination>
                                                     <filter>false</filter>
                                                 </source>
                                                 <source>
-                                                    <location>src/main/config/configuration-server-logback.xml</location>
+                                                    <location>src/main/resources/logback.xml</location>
+                                                    <destination>configuration-server-logback.xml</destination>
+                                                    <filter>true</filter>
+                                                </source>
+                                                <source>
+                                                    <location>src/main/resources/log4j.xml</location>
+                                                    <destination>configuration-server-log4j.xml</destination>
                                                     <filter>true</filter>
                                                 </source>
                                                 <softlinkSource>
@@ -381,12 +343,12 @@
                                             <filemode>755</filemode>
                                             <sources>
                                                 <source>
-                                                    <location>src/main/scripts/start-jetty.sh</location>
+                                                    <location>src/main/scripts/start-configuration-server.sh</location>
                                                     <destination>${unix.application.start.script}</destination>
                                                     <filter>true</filter>
                                                 </source>
                                                 <source>
-                                                    <location>src/main/scripts/wrapper.sh</location>
+                                                    <location>src/main/scripts/wrapper/standalone.sh</location>
                                                     <destination>${unix.service.name}</destination>
                                                     <filter>true</filter>
                                                 </source>
@@ -419,18 +381,6 @@
                                         <mapping>
                                             <directory>${alt.config-server.root}</directory>
                                         </mapping>
-                                        <mapping>
-                                            <directory>${alt.config-server.root}/jetty</directory>
-                                        </mapping>
-                                        <mapping>
-                                            <directory>${alt.config-server.root}/jetty</directory>
-                                            <sources>
-                                                <source>
-                                                    <location>${basedir}/src/main/jetty</location>
-                                                    <filter>true</filter>
-                                                </source>
-                                            </sources>
-                                        </mapping>
                                     </mappings>
                                 </configuration>
                             </execution>
@@ -454,41 +404,80 @@
 
     </profiles>
 
+    <dependencyManagement>
+
+        <dependencies>
+
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-server</artifactId>
+                <version>${jetty.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-servlet</artifactId>
+                <version>${jetty.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baxter.log</groupId>
+                <artifactId>baxter-logback-connector</artifactId>
+                <version>1.0.1</version>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
+
     <dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>baxter-config-om</artifactId>
         </dependency>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>baxter-config-processor</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <artifactId>logback-classic</artifactId>
-            <groupId>ch.qos.logback</groupId>
-        </dependency>
-        <dependency>
-            <artifactId>logback-core</artifactId>
-            <groupId>ch.qos.logback</groupId>
-        </dependency>
+
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
+            <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baxter.log</groupId>
+            <artifactId>baxter-logback-connector</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <properties>
         <jira.component>${project.artifactId}</jira.component>
-        <jetty.standalone.version>6.1.10</jetty.standalone.version>
+        <jetty.version>9.1.0.v20131115</jetty.version>
+        <application.main.class>com.baxter.config.server.Main</application.main.class>
+        <unix.service.name>configuration-server</unix.service.name>
+        <unix.application.doc.dir>/usr/share/doc/baxter/${unix.service.name}</unix.application.doc.dir>
+        <unix.application.log.dir>/var/log/baxter/${unix.service.name}</unix.application.log.dir>
+        <unix.application.var.dir>/var/local/baxter/${unix.service.name}</unix.application.var.dir>
+        <unix.application.jetty.dir>${unix.application.var.dir}/jetty</unix.application.jetty.dir>
+        <unix.application.start.script>start-${unix.service.name}</unix.application.start.script>
     </properties>
 
 </project>

@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /bin/sh
 #
 # configuration-server	Start/stop Baxter Configuration service
 #
@@ -25,9 +25,6 @@ fi
 if [ "x$PIDDIR" == "x" ]; then
 	PIDDIR="${f.pid.dir}"
 fi
-if [ ! -d $PIDDIR ]; then
-	mkdir -p $PIDDIR
-fi
 if [ ! -w $PIDDIR ]; then
 	echo "PID Directory $PIDDIR is not writable, please check it"
 	exit 2
@@ -53,10 +50,6 @@ JETTY_PORT="$(cat $CONFIG_FILE | grep "port=" |  cut -d= -f2)"
 if [ "x$OUTDIR" == "x" ]; then
 	OUTDIR="${f.out.dir}"
 fi
-if [ ! -w $OUTDIR ]; then
-	echo "OUT Directory $OUTDIR is not writable, please check it"
-	exit 2
-fi
 OUTFILE="$OUTDIR/${unix.service.name}.out"
 export OUTFILE 
 
@@ -69,7 +62,7 @@ waitForMarker() {
     IDX=0
     while [ $IDX -ne $MAX_WAIT_MARKER_ITER ]; do
         # Only standard marker should be considered
-        MARKER=$(cat $OUT | grep -e 'Application started' -e 'OK....' -e 'Started in ' -e '::Started ' -e '::INFO:  Started' -e ' Started ')
+        MARKER=$(cat $OUT | grep -e 'Baxter Configuration Server started in' )
         if [ "x$MARKER" != "x" ]; then
             return 0
         else
@@ -106,9 +99,12 @@ doStart()
         rm -f $OUTFILE
         ARGS="--daemon"
         touch $PIDFILE
-		$DAEMON $ARGS &	PID=$!                                                                                                          
-		disown $PID                                                                                                     
-		echo $PID > $PIDFILE
+        chown $DAEMONUSER $PIDFILE
+        su - $DAEMONUSER -c "
+			$DAEMON $ARGS &
+			PID=\$!                                                                                                          
+			disown \$PID                                                                                                     
+			echo \$PID > $PIDFILE"
         if waitForMarker $OUTFILE ; then
             MARKER_FOUND=true
             echo "Found marker in out file. Should be started now." 
@@ -165,7 +161,7 @@ case "$1" in
         doStart
         ;;
   status)
-        status -p $PIDFILE $SERVICENAME && exit 0 || exit $?
+        status -p $PIDFILE $DAEMON && exit 0 || exit $?
         ;;
   *)
         SVC="${unix.service.name}"

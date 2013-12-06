@@ -7,7 +7,7 @@
         </encoder>
     </appender>
     
-    <logger name="com.baxter" level="INFO">
+    <logger name="com.baxter" level="DEBUG">
     </logger>
     
     <root level="INFO">

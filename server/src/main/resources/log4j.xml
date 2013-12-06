@@ -10,7 +10,7 @@
     </appender>
 
     <category name="com.baxter">
-        <level value="INFO"/>
+        <level value="DEBUG"/>
     </category>
 
     <root>

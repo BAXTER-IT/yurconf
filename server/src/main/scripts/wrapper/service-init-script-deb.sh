@@ -37,7 +37,7 @@ waitForMarker() {
     IDX=0
     while [ $IDX -ne $MAX_WAIT_MARKER_ITER ]; do
         # Only standard marker should be considered
-        MARKER=$(cat $OUT | grep -e 'Application started' -e 'OK....' -e 'Started in ' -e '::Started ' -e '::INFO:  Started' -e ' Started ')
+        MARKER=$(cat $OUT | grep -e 'Baxter Configuration Server started in' )
         if [ "x$MARKER" != "x" ]; then
             return 0
         else

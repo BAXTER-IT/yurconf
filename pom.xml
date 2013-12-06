@@ -81,25 +81,6 @@
                         </reportPlugins>
                     </configuration>
                 </plugin>
-                <plugin>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>maven-jetty-plugin</artifactId>
-                    <version>6.1.26</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>chronos-jmeter-maven-plugin</artifactId>
-                    <version>${chronos.version}</version>
-                    <configuration>
-                        <jMeterRemoteLocation>${jmeter.download.url}</jMeterRemoteLocation>
-                        <jmeterhome>${jmeter.home}</jmeterhome>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>chronos-report-maven-plugin</artifactId>
-                    <version>${chronos.version}</version>
-                </plugin>
                 <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven 
                     build itself. -->
                 <plugin>
@@ -178,6 +159,7 @@
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>baxter-config-server</artifactId>
+                <classifier>deployable</classifier>
                 <type>war</type>
                 <version>${project.version}</version>
             </dependency>
@@ -303,11 +285,7 @@
         <unix.config.dir>/etc/baxter</unix.config.dir>
         <unix.service.dir>/etc/rc.d/init.d</unix.service.dir>
         <saxon.version>8.9</saxon.version>
-        <chronos.version>1.0-beta-3</chronos.version>
-        <jetty.version>8.1.0.RC4</jetty.version>
         <!-- To be overriden in settings.xml -->
-        <jmeter.home>${project.basedir}/jmeter</jmeter.home>
-        <jmeter.download.url>http://archive.apache.org/dist/jmeter/binaries/apache-jmeter-2.6.zip</jmeter.download.url>
         <alt.config-server.root>${unix.application.alt.root}/config-server</alt.config-server.root>
         <alt.config.processors.lib.dir>${alt.config-server.root}/processors</alt.config.processors.lib.dir>
         <!-- Standard installation directories -->

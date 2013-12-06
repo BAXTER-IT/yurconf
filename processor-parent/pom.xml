@@ -114,130 +114,6 @@
     <profiles>
 
         <profile>
-            <id>IT</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy-config-server</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>com.baxter.config</groupId>
-                                            <artifactId>baxter-config-server</artifactId>
-                                            <type>war</type>
-                                        </artifactItem>
-                                    </artifactItems>
-                                    <outputDirectory>${config.server.war.dir}</outputDirectory>
-                                    <stripVersion>true</stripVersion>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.mortbay.jetty</groupId>
-                        <artifactId>maven-jetty-plugin</artifactId>
-                        <configuration>
-                            <webApp>${config.server.war.dir}/baxter-config-server.war</webApp>
-                            <contextPath>/config-server</contextPath>
-                            <webAppConfig>
-                                <extraClasspath>${project.build.outputDirectory}</extraClasspath>
-                            </webAppConfig>
-                            <scanIntervalSeconds>10</scanIntervalSeconds>
-                            <stopKey>foo</stopKey>
-                            <stopPort>9999</stopPort>
-                            <connectors>
-                                <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-                                    <port>8099</port>
-                                    <maxIdleTime>60000</maxIdleTime>
-                                </connector>
-                            </connectors>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>start-jetty</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>deploy-war</goal>
-                                </goals>
-                                <configuration>
-                                    <scanIntervalSeconds>0</scanIntervalSeconds>
-                                    <daemon>true</daemon>
-                                    <systemProperties>
-                                        <systemProperty>
-                                            <name>com.baxter.config.Repository</name>
-                                            <value>${project.build.directory}/test-repo-root</value>
-                                        </systemProperty>
-                                    </systemProperties>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>stop-jetty</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>chronos-jmeter-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>run-jmeter-tests</id>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>jmeter</goal>
-                                </goals>
-                                <configuration>
-                                    <dataid>jmeterProcessors</dataid>
-                                    <input>${basedir}/src/jmeter/test-plan.jmx</input>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-site-plugin</artifactId>
-                        <configuration>
-                            <reportPlugins combine.children="append">
-                                <plugin>
-                                    <groupId>org.codehaus.mojo</groupId>
-                                    <artifactId>chronos-report-maven-plugin</artifactId>
-                                    <version>${chronos.dep.version}</version>
-                                    <reportSets>
-                                        <reportSet>
-                                            <id>jmeterProcessorsReports</id>
-                                            <reports>
-                                                <report>report</report>
-                                            </reports>
-                                            <configuration>
-                                                <dataid>jmeterProcessors</dataid>
-                                                <title>Processors Tests</title>
-                                                <description>Shows the JMeter tests run for ${project.name}</description>
-                                            </configuration>
-                                        </reportSet>
-                                    </reportSets>
-                                </plugin>
-                            </reportPlugins>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-            <properties>
-                <chronos.dep.version>1.0-beta-3</chronos.dep.version>
-                <config.server.war.dir>${project.build.directory}/config-server-war</config.server.war.dir>
-            </properties>
-        </profile>
-
-        <profile>
             <id>DEB</id>
             <activation>
                 <os>
@@ -402,6 +278,7 @@
         <dependency>
             <groupId>com.baxter.config</groupId>
             <artifactId>baxter-config-server</artifactId>
+            <classifier>deployable</classifier>
             <type>war</type>
             <scope>test</scope>
         </dependency>
@@ -410,6 +287,8 @@
 
     <properties>
         <config.dep.version>${project.version}</config.dep.version>
+        <jmeter.home>${project.basedir}/jmeter</jmeter.home>
+        <jmeter.download.url>http://archive.apache.org/dist/jmeter/binaries/apache-jmeter-2.6.zip</jmeter.download.url>
     </properties>
 
 </project>
