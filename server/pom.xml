@@ -47,7 +47,7 @@
                             <Date>${maven.build.timestamp}</Date>
                             <Revision>${buildNumber}</Revision>
                             <Branch>${scmBranch}</Branch>
-                            <Class-Path>jetty-server.jar jetty-servlet.jar commons-io.jar</Class-Path>
+                            <Class-Path>${jetty.jars} baxter-log-connector.jar servlet-api-3.0.jar</Class-Path>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -127,6 +127,23 @@
                     </plugin>
 
                     <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>get-dependencies-for-deb</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <includeScope>runtime</includeScope>
+                                    <outputDirectory>${deb-dependencies.dir}</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
                         <artifactId>unix-maven-plugin</artifactId>
                         <groupId>no.arktekk.unix</groupId>
                         <executions>
@@ -134,7 +151,7 @@
                                 <id>build-deb-installer</id>
                                 <configuration>
                                     <deb combine.children="append">
-                                        <depends>openjdk-7-jre,lsb-base(&gt;= 3.2-13),jetty</depends>
+                                        <depends>java7-runtime,lsb-base(&gt;= 3.2-13),jetty8,libcommons-io-java,libcommons-beanutils-java,baxter-log-connector</depends>
                                         <preDepends>sed</preDepends>
                                         <replaces>config-server</replaces>
                                     </deb>
@@ -167,6 +184,10 @@
                                             <path>${project.build.directory}/${project.build.finalName}.jar</path>
                                             <toDir>${unix.application.lib.dir}</toDir>
                                         </copyFile>
+                                        <copyDirectory>
+                                            <from>${deb-dependencies.dir}</from>
+                                            <to>${unix.application.lib.dir}</to>
+                                        </copyDirectory>
                                         <copyFile>
                                             <path>src/main/resources/server.properties</path>
                                             <toFile>${unix.config.dir}/configuration-server</toFile>
@@ -183,6 +204,34 @@
                                             <path>${unix.config.dir}/configuration-server-log.xml</path>
                                             <value>${unix.config.dir}/configuration-server-logback.xml</value>
                                         </symlink>
+                                        <symlink>
+                                            <path>${unix.application.lib.dir}/jetty-server.jar</path>
+                                            <value>${unix.application.lib.dir}/jetty8-server.jar</value>
+                                        </symlink>
+                                        <symlink>
+                                            <path>${unix.application.lib.dir}/jetty-servlet.jar</path>
+                                            <value>${unix.application.lib.dir}/jetty8-servlet.jar</value>
+                                        </symlink>
+                                        <symlink>
+                                            <path>${unix.application.lib.dir}/jetty-util.jar</path>
+                                            <value>${unix.application.lib.dir}/jetty8-util.jar</value>
+                                        </symlink>
+                                        <symlink>
+                                            <path>${unix.application.lib.dir}/jetty-http.jar</path>
+                                            <value>${unix.application.lib.dir}/jetty8-http.jar</value>
+                                        </symlink>
+                                        <symlink>
+                                            <path>${unix.application.lib.dir}/jetty-io.jar</path>
+                                            <value>${unix.application.lib.dir}/jetty8-io.jar</value>
+                                        </symlink>
+                                        <symlink>
+                                            <path>${unix.application.lib.dir}/jetty-security.jar</path>
+                                            <value>${unix.application.lib.dir}/jetty8-security.jar</value>
+                                        </symlink>
+                                        <symlink>
+                                            <path>${unix.application.lib.dir}/jetty-continuation.jar</path>
+                                            <value>${unix.application.lib.dir}/jetty8-continuation.jar</value>
+                                        </symlink>
                                     </assembly>
                                 </configuration>
                             </execution>
@@ -190,6 +239,9 @@
                     </plugin>
                 </plugins>
             </build>
+            <properties>
+                <deb-dependencies.dir>${project.build.directory}/deb-dependencies</deb-dependencies.dir>
+            </properties>
         </profile>
 
         <profile>
@@ -443,12 +495,6 @@
         </dependency>
 
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
             <scope>provided</scope>
@@ -471,6 +517,7 @@
     <properties>
         <jira.component>${project.artifactId}</jira.component>
         <jetty.version>9.1.0.v20131115</jetty.version>
+        <jetty.jars>jetty-server.jar jetty-servlet.jar jetty-util.jar jetty-http.jar jetty-io.jar jetty-security.jar jetty-continuation.jar</jetty.jars>
         <application.main.class>com.baxter.config.server.Main</application.main.class>
         <unix.service.name>configuration-server</unix.service.name>
         <unix.application.doc.dir>/usr/share/doc/baxter/${unix.service.name}</unix.application.doc.dir>
