@@ -47,7 +47,7 @@
                             <Date>${maven.build.timestamp}</Date>
                             <Revision>${buildNumber}</Revision>
                             <Branch>${scmBranch}</Branch>
-                            <Class-Path>${jetty.jars} baxter-log-connector.jar</Class-Path>
+                            <Class-Path>baxter-jetty-wrapper.jar baxter-log-connector.jar</Class-Path>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -151,7 +151,7 @@
                                 <id>build-deb-installer</id>
                                 <configuration>
                                     <deb combine.children="append">
-                                        <depends>java7-runtime,lsb-base(&gt;= 3.2-13),jetty8,libcommons-io-java,libcommons-beanutils-java,baxter-log-connector</depends>
+                                        <depends>java7-runtime,lsb-base(&gt;= 3.2-13),libcommons-io-java,libcommons-beanutils-java,baxter-log-connector,baxter-jetty-wrapper</depends>
                                         <preDepends>sed</preDepends>
                                         <replaces>config-server</replaces>
                                     </deb>
@@ -204,38 +204,6 @@
                                             <path>${unix.config.dir}/configuration-server-log.xml</path>
                                             <value>${unix.config.dir}/configuration-server-logback.xml</value>
                                         </symlink>
-                                        <symlink>
-                                            <path>${unix.application.lib.dir}/servlet-api.jar</path>
-                                            <value>${unix.application.lib.dir}/servlet-api-3.0.jar</value>
-                                        </symlink>
-                                        <symlink>
-                                            <path>${unix.application.lib.dir}/jetty-server.jar</path>
-                                            <value>${unix.application.lib.dir}/jetty8-server.jar</value>
-                                        </symlink>
-                                        <symlink>
-                                            <path>${unix.application.lib.dir}/jetty-servlet.jar</path>
-                                            <value>${unix.application.lib.dir}/jetty8-servlet.jar</value>
-                                        </symlink>
-                                        <symlink>
-                                            <path>${unix.application.lib.dir}/jetty-util.jar</path>
-                                            <value>${unix.application.lib.dir}/jetty8-util.jar</value>
-                                        </symlink>
-                                        <symlink>
-                                            <path>${unix.application.lib.dir}/jetty-http.jar</path>
-                                            <value>${unix.application.lib.dir}/jetty8-http.jar</value>
-                                        </symlink>
-                                        <symlink>
-                                            <path>${unix.application.lib.dir}/jetty-io.jar</path>
-                                            <value>${unix.application.lib.dir}/jetty8-io.jar</value>
-                                        </symlink>
-                                        <symlink>
-                                            <path>${unix.application.lib.dir}/jetty-security.jar</path>
-                                            <value>${unix.application.lib.dir}/jetty8-security.jar</value>
-                                        </symlink>
-                                        <symlink>
-                                            <path>${unix.application.lib.dir}/jetty-continuation.jar</path>
-                                            <value>${unix.application.lib.dir}/jetty8-continuation.jar</value>
-                                        </symlink>
                                     </assembly>
                                 </configuration>
                             </execution>
@@ -263,7 +231,8 @@
                         <configuration>
                             <requires>
                                 <require>java &gt;= 1.7.0</require>
-                                <require>jetty8</require>
+                                <require>baxter-jetty-wrapper</require>
+                                <require>baxter-log-connector</require>
                                 <require>jakarta-commons-io</require>
                                 <require>jakarta-commons-beanutils</require>
                             </requires>
@@ -278,6 +247,9 @@
                             <execution>
                                 <id>build-std-rpm-installer</id>
                                 <configuration>
+                                    <requires combine.children="append">
+                                        <require>baxter-log-connector-std</require>
+                                    </requires>
                                     <filters>
                                         <filter>${basedir}/src/main/unix/filter/default.properties</filter>
                                     </filters>
@@ -360,6 +332,9 @@
                             <execution>
                                 <id>build-alt-rpm-installer</id>
                                 <configuration>
+                                    <requires combine.children="append">
+                                        <require>baxter-log-connector-alt</require>
+                                    </requires>
                                     <filters>
                                         <filter>${basedir}/src/main/unix/filter/rpm-alt.properties</filter>
                                     </filters>
@@ -479,21 +454,15 @@
         <dependencies>
 
             <dependency>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-server</artifactId>
-                <version>${jetty.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-servlet</artifactId>
-                <version>${jetty.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>com.baxter.log</groupId>
                 <artifactId>baxter-logback-connector</artifactId>
                 <version>1.0.1</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.baxter.jetty</groupId>
+                <artifactId>baxter-jetty-wrapper</artifactId>
+                <version>8.1</version>
             </dependency>
 
         </dependencies>
@@ -513,20 +482,14 @@
         </dependency>
 
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-servlet</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>com.baxter.log</groupId>
             <artifactId>baxter-logback-connector</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baxter.jetty</groupId>
+            <artifactId>baxter-jetty-wrapper</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -534,8 +497,6 @@
 
     <properties>
         <jira.component>${project.artifactId}</jira.component>
-        <jetty.version>9.1.0.v20131115</jetty.version>
-        <jetty.jars>jetty-server.jar jetty-servlet.jar jetty-util.jar jetty-http.jar jetty-io.jar jetty-security.jar jetty-continuation.jar servlet-api.jar</jetty.jars>
         <application.main.class>com.baxter.config.server.Main</application.main.class>
         <unix.service.name>configuration-server</unix.service.name>
         <unix.application.doc.dir>/usr/share/doc/baxter/${unix.service.name}</unix.application.doc.dir>

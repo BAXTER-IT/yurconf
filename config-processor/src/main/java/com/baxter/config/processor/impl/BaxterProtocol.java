@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.baxter.config.processor.impl;
 
@@ -22,7 +22,7 @@ import com.baxter.config.processor.AbstractProcessor;
 
 /**
  * Custom Baxter Protocols for XSLT Processing.
- * 
+ *
  * @author xpdev
  * @since ${developmentVersion}
  */
@@ -40,9 +40,9 @@ enum BaxterProtocol
 	Source getSource(final URI uri, final AbstractProcessor processor)
 	{
 	  final String xslPath = uri.getSchemeSpecificPart();
-	  final String xslResourcePath = "/META-INF/config/xsl/" + xslPath;
+	  final String xslResourcePath = "META-INF/config/xsl/" + xslPath;
 	  LOGGER.trace("XSL resource path: {}", xslResourcePath);
-	  final InputStream xslStream = getClass().getResourceAsStream(xslResourcePath);
+	  final InputStream xslStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(xslResourcePath);
 	  return new StreamSource(xslStream, uri.toString());
 	}
 
@@ -117,7 +117,7 @@ enum BaxterProtocol
 
   /**
    * Returns the Source from this protocol.
-   * 
+   *
    * @param href
    *          source hyper reference
    * @param processor
@@ -132,7 +132,7 @@ enum BaxterProtocol
 
   /**
    * Determines if the protocol supports specified href.
-   * 
+   *
    * @param href
    *          reference to test
    * @return true if this protocol can be used to access source specified by href
@@ -141,7 +141,7 @@ enum BaxterProtocol
 
   /**
    * Determines the protocol element to be used to access the specified uri.
-   * 
+   *
    * @param uri
    *          source reference
    * @return protocol element or null if no one can handle this

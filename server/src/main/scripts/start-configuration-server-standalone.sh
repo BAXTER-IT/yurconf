@@ -38,6 +38,7 @@ JAVA_OPTS="$JAVA_OPTS -Dcom.baxter.config.Processors=${f.processors.dir}"
 # TODO Only one of below is needed at a time, need to detect from environment
 JAVA_OPTS="$JAVA_OPTS -Dlog4j.configuration=${f.log.config}"
 JAVA_OPTS="$JAVA_OPTS -Dlogback.configurationFile=${f.log.config}"
+JAVA_OPTS="$JAVA_OPTS -Djava.net.preferIPv4Stack=true"
 
 if [ "x" = "x$JAVA_HOME" ]; then
 	JAVA="java"
