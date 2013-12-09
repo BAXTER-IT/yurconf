@@ -31,7 +31,13 @@
         <file>
             <outputDirectory>etc</outputDirectory>
             <source>src/main/resources/logback.xml</source>
-            <destName>configuration-server-log.xml</destName>
+            <destName>configuration-server-log-logback.xml</destName>
+            <fileMode>0664</fileMode>
+        </file>
+        <file>
+            <outputDirectory>etc</outputDirectory>
+            <source>src/main/resources/log4j.xml</source>
+            <destName>configuration-server-log-log4j.xml</destName>
             <fileMode>0664</fileMode>
         </file>
         <file>
@@ -62,6 +68,15 @@
             <useProjectArtifact>false</useProjectArtifact>
             <scope>runtime</scope>
             <useTransitiveDependencies>true</useTransitiveDependencies>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <useProjectArtifact>false</useProjectArtifact>
+            <scope>provided</scope>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
+            <includes>
+                <include>commons*:commons*</include>
+            </includes>
         </dependencySet>
     </dependencySets>
 
