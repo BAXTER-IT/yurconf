@@ -43,7 +43,7 @@
                                     <goals>
                                         <goal>copy-dependencies</goal>
                                     </goals>
-                                    <phase>prepare-package</phase>
+                                    <phase>package</phase>
                                     <configuration>
                                         <includeTypes>rpm</includeTypes>
                                         <outputDirectory>${repobase.dir}</outputDirectory>
