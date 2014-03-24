@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.baxter.config</groupId>
+    <artifactId>baxter-config-jenkins-pipeline</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Baxter Configuration for Jenkins Pipeline</name>
+
+    <profiles>
+
+        <profile>
+
+            <id>jenkins-upstream-repo</id>
+
+            <repositories>
+                <repository>
+                    <id>jenkins</id>
+                    <url>${env.Jenkins.Repository}</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+
+            <build>
+
+                <pluginManagement>
+
+                    <plugins>
+
+                        <plugin>
+                            <artifactId>maven-dependency-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>fetch-packages</id>
+                                    <goals>
+                                        <goal>copy-dependencies</goal>
+                                    </goals>
+                                    <phase>prepare-package</phase>
+                                    <configuration>
+                                        <includeTypes>rpm</includeTypes>
+                                        <outputDirectory>${repobase.dir}</outputDirectory>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+
+                    </plugins>
+
+                </pluginManagement>
+
+            </build>
+
+            <dependencies>
+
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>baxter-config-client</artifactId>
+                    <version>${product-version}</version>
+                    <classifier>${rpm-dist}</classifier>
+                    <type>rpm</type>
+                </dependency>
+
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>baxter-config-server</artifactId>
+                    <version>${product-version}</version>
+                    <classifier>${rpm-dist}</classifier>
+                    <type>rpm</type>
+                </dependency>
+
+            </dependencies>
+
+            <properties>
+                <repobase.dir>${project.build.directory}/repobase</repobase.dir>
+            </properties>
+
+        </profile>
+
+    </profiles>
+
+    <properties>
+        <rpm-dist>dummy</rpm-dist>
+        <product-version>[1.0,)</product-version>
+    </properties>
+
+</project>
