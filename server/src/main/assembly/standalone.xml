@@ -50,6 +50,14 @@
         </file>
         <file>
             <outputDirectory>bin</outputDirectory>
+            <source>src/main/scripts/start-configuration-server.cmd</source>
+            <destName>start-configuration-server.cmd</destName>
+            <filtered>true</filtered>
+            <lineEnding>windows</lineEnding>
+            <fileMode>0555</fileMode>
+        </file>
+        <file>
+            <outputDirectory>bin</outputDirectory>
             <source>src/main/scripts/wrapper/standalone.sh</source>
             <destName>configuration-server</destName>
             <filtered>true</filtered>
