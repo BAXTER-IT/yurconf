@@ -80,7 +80,7 @@
                                     <goals>
                                         <goal>read-project-properties</goal>
                                     </goals>
-                                    <phase>package</phase>
+                                    <phase>initialize</phase>
                                     <configuration>
                                     <files>
                                         <file>${basedir}/repoid.txt</file>
