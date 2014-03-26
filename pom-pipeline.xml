@@ -83,7 +83,7 @@
                                     <phase>package</phase>
                                     <configuration>
                                     <files>
-                                        <file>${basedir}/repoid.txt</file>
+                                        <file>${project-properties-file}</file>
                                     </files>
                                     </configuration>
                                 </execution>
