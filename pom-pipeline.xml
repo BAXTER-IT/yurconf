@@ -70,26 +70,6 @@
             <build>
                     <plugins>
 
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>generate-yum-repo</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <executable>createrepo</executable>
-                                    <arguments>
-                                        <argument>${repobase.dir}</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
                         <plugin>
                             <artifactId>maven-dependency-plugin</artifactId>
                             <executions>
@@ -107,6 +87,26 @@
                             </executions>
                         </plugin>
 
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>exec-maven-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>generate-yum-repo</id>
+                                    <goals>
+                                        <goal>exec</goal>
+                                    </goals>
+                                    <phase>package</phase>
+                                    <configuration>
+                                        <executable>createrepo</executable>
+                                        <arguments>
+                                            <argument>${repobase.dir}</argument>
+                                        </arguments>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+    
                     </plugins>
 
             </build>
