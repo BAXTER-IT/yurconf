@@ -114,6 +114,7 @@
                             <version>1.0-beta-5</version>
                             <configuration>
                                 <url>${url.base}</url>
+                                <serverId>cloudbees-private-repository</serverId>
                             </configuration>
                             <executions>
                                 <execution>
