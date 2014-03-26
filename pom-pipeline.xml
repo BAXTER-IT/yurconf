@@ -157,7 +157,7 @@
 
             <properties>
                 <repobase.dir>${project.build.directory}/repobase</repobase.dir>
-                <url.base>dav:https://repository-baxter.forge.cloudbees.com/private</url.base>   
+                <url.base>dav:https://repository-baxter.forge.cloudbees.com/private/yum-ci-repos/${redo-id}/${rpm-dist}</url.base>   
             </properties>
 
         </profile>
@@ -165,7 +165,8 @@
     </profiles>
 
     <properties>
-        <rpm-dist>dummy</rpm-dist>
+        <rpm-dist>dummy-dist-id</rpm-dist>
+        <redo-id>dummy-repo-id</redo-id>
         <product-version>[1.0,)</product-version>
     </properties>
 
