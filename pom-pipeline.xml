@@ -117,7 +117,7 @@
                             </configuration>
                             <executions>
                                 <execution>
-                                    <id>download-single</id>
+                                    <id>upload-yum-repo-files</id>
                                     <phase>package</phase>
                                     <goals>
                                         <goal>upload</goal>
@@ -156,7 +156,7 @@
 
             <properties>
                 <repobase.dir>${project.build.directory}/repobase</repobase.dir>
-                <url.base>dav:https://repository-baxter.forge.cloudbees.com/private/</url.base>   
+                <url.base>dav:https://repository-baxter.forge.cloudbees.com/private</url.base>   
             </properties>
 
         </profile>
