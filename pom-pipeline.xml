@@ -186,7 +186,6 @@
     <properties>
         <project-properties-file>dummy-project-properties-file</project-properties-file>
         <rpm-dist>dummy-dist-id</rpm-dist>
-        <REPO_ID>dummy-repo-id</REPO_ID>
         <repo-id>${REPO_ID}</repo-id>
         <product-version>[1.0,)</product-version>
     </properties>
