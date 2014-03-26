@@ -121,7 +121,7 @@
                                         <goal>upload</goal>
                                     </goals>
                                     <configuration>
-                                        <fromDir>${repobase.dir}</fromFile>
+                                        <fromDir>${repobase.dir}</fromDir>
                                         <toDir>config-yum-repo</toDir>
                                     </configuration>
                                 </execution>
