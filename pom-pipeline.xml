@@ -176,7 +176,7 @@
 
             <properties>
                 <repobase.dir>${project.build.directory}/repobase</repobase.dir>
-                <url.base>dav:https://repository-baxter.forge.cloudbees.com/private/yum-ci-repos/${repo-id}</url.base>   
+                <url.base>dav:https://repository-baxter.forge.cloudbees.com/private/ci-repos/${repo-id}</url.base>   
             </properties>
 
         </profile>
