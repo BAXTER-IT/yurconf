@@ -100,6 +100,7 @@
                                     <phase>package</phase>
                                     <configuration>
                                         <outputDirectory>${repobase.dir}</outputDirectory>
+                                        <excludeTransitive>true</excludeTransitive>
                                     </configuration>
                                 </execution>
                             </executions>
