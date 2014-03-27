@@ -51,14 +51,8 @@
         </profile>
 
         <profile>
-            <id>rpm-dependencies</id>
 
-
-        </profile>
-        
-        <profile>
-
-            <id>yum-repo</id>
+            <id>prepare-repo</id>
 
             <repositories>
                 <repository>
@@ -105,34 +99,21 @@
                                     </goals>
                                     <phase>package</phase>
                                     <configuration>
-                                        <includeTypes>rpm</includeTypes>
                                         <outputDirectory>${repobase.dir}</outputDirectory>
                                     </configuration>
                                 </execution>
                             </executions>
                         </plugin>
+                    </plugins>
+            </build>
 
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>exec-maven-plugin</artifactId>
-                            <version>1.2.1</version>
-                            <executions>
-                                <execution>
-                                    <id>generate-yum-repo</id>
-                                    <goals>
-                                        <goal>exec</goal>
-                                    </goals>
-                                    <phase>package</phase>
-                                    <configuration>
-                                        <executable>createrepo</executable>
-                                        <arguments>
-                                            <argument>${repobase.dir}</argument>
-                                        </arguments>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-    
+        </profile>
+
+        <profile>
+            <id>publish-to-repo</id>
+
+            <build>
+            	<plugins>
                         <plugin>
                             <groupId>org.codehaus.mojo</groupId>
                             <artifactId>wagon-maven-plugin</artifactId>
@@ -155,13 +136,47 @@
                                 </execution>
                             </executions>        
                         </plugin>
-                    
-                    </plugins>
-
+            	</plugins>
             </build>
+            <properties>
+                <repobase.dir>${project.build.directory}/repobase</repobase.dir>
+                <url.base>dav:https://repository-baxter.forge.cloudbees.com/private/ci-repos/${repo-id}</url.base>   
+            </properties>
+        </profile>
+
+        <profile>
+            <id>generate-yum-repo-files</id>
+
+            <build>
+            	<plugins>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>exec-maven-plugin</artifactId>
+                            <version>1.2.1</version>
+                            <executions>
+                                <execution>
+                                    <id>generate-yum-repo</id>
+                                    <goals>
+                                        <goal>exec</goal>
+                                    </goals>
+                                    <phase>package</phase>
+                                    <configuration>
+                                        <executable>createrepo</executable>
+                                        <arguments>
+                                            <argument>${repobase.dir}</argument>
+                                        </arguments>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+            	</plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>rpm-dependencies</id>
 
             <dependencies>
-
                 <dependency>
                     <groupId>${project.groupId}</groupId>
                     <artifactId>baxter-config-client</artifactId>
@@ -177,16 +192,8 @@
                     <classifier>${rpm-dist}</classifier>
                     <type>rpm</type>
                 </dependency>
-
             </dependencies>
-
-            <properties>
-                <repobase.dir>${project.build.directory}/repobase</repobase.dir>
-                <url.base>dav:https://repository-baxter.forge.cloudbees.com/private/ci-repos/${repo-id}</url.base>   
-            </properties>
-
         </profile>
-
     </profiles>
 
     <properties>
@@ -196,15 +203,13 @@
         <product-version>[1.0,)</product-version>
     </properties>
 
-<build>
-            	<extensions>
-            		<extension>
-            			<groupId>org.apache.maven.wagon</groupId>
-            			<artifactId>wagon-webdav-jackrabbit</artifactId>
-            			<version>1.0-beta-7</version>
-            		</extension>
-            	</extensions>
-            	
-
-</build>
+    <build>
+    	<extensions>
+    		<extension>
+    			<groupId>org.apache.maven.wagon</groupId>
+    			<artifactId>wagon-webdav-jackrabbit</artifactId>
+    			<version>1.0-beta-7</version>
+    		</extension>
+    	</extensions>
+    </build>
 </project>
