@@ -51,6 +51,31 @@
         </profile>
 
         <profile>
+            <id>rpm-dependencies</id>
+
+            <dependencies>
+
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>baxter-config-client</artifactId>
+                    <version>${product-version}</version>
+                    <classifier>${rpm-dist}</classifier>
+                    <type>rpm</type>
+                </dependency>
+
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>baxter-config-server</artifactId>
+                    <version>${product-version}</version>
+                    <classifier>${rpm-dist}</classifier>
+                    <type>rpm</type>
+                </dependency>
+
+            </dependencies>
+
+        </profile>
+        
+        <profile>
 
             <id>jenkins-upstream-repo</id>
 
@@ -153,26 +178,6 @@
                     </plugins>
 
             </build>
-
-            <dependencies>
-
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>baxter-config-client</artifactId>
-                    <version>${product-version}</version>
-                    <classifier>${rpm-dist}</classifier>
-                    <type>rpm</type>
-                </dependency>
-
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>baxter-config-server</artifactId>
-                    <version>${product-version}</version>
-                    <classifier>${rpm-dist}</classifier>
-                    <type>rpm</type>
-                </dependency>
-
-            </dependencies>
 
             <properties>
                 <repobase.dir>${project.build.directory}/repobase</repobase.dir>
