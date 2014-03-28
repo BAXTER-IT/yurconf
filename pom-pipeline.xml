@@ -68,6 +68,30 @@
             </properties>
 
         </profile>
+        <profile>
+            <id>simple-packages</id>
+
+            <dependencies>
+
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>price-engine-dist</artifactId>
+                    <version>${product-version}</version>
+                    <classifier>clientApps</classifier>
+                    <type>zip</type>
+                </dependency>
+
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>price-engine-dist</artifactId>
+                    <version>${product-version}</version>
+                    <classifier>standalone</classifier>
+                    <type>tar.gz</type>
+                </dependency>
+
+            </dependencies>
+
+        </profile>
 
     </profiles>
 
