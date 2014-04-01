@@ -3,137 +3,45 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>com.baxter.ci</groupId>
+        <artifactId>ci-base</artifactId>
+        <version>1.5</version>
+    </parent>
+
     <groupId>com.baxter.config</groupId>
     <artifactId>baxter-config-jenkins-pipeline</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
 
     <name>Baxter Configuration for Jenkins Pipeline</name>
+
+    <build>
+
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>fetch-packages</id>
+                        <configuration>
+                            <includeTypes>rpm</includeTypes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>wagon-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+
+    </build>
 
     <profiles>
 
         <profile>
-            <id>cloudbees.private.repository</id>
-            <repositories>
-                <repository>
-                    <id>cloudbees-private-repository</id>
-                    <url>https://repository-baxter.forge.cloudbees.com/private</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-                <repository>
-                    <id>cloudbees-private-release-repository</id>
-                    <url>https://repository-baxter.forge.cloudbees.com/release</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>cloudbees-private-repository</id>
-                    <url>https://repository-baxter.forge.cloudbees.com/private</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
-
-        <profile>
-
-            <id>jenkins-upstream-repo</id>
-
-            <repositories>
-                <repository>
-                    <id>jenkins</id>
-                    <url>${env.Jenkins.Repository}</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-
-            <build>
-            
-            	<plugins>
-                        <plugin>
-                            <artifactId>maven-dependency-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <id>fetch-packages</id>
-                                    <goals>
-                                        <goal>copy-dependencies</goal>
-                                    </goals>
-                                    <phase>package</phase>
-                                    <configuration>
-                                        <includeTypes>rpm</includeTypes>
-                                        <outputDirectory>${repobase.dir}</outputDirectory>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>exec-maven-plugin</artifactId>
-                            <version>1.2.1</version>
-                            <executions>
-                                <execution>
-                                    <id>generate-yum-repo</id>
-                                    <goals>
-                                        <goal>exec</goal>
-                                    </goals>
-                                    <phase>package</phase>
-                                    <configuration>
-                                        <executable>createrepo</executable>
-                                        <arguments>
-                                            <argument>${repobase.dir}</argument>
-                                        </arguments>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-    
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>wagon-maven-plugin</artifactId>
-                            <version>1.0-beta-5</version>
-                            <configuration>
-                                <url>${url.base}</url>
-                                <serverId>cloudbees-private-repository</serverId>
-                            </configuration>
-                            <executions>
-                                <execution>
-                                    <id>upload-yum-repo-files</id>
-                                    <phase>package</phase>
-                                    <goals>
-                                        <goal>upload</goal>
-                                    </goals>
-                                    <configuration>
-                                        <fromDir>${repobase.dir}</fromDir>
-                                        <toDir>config-yum-repo</toDir>
-                                    </configuration>
-                                </execution>
-                            </executions>        
-                        </plugin>
-                    
-                    </plugins>
-
-            </build>
+            <id>YUM-Repo</id>
 
             <dependencies>
 
@@ -141,7 +49,7 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>baxter-config-client</artifactId>
                     <version>${product-version}</version>
-                    <classifier>${rpm-dist}</classifier>
+                    <classifier>${rpm-classifier}</classifier>
                     <type>rpm</type>
                 </dependency>
 
@@ -149,35 +57,22 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>baxter-config-server</artifactId>
                     <version>${product-version}</version>
-                    <classifier>${rpm-dist}</classifier>
+                    <classifier>${rpm-classifier}</classifier>
                     <type>rpm</type>
                 </dependency>
 
             </dependencies>
 
             <properties>
-                <repobase.dir>${project.build.directory}/repobase</repobase.dir>
-                <url.base>dav:https://repository-baxter.forge.cloudbees.com/private</url.base>   
+                <rpm-classifier>${distribution}</rpm-classifier>
             </properties>
 
         </profile>
-
+       
     </profiles>
 
     <properties>
-        <rpm-dist>dummy</rpm-dist>
         <product-version>[1.0,)</product-version>
     </properties>
 
-<build>
-            	<extensions>
-            		<extension>
-            			<groupId>org.apache.maven.wagon</groupId>
-            			<artifactId>wagon-webdav-jackrabbit</artifactId>
-            			<version>1.0-beta-7</version>
-            		</extension>
-            	</extensions>
-            	
-
-</build>
 </project>
