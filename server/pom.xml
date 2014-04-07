@@ -272,7 +272,7 @@
                                                     <destination>configuration-server-log4j.xml</destination>
                                                     <filter>true</filter>
                                                 </source>
-                                                <softlinkSource>
+                                                <softlinkSource><!-- TODO this decision should be made by post install, depending on the available log provider -->
                                                     <destination>configuration-server-log.xml</destination>
                                                     <location>configuration-server-logback.xml</location>
                                                 </softlinkSource>
@@ -363,7 +363,7 @@
                                                     <destination>configuration-server-log4j.xml</destination>
                                                     <filter>true</filter>
                                                 </source>
-                                                <softlinkSource>
+                                                <softlinkSource><!-- TODO see the same file for std -->
                                                     <destination>configuration-server-log.xml</destination>
                                                     <location>configuration-server-logback.xml</location>
                                                 </softlinkSource>
@@ -453,12 +453,6 @@
         <dependencies>
 
             <dependency>
-                <groupId>com.baxter.log</groupId>
-                <artifactId>baxter-logback-connector</artifactId>
-                <version>1.0.1</version>
-            </dependency>
-            
-            <dependency>
                 <groupId>com.baxter.jetty</groupId>
                 <artifactId>baxter-jetty-wrapper</artifactId>
                 <version>8.1</version>
@@ -481,11 +475,11 @@
         </dependency>
 
         <dependency>
-            <groupId>com.baxter.log</groupId>
-            <artifactId>baxter-logback-connector</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
             <scope>provided</scope>
         </dependency>
-
+            
         <dependency>
             <groupId>com.baxter.jetty</groupId>
             <artifactId>baxter-jetty-wrapper</artifactId>

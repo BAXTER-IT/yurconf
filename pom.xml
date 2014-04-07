@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.baxter</groupId>
         <artifactId>parent</artifactId>
-        <version>1.2.4</version>
+        <version>1.2.5</version>
     </parent>
 
     <groupId>com.baxter.config</groupId>
@@ -164,6 +164,16 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.7.5</version>
+            </dependency>
+            <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
                 <version>2.5</version>
@@ -202,13 +212,6 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava-io</artifactId>
                 <version>r03</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baxter.log</groupId>
-                <artifactId>baxter-log-connector-bom</artifactId>
-                <type>pom</type>
-                <version>1.0.1</version>
-                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

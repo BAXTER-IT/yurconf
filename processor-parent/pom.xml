@@ -195,6 +195,11 @@
                         <plugin>
                             <groupId>org.codehaus.mojo</groupId>
                             <artifactId>rpm-maven-plugin</artifactId>
+                            <configuration>
+                                <requires combine.children="append">
+                                    <require>baxter-config-server &gt;= ${config.dep.version}</require>
+                                </requires>
+                            </configuration>
                             <executions>
                                 <execution>
                                     <id>build-std-rpm-installer</id>
@@ -204,7 +209,7 @@
                                     </goals>
                                     <configuration>
                                         <requires>
-                                            <require>baxter-config-server-std &gt;= ${config.dep.version}</require>
+                                            <require>baxter-config-server-std</require>
                                         </requires>
                                         <mappings>
                                             <mapping>
@@ -235,7 +240,7 @@
                                     </goals>
                                     <configuration>
                                         <requires>
-                                            <require>baxter-config-server-alt &gt;= ${config.dep.version}</require>
+                                            <require>baxter-config-server-alt</require>
                                         </requires>
                                         <mappings>
                                             <mapping>
