@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.baxter.ci</groupId>
         <artifactId>ci-base</artifactId>
-        <version>1.5</version>
+        <version>1.6</version>
     </parent>
 
     <groupId>com.baxter.config</groupId>
@@ -46,19 +46,25 @@
             <dependencies>
 
                 <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>baxter-config-client</artifactId>
-                    <version>${product-version}</version>
+                    <groupId>com.baxter.config</groupId>
+                    <version>1.4.1</version>
                     <classifier>${rpm-classifier}</classifier>
                     <type>rpm</type>
-                </dependency>
-
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
                     <artifactId>baxter-config-server</artifactId>
-                    <version>${product-version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.baxter.config.processor.pe</groupId>
+                    <version>1.3.4</version>
                     <classifier>${rpm-classifier}</classifier>
                     <type>rpm</type>
+                    <artifactId>baxter-config-processor-price-engine</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.baxter.config.processor.stat</groupId>
+                    <version>1.3</version>
+                    <classifier>${rpm-classifier}</classifier>
+                    <type>rpm</type>
+                    <artifactId>baxter-config-processor-statistics</artifactId>
                 </dependency>
 
             </dependencies>
@@ -72,7 +78,6 @@
     </profiles>
 
     <properties>
-        <product-version>[1.0,)</product-version>
     </properties>
 
 </project>
