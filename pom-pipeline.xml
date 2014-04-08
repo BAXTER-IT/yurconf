@@ -44,7 +44,13 @@
             <id>YUM-Repo</id>
 
             <dependencies>
-
+                <dependency>
+                    <groupId>com.baxter.config</groupId>
+                    <version>1.4.1</version>
+                    <classifier>${rpm-classifier}</classifier>
+                    <type>rpm</type>
+                    <artifactId>baxter-config-client</artifactId>
+                </dependency>
                 <dependency>
                     <groupId>com.baxter.config</groupId>
                     <version>1.4.1</version>
