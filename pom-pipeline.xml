@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.baxter.ci</groupId>
         <artifactId>ci-base</artifactId>
-        <version>1.7</version>
+        <version>1.11</version>
     </parent>
 
     <groupId>com.baxter.config</groupId>
@@ -15,31 +15,7 @@
 
     <name>Baxter Configuration for Jenkins Pipeline</name>
 
-    <build>
-
-        <plugins>
-
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>fetch-packages</id>
-                        <configuration>
-                            <includeTypes>rpm</includeTypes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>wagon-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-
-    </build>
-
     <profiles>
-
         <profile>
             <id>YUM-Repo</id>
 
@@ -72,18 +48,11 @@
                     <type>rpm</type>
                     <artifactId>baxter-config-processor-statistics</artifactId>
                 </dependency>
-
             </dependencies>
 
             <properties>
                 <rpm-classifier>${distribution}</rpm-classifier>
             </properties>
-
         </profile>
-       
     </profiles>
-
-    <properties>
-    </properties>
-
 </project>
