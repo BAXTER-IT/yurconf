@@ -283,7 +283,6 @@
 
     <properties>
         <!-- SITE PROPERTIES. We can reference these properties from the site sources -->
-        
         <!-- SITE PROPERTIES END -->
         <unix.application.group.name>Config</unix.application.group.name>
         <unix.config.dir>/etc/baxter</unix.config.dir>
