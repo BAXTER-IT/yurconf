@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.baxter.config.client;
 
@@ -13,7 +13,7 @@ import com.baxter.config.om.Version;
 
 /**
  * Configuration request builder.
- * 
+ *
  * @author ykryshchuk
  * @since ${developmentVersion}
  */
@@ -26,9 +26,11 @@ public final class RequestBuilder
 
   private String type;
 
-  private List<String> variants = new ArrayList<String>();
+  private final List<String> preVariants = new ArrayList<String>();
 
-  private List<ConfigParameter> parameters = new ArrayList<ConfigParameter>();
+  private final List<String> variants = new ArrayList<String>();
+
+  private final List<ConfigParameter> parameters = new ArrayList<ConfigParameter>();
 
   private Version version;
 
@@ -43,6 +45,7 @@ public final class RequestBuilder
 	this.productId = template.productId;
 	this.componentId = template.componentId;
 	this.type = template.type;
+	this.preVariants.addAll(template.preVariants);
 	this.variants.addAll(template.variants);
 	this.parameters.addAll(template.parameters);
 	this.version = template.version;
@@ -73,6 +76,17 @@ public final class RequestBuilder
   {
 	final RequestBuilder b = new RequestBuilder(this);
 	b.version = version;
+	return b;
+  }
+
+  /**
+   * Adds the specified variant in front of all other variants.
+   * @param variant new variant
+   * @return the builder
+   */
+  public RequestBuilder prependVariant( final String variant ) {
+	final RequestBuilder b = new RequestBuilder(this);
+	b.preVariants.add(0, variant);
 	return b;
   }
 
@@ -112,7 +126,7 @@ public final class RequestBuilder
 	final String rProductId = this.productId == null ? environment.getProductId() : this.productId;
 	final String rComponentId = this.componentId == null ? environment.getComponentId() : this.componentId;
 	final String rType = this.type;
-	final List<String> rVariants = new ArrayList<String>();
+	final List<String> rVariants = new ArrayList<String>(preVariants);
 	if (!this.skipDefaultVariants)
 	{
 	  rVariants.addAll(environment.getVariants());
