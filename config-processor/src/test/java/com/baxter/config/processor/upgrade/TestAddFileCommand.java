@@ -1,5 +1,10 @@
-/**
+/*
+ * Configuration Processors
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.processor.upgrade;
 
@@ -18,15 +23,15 @@ import com.baxter.config.processor.desc.FilenameProvider;
 
 /**
  * Test cases for AddFileCommand.
- * 
+ *
  * @author xpdev
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public class TestAddFileCommand extends TestAbstractFileCommand
 {
-  
+
   /**
-   * 
+   *
    */
   @Test
   public void check_addNewFileSingle() throws Exception
@@ -42,7 +47,7 @@ public class TestAddFileCommand extends TestAbstractFileCommand
   }
 
   /**
-   * 
+   *
    */
   @Test
   public void check_addNewFileMask() throws Exception
@@ -58,7 +63,7 @@ public class TestAddFileCommand extends TestAbstractFileCommand
   }
 
   /**
-   * 
+   *
    */
   @Test
   public void check_addNewFileMask2() throws Exception
@@ -74,7 +79,7 @@ public class TestAddFileCommand extends TestAbstractFileCommand
   }
 
   /**
-   * 
+   *
    */
   @Test
   public void check_addNewFileRegexp() throws Exception
@@ -92,7 +97,7 @@ public class TestAddFileCommand extends TestAbstractFileCommand
 	  assertTrue(new File(this.pseudoRoot, "input1_" + i + ".txt").isFile());
 	}
   }
-  
+
   @Test
   public void check_addFileOverwrite() throws Exception {
 	final FilenameProvider fnProvider = mock(FilenameProvider.class);

@@ -1,5 +1,10 @@
-/**
+/*
+ * Baxter Configuration Object Model
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.om;
 
@@ -11,9 +16,9 @@ import java.util.regex.Pattern;
 /**
  * Configuration identifier. According to the Configuration Protocol the URL for configuration item must match the pattern
  * described in {@link http://qa/products/configuration/config-server/protocol.html#Configuration_Items}.
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public class ConfigID
 {
@@ -35,7 +40,7 @@ public class ConfigID
 
   /**
    * Returns the configuration identifier specified by a part of URL.
-   * 
+   *
    * @param urlPath
    *          URL Path as defined by Configuration Protocol.
    * @return the parsed Configuration Identifier.

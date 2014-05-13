@@ -1,5 +1,10 @@
-/**
+/*
+ * Configuration Processors
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.processor.repo.file;
 
@@ -27,11 +32,11 @@ import com.baxter.config.processor.repo.RepositoryException;
 
 /**
  * Processor Factory that returns a target processor for specified input.
- * 
+ *
  * @TODO extract the package introspection into the new class
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public final class ProcessorFactoryImpl implements ProcessorFactory
 {
@@ -73,7 +78,7 @@ public final class ProcessorFactoryImpl implements ProcessorFactory
 
   /**
    * Returns the factory instance for specified repository.
-   * 
+   *
    * @param repository
    *          root of configuration repository
    * @return processor factory instance
@@ -201,7 +206,7 @@ public final class ProcessorFactoryImpl implements ProcessorFactory
 
   /**
    * Instantiates the processor.
-   * 
+   *
    * @param descriptor
    *          package descriptor
    * @param processorDescriptor

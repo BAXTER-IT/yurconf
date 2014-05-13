@@ -1,5 +1,10 @@
-/**
+/*
+ * Baxter Configuration Object Model
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.om;
 
@@ -7,9 +12,9 @@ import java.util.Arrays;
 
 /**
  * Version descriptor.
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public final class Version implements Comparable<Version>
 {
@@ -22,7 +27,7 @@ public final class Version implements Comparable<Version>
 
   /**
    * Returns the Version object parsed from the input line.
-   * 
+   *
    * @param line
    *          the line with version where version parts are separated by dot
    * @return the version object (null for null line)

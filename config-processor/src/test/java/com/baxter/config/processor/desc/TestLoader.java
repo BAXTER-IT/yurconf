@@ -1,7 +1,16 @@
-/**
+/*
+ * Configuration Processors
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.processor.desc;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.StringWriter;
 import java.net.URL;
@@ -13,15 +22,12 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import org.junit.Test;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertEquals;
 
 /**
  * Test suite for Loader class.
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public class TestLoader
 {

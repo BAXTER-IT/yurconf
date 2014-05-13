@@ -1,5 +1,10 @@
-/**
+/*
+ * Configuration Processors
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.processor.impl;
 
@@ -41,9 +46,9 @@ import com.baxter.config.processor.desc.Descriptor;
 
 /**
  * Abstract implementation of XSLT Processor.
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public abstract class AbstractXSLTProcessor extends AbstractProcessor
 {
@@ -78,7 +83,7 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 
   /**
    * Initializes processor.
-   * 
+   *
    * @param descriptor
    *          configuration processor descriptor
    */
@@ -103,7 +108,7 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 
   /**
    * Returns the default transformer for this XSLT processor.
-   * 
+   *
    * @return transformer
    * @throws ProcessorException
    *           if cannot create transformer
@@ -125,7 +130,7 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 
   /**
    * Returns cached templates object that can be used to create transformers.
-   * 
+   *
    * @return the templates object
    */
   protected Templates getTemplates() throws ProcessorException
@@ -173,7 +178,7 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 
   /**
    * Returns the root XSL source for this transformer.
-   * 
+   *
    * @return XSL source
    */
   protected Source getXslSource() throws IOException
@@ -244,7 +249,7 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 
   /**
    * Performs initialization of transformer.
-   * 
+   *
    * @param transformer
    *          transformer to setup
    * @param configurationId

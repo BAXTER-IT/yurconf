@@ -1,19 +1,24 @@
-/**
+/*
+ * Baxter Configuration Object Model
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.om;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 /**
  * Unit test for {@link Version} class.
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public class TestVersion
 {
@@ -25,7 +30,7 @@ public class TestVersion
 	assertEquals(1, v.getParts().length);
 	assertEquals(100, v.getParts()[0]);
   }
-  
+
   @Test
   public void testValueOf_1_0()
   {

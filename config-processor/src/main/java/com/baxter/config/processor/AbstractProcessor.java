@@ -1,5 +1,10 @@
-/**
+/*
+ * Configuration Processors
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.processor;
 
@@ -15,9 +20,9 @@ import com.baxter.config.processor.desc.Descriptor;
 
 /**
  * Abstract Configuration Processor. The instances of processors are typically thread-safe.
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public abstract class AbstractProcessor
 {
@@ -41,7 +46,7 @@ public abstract class AbstractProcessor
 
   /**
    * Initializes processor with descriptor.
-   * 
+   *
    * @param descriptor
    *          configuration descriptor
    */
@@ -55,7 +60,7 @@ public abstract class AbstractProcessor
 
   /**
    * Performs configuration processing.
-   * 
+   *
    * @param context
    *          current processor context
    * @throws ProcessorException
@@ -65,7 +70,7 @@ public abstract class AbstractProcessor
 
   /**
    * Returns the processor version.
-   * 
+   *
    * @return version
    */
   Version getVersion()
@@ -75,7 +80,7 @@ public abstract class AbstractProcessor
 
   /**
    * Determines if the specified version is supported by this processor.
-   * 
+   *
    * @param version
    *          version to check
    * @return true if version is null or smaller or equal than processor's version
@@ -94,7 +99,7 @@ public abstract class AbstractProcessor
 
   /**
    * Returns descriptor.
-   * 
+   *
    * @return descriptor
    */
   public Descriptor getDescriptor()

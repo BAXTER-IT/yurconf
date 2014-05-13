@@ -1,5 +1,10 @@
-/**
+/*
+ * Baxter Configuration Server
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.servlet;
 
@@ -26,10 +31,10 @@ import com.baxter.config.processor.ProcessorException;
  * The Restful Servlet on Configuration Server. This is a main entry point to
  * the configuration system for the clients. This servlet processes the requests
  * for configuration and delivers the configuration files.
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
- * 
+ * @since 1.5
+ *
  */
 public class RestfulServlet extends AbstractRepositoryServlet
 {
@@ -87,9 +92,9 @@ public class RestfulServlet extends AbstractRepositoryServlet
   }
 
   /**
-   * Processor context for servlet request. 
+   * Processor context for servlet request.
    * @author ykryshchuk
-   * @since ${developmentVersion}
+   * @since 1.5
    */
   private final class RequestProcessorContext implements ProcessorContext
   {

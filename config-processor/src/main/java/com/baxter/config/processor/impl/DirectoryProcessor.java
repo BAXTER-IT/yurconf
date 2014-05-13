@@ -1,5 +1,10 @@
-/**
+/*
+ * Configuration Processors
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.processor.impl;
 
@@ -24,13 +29,13 @@ import com.baxter.config.processor.desc.Descriptor;
 /**
  * Default implementation of Directory Configuration Processor. Its purpose is to build the (zip) archive with files gathered from
  * specified directory and its variants.
- * 
+ *
  * TODO need unit tests.
- * 
+ *
  * TODO add description with example to documentation
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public class DirectoryProcessor extends AbstractProcessor
 {
@@ -39,7 +44,7 @@ public class DirectoryProcessor extends AbstractProcessor
 
   /**
    * Creates processor for specified descriptor.
-   * 
+   *
    * @param descriptor
    *          processor descriptor
    */

@@ -1,5 +1,10 @@
-/**
+/*
+ * Configuration Processors
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.processor.desc;
 
@@ -11,9 +16,9 @@ import javax.xml.bind.annotation.XmlElement;
 
 /**
  * The processor entry descriptor.
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public class Processor
 {
@@ -25,7 +30,7 @@ public class Processor
   private String configurationType;
 
   @XmlElement(name = "parameter")
-  private List<Parameter> parameters = new ArrayList<Parameter>();
+  private final List<Parameter> parameters = new ArrayList<Parameter>();
 
   public String getClassName()
   {

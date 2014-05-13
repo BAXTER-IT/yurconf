@@ -1,13 +1,18 @@
-/**
+/*
+ * Baxter Configuration Object Model
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.om;
 
 /**
  * Configuration parameter.
- * 
+ *
  * @author xpdev
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public class ConfigParameter
 {
@@ -31,7 +36,7 @@ public class ConfigParameter
   {
 	return value;
   }
-  
+
   @Override
   public String toString()
   {

@@ -1,16 +1,22 @@
-/**
+/*
+ * Configuration Processors
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.processor.impl;
+
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author ykryshchuk
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public class TestVariantFile
 {

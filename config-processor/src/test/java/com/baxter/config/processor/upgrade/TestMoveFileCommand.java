@@ -1,7 +1,18 @@
-/**
+/*
+ * Configuration Processors
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.processor.upgrade;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,15 +24,9 @@ import org.junit.Test;
 
 import com.baxter.config.processor.desc.FilenameProvider;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 /**
  * @author xpdev
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public class TestMoveFileCommand extends TestAbstractFileCommand
 
@@ -31,7 +36,7 @@ public class TestMoveFileCommand extends TestAbstractFileCommand
   public void testRenameWithRegExp()
   {
 	final Pattern p = Pattern.compile("1");
-	final Matcher m = p.matcher("this in 1 line with 1 sample"); //this in one line with one sample 
+	final Matcher m = p.matcher("this in 1 line with 1 sample"); //this in one line with one sample
 	final StringBuffer str = new StringBuffer();
 	while (m.find())
 	{
@@ -142,7 +147,7 @@ public class TestMoveFileCommand extends TestAbstractFileCommand
 	assertTrue(renamedFile.exists());
 	assertEquals(10, renamedFile.length());
   }
-  
+
   @Test
   public void check_WildcardFileReplaceToDirectoryWithExistingFile() throws IOException, UpgradeException
   {
@@ -181,7 +186,7 @@ public class TestMoveFileCommand extends TestAbstractFileCommand
 	final MoveFileCommand cmd = new MoveFileCommand(fnProvider, "otherdir/somefile.ext");
 	cmd.upgrade(this.upgradeContext);
   }
-  
+
   @Test
   public void check_MaskSpecifiedFileReplace() throws IOException, UpgradeException
   {
@@ -219,7 +224,7 @@ public class TestMoveFileCommand extends TestAbstractFileCommand
 	assertTrue(movedFile2.exists());
 	assertTrue(movedFile3.exists());
   }
-  
+
   @Test
   public void check_regexSpecifiedFileReplace() throws IOException, UpgradeException
   {

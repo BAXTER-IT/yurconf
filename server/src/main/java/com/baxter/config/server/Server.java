@@ -1,5 +1,10 @@
-/**
- *
+/*
+ * Baxter Configuration Server
+ * Copyright (C) 2012-2013  BAXTER Technologies
+ * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.server;
 
@@ -24,7 +29,7 @@ import com.baxter.config.servlet.ViewerServlet;
  * Configuration Server class.
  *
  * @author yura
- * @sinceDevelopmentVersion
+ * @since 1.5
  */
 public class Server extends org.eclipse.jetty.server.Server
 {

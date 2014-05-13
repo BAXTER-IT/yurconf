@@ -1,5 +1,10 @@
-/**
+/*
+ * Baxter Configuration Client
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.client;
 
@@ -18,9 +23,9 @@ import com.baxter.config.om.Version;
 
 /**
  * The configuration request.
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public class Request
 {

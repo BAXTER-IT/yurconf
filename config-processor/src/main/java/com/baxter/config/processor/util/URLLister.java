@@ -1,3 +1,11 @@
+/*
+ * Configuration Processors
+ * Copyright (C) 2012-2013  BAXTER Technologies
+ * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
+ */
 package com.baxter.config.processor.util;
 
 import java.io.File;
@@ -16,9 +24,9 @@ import org.apache.commons.io.FilenameUtils;
 
 /**
  * List content under a specified URL.
- * 
+ *
  * @author Arpad Roziczky
- * @since ${developmentVersion}
+ * @since 1.5
  */
 public abstract class URLLister
 {
@@ -39,7 +47,7 @@ public abstract class URLLister
 
   /**
    * Returns the URL Lister appropriate for specified URL.
-   * 
+   *
    * @param url
    *          input url to process
    * @return some implementation of URL Lister
@@ -59,7 +67,7 @@ public abstract class URLLister
 
   /**
    * Returns the lister for JAR URLs.
-   * 
+   *
    * @return jar lister
    */
   static URLLister getJarListerInstance()
@@ -69,7 +77,7 @@ public abstract class URLLister
 
   /**
    * Returns the lister for File URLs.
-   * 
+   *
    * @return file lister
    */
   static URLLister getFileListerInstance()
@@ -79,7 +87,7 @@ public abstract class URLLister
 
   /**
    * Returns a list of entries under specified URL. These are the entries paths relative to the input URL.
-   * 
+   *
    * @param url
    *          input URL
    * @return list of string paths
@@ -91,7 +99,7 @@ public abstract class URLLister
   /**
    * Returns a list of entries under specified URL, whose names satisfy specified pattern. These are the entries paths relative to
    * the input URL.
-   * 
+   *
    * @param url
    *          input URL
    * @param mask
@@ -105,7 +113,7 @@ public abstract class URLLister
   /**
    * Returns a list of entries under specified URL, whose names satisfy specified pattern. These are the entries paths relative to
    * the input URL.
-   * 
+   *
    * @param url
    *          input URL
    * @param pattern
@@ -181,9 +189,9 @@ public abstract class URLLister
 
   /**
    * URL Lister for JAR content.
-   * 
+   *
    * @author Arpad Roziczky
-   * @since ${developmentVersion}
+   * @since 1.5
    */
   private static class JARURLLister extends URLLister
   {
@@ -229,7 +237,7 @@ public abstract class URLLister
 	}
 
 	/**
-	 * 
+	 *
 	 * @param jarFileName
 	 *          The path where the jar file can be found
 	 * @param pathInJar
@@ -272,9 +280,9 @@ public abstract class URLLister
 
   /**
    * Filename acceptor. Verifies if the path part conforms to particular criteria.
-   * 
+   *
    * @author xpdev
-   * @since ${developmentVersion}
+   * @since 1.5
    */
   private interface FilenameAcceptor
   {

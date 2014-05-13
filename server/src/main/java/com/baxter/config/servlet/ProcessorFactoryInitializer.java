@@ -1,5 +1,10 @@
-/**
+/*
+ * Baxter Configuration Server
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.servlet;
 
@@ -20,7 +25,7 @@ import com.baxter.config.processor.repo.file.ProcessorFactoryImpl;
 
 /**
  * @author yura
- * @sinceDevelopmentVersion
+ * @since 1.5
  */
 public class ProcessorFactoryInitializer implements ServletContextListener
 {

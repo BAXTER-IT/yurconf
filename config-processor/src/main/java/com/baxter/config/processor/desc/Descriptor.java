@@ -1,5 +1,10 @@
-/**
+/*
+ * Configuration Processors
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.processor.desc;
 
@@ -18,9 +23,9 @@ import com.baxter.config.om.Version;
 
 /**
  * Processor descriptor.
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
+ * @since 1.5
  */
 @XmlRootElement(name = "descriptor")
 public class Descriptor
@@ -40,7 +45,7 @@ public class Descriptor
 
   @XmlAttribute(name = "productId", required = true)
   private String productId;
-  
+
   @XmlAttribute(name = "viewer", required = false)
   private String viewerStylesheet;
 
@@ -88,7 +93,7 @@ public class Descriptor
   {
 	return processors;
   }
-  
+
   public String getViewerStylesheet()
   {
 	return viewerStylesheet;
@@ -96,7 +101,7 @@ public class Descriptor
 
   /**
    * Returns the latest available upgrade from the specified version.
-   * 
+   *
    * @param fromVersion
    *          version to be upgraded
    * @return the upgrade object

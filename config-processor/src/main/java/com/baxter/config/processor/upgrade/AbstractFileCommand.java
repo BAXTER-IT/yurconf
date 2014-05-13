@@ -1,3 +1,11 @@
+/*
+ * Configuration Processors
+ * Copyright (C) 2012-2013  BAXTER Technologies
+ * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
+ */
 package com.baxter.config.processor.upgrade;
 
 import java.io.IOException;
@@ -13,7 +21,7 @@ import com.baxter.config.processor.util.URLLister;
 
 /**
  * @author xpdev
- * @since ${developmentVersion}
+ * @since 1.5
  */
 abstract class AbstractFileCommand
 {

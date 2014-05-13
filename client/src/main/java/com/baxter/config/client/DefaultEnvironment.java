@@ -1,5 +1,10 @@
-/**
+/*
+ * Baxter Configuration Client
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.client;
 
@@ -17,10 +22,10 @@ import com.baxter.config.om.Version;
 /**
  * Default implementation of configuration environment. The values are provided in a resource file ({@link #CONFIG_RESOURCE}), but
  * these settings can be overwritten by system properties.
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
- * 
+ * @since 1.5
+ *
  */
 final class DefaultEnvironment implements Environment
 {

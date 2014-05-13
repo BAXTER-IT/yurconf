@@ -1,5 +1,10 @@
-/**
+/*
+ * Configuration Processors
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.processor.impl;
 
@@ -7,14 +12,14 @@ import java.io.File;
 
 /**
  * Variant file.
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
+ * @since 1.5
  */
 class VariantFile extends File
 {
   /**
-   * 
+   *
    */
   private static final long serialVersionUID = 1L;
 

@@ -22,7 +22,7 @@
 	  Client API, Web Application and Products Connectors (Processors).
 	</description>
 
-    <url>https://repository-baxter.forge.cloudbees.com/private/sites/config/</url>
+    <url>http://baxter-it.github.io/config-server</url>
 
     <inceptionYear>2011</inceptionYear>
 

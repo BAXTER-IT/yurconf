@@ -1,5 +1,10 @@
-/**
+/*
+ * Configuration Processors
+ * Copyright (C) 2012-2013  BAXTER Technologies
  * 
+ * This software is a property of BAXTER Technologies
+ * and should remain that way. If you got this source
+ * code from elsewhere please immediately inform Franck.
  */
 package com.baxter.config.processor.desc;
 
@@ -18,9 +23,9 @@ import com.baxter.config.processor.ProcessorException;
 
 /**
  * Processor descriptor loader.
- * 
+ *
  * @author ykryshchuk
- * @since ${developmentVersion}
+ * @since 1.5
  */
 @XmlTransient
 public final class Loader
@@ -59,7 +64,7 @@ public final class Loader
 
   /**
    * Returns Loader instance.
-   * 
+   *
    * @return loader
    */
   public static Loader getInstance()
@@ -69,7 +74,7 @@ public final class Loader
 
   /**
    * Loads the processor descriptor from a given URL.
-   * 
+   *
    * @param url
    *          descriptor URL
    * @return loaded descriptor
