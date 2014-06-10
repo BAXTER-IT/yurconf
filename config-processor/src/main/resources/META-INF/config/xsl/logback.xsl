@@ -159,6 +159,10 @@
                     <xsl:with-param name="file" select="../@file" />
                 </xsl:call-template>
                 <xsl:text>-%i</xsl:text>
+                <xsl:if test="../@compression">
+                    <xsl:text>.</xsl:text>
+                    <xsl:value-of select="../@compression"></xsl:value-of>
+                </xsl:if>
             </fileNamePattern>
             <minIndex>
                 <xsl:text>1</xsl:text>
