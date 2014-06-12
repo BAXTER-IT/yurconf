@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.baxter.ci</groupId>
         <artifactId>ci-base</artifactId>
-        <version>1.11</version>
+        <version>1.16</version>
     </parent>
 
     <groupId>com.baxter.config</groupId>
@@ -15,44 +15,38 @@
 
     <name>Baxter Configuration for Jenkins Pipeline</name>
 
-    <profiles>
-        <profile>
-            <id>YUM-Repo</id>
+    <dependencies>
+        <dependency>
+            <groupId>com.baxter.config</groupId>
+            <version>1.4.1</version>
+            <classifier>${distribution}</classifier>
+            <type>rpm</type>
+            <artifactId>baxter-config-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baxter.config</groupId>
+            <version>1.4.1</version>
+            <classifier>${distribution}</classifier>
+            <type>rpm</type>
+            <artifactId>baxter-config-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baxter.config.processor.pe</groupId>
+            <version>1.3.4</version>
+            <classifier>${distribution}</classifier>
+            <type>rpm</type>
+            <artifactId>baxter-config-processor-price-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baxter.config.processor.stat</groupId>
+            <version>1.3</version>
+            <classifier>${distribution}</classifier>
+            <type>rpm</type>
+            <artifactId>baxter-config-processor-statistics</artifactId>
+        </dependency>
+    </dependencies>
 
-            <dependencies>
-                <dependency>
-                    <groupId>com.baxter.config</groupId>
-                    <version>1.4.1</version>
-                    <classifier>${rpm-classifier}</classifier>
-                    <type>rpm</type>
-                    <artifactId>baxter-config-client</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>com.baxter.config</groupId>
-                    <version>1.4.1</version>
-                    <classifier>${rpm-classifier}</classifier>
-                    <type>rpm</type>
-                    <artifactId>baxter-config-server</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>com.baxter.config.processor.pe</groupId>
-                    <version>1.3.4</version>
-                    <classifier>${rpm-classifier}</classifier>
-                    <type>rpm</type>
-                    <artifactId>baxter-config-processor-price-engine</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>com.baxter.config.processor.stat</groupId>
-                    <version>1.3</version>
-                    <classifier>${rpm-classifier}</classifier>
-                    <type>rpm</type>
-                    <artifactId>baxter-config-processor-statistics</artifactId>
-                </dependency>
-            </dependencies>
-
-            <properties>
-                <rpm-classifier>${distribution}</rpm-classifier>
-            </properties>
-        </profile>
-    </profiles>
+    <properties>
+        <repo>releases/configserver</repo>
+    </properties>
 </project>
