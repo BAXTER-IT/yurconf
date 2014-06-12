@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.baxter</groupId>
         <artifactId>parent</artifactId>
-        <version>1.2.5</version>
+        <version>1.4</version>
     </parent>
 
     <groupId>com.baxter.config</groupId>
@@ -242,7 +242,7 @@
                 <site>
                     <id>cloudbees-private-repository</id>
                     <name>Baxter Configuration Site</name>
-                    <url>dav:https://repository-baxter.forge.cloudbees.com/private/sites/config/</url>
+                    <url>dav:http://baxter.artifactoryonline.com/baxter/sites</url>
                 </site>
             </distributionManagement>
         </profile>
