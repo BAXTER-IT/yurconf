@@ -237,12 +237,12 @@
     <profiles>
 
         <profile>
-            <id>Distribution-CloudBees</id>
+            <id>Distribution-Artifactory</id>
             <distributionManagement>
                 <site>
                     <id>cloudbees-private-repository</id>
                     <name>Baxter Configuration Site</name>
-                    <url>dav:http://baxter.artifactoryonline.com/baxter/sites</url>
+                    <url>http://baxter.artifactoryonline.com/baxter/sites</url>
                 </site>
             </distributionManagement>
         </profile>
