@@ -453,7 +453,7 @@
         <dependencies>
 
             <dependency>
-                <groupId>com.baxter.jetty</groupId>
+                <groupId>com.baxter.connector.jetty</groupId>
                 <artifactId>baxter-jetty-wrapper</artifactId>
                 <version>8.1</version>
             </dependency>
@@ -481,7 +481,7 @@
         </dependency>
             
         <dependency>
-            <groupId>com.baxter.jetty</groupId>
+            <groupId>com.baxter.connector.jetty</groupId>
             <artifactId>baxter-jetty-wrapper</artifactId>
             <scope>provided</scope>
         </dependency>
