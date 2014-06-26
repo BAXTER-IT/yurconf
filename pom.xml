@@ -20,9 +20,9 @@
 	  Baxter Configuration project. 
 	  It consists of several modules, which are: 
 	  Client API, Web Application and Products Connectors (Processors).
-	</description>
+    </description>
 
-    <url>http://baxter-it.github.io/config-server</url>
+    <url>http://www.yurconf.org/</url>
 
     <inceptionYear>2011</inceptionYear>
 
