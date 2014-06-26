@@ -237,17 +237,6 @@
     <profiles>
 
         <profile>
-            <id>Distribution-Artifactory</id>
-            <distributionManagement>
-                <site>
-                    <id>cloudbees-private-repository</id>
-                    <name>Baxter Configuration Site</name>
-                    <url>http://baxter.artifactoryonline.com/baxter/sites</url>
-                </site>
-            </distributionManagement>
-        </profile>
-
-        <profile>
             <id>UnixInstaller</id>
             <activation>
                 <os>
