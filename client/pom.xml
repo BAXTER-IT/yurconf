@@ -5,16 +5,16 @@
     <parent>
         <artifactId>baxter-config</artifactId>
         <groupId>com.baxter.config</groupId>
-        <version>1.4.1</version>
+        <version>1.4.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>baxter-config-client</artifactId>
 
     <name>Baxter Configuration Client</name>
     <description>
-		Baxter Configuration Client. Contains the resources 
-		needed by applications to read remote configuration 
-		from a Baxter Configuration Server. 
+		Baxter Configuration Client. Contains the resources
+		needed by applications to read remote configuration
+		from a Baxter Configuration Server.
 	</description>
 
     <build>
@@ -304,7 +304,7 @@
 
         <profile>
             <id>APT</id>
-            <!-- This profile is used for development purposes only. When deploying the artifact, this profile will push 
+            <!-- This profile is used for development purposes only. When deploying the artifact, this profile will push
                 DEB file to remote directory for later adding ot to APT repository. -->
             <build>
                 <plugins>

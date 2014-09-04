@@ -10,14 +10,14 @@
 
     <groupId>com.baxter.config</groupId>
     <artifactId>baxter-config</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Baxter Configuration</name>
 
     <description>
-	  Baxter Configuration project. 
-	  It consists of several modules, which are: 
+	  Baxter Configuration project.
+	  It consists of several modules, which are:
 	  Client API, Web Application and Products Connectors (Processors).
 	</description>
 
@@ -29,7 +29,7 @@
         <connection>scm:git:git//github.com/BAXTER-IT/config-server.git</connection>
         <developerConnection>scm:git:git@github.com:BAXTER-IT/config-server.git</developerConnection>
         <url>git@github.com:BAXTER-IT/config-server.git</url>
-        <tag>baxter-config-1.4.1</tag>
+        <tag>RELEASE--1.4</tag>
     </scm>
 
     <issueManagement>
@@ -81,7 +81,7 @@
                         </reportPlugins>
                     </configuration>
                 </plugin>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven 
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven
                     build itself. -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>

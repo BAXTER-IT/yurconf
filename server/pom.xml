@@ -5,7 +5,7 @@
     <parent>
         <artifactId>baxter-config</artifactId>
         <groupId>com.baxter.config</groupId>
-        <version>1.4.1</version>
+        <version>1.4.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>baxter-config-server</artifactId>
@@ -457,7 +457,7 @@
                 <artifactId>baxter-logback-connector</artifactId>
                 <version>1.0.1</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>com.baxter.jetty</groupId>
                 <artifactId>baxter-jetty-wrapper</artifactId>
@@ -497,13 +497,13 @@
             <artifactId>commons-io</artifactId>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <scope>provided</scope>
         </dependency>
-        
+
     </dependencies>
 
     <properties>
