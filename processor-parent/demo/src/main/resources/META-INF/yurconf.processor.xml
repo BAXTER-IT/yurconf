@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descriptor xmlns="http://yurconf.org/descriptor" version="1.0" productId="org.yurconf.demo">
+	<processors>
+		<processor class="org.yurconf.processor.impl.XSLTProcessor" type="hello">
+			<parameter name="stylesheet">hello.xsl</parameter>
+		</processor>
+		<processor class="org.yurconf.processor.impl.AsIsProcessor" type="asis">
+		</processor>
+	    <processor class="org.yurconf.processor.impl.DirectoryProcessor" type="dir">
+	    </processor>
+	    <processor class="org.yurconf.processor.impl.XSLTProcessor" type="log4j">
+			<parameter name="stylesheet">log4j.xsl</parameter>
+		</processor>
+        <processor class="org.yurconf.processor.impl.XSLTProcessor" type="logback">
+            <parameter name="stylesheet">logback.xsl</parameter>
+        </processor>
+	</processors>
+</descriptor>

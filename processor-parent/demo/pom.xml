@@ -3,14 +3,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.baxter.config</groupId>
-        <artifactId>baxter-config-processor-parent</artifactId>
+        <groupId>org.yurconf</groupId>
+        <artifactId>yurconf-processor-parent</artifactId>
         <version>2.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>baxter-config-processor-demo</artifactId>
-    <name>Demo Configuration Processor</name>
-    <description>Baxter Demo Configuration Processor</description>
+    <artifactId>yurconf-demo-processor</artifactId>
+
+    <name>Demo Yurconf Processor</name>
+
+    <description>Yurconf Processor for demonstration purposes</description>
 
     <build>
 
@@ -31,45 +33,6 @@
     <profiles>
 
         <profile>
-            <id>APT</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>wagon-maven-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>DEB</id>
-            <activation>
-                <os>
-                    <family>unix</family>
-                </os>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>unix-maven-plugin</artifactId>
-                        <groupId>no.arktekk.unix</groupId>
-                        <executions>
-                            <execution>
-                                <id>build-deb-installer</id>
-                                <configuration>
-                                    <deb>
-                                        <replaces>config-processor-demo</replaces>
-                                    </deb>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
             <id>RPM</id>
             <activation>
                 <os>
@@ -84,6 +47,7 @@
                         <configuration>
                             <conflicts>
                                 <conflict>config-processor-demo</conflict>
+                                <conflict>baxter-config-processor-demo</conflict>
                             </conflicts>
                         </configuration>
                     </plugin>

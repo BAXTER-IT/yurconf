@@ -434,6 +434,21 @@
 		</profile>
 
 		<profile>
+			<id>UnixInstaller</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<properties>
+				<unix.package.group.name>Configuration</unix.package.group.name>
+				<unix.package.name>${project.artifactId}</unix.package.name>
+				<unix.user>baxter</unix.user>
+				<unix.group>baxter</unix.group>
+			</properties>
+		</profile>
+
+		<profile>
 			<id>RPM</id>
 			<activation>
 				<os>
@@ -507,6 +522,7 @@
 				<alt.config.dir>${alt.root}/etc</alt.config.dir>
 				<alt.bin.dir>${alt.root}/bin</alt.bin.dir>
 				<alt.lib.dir>${alt.root}/lib</alt.lib.dir>
+				<alt.processors.lib.dir>${alt.root}/yurconf/processors</alt.processors.lib.dir>
 			</properties>
 		</profile>
 
@@ -549,6 +565,7 @@
 				<std.config.dir>/etc/baxter</std.config.dir>
 				<std.bin.dir>/usr/bin</std.bin.dir>
 				<std.lib.dir>/usr/share/java</std.lib.dir>
+				<std.processors.lib.dir>/usr/share/yurconf-processors</std.processors.lib.dir>
 			</properties>
 		</profile>
 
@@ -576,10 +593,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<unix.package.group.name>Configuration</unix.package.group.name>
-		<unix.package.name>${project.artifactId}</unix.package.name>
-		<unix.user>baxter</unix.user>
-		<unix.group>baxter</unix.group>
 	</properties>
 
 </project>
