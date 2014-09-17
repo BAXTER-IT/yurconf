@@ -17,9 +17,9 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
-import com.baxter.config.om.ConfigID;
-import com.baxter.config.om.ConfigParameter;
-import com.baxter.config.om.Version;
+import org.yurconf.om.ConfigID;
+import org.yurconf.om.ConfigParameter;
+import org.yurconf.om.Version;
 
 /**
  * The configuration request.

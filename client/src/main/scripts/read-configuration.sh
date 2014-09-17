@@ -1,10 +1,10 @@
 #!/bin/sh
-# 
-# Reads client configuration from ${f.etc.config}
+#
+# Reads client configuration file and exports environment variables
 #
 
 # Configuration file that keeps environment start point configuration
-CONFIG_FILE="${f.etc.config}"
+CONFIG_FILE="${f.client-config}"
 
 readConfigParameter() {
 	echo "$(cat $CONFIG_FILE | grep "^\s*$1\s*=" | cut -d= -f2 | sed 's/\s//g')"

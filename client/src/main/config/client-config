@@ -1,12 +1,12 @@
 #
-# Baxter products client configuration.
+# Yurconf client configuration.
 #
-# This file points to the configuration server.
-# Used by all Baxter product applications installed on this host.
+# This file points to the Yurconf server.
+# Used by all applications installed on this host.
 #
 
-# This property points to the base URL of the configuration REST services  
-url=http://localhost:4040/config-server/rest
+# This property points to the base URL of the configuration REST services
+url=http://localhost:4040/yurconf/rest
 
 # This property defines this host effective variants.
 # Could list several variants separated by comma. May be empty.

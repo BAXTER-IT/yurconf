@@ -6,7 +6,7 @@
  * and should remain that way. If you got this source
  * code from elsewhere please immediately inform Franck.
  */
-package com.baxter.config.om;
+package org.yurconf.om;
 
 /**
  * Configuration parameter.

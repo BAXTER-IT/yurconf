@@ -16,8 +16,7 @@ import java.net.URL;
 import java.util.Arrays;
 
 import org.junit.Test;
-
-import com.baxter.config.om.Version;
+import org.yurconf.om.Version;
 
 /**
  * @author ykryshchuk

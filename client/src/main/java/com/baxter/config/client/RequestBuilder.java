@@ -12,9 +12,9 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.baxter.config.om.ConfigID;
-import com.baxter.config.om.ConfigParameter;
-import com.baxter.config.om.Version;
+import org.yurconf.om.ConfigID;
+import org.yurconf.om.ConfigParameter;
+import org.yurconf.om.Version;
 
 /**
  * Configuration request builder.

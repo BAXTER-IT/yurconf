@@ -6,12 +6,13 @@
  * and should remain that way. If you got this source
  * code from elsewhere please immediately inform Franck.
  */
-package com.baxter.config.om;
+package org.yurconf.om;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.yurconf.om.ConfigID;
 
 /**
  * @author ykryshchuk

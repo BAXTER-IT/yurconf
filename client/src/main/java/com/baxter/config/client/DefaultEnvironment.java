@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import com.baxter.config.om.Version;
+import org.yurconf.om.Version;
 
 /**
  * Default implementation of configuration environment. The values are provided in a resource file ({@link #CONFIG_RESOURCE}), but

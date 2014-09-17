@@ -11,7 +11,7 @@ package com.baxter.config.client;
 import java.net.URL;
 import java.util.List;
 
-import com.baxter.config.om.Version;
+import org.yurconf.om.Version;
 
 /**
  * @author ykryshchuk
