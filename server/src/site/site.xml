@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/DECORATION/1.1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/DECORATION/1.1.0 http://maven.apache.org/xsd/decoration-1.1.0.xsd"
-	name="Baxter Configuration Server">
+	name="Yurconf Server">
 
 	<body>
 
-		<menu name="Configuration Server" inherit="top" inheritAsRef="true">
+		<menu name="Yurconf Server" inherit="top" inheritAsRef="true">
 			<item name="Summary" href="index.html"/>
 			<item name="Concept" href="concept.html"/>
 			<item name="Protocol" href="protocol.html"/>

@@ -9,7 +9,7 @@
         </layout>
     </appender>
 
-    <category name="com.baxter">
+    <category name="org.yurconf">
         <level value="DEBUG"/>
     </category>
 

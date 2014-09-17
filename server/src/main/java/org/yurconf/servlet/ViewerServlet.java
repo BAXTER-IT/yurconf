@@ -1,12 +1,12 @@
 /*
  * Baxter Configuration Server
  * Copyright (C) 2012-2013  BAXTER Technologies
- * 
+ *
  * This software is a property of BAXTER Technologies
  * and should remain that way. If you got this source
  * code from elsewhere please immediately inform Franck.
  */
-package com.baxter.config.servlet;
+package org.yurconf.servlet;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -25,14 +25,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.baxter.config.om.ConfigID;
-import com.baxter.config.om.ConfigParameter;
-import com.baxter.config.processor.AbstractProcessor;
-import com.baxter.config.processor.ConfigurationRepository;
-import com.baxter.config.processor.ProcessorContext;
-import com.baxter.config.processor.ProcessorException;
-import com.baxter.config.processor.desc.Descriptor;
-import com.baxter.config.processor.repo.RepositoryException;
+import org.yurconf.om.ConfigID;
+import org.yurconf.om.ConfigParameter;
+import org.yurconf.processor.AbstractProcessor;
+import org.yurconf.processor.ConfigurationRepository;
+import org.yurconf.processor.ProcessorContext;
+import org.yurconf.processor.ProcessorException;
+import org.yurconf.processor.desc.Descriptor;
+import org.yurconf.processor.repo.RepositoryException;
 
 /**
  * @author yura
@@ -42,7 +42,7 @@ public class ViewerServlet extends AbstractRepositoryServlet
 {
 
   /**
-   * 
+   *
    */
   private static final long serialVersionUID = 1L;
 

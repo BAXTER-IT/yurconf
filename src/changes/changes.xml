@@ -4,26 +4,32 @@
 
     <body>
 
+    	<release version="2.0" date="SOON" description="Major Refactoring">
+    		<action type="update" issue="8" date="2014-09-17" dev="ykryshchuk">
+    			Renamed resources to new domain.
+    		</action>
+    	</release>
+
         <release version="1.4.0.4" date="2013-12-05" description="Script improvements">
-        
+
             <action type="fix" issue="CFG-50" date="2013-12-05" dev="ykryshchuk">
                 Improved RedHat service init script to start up the Configuration Server service.
             </action>
-        
+
         </release>
-    
+
         <release version="1.4.0.2" date="2013-11-29" description="Packaging improvements">
 
             <action type="fix" issue="CFG-48" date="2013-11-27" dev="ykryshchuk">
                 Logging config file has been extracted from WAR file.
-                After installing the package please create a symlink from one of the available log config files as 
+                After installing the package please create a symlink from one of the available log config files as
                 configuration-server-log.xml in the same directory.
             </action>
-            
+
             <action type="fix" issue="PE-3856" date="2013-11-27" dev="ykryshchuk">
                 Logging jars have been extracted to separate packages. Now can switch between logback and log4j.
             </action>
-            
+
         </release>
 
 

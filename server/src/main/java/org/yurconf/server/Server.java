@@ -6,7 +6,7 @@
  * and should remain that way. If you got this source
  * code from elsewhere please immediately inform Franck.
  */
-package com.baxter.config.server;
+package org.yurconf.server;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -20,10 +20,9 @@ import java.util.List;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.baxter.config.servlet.ProcessorFactoryInitializer;
-import com.baxter.config.servlet.RestfulServlet;
-import com.baxter.config.servlet.ViewerServlet;
+import org.yurconf.servlet.ProcessorFactoryInitializer;
+import org.yurconf.servlet.RestfulServlet;
+import org.yurconf.servlet.ViewerServlet;
 
 /**
  * Configuration Server class.

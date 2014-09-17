@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.yurconf</groupId>
-	<artifactId>configuration</artifactId>
+	<artifactId>yurconf</artifactId>
 	<version>2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -441,10 +441,11 @@
 				</os>
 			</activation>
 			<properties>
+				<unix.service>${project.artifactId}</unix.service>
 				<unix.package.group.name>Configuration</unix.package.group.name>
 				<unix.package.name>${project.artifactId}</unix.package.name>
-				<unix.user>baxter</unix.user>
-				<unix.group>baxter</unix.group>
+				<unix.user>yurconf</unix.user>
+				<unix.group>yurconf</unix.group>
 			</properties>
 		</profile>
 
@@ -518,11 +519,11 @@
 				</pluginManagement>
 			</build>
 			<properties>
-				<alt.root>/opt/baxter</alt.root>
+				<alt.root>/opt/yurconf</alt.root>
 				<alt.config.dir>${alt.root}/etc</alt.config.dir>
 				<alt.bin.dir>${alt.root}/bin</alt.bin.dir>
 				<alt.lib.dir>${alt.root}/lib</alt.lib.dir>
-				<alt.processors.lib.dir>${alt.root}/yurconf/processors</alt.processors.lib.dir>
+				<alt.processors.lib.dir>${alt.root}/processors</alt.processors.lib.dir>
 			</properties>
 		</profile>
 
@@ -562,7 +563,7 @@
 				</pluginManagement>
 			</build>
 			<properties>
-				<std.config.dir>/etc/baxter</std.config.dir>
+				<std.config.dir>/etc</std.config.dir>
 				<std.bin.dir>/usr/bin</std.bin.dir>
 				<std.lib.dir>/usr/share/java</std.lib.dir>
 				<std.processors.lib.dir>/usr/share/yurconf-processors</std.processors.lib.dir>

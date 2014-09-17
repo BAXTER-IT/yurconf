@@ -25,33 +25,33 @@
         <file>
             <outputDirectory>etc</outputDirectory>
             <source>src/main/resources/server.properties</source>
-            <destName>configuration-server</destName>
+            <destName>yurconf-server</destName>
             <fileMode>0664</fileMode>
         </file>
         <file>
             <outputDirectory>etc</outputDirectory>
             <source>src/main/resources/logback.xml</source>
-            <destName>configuration-server-log-logback.xml</destName>
+            <destName>yurconf-server-log-logback.xml</destName>
             <fileMode>0664</fileMode>
         </file>
         <file>
             <outputDirectory>etc</outputDirectory>
             <source>src/main/resources/log4j.xml</source>
-            <destName>configuration-server-log-log4j.xml</destName>
+            <destName>yurconf-server-log-log4j.xml</destName>
             <fileMode>0664</fileMode>
         </file>
         <file>
             <outputDirectory>bin</outputDirectory>
-            <source>src/main/scripts/start-configuration-server-standalone.sh</source>
-            <destName>start-configuration-server</destName>
+            <source>src/main/scripts/start-yurconf-server-standalone.sh</source>
+            <destName>start-yurconf-server</destName>
             <filtered>true</filtered>
             <lineEnding>unix</lineEnding>
             <fileMode>0555</fileMode>
         </file>
         <file>
             <outputDirectory>bin</outputDirectory>
-            <source>src/main/scripts/start-configuration-server.cmd</source>
-            <destName>start-configuration-server.cmd</destName>
+            <source>src/main/scripts/start-yurconf-server.cmd</source>
+            <destName>start-yurconf-server.cmd</destName>
             <filtered>true</filtered>
             <lineEnding>windows</lineEnding>
             <fileMode>0555</fileMode>
@@ -59,7 +59,7 @@
         <file>
             <outputDirectory>bin</outputDirectory>
             <source>src/main/scripts/wrapper/standalone.sh</source>
-            <destName>configuration-server</destName>
+            <destName>yurconf-server</destName>
             <filtered>true</filtered>
             <lineEnding>unix</lineEnding>
             <fileMode>0555</fileMode>

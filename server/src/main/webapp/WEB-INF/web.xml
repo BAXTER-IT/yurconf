@@ -2,26 +2,26 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
-    <display-name>Baxter Configuration Web Application</display-name>
+    <display-name>Yurconf Web Application</display-name>
 
     <!-- <context-param> -->
-    <!-- <param-name>com.baxter.config.Repository</param-name> -->
-    <!-- <param-value>~/.baxter-config</param-value> -->
+    <!-- <param-name>org.yurconf.Repository</param-name> -->
+    <!-- <param-value>~/.yurconf/repository</param-value> -->
     <!-- </context-param> -->
 
     <listener>
-        <listener-class>com.baxter.config.servlet.ProcessorFactoryInitializer</listener-class>
+        <listener-class>org.yurconf.servlet.ProcessorFactoryInitializer</listener-class>
     </listener>
 
     <servlet>
         <servlet-name>RestfulServlet</servlet-name>
-        <servlet-class>com.baxter.config.servlet.RestfulServlet</servlet-class>
+        <servlet-class>org.yurconf.servlet.RestfulServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet>
         <servlet-name>ViewerServlet</servlet-name>
-        <servlet-class>com.baxter.config.servlet.ViewerServlet</servlet-class>
+        <servlet-class>org.yurconf.servlet.ViewerServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 

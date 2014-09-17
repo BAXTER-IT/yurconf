@@ -1,12 +1,12 @@
 /*
  * Baxter Configuration Server
  * Copyright (C) 2012-2013  BAXTER Technologies
- * 
+ *
  * This software is a property of BAXTER Technologies
  * and should remain that way. If you got this source
  * code from elsewhere please immediately inform Franck.
  */
-package com.baxter.config.servlet;
+package org.yurconf.servlet;
 
 import java.io.File;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -19,9 +19,9 @@ import javax.servlet.ServletContextListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.baxter.config.processor.ProcessorException;
-import com.baxter.config.processor.ProcessorFactory;
-import com.baxter.config.processor.repo.file.ProcessorFactoryImpl;
+import org.yurconf.processor.ProcessorException;
+import org.yurconf.processor.ProcessorFactory;
+import org.yurconf.processor.repo.file.ProcessorFactoryImpl;
 
 /**
  * @author yura
