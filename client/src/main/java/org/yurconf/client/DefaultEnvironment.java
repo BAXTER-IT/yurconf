@@ -1,12 +1,12 @@
 /*
  * Baxter Configuration Client
  * Copyright (C) 2012-2013  BAXTER Technologies
- * 
+ *
  * This software is a property of BAXTER Technologies
  * and should remain that way. If you got this source
  * code from elsewhere please immediately inform Franck.
  */
-package com.baxter.config.client;
+package org.yurconf.client;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +30,7 @@ import org.yurconf.om.Version;
 final class DefaultEnvironment implements Environment
 {
 
-  static final String PREFIX = "com.baxter.config.";
+  static final String PREFIX = "yurconf.";
 
   static final String PROP_REST_URL = "restUrl";
   static final String PROP_PRODUCT_ID = "productId";
@@ -38,7 +38,7 @@ final class DefaultEnvironment implements Environment
   static final String PROP_VERSION = "version";
   static final String PROP_VARIANTS = "variants";
 
-  private static final String CONFIG_RESOURCE = "META-INF/services/com.baxter.config.properties";
+  private static final String CONFIG_RESOURCE = "META-INF/yurconf.properties";
 
   private static final DefaultEnvironment INSTANCE = new DefaultEnvironment();
 

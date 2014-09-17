@@ -6,7 +6,7 @@
  * and should remain that way. If you got this source
  * code from elsewhere please immediately inform Franck.
  */
-package com.baxter.config.client;
+package org.yurconf.client;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -16,6 +16,9 @@ import java.net.URL;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.yurconf.client.Environment;
+import org.yurconf.client.Request;
+import org.yurconf.client.RequestBuilder;
 import org.yurconf.om.Version;
 
 /**

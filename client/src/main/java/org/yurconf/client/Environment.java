@@ -6,7 +6,7 @@
  * and should remain that way. If you got this source
  * code from elsewhere please immediately inform Franck.
  */
-package com.baxter.config.client;
+package org.yurconf.client;
 
 import java.net.URL;
 import java.util.List;

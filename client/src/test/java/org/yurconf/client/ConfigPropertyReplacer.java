@@ -6,7 +6,9 @@
  * and should remain that way. If you got this source
  * code from elsewhere please immediately inform Franck.
  */
-package com.baxter.config.client;
+package org.yurconf.client;
+
+import org.yurconf.client.DefaultEnvironment;
 
 /**
  * Replacer for the config property with restore functionality.
