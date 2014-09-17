@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descriptor xmlns="http://yurconf.org/descriptor" version="22.33" productId="com.baxter.test">
+    <processors>
+        <processor class="org.yurconf.processor.impl.XSLTProcessor" type="proba">
+            <parameter name="stylesheet">simple.xml</parameter>
+        </processor>
+        <processor class="org.yurconf.processor.impl.AsIsProcessor" type="asis"> </processor>
+    </processors>
+</descriptor>

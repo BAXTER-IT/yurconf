@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<descriptor xmlns="http://yurconf.org/descriptor" version="3.0" productId="com.baxter.test">
+    <processors>
+        <processor class="org.yurconf.processor.impl.AsIsProcessor" type="asis"> </processor>
+    </processors>
+    <upgrades>
+        <from version="1.0" toVersion="2.0">
+            <add file="new/file.xml" />
+            <add file="inis/*.ini" />
+            <remove file="old.xml" />
+            <move file="old/input.xml" to="new/input2.xml" />
+            <move file="old/input.xml" to="new" />
+            <move regexp="regexp" to="regexp" />
+        </from>
+        <from version="2.0" toVersion="2.1">
+            <transform file="input.xml" stylesheet="upgrade_input_2.0_2.1.xsl" />
+            <transform regexp="input(\([^\)]+\))?\.xml" stylesheet="upgrade_input_2.0_2.1.xsl" />
+            <transform stylesheet="rename-in-jms.xsl" />
+        </from>
+        <from version="2.1" toVersion="3.0">
+
+        </from>
+        <from version="2.0" toVersion="3.0">
+
+        </from>
+    </upgrades>
+</descriptor>
