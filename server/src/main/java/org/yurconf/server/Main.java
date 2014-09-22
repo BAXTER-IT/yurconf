@@ -1,10 +1,11 @@
 /*
- * Baxter Configuration Server
- * Copyright (C) 2012-2013  BAXTER Technologies
+ * Yurconf Server
+ * This software is distributed as is.
  * 
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ * 
+ * Join our team to help make it better.
  */
 package org.yurconf.server;
 
@@ -28,27 +29,27 @@ public class Main
   }
 
   /**
-   * Entry point for Configuration Server.
+   * Entry point for Yurconf Server.
    * @param args command line arguments
    */
   public static void main(String[] args)
   {
 	final long startTime = System.currentTimeMillis();
 
-	LOGGER.info("Starting Baxter Configuration Server");
+	LOGGER.info("Starting Yurconf Server");
 	final Server server = new Server();
 
 	try
 	{
 	  server.start();
 	  final long launchTime = System.currentTimeMillis() - startTime;
-	  LOGGER.info("Baxter Configuration Server started");
-	  System.out.printf("Baxter Configuration Server started in %1$d ms", launchTime);
+	  LOGGER.info("Yurconf Server started");
+	  System.out.printf("Yurconf Server started in %1$d ms", launchTime);
 	}
 	catch (final Exception e)
 	{
-	  LOGGER.info("Baxter Configuration Server failed to start", e);
-	  System.err.println("Failed to start server");
+	  LOGGER.info("Yurconf Server failed to start", e);
+	  System.err.println("Failed to start Yurconf Server");
 	  e.printStackTrace(System.err);
 	  System.exit(1);
 	}
@@ -56,10 +57,11 @@ public class Main
 	try
 	{
 	  server.join();
+	  LOGGER.info("Yurconf Server has finished :)");
 	}
 	catch (final InterruptedException e)
 	{
-	  LOGGER.warn("Baxter Configuration Server has been interrupted");
+	  LOGGER.warn("Yurconf Server has been interrupted");
 	}
 
   }

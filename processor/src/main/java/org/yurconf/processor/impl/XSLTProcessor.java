@@ -1,10 +1,11 @@
 /*
- * Configuration Processors
- * Copyright (C) 2012-2013  BAXTER Technologies
+ * Yurconf Processor Fundamental
+ * This software is distributed as is.
  * 
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ * 
+ * Join our team to help make it better.
  */
 package org.yurconf.processor.impl;
 
@@ -13,6 +14,7 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
@@ -59,7 +61,8 @@ public class XSLTProcessor extends AbstractXSLTProcessor
 	  {
 		final long beforeXsltTime = System.currentTimeMillis();
 		logger.trace("Prepared to XSLT in {} ms", (beforeXsltTime - startTime));
-		transformer.transform(getXmlSource(context), result);
+		final Source xmlSource = getXmlSource(context);
+		transformer.transform(xmlSource, result);
 		final long afterXsltTime = System.currentTimeMillis();
 		logger.trace("XSLT completed within {} ms", (afterXsltTime - beforeXsltTime));
 	  }

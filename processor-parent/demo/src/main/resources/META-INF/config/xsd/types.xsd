@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://baxter-it.com/config/types"
-    xmlns:tns="http://baxter-it.com/config/types" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://yurconf.org/types"
+    xmlns:tns="http://yurconf.org/types" elementFormDefault="qualified">
 
     <xs:simpleType name="TBoolean">
         <xs:restriction base="xs:string">

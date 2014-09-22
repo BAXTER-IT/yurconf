@@ -5,7 +5,7 @@
     <display-name>Yurconf Web Application</display-name>
 
     <!-- <context-param> -->
-    <!-- <param-name>org.yurconf.Repository</param-name> -->
+    <!-- <param-name>yurconf.repository</param-name> -->
     <!-- <param-value>~/.yurconf/repository</param-value> -->
     <!-- </context-param> -->
 
@@ -25,6 +25,12 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <servlet>
+        <servlet-name>PingServlet</servlet-name>
+        <servlet-class>org.yurconf.servlet.PingServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>RestfulServlet</servlet-name>
         <url-pattern>/rest/*</url-pattern>
@@ -33,6 +39,11 @@
     <servlet-mapping>
         <servlet-name>ViewerServlet</servlet-name>
         <url-pattern>/view/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>PingServlet</servlet-name>
+        <url-pattern>/ping</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://baxter-it.com/config/log"
-    xmlns:t="http://baxter-it.com/config/types" xmlns:c="http://baxter-it.com/config/component" xmlns:tns="http://baxter-it.com/config/log"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://yurconf.org/log"
+    xmlns:t="http://yurconf.org/types" xmlns:c="http://yurconf.org/component" xmlns:tns="http://yurconf.org/log"
     elementFormDefault="qualified">
 
-    <xs:import schemaLocation="types.xsd" namespace="http://baxter-it.com/config/types" />
-    <xs:import schemaLocation="component.xsd" namespace="http://baxter-it.com/config/component" />
+    <xs:import schemaLocation="types.xsd" namespace="http://yurconf.org/types" />
+    <xs:import schemaLocation="component.xsd" namespace="http://yurconf.org/component" />
 
     <xs:element name="configuration">
         <xs:complexType>
@@ -38,7 +38,7 @@
                 <xs:attribute name="maxSize" type="t:TSize" use="optional" />
                 <xs:attribute name="backupIndex" type="xs:positiveInteger" use="optional" />
                 <xs:attribute name="compression" type="xs:string" use="optional" />
-                
+
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>

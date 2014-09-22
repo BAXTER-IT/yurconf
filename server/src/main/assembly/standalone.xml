@@ -30,14 +30,8 @@
         </file>
         <file>
             <outputDirectory>etc</outputDirectory>
-            <source>src/main/resources/logback.xml</source>
-            <destName>yurconf-server-log-logback.xml</destName>
-            <fileMode>0664</fileMode>
-        </file>
-        <file>
-            <outputDirectory>etc</outputDirectory>
-            <source>src/main/resources/log4j.xml</source>
-            <destName>yurconf-server-log-log4j.xml</destName>
+            <source>src/etc/logback.xml</source>
+            <destName>yurconf-server-log.xml</destName>
             <fileMode>0664</fileMode>
         </file>
         <file>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:bcl="http://baxter-it.com/config/log"
-    xmlns:c="http://baxter-it.com/config/component" xmlns:conf="http://baxter-it.com/config" 
+    xmlns:bcl="http://yurconf.org/log"
+    xmlns:c="http://yurconf.org/component" xmlns:conf="http://yurconf.org"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs bcl c conf" version="2.0">
 
     <xsl:import href="repo-base.xsl" />
     <xsl:import href="conf-reference.xsl" />
 
     <xsl:output encoding="UTF-8" method="xml" />
-    
+
     <xsl:param name="configurationComponentId"/>
-    
+
     <xsl:template match="/">
         <xsl:variable name="root">
             <xsl:copy-of select="conf:configuration-source/conf:request" />
@@ -20,7 +20,7 @@
         </xsl:variable>
         <xsl:apply-templates select="$root/bcl:configuration" />
     </xsl:template>
-    
+
     <xsl:template match="bcl:configuration">
         <configuration>
             <xsl:variable name="refs" select="bcl:logger[c:component[@id=$configurationComponentId]]/bcl:appender-ref/@ref" />
@@ -172,7 +172,7 @@
             </maxIndex>
         </rollingPolicy>
     </xsl:template>
-    
+
     <xsl:template name="log-file">
         <file>
             <xsl:call-template name="build-log-file-path">
@@ -180,7 +180,7 @@
             </xsl:call-template>
         </file>
     </xsl:template>
-    
+
     <xsl:template name="build-log-file-path">
         <xsl:param name="file" select="'DEFAULT'" />
         <xsl:choose>

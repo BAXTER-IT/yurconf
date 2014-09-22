@@ -1,10 +1,11 @@
 /*
- * Configuration Processors
- * Copyright (C) 2012-2013  BAXTER Technologies
- *
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * Yurconf Processor Fundamental
+ * This software is distributed as is.
+ * 
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ * 
+ * Join our team to help make it better.
  */
 @XmlSchema(namespace = "http://yurconf.org/descriptor", elementFormDefault = XmlNsForm.QUALIFIED)
 package org.yurconf.processor.desc;

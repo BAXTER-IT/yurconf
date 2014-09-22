@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:j="http://baxter-it.com/config/jvm" xmlns:c="http://baxter-it.com/config/component"
-    xmlns:conf="http://baxter-it.com/config" exclude-result-prefixes="xs c j conf" version="2.0">
+    xmlns:j="http://yurconf.org/jvm" xmlns:c="http://yurconf.org/component"
+    xmlns:conf="http://yurconf.org" exclude-result-prefixes="xs c j conf" version="2.0">
 
     <xsl:import href="repo-base.xsl" />
     <xsl:import href="text-fmt.xsl" />
@@ -268,7 +268,7 @@
         </xsl:apply-templates>
     </xsl:template>
 
-    <!-- Heap sample: <heap initial="16M" maximum="64M" new="120K" perm="128M" 
+    <!-- Heap sample: <heap initial="16M" maximum="64M" new="120K" perm="128M"
 		maxperm="128M" /> -->
     <xsl:template match="j:heap">
         <xsl:apply-templates select="@initial" />

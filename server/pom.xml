@@ -140,19 +140,10 @@
 													<filter>false</filter>
 												</source>
 												<source>
-													<location>src/main/resources/logback.xml</location>
-													<destination>yurconf-server-logback.xml</destination>
-													<filter>true</filter>
-												</source>
-												<source>
-													<location>src/main/resources/log4j.xml</location>
-													<destination>yurconf-server-log4j.xml</destination>
-													<filter>true</filter>
-												</source>
-												<softlinkSource><!-- TODO this decision should be made by post install, depending on the available log provider -->
+													<location>src/etc/logback.xml</location>
 													<destination>yurconf-server-log.xml</destination>
-													<location>yurconf-server-logback.xml</location>
-												</softlinkSource>
+													<filter>true</filter>
+												</source>
 											</sources>
 										</mapping>
 										<mapping>
@@ -231,19 +222,10 @@
 													<filter>false</filter>
 												</source>
 												<source>
-													<location>src/main/resources/logback.xml</location>
-													<destination>yurconf-server-logback.xml</destination>
-													<filter>true</filter>
-												</source>
-												<source>
-													<location>src/main/resources/log4j.xml</location>
-													<destination>yurconf-server-log4j.xml</destination>
-													<filter>true</filter>
-												</source>
-												<softlinkSource><!-- TODO see the same file for std -->
+													<location>src/etc/logback.xml</location>
 													<destination>yurconf-server-log.xml</destination>
-													<location>yurconf-server-logback.xml</location>
-												</softlinkSource>
+													<filter>true</filter>
+												</source>
 											</sources>
 										</mapping>
 										<mapping>
@@ -314,12 +296,6 @@
 
 		<dependencies>
 
-			<dependency>
-				<groupId>com.baxter.connector.jetty</groupId>
-				<artifactId>baxter-jetty-wrapper</artifactId>
-				<version>8.1</version>
-			</dependency>
-
 		</dependencies>
 
 	</dependencyManagement>
@@ -336,6 +312,12 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<artifactId>logback-classic</artifactId>
+			<groupId>ch.qos.logback</groupId>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>

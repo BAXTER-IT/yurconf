@@ -1,22 +1,24 @@
 /*
- * Configuration Processors
- * Copyright (C) 2012-2013  BAXTER Technologies
+ * Yurconf Processor Fundamental
+ * This software is distributed as is.
  * 
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ * 
+ * Join our team to help make it better.
  */
 package org.yurconf.processor.upgrade;
 
 import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yurconf.processor.desc.FilenameProvider;
-import org.yurconf.processor.util.URLLister;
+import org.yurconf.processor.util.UriLister;
 
 /**
  * @author xpdev
@@ -70,16 +72,16 @@ abstract class AbstractFileCommand
 	return isWildcardMask;
   }
 
-  protected List<String> listFilenames(final URL baseURL) throws IOException
+  protected List<String> listFilenames(final URI baseUri) throws URISyntaxException, IOException
   {
-	final URLLister urlLister = URLLister.getInstance(baseURL);
+	final UriLister uriLister = UriLister.getInstance(baseUri);
 	if (isFilenamePatternEffective())
 	{
-	  return urlLister.list(baseURL, this.filenamePattern);
+	  return uriLister.list(baseUri, this.filenamePattern);
 	}
 	else
 	{
-	  return urlLister.list(baseURL, this.filenameMask);
+	  return uriLister.list(baseUri, this.filenameMask);
 	}
   }
 

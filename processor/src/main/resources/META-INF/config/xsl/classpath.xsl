@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:j="http://baxter-it.com/config/jvm" xmlns:c="http://baxter-it.com/config/component" xmlns:conf="http://baxter-it.com/config"
-    xmlns="http://baxter-it.com/config/om/jvm" exclude-result-prefixes="xs j c conf" version="2.0">
+    xmlns:j="http://yurconf.org/jvm" xmlns:c="http://yurconf.org/component" xmlns:conf="http://yurconf.org"
+    xmlns="http://yurconf.org/om/jvm" exclude-result-prefixes="xs j c conf" version="2.0">
 
     <xsl:import href="repo-base.xsl" />
 
@@ -33,4 +33,3 @@
 
 </xsl:stylesheet>
 
-    

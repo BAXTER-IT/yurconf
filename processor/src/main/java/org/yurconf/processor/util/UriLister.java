@@ -1,18 +1,18 @@
 /*
- * Configuration Processors
- * Copyright (C) 2012-2013  BAXTER Technologies
+ * Yurconf Processor Fundamental
+ * This software is distributed as is.
  * 
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ * 
+ * Join our team to help make it better.
  */
 package org.yurconf.processor.util;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.JarEntry;
@@ -28,12 +28,12 @@ import org.apache.commons.io.FilenameUtils;
  * @author Arpad Roziczky
  * @since 1.5
  */
-public abstract class URLLister
+public abstract class UriLister
 {
 
-  private static final URLLister JAR_URLLISTER = new JARURLLister();
+  private static final UriLister JAR_URILISTER = new JarUriLister();
 
-  private static final URLLister FILE_URLLISTER = new FileURLLister();
+  private static final UriLister FILE_URILISTER = new FileUriLister();
 
   private static final FilenameAcceptor ALL_ACCEPTOR = new FilenameAcceptor()
   {
@@ -46,19 +46,19 @@ public abstract class URLLister
   };
 
   /**
-   * Returns the URL Lister appropriate for specified URL.
+   * Returns the URI Lister appropriate for specified URI.
    *
-   * @param url
-   *          input url to process
-   * @return some implementation of URL Lister
+   * @param uri
+   *          input URI to process
+   * @return some implementation of URI Lister
    */
-  public static URLLister getInstance(final URL url)
+  public static UriLister getInstance(final URI uri)
   {
-	if (JARURLLister.URL_PATTERN.matcher(url.toString()).matches())
+	if (JarUriLister.URI_SCHEME.equals(uri.getScheme()))
 	{
 	  return getJarListerInstance();
 	}
-	if (url.toString().startsWith(FileURLLister.URL_PREFIX))
+	if (FileUriLister.URI_SCHEME.equals(uri.getScheme()))
 	{
 	  return getFileListerInstance();
 	}
@@ -66,100 +66,93 @@ public abstract class URLLister
   }
 
   /**
-   * Returns the lister for JAR URLs.
+   * Returns the lister for JAR URIs.
    *
    * @return jar lister
    */
-  static URLLister getJarListerInstance()
+  static UriLister getJarListerInstance()
   {
-	return JAR_URLLISTER;
+	return JAR_URILISTER;
   }
 
   /**
-   * Returns the lister for File URLs.
+   * Returns the lister for File URIs.
    *
    * @return file lister
    */
-  static URLLister getFileListerInstance()
+  static UriLister getFileListerInstance()
   {
-	return FILE_URLLISTER;
+	return FILE_URILISTER;
   }
 
   /**
-   * Returns a list of entries under specified URL. These are the entries paths relative to the input URL.
+   * Returns a list of entries under specified URI. These are the entries paths relative to the input URI.
    *
-   * @param url
-   *          input URL
+   * @param uri
+   *          input URI
    * @return list of string paths
    * @throws IOException
    *           if IO failed during the listing
    */
-  public abstract List<String> list(final URL url) throws IOException;
+  public abstract List<String> list(final URI uri) throws IOException;
 
   /**
-   * Returns a list of entries under specified URL, whose names satisfy specified pattern. These are the entries paths relative to
-   * the input URL.
+   * Returns a list of entries under specified URI, whose names satisfy specified pattern. These are the entries paths relative to
+   * the input URI.
    *
-   * @param url
-   *          input URL
+   * @param uri
+   *          input URI
    * @param mask
    *          the entry name pattern like in OS filenames, e.g. "somedir/prefix*.ext"
    * @return list of string paths
    * @throws IOException
    *           if IO failed during the listing
    */
-  public abstract List<String> list(final URL url, final String mask) throws IOException;
+  public abstract List<String> list(final URI uri, final String mask) throws IOException;
 
   /**
-   * Returns a list of entries under specified URL, whose names satisfy specified pattern. These are the entries paths relative to
-   * the input URL.
+   * Returns a list of entries under specified URI, whose names satisfy specified pattern. These are the entries paths relative to
+   * the input URI.
    *
-   * @param url
-   *          input URL
+   * @param uri
+   *          input URI
    * @param pattern
    *          the entry name pattern as regexp
    * @return list of string paths
    * @throws IOException
    *           if IO failed during the listing
    */
-  public abstract List<String> list(final URL url, final Pattern pattern) throws IOException;
+  public abstract List<String> list(final URI uri, final Pattern pattern) throws IOException;
 
-  private static class FileURLLister extends URLLister
+  private static class FileUriLister extends UriLister
   {
 	/**
-	 * Prefix for file URL.
+	 * Prefix for file URI.
 	 */
-	private static final String URL_PREFIX = "file:";
+	private static final String URI_SCHEME = "file";
 
 	@Override
-	public List<String> list(final URL url) throws IOException
+	public List<String> list(final URI uri) throws IOException
 	{
-	  return list(url, ALL_ACCEPTOR);
+	  return list(uri, ALL_ACCEPTOR);
 	}
 
 	@Override
-	public List<String> list(final URL url, final String mask) throws IOException
+	public List<String> list(final URI uri, final String mask) throws IOException
 	{
-	  return list(url, new MaskFilenameAcceptor(mask));
+	  return list(uri, new MaskFilenameAcceptor(mask));
 	}
 
 	@Override
-	public List<String> list(final URL url, final Pattern pattern) throws IOException
+	public List<String> list(final URI uri, final Pattern pattern) throws IOException
 	{
-	  return list(url, new RegexpFilenameAcceptor(pattern));
+	  return list(uri, new RegexpFilenameAcceptor(pattern));
 	}
 
-	private List<String> list(final URL url, final FilenameAcceptor filenameAcceptor) throws IOException
+	private List<String> list(final URI uri, final FilenameAcceptor filenameAcceptor) throws IOException
 	{
-	  try
-	  {
-		final File listRoot = new File(url.toURI());
-		return listFilesRecursively(listRoot, null, filenameAcceptor);
-	  }
-	  catch (final URISyntaxException e)
-	  {
-		throw new IOException("Failed to convert URL to File", e);
-	  }
+	  final File listRoot = new File(uri);
+	  return listFilesRecursively(listRoot, null, filenameAcceptor);
 	}
 
 	private List<String> listFilesRecursively(final File root, final String prefix, final FilenameAcceptor filenameAcceptor)
@@ -188,42 +181,44 @@ public abstract class URLLister
   }
 
   /**
-   * URL Lister for JAR content.
+   * URI Lister for JAR content.
    *
    * @author Arpad Roziczky
    * @since 1.5
    */
-  private static class JARURLLister extends URLLister
+  private static class JarUriLister extends UriLister
   {
 
 	/**
-	 * RegExp for JAR Entry URL.
+	 * RegExp for JAR Entry URI.
 	 */
-	private static final Pattern URL_PATTERN = Pattern.compile("jar:file:([^!]+)!/(.*)");
+	private static final Pattern URI_PATTERN = Pattern.compile("jar:file:([^!]+)!/(.*)");
+
+	private static final String URI_SCHEME = "jar:";
 
 	@Override
-	public List<String> list(final URL url, final String mask) throws IOException
+	public List<String> list(final URI uri, final String mask) throws IOException
 	{
-	  return list(url, new MaskFilenameAcceptor(mask));
+	  return list(uri, new MaskFilenameAcceptor(mask));
 	}
 
 	@Override
-	public List<String> list(final URL url, final Pattern pattern) throws IOException
+	public List<String> list(final URI uri, final Pattern pattern) throws IOException
 	{
-	  return list(url, new RegexpFilenameAcceptor(pattern));
+	  return list(uri, new RegexpFilenameAcceptor(pattern));
 	}
 
 	@Override
-	public List<String> list(final URL url) throws IOException
+	public List<String> list(final URI uri) throws IOException
 	{
-	  return list(url, ALL_ACCEPTOR);
+	  return list(uri, ALL_ACCEPTOR);
 	}
 
-	final List<String> list(final URL url, final FilenameAcceptor filenameAcceptor) throws IOException
+	final List<String> list(final URI uri, final FilenameAcceptor filenameAcceptor) throws IOException
 	{
 	  // Now we have a URL which points to something in a JAR
 	  // JAR URL follows the convention jar:file:<jarFilePath>!<entryPath>
-	  final Matcher m = URL_PATTERN.matcher(url.toString());
+	  final Matcher m = URI_PATTERN.matcher(uri.toString());
 	  if (m.matches())
 	  {
 		final String jarFileName = m.group(1);
@@ -232,7 +227,7 @@ public abstract class URLLister
 	  }
 	  else
 	  {
-		throw new IllegalArgumentException("URL is not a JAR Entry URL");
+		throw new IllegalArgumentException("URI is not a JAR Entry URI");
 	  }
 	}
 

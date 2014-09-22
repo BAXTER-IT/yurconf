@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:conf="http://baxter-it.com/config"
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:conf="http://yurconf.org"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs" version="2.0">
 
-    <!-- gets list of source files as input document. load each file and move element's text into attribute value save result 
+    <!-- gets list of source files as input document. load each file and move element's text into attribute value save result
     files with prefix "converted-" read catalogue/input.xml -> write catalogue/converted-input1.xml same for variant -->
 
-    <xsl:import href="baxterxsl:repo-base.xsl" />
-    <xsl:import href="baxterxsl:text-fmt.xsl" />
+    <!-- xsl:import href="yurconf://org.yurconf.base/repo-base.xsl" / -->
+    <!-- xsl:import href="yurconf:text-fmt.xsl" / -->
 
     <xsl:output method="xml" encoding="UTF-8" indent="yes" />
     <xsl:output name="catalogue" method="xml" encoding="UTF-8" indent="yes" />

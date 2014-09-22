@@ -1,14 +1,15 @@
 /*
- * Configuration Processors
- * Copyright (C) 2012-2013  BAXTER Technologies
+ * Yurconf Processor Fundamental
+ * This software is distributed as is.
  * 
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ * 
+ * Join our team to help make it better.
  */
 package org.yurconf.processor.desc;
 
-import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.xml.bind.JAXBContext;
@@ -93,7 +94,7 @@ public final class Loader
 		{
 		  descriptor.setUrl(url);
 		}
-		catch (final MalformedURLException e)
+		catch (final URISyntaxException e)
 		{
 		  LOGGER.error("Cannot set descriptor URL", e);
 		  throw new ProcessorException("Unable to setup descriptor", e);

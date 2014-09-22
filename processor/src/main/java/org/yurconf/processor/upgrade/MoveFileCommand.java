@@ -1,17 +1,17 @@
 /*
- * Configuration Processors
- * Copyright (C) 2012-2013  BAXTER Technologies
+ * Yurconf Processor Fundamental
+ * This software is distributed as is.
  * 
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ * 
+ * Join our team to help make it better.
  */
 package org.yurconf.processor.upgrade;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -39,18 +39,9 @@ class MoveFileCommand extends AbstractFileCommand implements UpgradeCommand
 	// Processor's repository root
 	final File repoDir = context.getProcessorFactory().getRepository()
 	    .getProductDirectory(context.getDescriptor().getProductId());
-	final URL baseURL;
 	try
 	{
-	  baseURL = repoDir.toURI().toURL();
-	}
-	catch (final MalformedURLException e)
-	{
-	  throw new UpgradeException(e);
-	}
-	try
-	{
-	  final List<String> filenames = listFilenames(baseURL);
+	  final List<String> filenames = listFilenames(repoDir.toURI());
 
 	  if (isFilenamePatternEffective())
 	  {
@@ -70,8 +61,7 @@ class MoveFileCommand extends AbstractFileCommand implements UpgradeCommand
 	  {
 		boolean isTargetDirectory = this.to.endsWith("/");
 		final File target = new File(repoDir, this.to);
-		// if we have a wildcard in file attribute, then to shall be a directory
-		if (isFileNameMaskWildcard() && !isTargetDirectory)
+		if (isFileNameMaskWildcard() && !isTargetDirectory) // if we have a wildcard in file attribute, then to shall be a directory
 		{
 		  throw new UpgradeException("Target is not a directory " + target.getAbsolutePath());
 		}
@@ -91,7 +81,7 @@ class MoveFileCommand extends AbstractFileCommand implements UpgradeCommand
 		}
 	  }
 	}
-	catch (final IOException e)
+	catch (final IOException | URISyntaxException e)
 	{
 	  throw new UpgradeException(e);
 	}

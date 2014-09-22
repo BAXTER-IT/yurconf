@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:bcl="http://baxter-it.com/config/log"
-    xmlns:c="http://baxter-it.com/config/component" xmlns:log4j="http://jakarta.apache.org/log4j/" xmlns:conf="http://baxter-it.com/config"
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:bcl="http://yurconf.org/log"
+    xmlns:c="http://yurconf.org/component" xmlns:log4j="http://jakarta.apache.org/log4j/" xmlns:conf="http://yurconf.org"
     xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs bcl c conf" version="2.0">
 
     <xsl:import href="repo-base.xsl" />

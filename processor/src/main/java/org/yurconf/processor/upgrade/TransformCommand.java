@@ -1,10 +1,11 @@
 /*
- * Configuration Processors
- * Copyright (C) 2012-2013  BAXTER Technologies
- *
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * Yurconf Processor Fundamental
+ * This software is distributed as is.
+ * 
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ * 
+ * Join our team to help make it better.
  */
 package org.yurconf.processor.upgrade;
 
@@ -13,7 +14,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
@@ -24,15 +26,14 @@ import javax.xml.transform.dom.DOMSource;
 import org.apache.commons.io.output.WriterOutputStream;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.yurconf.om.ConfigID;
+import org.yurconf.om.ConfigParameter;
 import org.yurconf.processor.ProcessorContext;
 import org.yurconf.processor.ProcessorException;
 import org.yurconf.processor.desc.Descriptor;
 import org.yurconf.processor.desc.FilenameProvider;
 import org.yurconf.processor.impl.AbstractXSLTProcessor;
 import org.yurconf.processor.impl.XSLTProcessor;
-
-import org.yurconf.om.ConfigID;
-import org.yurconf.om.ConfigParameter;
 
 /**
  * @author xpdev
@@ -155,17 +156,9 @@ public final class TransformCommand extends AbstractFileCommand implements Upgra
 		  // Processor's repository root
 		  final File repoDir = this.upgradeContext.getProcessorFactory().getRepository()
 			  .getProductDirectory(this.upgradeContext.getDescriptor().getProductId());
-		  final URL baseURL;
-		  try
-		  {
-			baseURL = repoDir.toURI().toURL();
-			sourcesElement.setAttribute("repo", baseURL.toString());
-		  }
-		  catch (final MalformedURLException e)
-		  {
-			throw new UpgradeException(e);
-		  }
-		  final List<String> filenames = listFilenames(baseURL);
+		  final URI baseURI = repoDir.toURI();
+		  sourcesElement.setAttribute("repo", baseURI.toString());
+		  final List<String> filenames = listFilenames(baseURI);
 		  for (final String filename : filenames)
 		  {
 			final Element sourceElement = doc.createElementNS(AbstractXSLTProcessor.XML_NS_CONF, "source");
@@ -178,7 +171,7 @@ public final class TransformCommand extends AbstractFileCommand implements Upgra
 		  rootElement.appendChild(sourcesElement);
 		  return domSource;
 		}
-		catch (final IOException e)
+		catch (final IOException | URISyntaxException e)
 		{
 		  throw new UpgradeException(e);
 		}

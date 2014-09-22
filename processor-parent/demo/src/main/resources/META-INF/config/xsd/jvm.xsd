@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://baxter-it.com/config/jvm"
-    xmlns:t="http://baxter-it.com/config/types" xmlns:c="http://baxter-it.com/config/component" xmlns:conf="http://baxter-it.com/config"
-    xmlns:tns="http://baxter-it.com/config/jvm" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://yurconf.org/jvm"
+    xmlns:t="http://yurconf.org/types" xmlns:c="http://yurconf.org/component" xmlns:conf="http://yurconf.org"
+    xmlns:tns="http://yurconf.org/jvm" elementFormDefault="qualified">
 
-    <xs:import schemaLocation="types.xsd" namespace="http://baxter-it.com/config/types" />
-    <xs:import schemaLocation="config.xsd" namespace="http://baxter-it.com/config" />
-    <xs:import schemaLocation="component.xsd" namespace="http://baxter-it.com/config/component" />
+    <xs:import schemaLocation="types.xsd" namespace="http://yurconf.org/types" />
+    <xs:import schemaLocation="config.xsd" namespace="http://yurconf.org" />
+    <xs:import schemaLocation="component.xsd" namespace="http://yurconf.org/component" />
 
     <xs:element name="configuration">
         <xs:complexType>
@@ -66,7 +66,7 @@
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
-    
+
     <xs:complexType name="TOption">
         <xs:complexContent>
             <xs:extension base="c:TWithComponents">

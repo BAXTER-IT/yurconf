@@ -1,10 +1,11 @@
 /*
- * Configuration Processors
- * Copyright (C) 2012-2013  BAXTER Technologies
- * 
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * Yurconf Processor Fundamental
+ * This software is distributed as is.
+ *
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ *
+ * Join our team to help make it better.
  */
 package org.yurconf.processor.repo.file;
 
@@ -13,8 +14,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -29,7 +32,7 @@ import org.yurconf.processor.desc.Upgrade;
 import org.yurconf.processor.repo.RepositoryException;
 import org.yurconf.processor.upgrade.CommandFactory;
 import org.yurconf.processor.upgrade.UpgradeContext;
-import org.yurconf.processor.util.URLLister;
+import org.yurconf.processor.util.UriLister;
 
 /**
  * The Configuration Repository manager.
@@ -55,9 +58,14 @@ final class RepositoryImpl implements ConfigurationRepository
    */
   private final File root;
 
-  RepositoryImpl(final File root) throws RepositoryException
+  private final ClassLoader processorsCL;
+
+  private final Map<String, Descriptor> descriptorCache = new HashMap<>();
+
+  RepositoryImpl(final File root, final ClassLoader processorsCL) throws RepositoryException
   {
 	this.root = root;
+	this.processorsCL = processorsCL;
 	try
 	{
 	  FileUtils.forceMkdir(this.root);
@@ -140,25 +148,6 @@ final class RepositoryImpl implements ConfigurationRepository
   {
 	quoteForMutation("Installing " + descriptor);
 	LOGGER.info("Installing {} in repository", descriptor);
-	final URLLister urlLister = URLLister.getInstance(descriptor.getSourceUrl());
-	final List<String> entryPaths = urlLister.list(descriptor.getSourceUrl());
-	final File productDirectory = getProductDirectory(descriptor.getProductId());
-
-	// Perform default configuration copying
-	for (final String filePath : entryPaths)
-	{
-	  final URL resourceURL = new URL(descriptor.getSourceUrl(), filePath);
-	  final InputStream resourceStream = resourceURL.openStream();
-	  try
-	  {
-		final File repositoryFile = new File(productDirectory, filePath);
-		FileUtils.copyInputStreamToFile(resourceStream, repositoryFile);
-	  }
-	  finally
-	  {
-		resourceStream.close();
-	  }
-	}
 	installPackageDescriptor(descriptor);
   }
 
@@ -182,21 +171,32 @@ final class RepositoryImpl implements ConfigurationRepository
   @Override
   public Descriptor getDescriptor(final String productId) throws ProcessorException
   {
-	final File descriptorFile = new File(getProductDirectory(productId), TARGET_DESCRIPTOR_FILENAME);
-	if (descriptorFile.isFile())
+	final Descriptor cached = descriptorCache.get(productId);
+	if (cached == null)
 	{
-	  try
+	  LOGGER.warn("No cached descriptor for {}", productId);
+	  final File descriptorFile = new File(getProductDirectory(productId), TARGET_DESCRIPTOR_FILENAME);
+	  if (descriptorFile.isFile())
 	  {
-		return Loader.getInstance().load(descriptorFile.toURI().toURL());
+		try
+		{
+		  final Descriptor descriptor = Loader.getInstance().load(descriptorFile.toURI().toURL());
+		  descriptorCache.put(productId, descriptor);
+		  return descriptor;
+		}
+		catch (final MalformedURLException e)
+		{
+		  throw new ProcessorException(e);
+		}
 	  }
-	  catch (final MalformedURLException e)
+	  else
 	  {
-		throw new ProcessorException(e);
+		throw new RepositoryException("Descriptor not found");
 	  }
 	}
 	else
 	{
-	  throw new RepositoryException("Descriptor not found");
+	  return cached;
 	}
   }
 
@@ -205,7 +205,7 @@ final class RepositoryImpl implements ConfigurationRepository
   {
 	try
 	{
-	  return new DescriptorsIterator();
+	  return new DescriptorsIterator(processorsCL);
 	}
 	catch (final IOException e)
 	{

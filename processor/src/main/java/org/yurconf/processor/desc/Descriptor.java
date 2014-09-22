@@ -1,14 +1,17 @@
 /*
- * Configuration Processors
- * Copyright (C) 2012-2013  BAXTER Technologies
- *
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * Yurconf Processor Fundamental
+ * This software is distributed as is.
+ * 
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ * 
+ * Join our team to help make it better.
  */
 package org.yurconf.processor.desc;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +34,16 @@ import org.yurconf.om.Version;
 public class Descriptor
 {
 
+  public static final String PROCESSOR_XML_RESOURCE = "META-INF/org.yurconf.processor.xml";
+
   @XmlTransient
   private URL url;
 
   @XmlTransient
-  private URL sourceUrl;
+  private URI rootUri;
 
   @XmlTransient
-  private URL xslUrl;
+  private URI defaultSourceUri;
 
   @XmlAttribute(name = "version", required = true)
   private String version;
@@ -62,21 +67,25 @@ public class Descriptor
 	return url;
   }
 
-  public URL getSourceUrl()
+  public URI getRootUri()
   {
-	return sourceUrl;
+	return rootUri;
   }
 
-  public URL getXslUrl()
+  public URI getDefaultSourceUri()
   {
-	return xslUrl;
+	return defaultSourceUri;
   }
 
-  void setUrl(final URL url) throws MalformedURLException
+  void setUrl(final URL url) throws URISyntaxException
   {
+	if (url == null)
+	{
+	  throw new IllegalArgumentException("Cannot use processor descriptor URL as null");
+	}
 	this.url = url;
-	this.sourceUrl = url == null ? null : new URL(url, "./config/default/");
-	this.xslUrl = url == null ? null : new URL(url, "./config/xsl/");
+	this.rootUri = url.toURI().resolve("../").normalize();
+	this.defaultSourceUri = this.rootUri.resolve("META-INF/default");
   }
 
   public String getProductId()

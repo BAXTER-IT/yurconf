@@ -72,7 +72,7 @@
 											<sources>
 												<source>
 													<location>${source.client-config}</location>
-													<destination>config</destination>
+													<destination>yurconf</destination>
 													<filter>false</filter>
 												</source>
 											</sources>
@@ -97,10 +97,10 @@
 													<classifier />
 												</classifiers>
 											</artifact>
+											<dependency>
+												<stripVersion>false</stripVersion>
+											</dependency>
 											<sources>
-												<source>
-													<location>${component.dependencies.dir}</location>
-												</source>
 												<softlinkSource>
 													<location>${std.lib.dir}/${project.build.finalName}.jar</location>
 													<destination>${shared.jar}</destination>
@@ -129,7 +129,7 @@
 											<sources>
 												<source>
 													<location>${source.client-config}</location>
-													<destination>config</destination>
+													<destination>yurconf</destination>
 													<filter>false</filter>
 												</source>
 											</sources>
@@ -160,10 +160,10 @@
 													<classifier />
 												</classifiers>
 											</artifact>
+											<dependency>
+												<stripVersion>false</stripVersion>
+											</dependency>
 											<sources>
-												<source>
-													<location>${component.dependencies.dir}</location>
-												</source>
 												<softlinkSource>
 													<location>${alt.lib.dir}/${project.build.finalName}.jar</location>
 													<destination>${shared.jar}</destination>
@@ -190,18 +190,6 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>yurconf-om</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<scope>test</scope>
 		</dependency>
 
 	</dependencies>

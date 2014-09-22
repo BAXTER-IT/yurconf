@@ -1,17 +1,17 @@
 /*
- * Configuration Processors
- * Copyright (C) 2012-2013  BAXTER Technologies
+ * Yurconf Processor Fundamental
+ * This software is distributed as is.
  *
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ *
+ * Join our team to help make it better.
  */
 package org.yurconf.processor.impl;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
@@ -35,14 +35,13 @@ import net.sf.saxon.lib.StandardOutputResolver;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.yurconf.om.ConfigID;
+import org.yurconf.om.ConfigParameter;
 import org.yurconf.processor.AbstractProcessor;
 import org.yurconf.processor.ProcessorContext;
 import org.yurconf.processor.ProcessorException;
 import org.yurconf.processor.ProcessorFactory;
 import org.yurconf.processor.desc.Descriptor;
-
-import org.yurconf.om.ConfigID;
-import org.yurconf.om.ConfigParameter;
 
 /**
  * Abstract implementation of XSLT Processor.
@@ -92,8 +91,8 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 	super(descriptor, processorFactory);
 	transformerFactory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", Thread.currentThread()
 	    .getContextClassLoader());
-	transformerFactory.setURIResolver(new BaxterURIResolver(this));
-	transformerFactory.setAttribute(FeatureKeys.OUTPUT_URI_RESOLVER, new BaxterOutputURIResolver());
+	transformerFactory.setURIResolver(new YurconfUriResolver(this));
+	transformerFactory.setAttribute(FeatureKeys.OUTPUT_URI_RESOLVER, new YurconfOutputURIResolver());
   }
 
   public String getStylesheet()
@@ -148,16 +147,13 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 		  {
 			try
 			{
-			  templates = transformerFactory.newTemplates(getXslSource());
+			  final Source xslSource = getXslSource();
+			  logger.trace("XSL Source {}", xslSource.getSystemId());
+			  templates = transformerFactory.newTemplates(xslSource);
 			}
 			catch (final TransformerConfigurationException e)
 			{
 			  logger.error("Failed to build Templates", e);
-			  throw new ProcessorException(e);
-			}
-			catch (final IOException e)
-			{
-			  logger.error("Failed to read XSL source", e);
 			  throw new ProcessorException(e);
 			}
 		  }
@@ -181,7 +177,7 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
    *
    * @return XSL source
    */
-  protected Source getXslSource() throws IOException
+  protected Source getXslSource() throws ProcessorException
   {
 	if (getStylesheet() == null)
 	{
@@ -190,26 +186,21 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 	try
 	{
 	  final URI stylesheetUri = new URI(getStylesheet());
-	  if (BaxterProtocol.XSL.supports(stylesheetUri))
+	  logger.trace("Stylesheet URI {}", stylesheetUri);
+	  final YurconfProtocol p = YurconfProtocol.forUri(stylesheetUri);
+	  if (YurconfProtocol.PROCESSOR_RESOURCE == p)
 	  {
-		try
-		{
-		  return BaxterProtocol.XSL.getSource(stylesheetUri, AbstractXSLTProcessor.this);
-		}
-		catch (final TransformerException e)
-		{
-		  throw new IOException("Failed to resolve to baxterxsl", e);
-		}
+		return YurconfProtocol.PROCESSOR_RESOURCE.getSource(stylesheetUri, AbstractXSLTProcessor.this);
 	  }
 	  else
 	  {
-		final URL stylesheetUrl = new URL(getDescriptor().getXslUrl(), getStylesheet());
-		return new StreamSource(stylesheetUrl.openStream(), stylesheetUrl.toString());
+		final URI templateUri = getDescriptor().getRootUri().resolve(stylesheetUri);
+		return new StreamSource(templateUri.toURL().openStream(), stylesheetUri.toString());
 	  }
 	}
-	catch (final URISyntaxException e)
+	catch (final IOException | URISyntaxException e)
 	{
-	  throw new IOException("Cannot build stylesheet URI", e);
+	  throw new ProcessorException("Cannot build stylesheet URI", e);
 	}
   }
 
@@ -267,14 +258,16 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 	transformer.setURIResolver(transformerFactory.getURIResolver());
   }
 
-  private class BaxterOutputURIResolver implements OutputURIResolver
+  private class YurconfOutputURIResolver implements OutputURIResolver
   {
 
 	private final OutputURIResolver standardResolver = StandardOutputResolver.getInstance();
 
 	@Override
-	public OutputURIResolver newInstance() {
-		return standardResolver;
+	public OutputURIResolver newInstance()
+	{
+	  logger.trace("Creating new Output URI Resolver");
+	  return this;
 	}
 
 	@Override
@@ -289,18 +282,19 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 	  try
 	  {
 		final URI uri = new URI(href);
-		if (BaxterProtocol.REPO.supports(uri))
+		final YurconfProtocol p = YurconfProtocol.forUri(uri);
+		if (YurconfProtocol.REPOSITORY_SOURCE == p)
 		{
-		  return BaxterProtocol.REPO.getResult(uri, AbstractXSLTProcessor.this);
+		  return YurconfProtocol.REPOSITORY_SOURCE.getResult(uri, AbstractXSLTProcessor.this);
 		}
 		else
 		{
 		  return standardResolver.resolve(href, base);
 		}
 	  }
-	  catch (final URISyntaxException e)
+	  catch (final URISyntaxException | ProcessorException e)
 	  {
-		throw new TransformerException("Could not build output URI", e);
+		throw new TransformerException("Could not build output URI from " + href, e);
 	  }
 	}
 

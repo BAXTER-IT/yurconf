@@ -1,10 +1,11 @@
 /*
- * Configuration Processors
- * Copyright (C) 2012-2013  BAXTER Technologies
- *
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * Yurconf Processor Fundamental
+ * This software is distributed as is.
+ * 
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ * 
+ * Join our team to help make it better.
  */
 package org.yurconf.processor.repo.file;
 
@@ -69,11 +70,11 @@ public final class ProcessorFactoryImpl implements ProcessorFactory
    * @throws ProcessorException
    *           if cannot create factory
    */
-  private ProcessorFactoryImpl(final File repositoryRoot) throws ProcessorException
+  private ProcessorFactoryImpl(final File repositoryRoot, final ClassLoader processorsCL) throws ProcessorException
   {
 	LOGGER.trace("Creating factory with repository at {}", repositoryRoot.getAbsolutePath());
-	this.repository = new RepositoryImpl(repositoryRoot);
-	loadProcessors();
+	this.repository = new RepositoryImpl(repositoryRoot, processorsCL);
+	loadProcessors(processorsCL);
   }
 
   /**
@@ -85,9 +86,9 @@ public final class ProcessorFactoryImpl implements ProcessorFactory
    * @throws ProcessorException
    *           if cannot get factory
    */
-  public static ProcessorFactory getInstance(final File repository) throws ProcessorException
+  public static ProcessorFactory getInstance(final File repository, final ClassLoader processorsCL) throws ProcessorException
   {
-	return new ProcessorFactoryImpl(repository);
+	return new ProcessorFactoryImpl(repository, processorsCL);
   }
 
   /* (non-Javadoc)
@@ -126,12 +127,12 @@ public final class ProcessorFactoryImpl implements ProcessorFactory
   /**
    * Reads available processor descriptors and loads them.
    */
-  private void loadProcessors()
+  private void loadProcessors(final ClassLoader processorsCL)
   {
 	try
 	{
 	  LOGGER.debug("Looking for available processors in classpath...");
-	  final DescriptorsIterator descriptors = new DescriptorsIterator();
+	  final DescriptorsIterator descriptors = new DescriptorsIterator(processorsCL);
 	  if (!descriptors.hasNext())
 	  {
 		LOGGER.warn("Could not find any processor in classpath");

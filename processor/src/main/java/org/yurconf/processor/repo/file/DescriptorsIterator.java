@@ -1,10 +1,11 @@
 /*
- * Configuration Processors
- * Copyright (C) 2012-2013  BAXTER Technologies
- *
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * Yurconf Processor Fundamental
+ * This software is distributed as is.
+ * 
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ * 
+ * Join our team to help make it better.
  */
 package org.yurconf.processor.repo.file;
 
@@ -27,15 +28,15 @@ class DescriptorsIterator implements Iterator<Descriptor>
   /**
    * Name of the processor descriptor resource.
    */
-  private static final String DESCRIPTOR_RESOURCE = "META-INF/yurconf.processor.xml";
+  private static final String DESCRIPTOR_RESOURCE = "META-INF/org.yurconf.processor.xml";
 
   private final Enumeration<URL> descriptorResources;
 
   private URL lastDescriptorResource;
 
-  DescriptorsIterator() throws IOException
+  DescriptorsIterator(final ClassLoader processorsCL) throws IOException
   {
-	this.descriptorResources = Thread.currentThread().getContextClassLoader().getResources(DESCRIPTOR_RESOURCE);
+	this.descriptorResources = processorsCL.getResources(DESCRIPTOR_RESOURCE);
   }
 
   @Override

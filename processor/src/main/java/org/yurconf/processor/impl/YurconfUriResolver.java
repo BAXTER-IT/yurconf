@@ -1,10 +1,11 @@
 /*
- * Configuration Processors
- * Copyright (C) 2012-2013  BAXTER Technologies
- * 
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * Yurconf Processor Fundamental
+ * This software is distributed as is.
+ *
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ *
+ * Join our team to help make it better.
  */
 package org.yurconf.processor.impl;
 
@@ -18,36 +19,37 @@ import javax.xml.transform.URIResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yurconf.processor.AbstractProcessor;
+import org.yurconf.processor.ProcessorException;
 
 /**
- * 
+ *
  * @author yura
  * @since 1.5
  */
-class BaxterURIResolver implements URIResolver
+class YurconfUriResolver implements URIResolver
 {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(BaxterURIResolver.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(YurconfUriResolver.class);
 
   /**
-   * 
+   *
    */
   private final AbstractProcessor abstractProcessor;
 
   /**
    * @param abstractXSLTProcessor
    */
-  BaxterURIResolver(final AbstractProcessor processor)
+  YurconfUriResolver(final AbstractProcessor processor)
   {
 	this.abstractProcessor = processor;
   }
 
   URI resolve(final URI href, final URI base) throws TransformerException
   {
-	final BaxterProtocol protocol = BaxterProtocol.protocolFor(href);
+	final YurconfProtocol protocol = YurconfProtocol.forUri(href);
 	if (protocol == null)
 	{
-	  final BaxterProtocol baseProtocol = BaxterProtocol.protocolFor(base);
+	  final YurconfProtocol baseProtocol = YurconfProtocol.forUri(base);
 	  if (baseProtocol != null)
 	  {
 		try
@@ -80,7 +82,7 @@ class BaxterURIResolver implements URIResolver
 	  final URI hrefUri = new URI(href);
 	  final URI baseUri = new URI(base);
 	  final URI resolved = resolve(hrefUri, baseUri);
-	  final BaxterProtocol protocol = BaxterProtocol.protocolFor(resolved);
+	  final YurconfProtocol protocol = YurconfProtocol.forUri(resolved);
 	  if (protocol != null)
 	  {
 		return protocol.getSource(resolved, abstractProcessor);
@@ -90,7 +92,7 @@ class BaxterURIResolver implements URIResolver
 		return null;
 	  }
 	}
-	catch (final URISyntaxException e)
+	catch (final URISyntaxException | ProcessorException e)
 	{
 	  throw new TransformerException("Could not build URI while resolving source", e);
 	}

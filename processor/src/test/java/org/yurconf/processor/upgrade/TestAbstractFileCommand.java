@@ -1,10 +1,11 @@
 /*
- * Configuration Processors
- * Copyright (C) 2012-2013  BAXTER Technologies
+ * Yurconf Processor Fundamental
+ * This software is distributed as is.
  *
- * This software is a property of BAXTER Technologies
- * and should remain that way. If you got this source
- * code from elsewhere please immediately inform Franck.
+ * We do not care about any damages that could be caused
+ * by this software directly or indirectly.
+ *
+ * Join our team to help make it better.
  */
 package org.yurconf.processor.upgrade;
 
@@ -41,16 +42,17 @@ public class TestAbstractFileCommand
   protected UpgradeContext upgradeContext;
 
   @Before
-  public void setupEnv() throws IOException {
+  public void setupEnv() throws Exception {
 	this.pseudoRoot = Files.createTempDirectory("yurconf-test-").toFile();
 
 	final Descriptor descriptor = mock(Descriptor.class);
-	when(descriptor.getSourceUrl()).thenReturn(getClass().getResource("config/default/"));
-	when(descriptor.getXslUrl()).thenReturn(getClass().getResource("config/xsl/"));
+	when(descriptor.getRootUri()).thenReturn(getClass().getResource("config/xsl/").toURI());
+	when(descriptor.getDefaultSourceUri()).thenReturn(getClass().getResource("config/default/").toURI());
 	when(descriptor.getProductId()).thenReturn(TEST_PRODUCT_ID);
 
 	final ConfigurationRepository repository = mock(ConfigurationRepository.class);
 	when( repository.getProductDirectory(TEST_PRODUCT_ID)).thenReturn(this.pseudoRoot);
+	when( repository.getDescriptor(TEST_PRODUCT_ID) ).thenReturn(descriptor);
 
 	final ProcessorFactory processorFactory = mock(ProcessorFactory.class);
 	when( processorFactory.getRepository() ).thenReturn( repository );

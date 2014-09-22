@@ -7,7 +7,7 @@
         </encoder>
     </appender>
 
-    <logger name="org.yurconf" level="DEBUG">
+    <logger name="org.yurconf" level="TRACE">
     </logger>
 
     <root level="INFO">
