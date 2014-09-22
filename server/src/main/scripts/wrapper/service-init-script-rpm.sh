@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 #
 # configuration-server	Start/stop Baxter Configuration service
 #
@@ -25,33 +25,38 @@ fi
 if [ "x$PIDDIR" == "x" ]; then
 	PIDDIR="${f.pid.dir}"
 fi
+mkdir -p $PIDDIR
 if [ ! -w $PIDDIR ]; then
-	echo "PID Directory $PIDDIR is not writable, please check it"
+	echo "PID Directory $PIDDIR is not available to write, please check it"
 	exit 2
 fi
-PIDFILE="$PIDDIR/${unix.service.name}.pid"
+PIDFILE="$PIDDIR/yurconf-server.pid"
 
 # Daemon start script
-DAEMON="${f.bin.dir}/${unix.application.start.script}"
+DAEMON="${f.bin.dir}/start-yurconf-server.sh"
 DAEMONUSER=${unix.user}
 
 MAX_WAIT_CHILD_ITER=50
 MAX_WAIT_THIS_ITER=20
 MAX_WAIT_MARKER_ITER=500
 
-SERVICENAME="${unix.service.name}"
+SERVICENAME="${unix.service}"
 
 # Configuration file that keeps server binding info
-CONFIG_FILE="${f.unix.config}"
+CONFIG_FILE="${f.config}"
 
 # Listening port
-JETTY_PORT="$(cat $CONFIG_FILE | grep "port=" |  cut -d= -f2)"
+YURCONF_PORT="$(cat $CONFIG_FILE | grep "port=" |  cut -d= -f2)"
 
 if [ "x$OUTDIR" == "x" ]; then
 	OUTDIR="${f.out.dir}"
 fi
-OUTFILE="$OUTDIR/${unix.service.name}.out"
-export OUTFILE 
+if [ ! -w $OUTDIR ]; then
+	echo "OUT Directory $OUTDIR is not available to write, please check it"
+	exit 2
+fi
+OUTFILE="$OUTDIR/yurconf-server.out"
+export OUTFILE
 
 # TODO instead of waiting for the marker we should ping config server via http?
 waitForMarker() {
@@ -62,14 +67,14 @@ waitForMarker() {
     IDX=0
     while [ $IDX -ne $MAX_WAIT_MARKER_ITER ]; do
         # Only standard marker should be considered
-        MARKER=$(cat $OUT | grep -e 'Baxter Configuration Server started in' )
+        MARKER=$(cat $OUT | grep -e 'Yurconf Server started in' )
         if [ "x$MARKER" != "x" ]; then
             return 0
         else
             if running $PIDFILE ; then
                 sleep 0.5
                 IDX=$(expr $IDX + 1)
-                if [ "x" = "x$(netstat -pan | grep $JETTY_PORT)" ]; then
+                if [ "x" = "x$(netstat -pan | grep $YURCONF_PORT)" ]; then
                     return 0
                 fi
             else
@@ -80,20 +85,20 @@ waitForMarker() {
     return 1
 }
 
-running()                                                                                                                        
-{                                                                                                                                
-    [ -f $1 ] || return 1                                                                                                        
-    PID=$(cat $1)                                                                                                                
-    ps -p $PID >/dev/null 2>/dev/null || return 1                                                                                
-    return 0                                                                                                                     
-}  
+running()
+{
+    [ -f $1 ] || return 1
+    PID=$(cat $1)
+    ps -p $PID >/dev/null 2>/dev/null || return 1
+    return 0
+}
 
 doStart()
 {
     # Daemon will be started with this user
     MARKER_FOUND=false
     if running $PIDFILE ; then
-    	echo "${project.name} probably is already running"
+    	echo "Yurconf Server probably is already running"
     	return 1
     else
         rm -f $OUTFILE
@@ -102,12 +107,12 @@ doStart()
         chown $DAEMONUSER $PIDFILE
         su - $DAEMONUSER -c "
 			$DAEMON $ARGS &
-			PID=\$!                                                                                                          
-			disown \$PID                                                                                                     
+			PID=\$!
+			disown \$PID
 			echo \$PID > $PIDFILE"
         if waitForMarker $OUTFILE ; then
             MARKER_FOUND=true
-            echo "Found marker in out file. Should be started now." 
+            echo "Found marker in out file. Should be started now."
         fi
     fi
     if $MARKER_FOUND ; then
@@ -133,7 +138,7 @@ doStop()
                     ITER=$(expr $ITER + 1)
                     if [ $ITER -eq $MAX_WAIT_CHILD_ITER ]; then
                         break
-                    fi 
+                    fi
                 done
             fi
             if [ ! "x" = "x$(ps --no-headers -p $PID)" ]; then
@@ -148,15 +153,15 @@ doStop()
 
 case "$1" in
   start)
-        echo "Starting $SERVICENAME ${unix.service.name}"
+        echo "Starting $SERVICENAME Yurconf Server"
         doStart
         ;;
   stop)
-        echo "Stopping $SERVICENAME ${unix.service.name}"
+        echo "Stopping $SERVICENAME Yurconf Server"
         doStop
          ;;
   restart)
-        echo "Restarting $SERVICENAME ${unix.service.name}"
+        echo "Restarting $SERVICENAME Yurconf Server"
         doStop
         doStart
         ;;
@@ -164,7 +169,7 @@ case "$1" in
         status -p $PIDFILE $DAEMON && exit 0 || exit $?
         ;;
   *)
-        SVC="${unix.service.name}"
+        SVC="${unix.service}"
         echo "Usage: service $SVC {start|stop|restart|status}" >&2
         exit 3
         ;;

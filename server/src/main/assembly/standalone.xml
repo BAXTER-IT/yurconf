@@ -36,11 +36,11 @@
         </file>
         <file>
             <outputDirectory>bin</outputDirectory>
-            <source>src/main/scripts/start-yurconf-server-standalone.sh</source>
-            <destName>start-yurconf-server</destName>
+            <source>src/main/scripts/start-yurconf-server.sh</source>
+            <destName>start-yurconf-server.sh</destName>
             <filtered>true</filtered>
             <lineEnding>unix</lineEnding>
-            <fileMode>0555</fileMode>
+            <fileMode>0755</fileMode>
         </file>
         <file>
             <outputDirectory>bin</outputDirectory>
@@ -48,7 +48,7 @@
             <destName>start-yurconf-server.cmd</destName>
             <filtered>true</filtered>
             <lineEnding>windows</lineEnding>
-            <fileMode>0555</fileMode>
+            <fileMode>0755</fileMode>
         </file>
         <file>
             <outputDirectory>bin</outputDirectory>
@@ -56,7 +56,7 @@
             <destName>yurconf-server</destName>
             <filtered>true</filtered>
             <lineEnding>unix</lineEnding>
-            <fileMode>0555</fileMode>
+            <fileMode>0755</fileMode>
         </file>
     </files>
 

@@ -4,7 +4,7 @@
 #
 
 # Configuration file that keeps environment start point configuration
-CONFIG_FILE="${f.client-config}"
+CONFIG_FILE="${f.config}"
 
 readConfigParameter() {
 	echo "$(cat $CONFIG_FILE | grep "^\s*$1\s*=" | cut -d= -f2 | sed 's/\s//g')"

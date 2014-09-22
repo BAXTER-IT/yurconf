@@ -67,18 +67,18 @@
 									</filters>
 									<mappings>
 										<mapping>
-											<directory>${std.config.dir}</directory>
+											<directory>/etc</directory>
 											<configuration>noreplace</configuration>
 											<sources>
 												<source>
-													<location>${source.client-config}</location>
+													<location>src/main/etc/config</location>
 													<destination>yurconf</destination>
 													<filter>false</filter>
 												</source>
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>${std.bin.dir}</directory>
+											<directory>/usr/bin</directory>
 											<filemode>755</filemode>
 											<sources>
 												<source>
@@ -91,7 +91,7 @@
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>${std.lib.dir}</directory>
+											<directory>/usr/share/java</directory>
 											<artifact>
 												<classifiers>
 													<classifier />
@@ -102,7 +102,7 @@
 											</dependency>
 											<sources>
 												<softlinkSource>
-													<location>${std.lib.dir}/${project.build.finalName}.jar</location>
+													<location>/usr/share/java/${project.build.finalName}.jar</location>
 													<destination>${shared.jar}</destination>
 												</softlinkSource>
 											</sources>
@@ -118,27 +118,27 @@
 									</filters>
 									<mappings>
 										<mapping>
-											<directory>${alt.root}</directory>
+											<directory>${alt.home}</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.config.dir}</directory>
+											<directory>${alt.home}/etc</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.config.dir}</directory>
+											<directory>${alt.home}/etc</directory>
 											<configuration>noreplace</configuration>
 											<sources>
 												<source>
-													<location>${source.client-config}</location>
+													<location>src/main/etc/config</location>
 													<destination>yurconf</destination>
 													<filter>false</filter>
 												</source>
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>${alt.bin.dir}</directory>
+											<directory>${alt.home}/bin</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.bin.dir}</directory>
+											<directory>${alt.home}/bin</directory>
 											<filemode>755</filemode>
 											<sources>
 												<source>
@@ -151,10 +151,10 @@
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>${alt.lib.dir}</directory>
+											<directory>${alt.home}/lib</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.lib.dir}</directory>
+											<directory>${alt.home}/lib</directory>
 											<artifact>
 												<classifiers>
 													<classifier />
@@ -165,7 +165,7 @@
 											</dependency>
 											<sources>
 												<softlinkSource>
-													<location>${alt.lib.dir}/${project.build.finalName}.jar</location>
+													<location>${alt.home}/lib/${project.build.finalName}.jar</location>
 													<destination>${shared.jar}</destination>
 												</softlinkSource>
 											</sources>
@@ -178,7 +178,6 @@
 				</plugins>
 			</build>
 			<properties>
-				<source.client-config>src/main/config/client-config</source.client-config>
 			</properties>
 		</profile>
 
@@ -195,7 +194,7 @@
 	</dependencies>
 
 	<properties>
-		<shared.jar>${project.artifactId}.jar</shared.jar>
+		<shared.jar>yurconf-client.jar</shared.jar>
 	</properties>
 
 </project>

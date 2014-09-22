@@ -131,7 +131,7 @@
 									</filters>
 									<mappings>
 										<mapping>
-											<directory>${std.config.dir}</directory>
+											<directory>/etc</directory>
 											<configuration>noreplace</configuration>
 											<sources>
 												<source>
@@ -147,44 +147,44 @@
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>${std.bin.dir}</directory>
+											<directory>/usr/bin</directory>
 											<filemode>755</filemode>
 											<sources>
 												<source>
 													<location>src/main/scripts/start-yurconf-server.sh</location>
-													<destination>${unix.application.start.script}</destination>
+													<destination>start-yurconf-server.sh</destination>
 													<filter>true</filter>
 												</source>
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>${unix.service.dir}</directory>
+											<directory>/etc/init.d</directory>
 											<filemode>755</filemode>
 											<username>root</username>
 											<groupname>root</groupname>
 											<sources>
 												<source>
 													<location>src/main/scripts/wrapper/service-init-script-rpm.sh</location>
-													<destination>yurconf-server</destination>
+													<destination>${unix.service}</destination>
 													<filter>true</filter>
 												</source>
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>${std.processors.lib.dir}</directory>
+											<directory>/usr/share/yurconf-processors</directory>
 										</mapping>
 										<mapping>
-											<directory>${std.doc.dir}</directory>
+											<directory>/usr/share/doc/yurconf</directory>
 										</mapping>
 										<mapping>
-											<directory>${std.log.dir}</directory>
+											<directory>/var/log/yurconf</directory>
 										</mapping>
 										<mapping>
+											<directory>/var/local/yurconf</directory>
 											<configuration>noreplace</configuration>
-											<directory>${std.repository.dir}</directory>
 										</mapping>
 										<mapping>
-											<directory>${std.lib.dir}</directory>
+											<directory>/usr/share/java</directory>
 											<artifact>
 												<classifiers>
 													<classifier />
@@ -192,6 +192,12 @@
 											</artifact>
 											<dependency>
 											</dependency>
+											<sources>
+												<softlinkSource>
+													<location>/usr/share/java/${project.build.finalName}.jar</location>
+													<destination>${shared.jar}</destination>
+												</softlinkSource>
+											</sources>
 										</mapping>
 									</mappings>
 								</configuration>
@@ -207,13 +213,13 @@
 									</filters>
 									<mappings>
 										<mapping>
-											<directory>${alt.root}</directory>
+											<directory>${alt.home}</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.config.dir}</directory>
+											<directory>${alt.home}/etc</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.config.dir}</directory>
+											<directory>${alt.home}/etc</directory>
 											<configuration>noreplace</configuration>
 											<sources>
 												<source>
@@ -229,42 +235,42 @@
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>${alt.bin.dir}</directory>
+											<directory>${alt.home}/bin</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.bin.dir}</directory>
+											<directory>${alt.home}/bin</directory>
 											<filemode>755</filemode>
 											<sources>
 												<source>
 													<location>src/main/scripts/start-yurconf-server.sh</location>
-													<destination>${unix.application.start.script}</destination>
+													<destination>start-yurconf-server.sh</destination>
 													<filter>true</filter>
 												</source>
 												<source>
 													<location>src/main/scripts/wrapper/standalone.sh</location>
-													<destination>${unix.service.name}</destination>
+													<destination>${unix.service}</destination>
 													<filter>true</filter>
 												</source>
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>${alt.processors.lib.dir}</directory>
+											<directory>${alt.home}/processors</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.doc.dir}</directory>
+											<directory>${alt.home}/doc</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.log.dir}</directory>
+											<directory>${alt.home}/log</directory>
 										</mapping>
 										<mapping>
+											<directory>${alt.home}/repository</directory>
 											<configuration>noreplace</configuration>
-											<directory>${alt.repository.dir}</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.lib.dir}</directory>
+											<directory>${alt.home}/lib</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.lib.dir}</directory>
+											<directory>${alt.home}/lib</directory>
 											<artifact>
 												<classifiers>
 													<classifier />
@@ -278,6 +284,10 @@
 												</softlinkSource>
 												<softlinkSource>
 													<location>/usr/share/java/commons-beanutil.jar</location>
+												</softlinkSource>
+												<softlinkSource>
+													<location>${alt.home}/lib/${project.build.finalName}.jar</location>
+													<destination>${shared.jar}</destination>
 												</softlinkSource>
 											</sources>
 										</mapping>
@@ -349,6 +359,7 @@
 	</dependencies>
 
 	<properties>
+		<shared.jar>yurconf-server.jar</shared.jar>
 	</properties>
 
 </project>

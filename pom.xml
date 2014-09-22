@@ -452,6 +452,31 @@
 					<family>unix</family>
 				</os>
 			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>filter-package-scripts</id>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>
+									<outputDirectory>src/main/unix/scripts</outputDirectory>
+									<resources>
+										<resource>
+											<directory>src/main/unix/scripts-src</directory>
+											<filtering>true</filtering>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 			<properties>
 				<unix.service>${project.artifactId}</unix.service>
 				<unix.service.dir>/etc/init.d</unix.service.dir>
@@ -532,14 +557,7 @@
 				</pluginManagement>
 			</build>
 			<properties>
-				<alt.root>/opt/yurconf</alt.root>
-				<alt.config.dir>${alt.root}/etc</alt.config.dir>
-				<alt.bin.dir>${alt.root}/bin</alt.bin.dir>
-				<alt.lib.dir>${alt.root}/lib</alt.lib.dir>
-				<alt.doc.dir>${alt.root}/doc</alt.doc.dir>
-				<alt.log.dir>${alt.root}/log</alt.log.dir>
-				<alt.repository.dir>${alt.root}/repository</alt.repository.dir>
-				<alt.processors.lib.dir>${alt.root}/processors</alt.processors.lib.dir>
+				<alt.home>/opt/yurconf</alt.home>
 			</properties>
 		</profile>
 
@@ -579,13 +597,6 @@
 				</pluginManagement>
 			</build>
 			<properties>
-				<std.config.dir>/etc</std.config.dir>
-				<std.bin.dir>/usr/bin</std.bin.dir>
-				<std.lib.dir>/usr/share/java</std.lib.dir>
-				<std.log.dir>/var/log/yurconf</std.log.dir>
-				<std.doc.dir>/usr/share/doc/yurconf</std.doc.dir>
-				<std.repository.dir>/var/local/yurconf</std.repository.dir>
-				<std.processors.lib.dir>/usr/share/yurconf-processors</std.processors.lib.dir>
 			</properties>
 		</profile>
 
