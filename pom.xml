@@ -508,12 +508,10 @@
 								<defaultFilemode>644</defaultFilemode>
 								<defaultDirmode>755</defaultDirmode>
 								<needarch>false</needarch>
+								<repackJars>false</repackJars>
 								<provides>
 									<provide>${unix.package.name}</provide>
 								</provides>
-								<defineStatements>
-									<defineStatement>__jar_repack %{nil}</defineStatement>
-								</defineStatements>
 							</configuration>
 						</plugin>
 					</plugins>
