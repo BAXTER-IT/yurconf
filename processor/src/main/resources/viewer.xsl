@@ -77,7 +77,7 @@
         <title>
             <xsl:text>Configuration Explorer for </xsl:text>
             <xsl:call-template name="product-title" />
-            <xsl:text> - Baxter Configuration Server</xsl:text>
+            <xsl:text> - Yurconf Server</xsl:text>
         </title>
     </xsl:template>
 

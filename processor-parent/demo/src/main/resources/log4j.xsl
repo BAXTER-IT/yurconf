@@ -3,7 +3,7 @@
   xmlns:bcl="http://baxter-it.com/config/log"
   xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs bcl" version="2.0">
 
-  <xsl:import href="baxterxsl:log4j-base.xsl"/>
+  <xsl:import href="yurconf://@org.yurconf.base/log4j-base.xsl"/>
 
   <xsl:output indent="yes"/>
 
@@ -11,7 +11,7 @@
 
   <xsl:template match="/">
     <xsl:variable name="inputFile"
-      select="document(concat('baxterrepo:log-',$configurationComponentId,'.xml'))"/>
+      select="document(concat('yurconf:log-',$configurationComponentId,'.xml'))"/>
     <xsl:apply-templates select="$inputFile/bcl:configuration"/>
   </xsl:template>
 

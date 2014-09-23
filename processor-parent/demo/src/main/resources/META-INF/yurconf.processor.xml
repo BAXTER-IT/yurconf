@@ -12,7 +12,7 @@
 			<parameter name="stylesheet">log4j.xsl</parameter>
 		</processor>
         <processor class="org.yurconf.processor.impl.XSLTProcessor" type="logback">
-            <parameter name="stylesheet">logback.xsl</parameter>
+            <parameter name="stylesheet">logback-demo.xsl</parameter>
         </processor>
 	</processors>
 </descriptor>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration xmlns="http://baxter-it.com/config/log">
+<configuration xmlns="http://yurconf.org/log">
 
 	<console-appender name="CONSOLE">
 		<layout>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</layout>

@@ -3,7 +3,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
     exclude-result-prefixes="xs xd" version="2.0">
 
-    <xsl:import href="baxterxsl:text-fmt.xsl"/>
+    <xsl:import href="yurconf://@org.yurconf.base/text-fmt.xsl"/>
     <xsl:import href="inc/input-dump.xsl" />
 
     <xsl:output encoding="UTF-8" media-type="text/plain" omit-xml-declaration="yes"/>
@@ -15,13 +15,13 @@
         <xsl:call-template name="CR"/>
         <xsl:call-template name="CR"/>
         <!-- Load the hello-world and render it -->
-        <xsl:variable name="helloWorld" select="document('baxterrepo:hello-world.xml')"/>
+        <xsl:variable name="helloWorld" select="document('yurconf:///hello-world.xml')"/>
         <xsl:call-template name="CR"/>
         <xsl:text>hello-world.xml:</xsl:text>
         <xsl:call-template name="CR"/>
         <xsl:apply-templates select="$helloWorld/hello"/>
         <!-- Load the multiple-hello and render it -->
-        <xsl:variable name="helloMultiple" select="document('baxterrepo:sub1/multiple-hello.xml')"/>
+        <xsl:variable name="helloMultiple" select="document('yurconf:sub1/multiple-hello.xml')"/>
         <xsl:call-template name="CR"/>
         <xsl:text>sub1/multiple-hello.xml:</xsl:text>
         <xsl:call-template name="CR"/>

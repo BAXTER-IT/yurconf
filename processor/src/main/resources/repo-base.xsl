@@ -4,8 +4,8 @@
 
     <xsl:param name="configurationComponentId" />
 
-    <xsl:template name="baxterrepo-protocol">
-        <xsl:text>baxterrepo:</xsl:text>
+    <xsl:template name="yurconf-protocol">
+        <xsl:text>yurconf:</xsl:text>
     </xsl:template>
 
     <xsl:template name="xml-extension">
@@ -66,12 +66,12 @@
     </xsl:template>
 
     <!--
-        Builds the location of a document as "baxterrepo:<prefix>.xml"
+        Builds the location of a document as "yurconf:<prefix>.xml"
     -->
     <xsl:template name="document-repo-location">
         <xsl:param name="prefix" />
         <xsl:param name="suffix" />
-        <xsl:call-template name="baxterrepo-protocol" />
+        <xsl:call-template name="yurconf-protocol" />
         <xsl:value-of select="$prefix" />
         <xsl:if test="$suffix">
             <xsl:value-of select="$suffix" />
@@ -80,7 +80,7 @@
     </xsl:template>
 
     <!--
-        Builds the location of a variant document as "baxterrepo:<prefix>(<variant>).xml"
+        Builds the location of a variant document as "yurconf:<prefix>(<variant>).xml"
     -->
     <xsl:template name="variant-repo-location">
         <xsl:param name="prefix" />

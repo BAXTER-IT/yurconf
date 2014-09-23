@@ -4,13 +4,13 @@
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
     exclude-result-prefixes="xs xd"
     version="2.0">
-    
-    <xsl:import href="baxterxsl:text-fmt.xsl" />
-    
+
+    <xsl:import href="yurconf://@org.yurconf.base/text-fmt.xsl" />
+
     <xsl:param name="configurationProductId" select="'N/A'"/>
     <xsl:param name="configurationVersion" select="'N/A'"/>
     <xsl:param name="configurationComponentId" select="'N/A'"/>
-    
+
     <xsl:template name="input-dump">
         <xsl:text>Hello!</xsl:text>
         <xsl:call-template name="CR"/>

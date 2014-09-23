@@ -28,85 +28,6 @@
 
 			<plugins>
 
-				<plugin>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<executions>
-						<execution>
-							<id>get-common-xsd</id>
-							<phase>generate-resources</phase>
-							<goals>
-								<goal>unpack</goal>
-							</goals>
-							<configuration>
-								<artifactItems>
-									<artifactItem>
-										<groupId>org.yurconf</groupId>
-										<artifactId>yurconf-processor</artifactId>
-									</artifactItem>
-								</artifactItems>
-								<includes>META-INF/config/xsd/*.xsd</includes>
-								<outputDirectory>src/main/resources</outputDirectory>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-
-				<plugin>
-					<artifactId>maven-assembly-plugin</artifactId>
-					<executions>
-						<execution>
-							<id>assembly-schemas</id>
-							<phase>prepare-package</phase>
-							<goals>
-								<goal>single</goal>
-							</goals>
-							<configuration>
-								<descriptors>
-									<descriptor>src/main/assembly/schemas.xml</descriptor>
-								</descriptors>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-assembly-plugin</artifactId>
-										<versionRange>[1.0,)</versionRange>
-										<goals>
-											<goal>single</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute />
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-dependency-plugin</artifactId>
-										<versionRange>[1.0,)</versionRange>
-										<goals>
-											<goal>unpack</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<execute />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-
 			</plugins>
 
 		</pluginManagement>
@@ -146,7 +67,7 @@
 										</requires>
 										<mappings>
 											<mapping>
-												<directory>${std.lib.dir}</directory>
+												<directory>/usr/share/java</directory>
 												<artifact>
 													<classifiers>
 														<classifier />
@@ -154,10 +75,10 @@
 												</artifact>
 											</mapping>
 											<mapping>
-												<directory>${std.processors.lib.dir}</directory>
+												<directory>/usr/share/yurconf-processors</directory>
 												<sources>
 													<softlinkSource>
-														<location>${std.lib.dir}/${project.build.finalName}.jar</location>
+														<location>/usr/share/java/${project.build.finalName}.jar</location>
 														<destination>${processor.jar}</destination>
 													</softlinkSource>
 												</sources>
@@ -177,7 +98,7 @@
 										</requires>
 										<mappings>
 											<mapping>
-												<directory>${alt.lib.dir}</directory>
+												<directory>${alt.home}/lib</directory>
 												<artifact>
 													<classifiers>
 														<classifier />
@@ -185,10 +106,10 @@
 												</artifact>
 											</mapping>
 											<mapping>
-												<directory>${alt.processors.lib.dir}</directory>
+												<directory>${alt.home}/processors</directory>
 												<sources>
 													<softlinkSource>
-														<location>${alt.lib.dir}/${project.build.finalName}.jar</location>
+														<location>${alt.home}/lib/${project.build.finalName}.jar</location>
 														<destination>${processor.jar}</destination>
 													</softlinkSource>
 												</sources>
