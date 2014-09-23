@@ -556,6 +556,13 @@
 			</build>
 			<properties>
 				<alt.home>/opt/yurconf</alt.home>
+				<alt.config.dir>${alt.home}/etc</alt.config.dir>
+				<alt.bin.dir>${alt.home}/bin</alt.bin.dir>
+				<alt.lib.dir>${alt.home}/lib</alt.lib.dir>
+				<alt.processors.dir>${alt.home}/lib/yurconf-processors</alt.processors.dir>
+				<alt.log.dir>${alt.home}/log</alt.log.dir>
+				<alt.repository.dir>${alt.home}/repository</alt.repository.dir>
+				<alt.doc.dir>${alt.home}/doc</alt.doc.dir>
 			</properties>
 		</profile>
 
@@ -595,6 +602,13 @@
 				</pluginManagement>
 			</build>
 			<properties>
+				<std.config.dir>/etc</std.config.dir>
+				<std.bin.dir>/usr/bin</std.bin.dir>
+				<std.lib.dir>/usr/share/java</std.lib.dir>
+				<std.processors.dir>/usr/share/yurconf-processors</std.processors.dir>
+				<std.log.dir>/var/log/yurconf</std.log.dir>
+				<std.repository.dir>/var/local/yurconf</std.repository.dir>
+				<std.doc.dir>/usr/share/doc/yurconf</std.doc.dir>
 			</properties>
 		</profile>
 

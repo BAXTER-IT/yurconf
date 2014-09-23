@@ -29,6 +29,9 @@
 						</goals>
 						<configuration>
 							<classifier>deployable</classifier>
+							<packagingExcludes>
+								WEB-INF/classes/org/yurconf/server/*.class
+							</packagingExcludes>
 						</configuration>
 					</execution>
 				</executions>
@@ -131,34 +134,31 @@
 									</filters>
 									<mappings>
 										<mapping>
-											<directory>/etc</directory>
+											<directory>${std.config.dir}</directory>
 											<configuration>noreplace</configuration>
 											<sources>
 												<source>
-													<location>src/main/resources/server.properties</location>
-													<destination>yurconf-server</destination>
-													<filter>false</filter>
-												</source>
-												<source>
-													<location>src/etc/logback.xml</location>
-													<destination>yurconf-server-log.xml</destination>
+													<location>src/etc</location>
+													<excludes>
+														<exclude>README.TXT</exclude>
+													</excludes>
 													<filter>true</filter>
 												</source>
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>/usr/bin</directory>
+											<directory>${std.bin.dir}</directory>
 											<filemode>755</filemode>
 											<sources>
 												<source>
 													<location>src/main/scripts/start-yurconf-server.sh</location>
-													<destination>start-yurconf-server.sh</destination>
+													<destination>start-${unix.service}.sh</destination>
 													<filter>true</filter>
 												</source>
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>/etc/init.d</directory>
+											<directory>${unix.service.dir}</directory>
 											<filemode>755</filemode>
 											<username>root</username>
 											<groupname>root</groupname>
@@ -171,20 +171,20 @@
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>/usr/share/yurconf-processors</directory>
+											<directory>${std.processors.dir}</directory>
 										</mapping>
 										<mapping>
-											<directory>/usr/share/doc/yurconf</directory>
+											<directory>${std.doc.dir}</directory>
 										</mapping>
 										<mapping>
-											<directory>/var/log/yurconf</directory>
+											<directory>${std.log.dir}</directory>
 										</mapping>
 										<mapping>
-											<directory>/var/local/yurconf</directory>
+											<directory>${std.repository.dir}</directory>
 											<configuration>noreplace</configuration>
 										</mapping>
 										<mapping>
-											<directory>/usr/share/java</directory>
+											<directory>${std.lib.dir}</directory>
 											<artifact>
 												<classifiers>
 													<classifier />
@@ -194,7 +194,7 @@
 											</dependency>
 											<sources>
 												<softlinkSource>
-													<location>/usr/share/java/${project.build.finalName}.jar</location>
+													<location>${std.lib.dir}/${project.build.finalName}.jar</location>
 													<destination>${shared.jar}</destination>
 												</softlinkSource>
 											</sources>
@@ -216,34 +216,31 @@
 											<directory>${alt.home}</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.home}/etc</directory>
+											<directory>${alt.config.dir}</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.home}/etc</directory>
+											<directory>${alt.config.dir}</directory>
 											<configuration>noreplace</configuration>
 											<sources>
 												<source>
-													<location>src/main/resources/server.properties</location>
-													<destination>yurconf-server</destination>
-													<filter>false</filter>
-												</source>
-												<source>
-													<location>src/etc/logback.xml</location>
-													<destination>yurconf-server-log.xml</destination>
+													<location>src/etc</location>
+													<excludes>
+														<exclude>README.TXT</exclude>
+													</excludes>
 													<filter>true</filter>
 												</source>
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>${alt.home}/bin</directory>
+											<directory>${alt.bin.dir}</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.home}/bin</directory>
+											<directory>${alt.bin.dir}</directory>
 											<filemode>755</filemode>
 											<sources>
 												<source>
 													<location>src/main/scripts/start-yurconf-server.sh</location>
-													<destination>start-yurconf-server.sh</destination>
+													<destination>start-${unix.service}.sh</destination>
 													<filter>true</filter>
 												</source>
 												<source>
@@ -254,23 +251,23 @@
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>${alt.home}/processors</directory>
+											<directory>${alt.doc.dir}</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.home}/doc</directory>
+											<directory>${alt.log.dir}</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.home}/log</directory>
-										</mapping>
-										<mapping>
-											<directory>${alt.home}/repository</directory>
+											<directory>${alt.repository.dir}</directory>
 											<configuration>noreplace</configuration>
 										</mapping>
 										<mapping>
-											<directory>${alt.home}/lib</directory>
+											<directory>${alt.lib.dir}</directory>
 										</mapping>
 										<mapping>
-											<directory>${alt.home}/lib</directory>
+											<directory>${alt.processors.dir}</directory>
+										</mapping>
+										<mapping>
+											<directory>${alt.lib.dir}</directory>
 											<artifact>
 												<classifiers>
 													<classifier />
@@ -286,7 +283,7 @@
 													<location>/usr/share/java/commons-beanutil.jar</location>
 												</softlinkSource>
 												<softlinkSource>
-													<location>${alt.home}/lib/${project.build.finalName}.jar</location>
+													<location>${alt.lib.dir}/${project.build.finalName}.jar</location>
 													<destination>${shared.jar}</destination>
 												</softlinkSource>
 											</sources>
@@ -346,14 +343,12 @@
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
 			<version>9.0.5.v20130815</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-servlet</artifactId>
 			<version>9.0.5.v20130815</version>
-			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>

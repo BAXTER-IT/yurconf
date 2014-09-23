@@ -67,7 +67,7 @@
 										</requires>
 										<mappings>
 											<mapping>
-												<directory>/usr/share/java</directory>
+												<directory>${std.lib.dir}</directory>
 												<artifact>
 													<classifiers>
 														<classifier />
@@ -75,10 +75,10 @@
 												</artifact>
 											</mapping>
 											<mapping>
-												<directory>/usr/share/yurconf-processors</directory>
+												<directory>${std.processors.dir}</directory>
 												<sources>
 													<softlinkSource>
-														<location>/usr/share/java/${project.build.finalName}.jar</location>
+														<location>${std.lib.dir}/${project.build.finalName}.jar</location>
 														<destination>${processor.jar}</destination>
 													</softlinkSource>
 												</sources>
@@ -98,7 +98,7 @@
 										</requires>
 										<mappings>
 											<mapping>
-												<directory>${alt.home}/lib</directory>
+												<directory>${alt.lib.dir}</directory>
 												<artifact>
 													<classifiers>
 														<classifier />
@@ -106,10 +106,10 @@
 												</artifact>
 											</mapping>
 											<mapping>
-												<directory>${alt.home}/processors</directory>
+												<directory>${alt.processors.dir}</directory>
 												<sources>
 													<softlinkSource>
-														<location>${alt.home}/lib/${project.build.finalName}.jar</location>
+														<location>${alt.lib.dir}/${project.build.finalName}.jar</location>
 														<destination>${processor.jar}</destination>
 													</softlinkSource>
 												</sources>

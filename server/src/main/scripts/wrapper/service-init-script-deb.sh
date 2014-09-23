@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# configuration-server	Start/stop Baxter Configuration service
+# yurconf-server	Start/stop Yurconf service
 #
 ### BEGIN INIT INFO
 # Provides:          ${unix.service.name}
@@ -17,7 +17,7 @@ set -e
 . /lib/lsb/init-functions
 
 # Daemon process id will be written here
-PIDFILE="/var/run/${unix.service.name}.pid"
+PIDFILE="${f.pid.dir}/${unix.service}.pid"
 
 # Daemon start script
 # TODO add full path
@@ -88,7 +88,7 @@ doStop()
                     ITER=$(expr $ITER + 1)
                     if [ $ITER -eq $MAX_WAIT_CHILD_ITER ]; then
                         break
-                    fi 
+                    fi
                 done
             fi
         fi
@@ -104,7 +104,7 @@ doStop()
                     kill -9 $(cat $PIDFILE)
                 fi
                 break
-            fi 
+            fi
         done
         rm -f $PIDFILE
         log_end_msg 0

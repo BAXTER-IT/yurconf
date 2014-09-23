@@ -1,18 +1,18 @@
 #!/bin/sh
 #
-# configuration-server	Start/stop Baxter Configuration service
+# yurconf-server	Start/stop Yurconf service
 #
 # chkconfig: 345 10 90
 #
 
 ### BEGIN INIT INFO
-# Provides:          ${unix.service.name}
+# Provides:          ${unix.service}
 # Required-Start:    $local_fs $network
 # Required-Stop:     $local_fs $network
 # Default-Start:     3 4 5
 # Default-Stop:      0 1 2 6
 # Short-Description: ${project.name} initscript
-# Description:       This script controls the Baxter ${project.name} service
+# Description:       This script controls the ${unix.service} service
 ### END INIT INFO
 
 # set -e
@@ -27,13 +27,14 @@ if [ "x$PIDDIR" == "x" ]; then
 fi
 mkdir -p $PIDDIR
 if [ ! -w $PIDDIR ]; then
-	echo "PID Directory $PIDDIR is not available to write, please check it"
+	echo "PID Directory $PIDDIR is not writable, please check it"
 	exit 2
 fi
-PIDFILE="$PIDDIR/yurconf-server.pid"
+PIDFILE="$PIDDIR/${unix.service}.pid"
 
 # Daemon start script
-DAEMON="${f.bin.dir}/start-yurconf-server.sh"
+DAEMON="${f.bin.dir}/start-${unix.service}.sh"
+# Daemon will be started with this user
 DAEMONUSER=${unix.user}
 
 MAX_WAIT_CHILD_ITER=50
@@ -52,13 +53,13 @@ if [ "x$OUTDIR" == "x" ]; then
 	OUTDIR="${f.out.dir}"
 fi
 if [ ! -w $OUTDIR ]; then
-	echo "OUT Directory $OUTDIR is not available to write, please check it"
+	echo "OUT Directory $OUTDIR is not writable, please check it"
 	exit 2
 fi
-OUTFILE="$OUTDIR/yurconf-server.out"
+OUTFILE="$OUTDIR/${unix.service}.out"
 export OUTFILE
 
-# TODO instead of waiting for the marker we should ping config server via http?
+# TODO instead of waiting for the marker we should ping yurconf server via http?
 waitForMarker() {
     OUT="$1"
     while [ ! -f $OUT ]; do
@@ -95,7 +96,6 @@ running()
 
 doStart()
 {
-    # Daemon will be started with this user
     MARKER_FOUND=false
     if running $PIDFILE ; then
     	echo "Yurconf Server probably is already running"
@@ -169,8 +169,7 @@ case "$1" in
         status -p $PIDFILE $DAEMON && exit 0 || exit $?
         ;;
   *)
-        SVC="${unix.service}"
-        echo "Usage: service $SVC {start|stop|restart|status}" >&2
+        echo "Usage: service $SERVICENAME {start|stop|restart|status}" >&2
         exit 3
         ;;
 esac
