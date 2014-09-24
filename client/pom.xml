@@ -30,6 +30,86 @@
 	<profiles>
 
 		<profile>
+			<id>DEB</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>filter-deb-scripts</id>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>
+									<outputDirectory>${deb-scripts.dir}</outputDirectory>
+									<filters>
+										<filter>${basedir}/src/filter/default.properties</filter>
+									</filters>
+									<resources>
+										<resource>
+											<directory>src/main/scripts</directory>
+											<includes>
+												<include>*.sh</include>
+											</includes>
+											<filtering>true</filtering>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.vafer</groupId>
+						<artifactId>jdeb</artifactId>
+						<configuration>
+							<dataSet combine.children="append">
+								<data>
+									<type>file</type>
+									<src>src/etc/yurconf</src>
+									<conffile>true</conffile>
+									<mapper>
+										<type>perm</type>
+										<prefix>${std.config.dir}</prefix>
+									</mapper>
+								</data>
+								<data>
+									<type>file</type>
+									<src>${deb-scripts.dir}/yurconf-configuration.sh</src>
+									<mapper>
+										<type>perm</type>
+										<prefix>${std.bin.dir}</prefix>
+										<filemode>755</filemode>
+									</mapper>
+								</data>
+								<data>
+									<type>file</type>
+									<src>${project.build.directory}/${project.build.finalName}.jar</src>
+									<mapper>
+										<type>perm</type>
+										<prefix>${std.lib.dir}</prefix>
+									</mapper>
+								</data>
+								<data>
+									<type>link</type>
+									<linkName>${std.lib.dir}/${project.build.finalName}.jar</linkName>
+									<linkTarget>${std.lib.dir}/${shared.jar}</linkTarget>
+									<symlink>true</symlink>
+								</data>
+							</dataSet>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
 			<id>RPM</id>
 			<activation>
 				<os>
@@ -58,7 +138,7 @@
 										<require>yurconf-om-std</require>
 									</requires>
 									<filters>
-										<filter>${basedir}/src/main/unix/filter/default.properties</filter>
+										<filter>${basedir}/src/filter/default.properties</filter>
 									</filters>
 									<mappings>
 										<mapping>
@@ -66,8 +146,7 @@
 											<configuration>noreplace</configuration>
 											<sources>
 												<source>
-													<location>src/etc/config</location>
-													<destination>yurconf</destination>
+													<location>src/etc</location>
 													<filter>false</filter>
 												</source>
 											</sources>
@@ -78,9 +157,6 @@
 											<sources>
 												<source>
 													<location>src/main/scripts</location>
-													<includes>
-														<include>*.sh</include>
-													</includes>
 													<filter>true</filter>
 												</source>
 											</sources>
@@ -112,7 +188,7 @@
 										<require>yurconf-om-alt</require>
 									</requires>
 									<filters>
-										<filter>${basedir}/src/main/unix/filter/rpm-alt.properties</filter>
+										<filter>${basedir}/src/filter/rpm-alt.properties</filter>
 									</filters>
 									<mappings>
 										<mapping>
@@ -126,8 +202,7 @@
 											<configuration>noreplace</configuration>
 											<sources>
 												<source>
-													<location>src/etc/config</location>
-													<destination>yurconf</destination>
+													<location>src/etc</location>
 													<filter>false</filter>
 												</source>
 											</sources>
@@ -141,9 +216,6 @@
 											<sources>
 												<source>
 													<location>src/main/scripts</location>
-													<includes>
-														<include>*.sh</include>
-													</includes>
 													<filter>true</filter>
 												</source>
 											</sources>

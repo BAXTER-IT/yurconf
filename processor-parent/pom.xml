@@ -37,6 +37,43 @@
 	<profiles>
 
 		<profile>
+			<id>DEB</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.vafer</groupId>
+							<artifactId>jdeb</artifactId>
+							<configuration>
+								<dataSet combine.children="append">
+									<data>
+										<type>file</type>
+										<src>${project.build.directory}/${project.build.finalName}.jar</src>
+										<mapper>
+											<type>perm</type>
+											<prefix>${std.lib.dir}</prefix>
+										</mapper>
+									</data>
+									<data>
+										<type>link</type>
+										<linkName>${std.lib.dir}/${project.build.finalName}.jar</linkName>
+										<linkTarget>${std.processors.dir}/${processor.jar}</linkTarget>
+										<symlink>true</symlink>
+									</data>
+								</dataSet>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+
+		<profile>
 			<id>RPM</id>
 			<activation>
 				<os>

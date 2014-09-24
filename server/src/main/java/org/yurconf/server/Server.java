@@ -1,10 +1,10 @@
 /*
  * Yurconf Server
  * This software is distributed as is.
- * 
+ *
  * We do not care about any damages that could be caused
  * by this software directly or indirectly.
- * 
+ *
  * Join our team to help make it better.
  */
 package org.yurconf.server;
@@ -37,7 +37,7 @@ public class Server extends org.eclipse.jetty.server.Server
 
   private static final String DEFAULT_HOST = "0.0.0.0";
   private static final int DEFAULT_PORT = 4040;
-  private static final String DEFAULT_CONTEXT = "/yurconf";
+  private static final String DEFAULT_CONTEXT = "/";
 
   Server()
   {

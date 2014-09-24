@@ -1,7 +1,8 @@
 #!/bin/sh
 #
-# Reads client configuration file and exports environment variables
-#
+# Reads Yurconf client configuration file and exports environment variables
+#   YURCONF_URL
+#   YURCONF_VARIANTS
 
 # Configuration file that keeps environment start point configuration
 CONFIG_FILE="${f.config}"
@@ -11,14 +12,14 @@ readConfigParameter() {
 }
 
 # Configuration start point URL
-CONFIG_URL="$(readConfigParameter "url")"
-if [ "x" = "x$CONFIG_URL" ]; then
+YURCONF_URL="$(readConfigParameter "url")"
+if [ "x" = "x$YURCONF_URL" ]; then
     echo "Failed to read configuration URL from $CONFIG_FILE"
     exit 1
 fi
 
 # Configuration environment variant
-CONFIG_VARIANTS="$(readConfigParameter "variants")"
+YURCONF_VARIANTS="$(readConfigParameter "variants")"
 
-export CONFIG_URL
-export CONFIG_VARIANTS
+export YURCONF_URL
+export YURCONF_VARIANTS

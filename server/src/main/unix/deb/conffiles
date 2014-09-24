@@ -1,4 +1,0 @@
-${unix.config.dir}/configuration-server
-${unix.config.dir}/configuration-server-log.xml
-${unix.config.dir}/configuration-server-logback.xml
-${unix.config.dir}/configuration-server-log4j.xml

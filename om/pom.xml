@@ -20,6 +20,41 @@
 	<profiles>
 
 		<profile>
+			<id>DEB</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.vafer</groupId>
+						<artifactId>jdeb</artifactId>
+						<configuration>
+							<dataSet combine.children="append">
+								<data>
+									<type>file</type>
+									<src>${project.build.directory}/${project.build.finalName}.jar</src>
+									<mapper>
+										<type>perm</type>
+										<prefix>${std.lib.dir}</prefix>
+									</mapper>
+								</data>
+								<data>
+									<type>link</type>
+									<linkName>${std.lib.dir}/${project.build.finalName}.jar</linkName>
+									<linkTarget>${std.lib.dir}/${shared.jar}</linkTarget>
+									<symlink>true</symlink>
+								</data>
+							</dataSet>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
 			<id>RPM</id>
 			<activation>
 				<os>
@@ -38,6 +73,9 @@
 								<id>build-std-rpm-installer</id>
 								<configuration>
 									<mappings>
+										<mapping>
+											<directory>${std.lib.dir}</directory>
+										</mapping>
 										<mapping>
 											<directory>${std.lib.dir}</directory>
 											<artifact>

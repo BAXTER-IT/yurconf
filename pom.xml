@@ -203,15 +203,13 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>rpm-maven-plugin</artifactId>
-					<version>2.1-alpha-3</version>
-					<extensions>true</extensions>
+					<version>2.1-alpha-4</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.vafer</groupId>
 					<artifactId>jdeb</artifactId>
-					<version>1.2</version>
-					<extensions>true</extensions>
+					<version>1.3</version>
 				</plugin>
 
 				<plugin>
@@ -306,13 +304,13 @@
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
-				<version>1.7.5</version>
+				<version>1.7.7</version>
 			</dependency>
 
 			<dependency>
-				<artifactId>logback-classic</artifactId>
 				<groupId>ch.qos.logback</groupId>
-				<version>1.0.13</version>
+				<artifactId>logback-classic</artifactId>
+				<version>1.1.1</version>
 			</dependency>
 
 			<dependency>
@@ -461,27 +459,6 @@
 			</activation>
 			<build>
 				<plugins>
-					<plugin>
-						<artifactId>maven-resources-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>filter-package-scripts</id>
-								<goals>
-									<goal>copy-resources</goal>
-								</goals>
-								<phase>generate-resources</phase>
-								<configuration>
-									<outputDirectory>src/main/unix/scripts</outputDirectory>
-									<resources>
-										<resource>
-											<directory>src/main/unix/scripts-src</directory>
-											<filtering>true</filtering>
-										</resource>
-									</resources>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
 				</plugins>
 			</build>
 			<properties>
@@ -491,6 +468,74 @@
 				<unix.package.name>${project.artifactId}</unix.package.name>
 				<unix.user>yurconf</unix.user>
 				<unix.group>yurconf</unix.group>
+				<std.config.dir>/etc</std.config.dir>
+				<std.bin.dir>/usr/bin</std.bin.dir>
+				<std.lib.dir>/usr/share/java/yurconf</std.lib.dir>
+				<std.processors.dir>/usr/share/java/yurconf/processors</std.processors.dir>
+				<std.log.dir>/var/log/yurconf</std.log.dir>
+				<std.repository.dir>/var/local/yurconf</std.repository.dir>
+				<std.doc.dir>/usr/share/doc/yurconf</std.doc.dir>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>DEB</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<artifactId>maven-resources-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>filter-deb-control</id>
+									<goals>
+										<goal>copy-resources</goal>
+									</goals>
+									<phase>generate-resources</phase>
+									<configuration>
+										<verbose>true</verbose>
+										<outputDirectory>${deb-control.dir}</outputDirectory>
+										<resources>
+											<resource>
+												<directory>src/unix-control/deb</directory>
+												<filtering>true</filtering>
+											</resource>
+										</resources>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+						<plugin>
+							<groupId>org.vafer</groupId>
+							<artifactId>jdeb</artifactId>
+							<configuration>
+								<snapshotExpand>true</snapshotExpand>
+								<controlDir>${deb-control.dir}</controlDir>
+							</configuration>
+							<executions>
+								<execution>
+									<id>build-deb-installer</id>
+									<phase>package</phase>
+									<goals>
+										<goal>jdeb</goal>
+									</goals>
+									<configuration>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+			<properties>
+				<deb-control.dir>${project.build.directory}/deb-control</deb-control.dir>
+				<deb-scripts.dir>${project.build.directory}/deb-scripts</deb-scripts.dir>
+				<deb-deps.dir>${project.build.directory}/deb-dependencies</deb-deps.dir>
 			</properties>
 		</profile>
 
@@ -504,6 +549,27 @@
 			<build>
 				<pluginManagement>
 					<plugins>
+						<plugin>
+							<artifactId>maven-resources-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>filter-rpm-control</id>
+									<goals>
+										<goal>copy-resources</goal>
+									</goals>
+									<phase>generate-resources</phase>
+									<configuration>
+										<outputDirectory>${rpm-control.dir}</outputDirectory>
+										<resources>
+											<resource>
+												<directory>src/unix-control/rpm</directory>
+												<filtering>true</filtering>
+											</resource>
+										</resources>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
 							<artifactId>rpm-maven-plugin</artifactId>
@@ -524,6 +590,9 @@
 					</plugins>
 				</pluginManagement>
 			</build>
+			<properties>
+				<rpm-control.dir>${project.build.directory}/rpm-control</rpm-control.dir>
+			</properties>
 		</profile>
 
 		<profile>
@@ -609,13 +678,6 @@
 				</pluginManagement>
 			</build>
 			<properties>
-				<std.config.dir>/etc</std.config.dir>
-				<std.bin.dir>/usr/bin</std.bin.dir>
-				<std.lib.dir>/usr/share/java/yurconf</std.lib.dir>
-				<std.processors.dir>/usr/share/java/yurconf/processors</std.processors.dir>
-				<std.log.dir>/var/log/yurconf</std.log.dir>
-				<std.repository.dir>/var/local/yurconf</std.repository.dir>
-				<std.doc.dir>/usr/share/doc/yurconf</std.doc.dir>
 			</properties>
 		</profile>
 

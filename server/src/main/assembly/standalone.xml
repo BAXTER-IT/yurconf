@@ -77,9 +77,6 @@
 			<useProjectArtifact>false</useProjectArtifact>
 			<scope>provided</scope>
 			<useTransitiveDependencies>true</useTransitiveDependencies>
-			<includes>
-				<include>commons*:commons*</include>
-			</includes>
 		</dependencySet>
 	</dependencySets>
 

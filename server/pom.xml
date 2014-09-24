@@ -51,7 +51,7 @@
 								<descriptor>src/main/assembly/standalone.xml</descriptor>
 							</descriptors>
 							<filters>
-								<filter>${basedir}/src/main/unix/filter/standalone.properties</filter>
+								<filter>${basedir}/src/filter/standalone.properties</filter>
 							</filters>
 						</configuration>
 					</execution>
@@ -63,6 +63,119 @@
 	</build>
 
 	<profiles>
+
+		<profile>
+			<id>DEB</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>filter-deb-scripts</id>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>
+									<outputDirectory>${deb-scripts.dir}</outputDirectory>
+									<filters>
+										<filter>${basedir}/src/filter/default.properties</filter>
+									</filters>
+									<resources>
+										<resource>
+											<directory>src/main/scripts</directory>
+											<includes>
+												<include>start-yurconf-server.sh</include>
+												<include>wrapper/service-init-script-deb.sh</include>
+											</includes>
+											<filtering>true</filtering>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>collect-dependencies</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+								<configuration>
+									<attach>false</attach>
+									<finalName>deb</finalName>
+									<descriptors>
+										<descriptor>src/main/assembly/deb-deps.xml</descriptor>
+									</descriptors>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.vafer</groupId>
+						<artifactId>jdeb</artifactId>
+						<configuration>
+							<dataSet combine.children="append">
+								<data>
+									<src>src/etc</src>
+									<type>directory</type>
+									<excludes>README.TXT</excludes>
+									<conffile>true</conffile>
+									<mapper>
+										<type>perm</type>
+										<prefix>${std.config.dir}</prefix>
+									</mapper>
+								</data>
+								<data>
+									<type>file</type>
+									<src>${deb-scripts.dir}/start-yurconf-server.sh</src>
+									<mapper>
+										<type>perm</type>
+										<prefix>${std.bin.dir}</prefix>
+										<filemode>755</filemode>
+									</mapper>
+								</data>
+								<data>
+									<type>file</type>
+									<src>${deb-scripts.dir}/wrapper/service-init-script-deb.sh</src>
+									<dst>${unix.service}</dst>
+									<mapper>
+										<type>perm</type>
+										<prefix>${unix.service.dir}</prefix>
+										<filemode>755</filemode>
+									</mapper>
+								</data>
+								<data>
+									<src>${deb-deps.dir}</src>
+									<type>directory</type>
+									<mapper>
+										<type>perm</type>
+										<prefix>${std.lib.dir}</prefix>
+									</mapper>
+								</data>
+								<data>
+									<type>link</type>
+									<linkName>${std.lib.dir}/${project.build.finalName}.jar</linkName>
+									<linkTarget>${std.lib.dir}/${shared.jar}</linkTarget>
+									<symlink>true</symlink>
+								</data>
+							</dataSet>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<properties>
+			</properties>
+		</profile>
 
 		<profile>
 			<id>RPM</id>
@@ -84,13 +197,14 @@
 								<require>commons-io</require>
 								<require>commons-beanutils</require>
 								<require>yurconf-om &gt;= ${yurconf.version}</require>
+								<require>logback</require>
 							</requires>
 							<conflicts>
 								<conflict>config-server</conflict>
 								<conflict>baxter-config-server</conflict>
 							</conflicts>
 							<preinstallScriptlet>
-								<scriptFile>src/main/unix/scripts/rpm-pre-install</scriptFile>
+								<scriptFile>src/unix-control/rpm/pre-install</scriptFile>
 							</preinstallScriptlet>
 						</configuration>
 						<executions>
@@ -102,7 +216,7 @@
 										<require>yurconf-om-std</require>
 									</requires>
 									<filters>
-										<filter>${basedir}/src/main/unix/filter/default.properties</filter>
+										<filter>${basedir}/src/filter/default.properties</filter>
 									</filters>
 									<mappings>
 										<mapping>
@@ -182,7 +296,7 @@
 										<require>yurconf-om-alt</require>
 									</requires>
 									<filters>
-										<filter>${basedir}/src/main/unix/filter/rpm-alt.properties</filter>
+										<filter>${basedir}/src/filter/rpm-alt.properties</filter>
 									</filters>
 									<mappings>
 										<mapping>
@@ -250,12 +364,6 @@
 											</dependency>
 											<sources>
 												<softlinkSource>
-													<location>/usr/share/java/commons-io.jar</location>
-												</softlinkSource>
-												<softlinkSource>
-													<location>/usr/share/java/commons-beanutil.jar</location>
-												</softlinkSource>
-												<softlinkSource>
 													<location>${alt.lib.dir}/${project.build.finalName}.jar</location>
 													<destination>${shared.jar}</destination>
 												</softlinkSource>
@@ -302,6 +410,18 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>yurconf-om</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
 			<scope>provided</scope>
 		</dependency>
 

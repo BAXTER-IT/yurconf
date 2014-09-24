@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+
+echo "Registering ${unix.service} service..."
+update-rc.d ${unix.service} defaults
