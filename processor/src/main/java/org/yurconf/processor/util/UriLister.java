@@ -1,10 +1,10 @@
 /*
  * Yurconf Processor Fundamental
  * This software is distributed as is.
- * 
+ *
  * We do not care about any damages that could be caused
  * by this software directly or indirectly.
- * 
+ *
  * Join our team to help make it better.
  */
 package org.yurconf.processor.util;
@@ -31,6 +31,13 @@ import org.apache.commons.io.FilenameUtils;
 public abstract class UriLister
 {
 
+  /**
+   * Prefix for file URI.
+   */
+  private static final String FILE_URI_SCHEME = "file";
+
+  private static final String JAR_URI_SCHEME = "jar";
+
   private static final UriLister JAR_URILISTER = new JarUriLister();
 
   private static final UriLister FILE_URILISTER = new FileUriLister();
@@ -54,15 +61,15 @@ public abstract class UriLister
    */
   public static UriLister getInstance(final URI uri)
   {
-	if (JarUriLister.URI_SCHEME.equals(uri.getScheme()))
+	switch (uri.getScheme())
 	{
+	case JAR_URI_SCHEME:
 	  return getJarListerInstance();
-	}
-	if (FileUriLister.URI_SCHEME.equals(uri.getScheme()))
-	{
+	case FILE_URI_SCHEME:
 	  return getFileListerInstance();
+	default:
+	  throw new IllegalArgumentException("Unsupported URL");
 	}
-	throw new IllegalArgumentException("Unsupported URL");
   }
 
   /**
@@ -126,11 +133,6 @@ public abstract class UriLister
 
   private static class FileUriLister extends UriLister
   {
-	/**
-	 * Prefix for file URI.
-	 */
-	private static final String URI_SCHEME = "file";
-
 	@Override
 	public List<String> list(final URI uri) throws IOException
 	{
@@ -193,8 +195,6 @@ public abstract class UriLister
 	 * RegExp for JAR Entry URI.
 	 */
 	private static final Pattern URI_PATTERN = Pattern.compile("jar:file:([^!]+)!/(.*)");
-
-	private static final String URI_SCHEME = "jar:";
 
 	@Override
 	public List<String> list(final URI uri, final String mask) throws IOException
