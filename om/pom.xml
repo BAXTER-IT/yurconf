@@ -17,7 +17,83 @@
 
 	</dependencies>
 
+	<profiles>
+
+		<profile>
+			<id>RPM</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>rpm-maven-plugin</artifactId>
+						<configuration>
+						</configuration>
+						<executions>
+							<execution>
+								<id>build-std-rpm-installer</id>
+								<configuration>
+									<mappings>
+										<mapping>
+											<directory>${std.lib.dir}</directory>
+											<artifact>
+												<classifiers>
+													<classifier />
+												</classifiers>
+											</artifact>
+											<sources>
+												<softlinkSource>
+													<location>${std.lib.dir}/${project.build.finalName}.jar</location>
+													<destination>${shared.jar}</destination>
+												</softlinkSource>
+											</sources>
+										</mapping>
+									</mappings>
+								</configuration>
+							</execution>
+							<execution>
+								<id>build-alt-rpm-installer</id>
+								<configuration>
+									<mappings>
+										<mapping>
+											<directory>${alt.home}</directory>
+										</mapping>
+										<mapping>
+											<directory>${alt.lib.dir}</directory>
+										</mapping>
+										<mapping>
+											<directory>${alt.lib.dir}</directory>
+											<artifact>
+												<classifiers>
+													<classifier />
+												</classifiers>
+											</artifact>
+											<sources>
+												<softlinkSource>
+													<location>${alt.lib.dir}/${project.build.finalName}.jar</location>
+													<destination>${shared.jar}</destination>
+												</softlinkSource>
+											</sources>
+										</mapping>
+									</mappings>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+			<properties>
+			</properties>
+		</profile>
+
+	</profiles>
+
 	<properties>
+		<shared.jar>yurconf-om.jar</shared.jar>
 	</properties>
 
 </project>

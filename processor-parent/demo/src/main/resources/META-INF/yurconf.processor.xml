@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<descriptor xmlns="http://yurconf.org/descriptor" version="1.0" productId="org.yurconf.demo">
+<descriptor xmlns="http://yurconf.org/descriptor" version="1.0" productId="org.yurconf.demo" root="processor/">
 	<processors>
 		<processor class="org.yurconf.processor.impl.XSLTProcessor" type="hello">
 			<parameter name="stylesheet">hello.xsl</parameter>

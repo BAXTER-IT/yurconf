@@ -1,15 +1,14 @@
 /*
  * Yurconf Processor Fundamental
  * This software is distributed as is.
- * 
+ *
  * We do not care about any damages that could be caused
  * by this software directly or indirectly.
- * 
+ *
  * Join our team to help make it better.
  */
 package org.yurconf.processor.desc;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -54,6 +53,9 @@ public class Descriptor
   @XmlAttribute(name = "viewer", required = false)
   private String viewerStylesheet;
 
+  @XmlAttribute(name = "root", required = false)
+  private String resourceRoot;
+
   @XmlElementWrapper(name = "processors")
   @XmlElement(name = "processor")
   private final List<Processor> processors = new ArrayList<Processor>();
@@ -84,7 +86,8 @@ public class Descriptor
 	  throw new IllegalArgumentException("Cannot use processor descriptor URL as null");
 	}
 	this.url = url;
-	this.rootUri = url.toURI().resolve("../").normalize();
+	final URI packageRoot = url.toURI().resolve("../").normalize();
+	this.rootUri = (resourceRoot == null || resourceRoot.isEmpty()) ? packageRoot : packageRoot.resolve(resourceRoot);
 	this.defaultSourceUri = this.rootUri.resolve("META-INF/default");
   }
 

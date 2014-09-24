@@ -17,21 +17,6 @@
 
 		<plugins>
 
-			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<addMavenDescriptor>true</addMavenDescriptor>
-						<manifest>
-							<addClasspath>true</addClasspath>
-						</manifest>
-						<manifestEntries>
-							<Class-Path>commons-io.jar commons-beanutils.jar commons-logging.jar</Class-Path>
-						</manifestEntries>
-					</archive>
-				</configuration>
-			</plugin>
-
 		</plugins>
 
 		<pluginManagement>
@@ -40,12 +25,20 @@
 		</pluginManagement>
 	</build>
 
+	<dependencyManagement>
+
+		<dependencies>
+
+		</dependencies>
+
+	</dependencyManagement>
+
 	<dependencies>
 
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>yurconf-om</artifactId>
-			<version>${project.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -63,13 +56,11 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>

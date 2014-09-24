@@ -23,17 +23,6 @@
 
 		<plugins>
 
-			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest combine.children="append">
-							<addClasspath>true</addClasspath>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-
 		</plugins>
 
 	</build>
@@ -57,11 +46,17 @@
 								<conflict>config-client</conflict>
 								<conflict>baxter-config-client</conflict>
 							</conflicts>
+							<requires combine.children="append">
+								<require>yurconf-om &gt;= ${yurconf.version}</require>
+							</requires>
 						</configuration>
 						<executions>
 							<execution>
 								<id>build-std-rpm-installer</id>
 								<configuration>
+									<requires combine.children="append">
+										<require>yurconf-om-std</require>
+									</requires>
 									<filters>
 										<filter>${basedir}/src/main/unix/filter/default.properties</filter>
 									</filters>
@@ -71,7 +66,7 @@
 											<configuration>noreplace</configuration>
 											<sources>
 												<source>
-													<location>src/main/etc/config</location>
+													<location>src/etc/config</location>
 													<destination>yurconf</destination>
 													<filter>false</filter>
 												</source>
@@ -113,6 +108,9 @@
 							<execution>
 								<id>build-alt-rpm-installer</id>
 								<configuration>
+									<requires combine.children="append">
+										<require>yurconf-om-alt</require>
+									</requires>
 									<filters>
 										<filter>${basedir}/src/main/unix/filter/rpm-alt.properties</filter>
 									</filters>
@@ -128,7 +126,7 @@
 											<configuration>noreplace</configuration>
 											<sources>
 												<source>
-													<location>src/main/etc/config</location>
+													<location>src/etc/config</location>
 													<destination>yurconf</destination>
 													<filter>false</filter>
 												</source>
@@ -188,7 +186,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>yurconf-om</artifactId>
-			<version>${project.version}</version>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>

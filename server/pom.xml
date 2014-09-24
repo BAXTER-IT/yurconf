@@ -38,22 +38,6 @@
 			</plugin>
 
 			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<addMavenDescriptor>true</addMavenDescriptor>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<mainClass>org.yurconf.server.Main</mainClass>
-						</manifest>
-						<manifestEntries>
-							<Class-Path>baxter-jetty-wrapper.jar baxter-log-connector.jar</Class-Path>
-						</manifestEntries>
-					</archive>
-				</configuration>
-			</plugin>
-
-			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
 					<execution>
@@ -68,20 +52,6 @@
 							</descriptors>
 							<filters>
 								<filter>${basedir}/src/main/unix/filter/standalone.properties</filter>
-							</filters>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>filter-control-files</id>
-						<configuration>
-							<filters>
-								<filter>${basedir}/src/main/unix/filter/default.properties</filter>
 							</filters>
 						</configuration>
 					</execution>
@@ -107,12 +77,13 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>rpm-maven-plugin</artifactId>
 						<configuration>
-							<requires>
-								<require>java &gt;= 1.7.0</require>
-								<require>baxter-jetty-wrapper</require>
-								<require>baxter-log-connector</require>
-								<require>jakarta-commons-io</require>
-								<require>jakarta-commons-beanutils</require>
+							<requires combine.children="append">
+								<require>java &gt;= 1.7</require>
+								<require>jetty-servlet &gt;= 9.0.5</require>
+								<require>jetty-server &gt;= 9.0.5</require>
+								<require>commons-io</require>
+								<require>commons-beanutils</require>
+								<require>yurconf-om &gt;= ${yurconf.version}</require>
 							</requires>
 							<conflicts>
 								<conflict>config-server</conflict>
@@ -128,6 +99,7 @@
 								<configuration>
 									<requires combine.children="append">
 										<require>baxter-log-connector-std</require>
+										<require>yurconf-om-std</require>
 									</requires>
 									<filters>
 										<filter>${basedir}/src/main/unix/filter/default.properties</filter>
@@ -207,6 +179,7 @@
 								<configuration>
 									<requires combine.children="append">
 										<require>baxter-log-connector-alt</require>
+										<require>yurconf-om-alt</require>
 									</requires>
 									<filters>
 										<filter>${basedir}/src/main/unix/filter/rpm-alt.properties</filter>
@@ -303,6 +276,18 @@
 
 		<dependencies>
 
+			<dependency>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-server</artifactId>
+				<version>9.0.5.v20130815</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-servlet</artifactId>
+				<version>9.0.5.v20130815</version>
+			</dependency>
+
 		</dependencies>
 
 	</dependencyManagement>
@@ -312,7 +297,12 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>yurconf-processor</artifactId>
-			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>yurconf-om</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -328,27 +318,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
-			<version>9.0.5.v20130815</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-servlet</artifactId>
-			<version>9.0.5.v20130815</version>
+			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>

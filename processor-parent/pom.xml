@@ -131,14 +131,18 @@
 		<dependency>
 			<groupId>org.yurconf</groupId>
 			<artifactId>yurconf-processor</artifactId>
-			<version>${yurconf.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.yurconf</groupId>
+			<artifactId>yurconf-om</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
 
 	<properties>
-		<yurconf.version>${project.version}</yurconf.version>
 		<processor.jar>${project.artifactId}.jar</processor.jar>
 	</properties>
 
