@@ -33,7 +33,7 @@ import org.yurconf.om.Version;
 public class Descriptor
 {
 
-  public static final String PROCESSOR_XML_RESOURCE = "META-INF/org.yurconf.processor.xml";
+  public static final String PROCESSOR_XML_RESOURCE = "META-INF/yurconf.processor.xml";
 
   @XmlTransient
   private URL url;

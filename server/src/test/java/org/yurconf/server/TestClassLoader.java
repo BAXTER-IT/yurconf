@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.Enumeration;
 
 import org.junit.Test;
-import org.yurconf.server.ClassLoader;
+import org.yurconf.server.ProcessorsClassLoader;
 
 public class TestClassLoader
 {
@@ -22,7 +22,7 @@ public class TestClassLoader
   @Test
   public void loadJars() throws Exception
   {
-	final ClassLoader cl = ClassLoader.createInstance("./src/test/fs/processors");
+	final ProcessorsClassLoader cl = ProcessorsClassLoader.createInstance("./src/test/fs/processors");
 	final Enumeration<URL> resources = cl.getResources("META-INF/org.yurconf.processor.xml");
 	while (resources.hasMoreElements())
 	{

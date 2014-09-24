@@ -27,23 +27,23 @@ import org.slf4j.LoggerFactory;
 import org.yurconf.processor.AbstractProcessor;
 import org.yurconf.processor.desc.Descriptor;
 
-class ClassLoader extends URLClassLoader
+public class ProcessorsClassLoader extends URLClassLoader
 {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ClassLoader.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ProcessorsClassLoader.class);
 
-  public static ClassLoader createInstance(final String location)
+  public static ProcessorsClassLoader createInstance(final String location)
   {
-	final ClassLoader cl = new ClassLoader(location);
-	return cl;
+	return new ProcessorsClassLoader(location);
   }
 
-  private ClassLoader(final String location)
+  private ProcessorsClassLoader(final String location)
   {
 	super(new URL[0], AbstractProcessor.class.getClassLoader());
 	final Path path = FileSystems.getDefault().getPath(location);
 	try
 	{
+	  LOGGER.trace("Walking file tree for {}", location);
 	  Files.walkFileTree(path, new JarFileVisitor());
 	}
 	catch (final IOException e)
@@ -55,8 +55,9 @@ class ClassLoader extends URLClassLoader
   private class JarFileVisitor extends SimpleFileVisitor<Path>
   {
 	@Override
-	public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException
+	public FileVisitResult visitFile(final Path path, final BasicFileAttributes attrs) throws IOException
 	{
+	  LOGGER.trace("Visiting path {}", path);
 	  final File file = path.toFile();
 	  if (file.getName().endsWith(".jar"))
 	  {
@@ -68,6 +69,10 @@ class ClassLoader extends URLClassLoader
 			final URL jarUrl = path.toUri().toURL();
 			LOGGER.trace("Adding JAR {} to class loader", jarUrl);
 			addURL(jarUrl);
+		  }
+		  else
+		  {
+			LOGGER.warn("Found JAR file {} without descriptor", file);
 		  }
 		}
 		catch (final IOException e)

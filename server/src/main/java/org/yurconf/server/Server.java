@@ -51,7 +51,7 @@ public class Server extends org.eclipse.jetty.server.Server
 	context.addServlet(PingServlet.class, "/ping");
 	final String processorsPath = System.getProperty(SYSP_PROCESSORS);
 	LOGGER.trace("Yurconf Server Processors here {}", processorsPath);
-	final ClassLoader classLoader = ClassLoader.createInstance(processorsPath);
+	final ProcessorsClassLoader classLoader = ProcessorsClassLoader.createInstance(processorsPath);
 	context.setClassLoader(classLoader);
 	context.addEventListener(new ProcessorFactoryInitializer(classLoader));
 	setHandler(context);
