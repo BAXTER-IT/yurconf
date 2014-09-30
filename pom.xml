@@ -496,7 +496,7 @@
 									<goals>
 										<goal>copy-resources</goal>
 									</goals>
-									<phase>generate-resources</phase>
+									<phase>process-resources</phase>
 									<configuration>
 										<verbose>true</verbose>
 										<outputDirectory>${deb-control.dir}</outputDirectory>
@@ -557,7 +557,7 @@
 									<goals>
 										<goal>copy-resources</goal>
 									</goals>
-									<phase>generate-resources</phase>
+									<phase>process-resources</phase>
 									<configuration>
 										<outputDirectory>${rpm-control.dir}</outputDirectory>
 										<resources>
@@ -623,6 +623,9 @@
 										<conflicts>
 											<conflict>${unix.package.name}-std</conflict>
 										</conflicts>
+										<prefixes>
+											<prefix>${alt.home}</prefix>
+										</prefixes>
 									</configuration>
 								</execution>
 							</executions>

@@ -42,8 +42,40 @@ else
 	JAVA="$JAVA_HOME/bin/java"
 fi
 
-MAIN_JAR="${f.jar}"
-PROGRAM="$JAVA $JAVA_OPTS -jar $MAIN_JAR"
+LIBDIR="${f.lib.dir}"
+
+# Finds a dependency (1-st param) in a specified path (2-nd param)
+findDep() {
+	echo "$(echo $1 | xargs find $2 -name | head -1)"
+}
+
+# Looks up the dependency specified by param
+lookupDep() {
+	p="$(findDep $1 $LIBDIR)"
+	if [ "x$p" == "x" ]; then
+		p="$(findDep $1 /usr/share/java)"
+		if [ "x$p" == "x" ]; then
+			return 1
+		fi
+	fi
+	echo "$p"
+}
+
+# Relativizes a path given by parameter
+toRel() {
+	echo "$(perl -e 'use File::Spec; print File::Spec->abs2rel(@ARGV) . "\n"' $1 $(pwd))"
+}
+
+DEPS="${unix-classpath}"
+YCP="$(toRel ${f.lib.dir}/${project.build.finalName}.jar)"
+for d in ${DEPS//:/ }; do
+	pattern="'$( echo $d | sed 's/\.jar/\*\.jar/' | sed 's/\///g' )'"
+	YCP="$YCP:$(toRel $(lookupDep $pattern))"
+done
+
+echo "Reconstructred classpath: $YCP"
+
+PROGRAM="$JAVA $JAVA_OPTS -cp $YCP org.yurconf.server.Main"
 
 # Run in terminal or as a daemon?
 if $RUNASDAEMON ; then

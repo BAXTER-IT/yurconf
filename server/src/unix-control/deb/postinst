@@ -3,3 +3,5 @@
 
 echo "Registering ${unix.service} service..."
 update-rc.d ${unix.service} defaults
+
+PATHS=${unix-classpath}

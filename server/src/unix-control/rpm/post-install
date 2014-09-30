@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Post-Install
+#
+
+if [ "x$RPM_INSTALL_PREFIX" == "x" ]; then
+	BINDIR="${std.bin.dir}"
+else
+	BINDIR="$RPM_INSTALL_PREFIX/bin"
+fi
+
+# Reconstruction of classpath could be done here.
+# But where to store the classpath?

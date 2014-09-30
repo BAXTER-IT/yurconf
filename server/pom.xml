@@ -58,6 +58,44 @@
 				</executions>
 			</plugin>
 
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>build-unix-classpath</id>
+						<goals>
+							<goal>build-classpath</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<outputFile>${project.build.directory}/unix-classpath</outputFile>
+							<outputProperty>unix-classpath</outputProperty>
+							<fileSeparator>/</fileSeparator>
+							<pathSeparator>:</pathSeparator>
+							<prefix>$LIBS</prefix>
+							<includeScope>compile</includeScope>
+							<stripVersion>true</stripVersion>
+						</configuration>
+					</execution>
+					<execution>
+						<id>build-windows-classpath</id>
+						<goals>
+							<goal>build-classpath</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<outputFile>${project.build.directory}/windows-classpath</outputFile>
+							<outputProperty>windows-classpath</outputProperty>
+							<fileSeparator>\</fileSeparator>
+							<pathSeparator>;</pathSeparator>
+							<prefix>%LIBS%</prefix>
+							<includeScope>compile</includeScope>
+							<stripVersion>true</stripVersion>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 
 	</build>
@@ -204,8 +242,17 @@
 								<conflict>baxter-config-server</conflict>
 							</conflicts>
 							<preinstallScriptlet>
-								<scriptFile>src/unix-control/rpm/pre-install</scriptFile>
+								<scriptFile>${rpm-control.dir}/pre-install</scriptFile>
 							</preinstallScriptlet>
+							<postinstallScriptlet>
+								<scriptFile>${rpm-control.dir}/post-install</scriptFile>
+							</postinstallScriptlet>
+							<preremoveScriptlet>
+								<scriptFile>${rpm-control.dir}/pre-remove</scriptFile>
+							</preremoveScriptlet>
+							<postremoveScriptlet>
+								<scriptFile>${rpm-control.dir}/post-remove</scriptFile>
+							</postremoveScriptlet>
 						</configuration>
 						<executions>
 							<execution>
@@ -434,7 +481,7 @@
 		<dependency>
 			<artifactId>logback-classic</artifactId>
 			<groupId>ch.qos.logback</groupId>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
