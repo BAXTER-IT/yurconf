@@ -33,7 +33,7 @@ import org.yurconf.processor.ConfigurationRepository;
 import org.yurconf.processor.ProcessorContext;
 import org.yurconf.processor.ProcessorException;
 import org.yurconf.processor.desc.Descriptor;
-import org.yurconf.processor.repo.RepositoryException;
+import org.yurconf.repo.file.RepositoryException;
 
 /**
  * @author yura

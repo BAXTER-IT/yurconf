@@ -1,10 +1,10 @@
 /*
  * Yurconf Processor Fundamental
  * This software is distributed as is.
- * 
+ *
  * We do not care about any damages that could be caused
  * by this software directly or indirectly.
- * 
+ *
  * Join our team to help make it better.
  */
 package org.yurconf.processor;
@@ -15,7 +15,6 @@ import java.util.Iterator;
 
 import org.yurconf.processor.desc.Descriptor;
 import org.yurconf.processor.desc.Upgrade;
-import org.yurconf.processor.repo.RepositoryException;
 
 /**
  * @author yura
@@ -32,7 +31,7 @@ public interface ConfigurationRepository
 
   /**
    * Returns the root directory for specified product.
-   * 
+   *
    * @param productId
    *          product identifier
    * @return directory
@@ -41,7 +40,7 @@ public interface ConfigurationRepository
 
   /**
    * Loads a product processors descriptor from this repository.
-   * 
+   *
    * @param productId
    *          product identifier
    * @return processors descriptor
@@ -51,12 +50,12 @@ public interface ConfigurationRepository
    *           if the descriptor file has not been found in repository
    */
   Descriptor getDescriptor(final String productId) throws ProcessorException;
-  
+
   Iterator<Descriptor> getDescriptors() throws ProcessorException;
 
   /**
    * Upgrades the package in repository.
-   * 
+   *
    * @param descriptor
    *          the package descriptor
    * @param upgrade
@@ -70,7 +69,7 @@ public interface ConfigurationRepository
   /**
    * Install a configuration processor package into repository. Copies all necessary resources from processor package to a local
    * repository.
-   * 
+   *
    * @param descriptor
    *          the processor descriptor
    * @throws IOException

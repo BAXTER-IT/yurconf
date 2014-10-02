@@ -1,10 +1,10 @@
 /*
  * Yurconf Processor Fundamental
  * This software is distributed as is.
- * 
+ *
  * We do not care about any damages that could be caused
  * by this software directly or indirectly.
- * 
+ *
  * Join our team to help make it better.
  */
 package org.yurconf.processor.impl;
@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -26,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import org.yurconf.processor.AbstractProcessor;
 import org.yurconf.processor.ProcessorException;
 import org.yurconf.processor.desc.Descriptor;
+import org.yurconf.processor.util.UriManipulator;
 
 /**
  * Custom Yurconf Protocols for XSLT Processing.
@@ -48,13 +50,13 @@ enum YurconfProtocol
 	  final String productId = uri.getHost();
 	  final String path = uri.getPath();
 	  final Descriptor descriptor = processor.getFactory().getRepository().getDescriptor(productId);
-	  final URI resolvedUri = descriptor.getRootUri().resolve(path.substring(1));
-	  LOGGER.trace("URI {} resolved to {}", uri, resolvedUri);
 	  try
 	  {
+		final URI resolvedUri = UriManipulator.resolve(descriptor.getRootUri(), path.substring(1));
+		LOGGER.trace("URI {} resolved to {}", uri, resolvedUri);
 		return new StreamSource(resolvedUri.toURL().openStream(), uri.toString());
 	  }
-	  catch (final IOException e)
+	  catch (final IOException | URISyntaxException e)
 	  {
 		throw new ProcessorException(e);
 	  }

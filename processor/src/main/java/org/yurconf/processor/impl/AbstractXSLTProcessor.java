@@ -1,10 +1,10 @@
 /*
  * Yurconf Processor Fundamental
  * This software is distributed as is.
- * 
+ *
  * We do not care about any damages that could be caused
  * by this software directly or indirectly.
- * 
+ *
  * Join our team to help make it better.
  */
 package org.yurconf.processor.impl;
@@ -42,6 +42,7 @@ import org.yurconf.processor.ProcessorContext;
 import org.yurconf.processor.ProcessorException;
 import org.yurconf.processor.ProcessorFactory;
 import org.yurconf.processor.desc.Descriptor;
+import org.yurconf.processor.util.UriManipulator;
 
 /**
  * Abstract implementation of XSLT Processor.
@@ -194,8 +195,8 @@ public abstract class AbstractXSLTProcessor extends AbstractProcessor
 	  }
 	  else
 	  {
-		final URI templateUri = getDescriptor().getRootUri().resolve(stylesheetUri);
-		return new StreamSource(templateUri.toURL().openStream(), stylesheetUri.toString());
+		final URI templateUri = UriManipulator.resolve(getDescriptor().getRootUri(), stylesheetUri);
+		return new StreamSource(templateUri.toURL().openStream(), templateUri.toString());
 	  }
 	}
 	catch (final IOException | URISyntaxException e)

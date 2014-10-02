@@ -7,7 +7,7 @@
  * 
  * Join our team to help make it better.
  */
-package org.yurconf.processor.repo;
+package org.yurconf.repo.file;
 
 import org.yurconf.processor.ProcessorException;
 

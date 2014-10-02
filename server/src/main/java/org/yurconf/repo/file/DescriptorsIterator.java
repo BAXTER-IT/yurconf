@@ -7,7 +7,7 @@
  *
  * Join our team to help make it better.
  */
-package org.yurconf.processor.repo.file;
+package org.yurconf.repo.file;
 
 import java.io.IOException;
 import java.net.URL;
@@ -51,7 +51,7 @@ class DescriptorsIterator implements Iterator<Descriptor>
 	this.lastDescriptorResource = descriptorResources.nextElement();
 	try
 	{
-	  return Loader.getInstance().load(lastDescriptorResource);
+	  return Loader.getInstance().load(lastDescriptorResource, true);
 	}
 	catch (final ProcessorException e)
 	{

@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.yurconf.om.Version;
+import org.yurconf.processor.util.UriManipulator;
 
 /**
  * Processor descriptor.
@@ -86,9 +87,15 @@ public class Descriptor
 	  throw new IllegalArgumentException("Cannot use processor descriptor URL as null");
 	}
 	this.url = url;
-	final URI packageRoot = url.toURI().resolve("../").normalize();
-	this.rootUri = (resourceRoot == null || resourceRoot.isEmpty()) ? packageRoot : packageRoot.resolve(resourceRoot);
-	this.defaultSourceUri = this.rootUri.resolve("META-INF/default");
+	if (resourceRoot == null || resourceRoot.isEmpty())
+	{
+	  this.rootUri = UriManipulator.resolve( url.toURI(), "../").normalize();
+	}
+	else
+	{
+	  this.rootUri = UriManipulator.resolve( url.toURI(), resourceRoot).normalize();
+	}
+	this.defaultSourceUri = UriManipulator.resolve( url.toURI(), "./default/").normalize();
   }
 
   public String getProductId()

@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yurconf.processor.ProcessorException;
 import org.yurconf.processor.ProcessorFactory;
-import org.yurconf.processor.repo.file.ProcessorFactoryImpl;
+import org.yurconf.repo.file.ProcessorFactoryImpl;
 
 /**
  * @author yura

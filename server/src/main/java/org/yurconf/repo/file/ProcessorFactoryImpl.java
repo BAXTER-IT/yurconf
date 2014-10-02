@@ -1,13 +1,13 @@
 /*
  * Yurconf Processor Fundamental
  * This software is distributed as is.
- * 
+ *
  * We do not care about any damages that could be caused
  * by this software directly or indirectly.
- * 
+ *
  * Join our team to help make it better.
  */
-package org.yurconf.processor.repo.file;
+package org.yurconf.repo.file;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +26,6 @@ import org.yurconf.processor.desc.Parameter;
 import org.yurconf.processor.desc.Processor;
 import org.yurconf.processor.desc.Upgrade;
 import org.yurconf.processor.impl.XSLTProcessor;
-import org.yurconf.processor.repo.RepositoryException;
-
 import org.yurconf.om.ConfigID;
 import org.yurconf.om.Version;
 
@@ -60,7 +58,7 @@ public final class ProcessorFactoryImpl implements ProcessorFactory
   /**
    * Configuration repository.
    */
-  private final ConfigurationRepository repository;
+  private final RepositoryImpl repository;
 
   /**
    * Hidden constructor.
@@ -146,7 +144,7 @@ public final class ProcessorFactoryImpl implements ProcessorFactory
 
 		  try
 		  {
-			final Descriptor existingDescriptor = this.repository.getDescriptor(descriptor.getProductId());
+			final Descriptor existingDescriptor = this.repository.loadInstalledDescriptor(descriptor.getProductId());
 			// Now check if this descriptor is newer than the descriptor stored
 			// in the repository
 			// if this is newer one then apply update
@@ -168,6 +166,7 @@ public final class ProcessorFactoryImpl implements ProcessorFactory
 			{
 			  LOGGER.debug("Processor in repository is up to date - {}", existingDescriptor);
 			}
+			this.repository.cache(descriptor);
 		  }
 		  catch (final RepositoryException e)
 		  {

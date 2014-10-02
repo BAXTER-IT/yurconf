@@ -1,10 +1,10 @@
 /*
  * Yurconf Processor Fundamental
  * This software is distributed as is.
- * 
+ *
  * We do not care about any damages that could be caused
  * by this software directly or indirectly.
- * 
+ *
  * Join our team to help make it better.
  */
 package org.yurconf.processor.impl;
@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yurconf.processor.AbstractProcessor;
 import org.yurconf.processor.ProcessorException;
+import org.yurconf.processor.util.UriManipulator;
 
 /**
  *
@@ -54,7 +55,7 @@ class YurconfUriResolver implements URIResolver
 	  {
 		try
 		{
-		  final URI resolved = new URI(base.getSchemeSpecificPart()).resolve(href);
+		  final URI resolved = UriManipulator.resolve(new URI(base.getSchemeSpecificPart()), href);
 		  if (resolved.getScheme() == null)
 		  {
 			return new URI(base.getScheme(), resolved.getSchemeSpecificPart(), null);

@@ -1,13 +1,13 @@
 /*
  * Yurconf Processor Fundamental
  * This software is distributed as is.
- * 
+ *
  * We do not care about any damages that could be caused
  * by this software directly or indirectly.
- * 
+ *
  * Join our team to help make it better.
  */
-package org.yurconf.processor.repo.file;
+package org.yurconf.repo.file;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +29,6 @@ import org.yurconf.processor.desc.AbstractUpgradeFile;
 import org.yurconf.processor.desc.Descriptor;
 import org.yurconf.processor.desc.Loader;
 import org.yurconf.processor.desc.Upgrade;
-import org.yurconf.processor.repo.RepositoryException;
 import org.yurconf.processor.upgrade.CommandFactory;
 import org.yurconf.processor.upgrade.UpgradeContext;
 import org.yurconf.processor.util.UriLister;
@@ -149,22 +148,43 @@ final class RepositoryImpl implements ConfigurationRepository
 	quoteForMutation("Installing " + descriptor);
 	LOGGER.info("Installing {} in repository", descriptor);
 	installPackageDescriptor(descriptor);
+	cache(descriptor);
+  }
+
+  void cache(final Descriptor descriptor)
+  {
+	this.descriptorCache.put(descriptor.getProductId(), descriptor);
   }
 
   private void installPackageDescriptor(final Descriptor descriptor) throws IOException
   {
 	final File productDirectory = getProductDirectory(descriptor.getProductId());
 	// Copy processor descriptor to repository
-	final InputStream descriptorStream = descriptor.getUrl().openStream();
-	try
+	try (final InputStream descriptorStream = descriptor.getUrl().openStream())
 	{
 	  final File targetDescriptor = new File(productDirectory, TARGET_DESCRIPTOR_FILENAME);
 	  LOGGER.debug("Installing descrptor for {}", descriptor);
 	  FileUtils.copyInputStreamToFile(descriptorStream, targetDescriptor);
 	}
-	finally
+  }
+
+  Descriptor loadInstalledDescriptor(final String productId) throws ProcessorException
+  {
+	final File descriptorFile = new File(getProductDirectory(productId), TARGET_DESCRIPTOR_FILENAME);
+	if (descriptorFile.isFile())
 	{
-	  descriptorStream.close();
+	  try
+	  {
+		return Loader.getInstance().load(descriptorFile.toURI().toURL(), false);
+	  }
+	  catch (final MalformedURLException e)
+	  {
+		throw new ProcessorException(e);
+	  }
+	}
+	else
+	{
+	  throw new RepositoryException("Descriptor not found for " + productId);
 	}
   }
 
@@ -175,24 +195,7 @@ final class RepositoryImpl implements ConfigurationRepository
 	if (cached == null)
 	{
 	  LOGGER.warn("No cached descriptor for {}", productId);
-	  final File descriptorFile = new File(getProductDirectory(productId), TARGET_DESCRIPTOR_FILENAME);
-	  if (descriptorFile.isFile())
-	  {
-		try
-		{
-		  final Descriptor descriptor = Loader.getInstance().load(descriptorFile.toURI().toURL());
-		  descriptorCache.put(productId, descriptor);
-		  return descriptor;
-		}
-		catch (final MalformedURLException e)
-		{
-		  throw new ProcessorException(e);
-		}
-	  }
-	  else
-	  {
-		throw new RepositoryException("Descriptor not found");
-	  }
+	  return loadInstalledDescriptor(productId);
 	}
 	else
 	{

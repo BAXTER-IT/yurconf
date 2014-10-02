@@ -7,7 +7,7 @@
  * 
  * Join our team to help make it better.
  */
-package org.yurconf.processor.repo.file;
+package org.yurconf.repo.file;
 
 import java.util.HashMap;
 import java.util.Map;

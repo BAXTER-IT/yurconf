@@ -1,10 +1,10 @@
 /*
  * Yurconf Processor Fundamental
  * This software is distributed as is.
- * 
+ *
  * We do not care about any damages that could be caused
  * by this software directly or indirectly.
- * 
+ *
  * Join our team to help make it better.
  */
 package org.yurconf.processor.desc;
@@ -45,7 +45,7 @@ public class TestLoader
   public void loadDescriptorFromResource1() throws Exception
   {
 	final URL url = getClass().getResource("data/test-descriptor-1.xml");
-	final Descriptor d = Loader.getInstance().load(url);
+	final Descriptor d = Loader.getInstance().load(url, false);
 	assertEquals("com.baxter.test", d.getProductId());
 	assertEquals("22.33", d.getVersion());
 	assertEquals(2, d.getProcessors().size());
@@ -57,7 +57,7 @@ public class TestLoader
   public void loadDescriptorFromUpgrade() throws Exception
   {
 	final URL url = getClass().getResource("data/test-descriptor-upgrade.xml");
-	final Descriptor d = Loader.getInstance().load(url);
+	final Descriptor d = Loader.getInstance().load(url, true);
 
 	final Upgrade from0_9 = d.getLatestUpgrade("0.9");
 	assertNull(from0_9);

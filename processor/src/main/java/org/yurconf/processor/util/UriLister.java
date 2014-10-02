@@ -36,8 +36,6 @@ public abstract class UriLister
    */
   private static final String FILE_URI_SCHEME = "file";
 
-  private static final String JAR_URI_SCHEME = "jar";
-
   private static final UriLister JAR_URILISTER = new JarUriLister();
 
   private static final UriLister FILE_URILISTER = new FileUriLister();
@@ -63,7 +61,7 @@ public abstract class UriLister
   {
 	switch (uri.getScheme())
 	{
-	case JAR_URI_SCHEME:
+	case UriManipulator.JAR_URI_SCHEME:
 	  return getJarListerInstance();
 	case FILE_URI_SCHEME:
 	  return getFileListerInstance();

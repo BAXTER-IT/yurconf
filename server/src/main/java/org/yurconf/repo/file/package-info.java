@@ -7,4 +7,4 @@
  * 
  * Join our team to help make it better.
  */
-package org.yurconf.processor.repo.file;
+package org.yurconf.repo.file;

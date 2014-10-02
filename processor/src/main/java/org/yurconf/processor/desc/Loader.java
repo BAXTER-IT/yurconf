@@ -1,10 +1,10 @@
 /*
  * Yurconf Processor Fundamental
  * This software is distributed as is.
- * 
+ *
  * We do not care about any damages that could be caused
  * by this software directly or indirectly.
- * 
+ *
  * Join our team to help make it better.
  */
 package org.yurconf.processor.desc;
@@ -81,7 +81,7 @@ public final class Loader
    * @throws ProcessorException
    *           if cannot load the descriptor
    */
-  public Descriptor load(final URL url) throws ProcessorException
+  public Descriptor load(final URL url, final boolean setup) throws ProcessorException
   {
 	try
 	{
@@ -90,14 +90,18 @@ public final class Loader
 	  if (Descriptor.class.isInstance(o))
 	  {
 		final Descriptor descriptor = Descriptor.class.cast(o);
-		try
+		if (setup)
 		{
-		  descriptor.setUrl(url);
-		}
-		catch (final URISyntaxException e)
-		{
-		  LOGGER.error("Cannot set descriptor URL", e);
-		  throw new ProcessorException("Unable to setup descriptor", e);
+		  try
+		  {
+			LOGGER.debug("Setting up {}", descriptor);
+			descriptor.setUrl(url);
+		  }
+		  catch (final URISyntaxException e)
+		  {
+			LOGGER.error("Cannot set descriptor URL", e);
+			throw new ProcessorException("Unable to setup descriptor", e);
+		  }
 		}
 		return descriptor;
 	  }
