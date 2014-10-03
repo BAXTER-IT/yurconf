@@ -28,6 +28,33 @@
 
 			<plugins>
 
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>build-client-jar</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+							<phase>package</phase>
+							<configuration>
+								<classifier>${client.classifier}</classifier>
+								<archive>
+									<manifest>
+										<packageName>${client.package.name}</packageName>
+									</manifest>
+									<manifestEntries>
+										<Implementation-Title>${project.name} Client ObjectModel</Implementation-Title>
+									</manifestEntries>
+								</archive>
+								<includes>
+									<include>${client.package}/**</include>
+								</includes>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
 			</plugins>
 
 		</pluginManagement>
@@ -52,8 +79,9 @@
 							<configuration>
 								<dataSet combine.children="append">
 									<data>
-										<type>file</type>
-										<src>${project.build.directory}/${project.build.finalName}.jar</src>
+										<type>directory</type>
+										<src>${project.build.directory}</src>
+										<includes>${project.build.finalName}.jar,${project.build.clientFinalName}.jar</includes>
 										<mapper>
 											<type>perm</type>
 											<prefix>${std.lib.dir}</prefix>
@@ -63,6 +91,12 @@
 										<type>link</type>
 										<linkName>${std.lib.dir}/${project.build.finalName}.jar</linkName>
 										<linkTarget>${std.processors.dir}/${processor.jar}</linkTarget>
+										<symlink>true</symlink>
+									</data>
+									<data>
+										<type>link</type>
+										<linkName>${std.lib.dir}/${project.build.clientFinalName}.jar</linkName>
+										<linkTarget>${std.lib.dir}/${client.jar}</linkTarget>
 										<symlink>true</symlink>
 									</data>
 								</dataSet>
@@ -108,6 +142,7 @@
 												<artifact>
 													<classifiers>
 														<classifier />
+														<classifier>${client.classifier}</classifier>
 													</classifiers>
 												</artifact>
 											</mapping>
@@ -117,6 +152,15 @@
 													<softlinkSource>
 														<location>${std.lib.dir}/${project.build.finalName}.jar</location>
 														<destination>${processor.jar}</destination>
+													</softlinkSource>
+												</sources>
+											</mapping>
+											<mapping>
+												<directory>${std.lib.dir}</directory>
+												<sources>
+													<softlinkSource>
+														<location>${std.lib.dir}/${project.build.clientFinalName}.jar</location>
+														<destination>${client.jar}</destination>
 													</softlinkSource>
 												</sources>
 											</mapping>
@@ -139,6 +183,7 @@
 												<artifact>
 													<classifiers>
 														<classifier />
+														<classifier>${client.classifier}</classifier>
 													</classifiers>
 												</artifact>
 											</mapping>
@@ -148,6 +193,15 @@
 													<softlinkSource>
 														<location>${alt.lib.dir}/${project.build.finalName}.jar</location>
 														<destination>${processor.jar}</destination>
+													</softlinkSource>
+												</sources>
+											</mapping>
+											<mapping>
+												<directory>${alt.lib.dir}</directory>
+												<sources>
+													<softlinkSource>
+														<location>${alt.lib.dir}/${project.build.clientFinalName}.jar</location>
+														<destination>${client.jar}</destination>
 													</softlinkSource>
 												</sources>
 											</mapping>
@@ -181,6 +235,19 @@
 
 	<properties>
 		<processor.jar>${project.artifactId}.jar</processor.jar>
+		<client.jar>${project.artifactId}-${client.classifier}.jar</client.jar>
+
+		<client.classifier>om</client.classifier>
+
+		<project.build.clientFinalName>${project.build.finalName}-${client.classifier}</project.build.clientFinalName>
+
+		<!-- Following should be overriden in child pom. This is a package path which contains client's classes and resources.
+			For example, com/my/package -->
+		<!-- <client.package></client.package> -->
+
+		<!-- This is a package name to be placed in manifest. Should be something, like com.my.package -->
+		<!-- <client.package.name></client.package.name> -->
+
 	</properties>
 
 </project>

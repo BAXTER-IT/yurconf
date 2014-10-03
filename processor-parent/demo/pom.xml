@@ -32,6 +32,9 @@
 			<build>
 				<plugins>
 					<plugin>
+						<artifactId>maven-jar-plugin</artifactId>
+					</plugin>
+					<plugin>
 						<groupId>org.vafer</groupId>
 						<artifactId>jdeb</artifactId>
 					</plugin>
@@ -49,6 +52,9 @@
 			<build>
 				<plugins>
 					<plugin>
+						<artifactId>maven-jar-plugin</artifactId>
+					</plugin>
+					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>rpm-maven-plugin</artifactId>
 						<configuration>
@@ -65,6 +71,8 @@
 	</profiles>
 
 	<properties>
+		<client.package>org/yurconf/demo/om</client.package>
+		<client.package.name>org.yurconf.demo.om</client.package.name>
 	</properties>
 
 </project>
