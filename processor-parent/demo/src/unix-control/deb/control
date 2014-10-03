@@ -1,4 +1,4 @@
-Package: [[name]]
+Package: [[artifactId]]
 Version: [[version]]
 Section: ${unix.package.group.name}
 Priority: low

@@ -76,35 +76,64 @@
 						<plugin>
 							<groupId>org.vafer</groupId>
 							<artifactId>jdeb</artifactId>
-							<configuration>
-								<dataSet combine.children="append">
-									<data>
-										<type>directory</type>
-										<src>${project.build.directory}</src>
-										<includes>${project.build.finalName}.jar,${project.build.clientFinalName}.jar</includes>
-										<mapper>
-											<type>perm</type>
-											<prefix>${std.lib.dir}</prefix>
-										</mapper>
-									</data>
-									<data>
-										<type>link</type>
-										<linkName>${std.lib.dir}/${project.build.finalName}.jar</linkName>
-										<linkTarget>${std.processors.dir}/${processor.jar}</linkTarget>
-										<symlink>true</symlink>
-									</data>
-									<data>
-										<type>link</type>
-										<linkName>${std.lib.dir}/${project.build.clientFinalName}.jar</linkName>
-										<linkTarget>${std.lib.dir}/${client.jar}</linkTarget>
-										<symlink>true</symlink>
-									</data>
-								</dataSet>
-							</configuration>
+							<executions>
+								<execution>
+									<id>build-deb-installer</id>
+									<configuration>
+										<dataSet combine.children="append">
+											<data>
+												<type>file</type>
+												<src>${project.build.directory}/${project.build.finalName}.jar</src>
+												<mapper>
+													<type>perm</type>
+													<prefix>${std.lib.dir}</prefix>
+												</mapper>
+											</data>
+											<data>
+												<type>link</type>
+												<linkName>${std.lib.dir}/${project.build.finalName}.jar</linkName>
+												<linkTarget>${std.processors.dir}/${processor.jar}</linkTarget>
+												<symlink>true</symlink>
+											</data>
+										</dataSet>
+									</configuration>
+								</execution>
+								<execution>
+									<id>build-client-deb-installer</id>
+									<phase>package</phase>
+									<goals>
+										<goal>jdeb</goal>
+									</goals>
+									<configuration>
+										<deb>${project.build.directory}/${project.build.clientFinalName}.deb</deb>
+										<classifier>client-all</classifier>
+										<controlDir>${client-deb-control.dir}</controlDir>
+										<dataSet combine.children="append">
+											<data>
+												<type>file</type>
+												<src>${project.build.directory}/${project.build.clientFinalName}.jar</src>
+												<mapper>
+													<type>perm</type>
+													<prefix>${std.lib.dir}</prefix>
+												</mapper>
+											</data>
+											<data>
+												<type>link</type>
+												<linkName>${std.lib.dir}/${project.build.clientFinalName}.jar</linkName>
+												<linkTarget>${std.lib.dir}/${client.jar}</linkTarget>
+												<symlink>true</symlink>
+											</data>
+										</dataSet>
+									</configuration>
+								</execution>
+							</executions>
 						</plugin>
 					</plugins>
 				</pluginManagement>
 			</build>
+			<properties>
+				<client-deb-control.dir>${deb-control.dir}/client</client-deb-control.dir>
+			</properties>
 		</profile>
 
 		<profile>
@@ -125,54 +154,28 @@
 									<require>yurconf-server &gt;= ${yurconf.version}</require>
 								</requires>
 							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+
+		<profile>
+			<id>AltLayout</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>rpm-maven-plugin</artifactId>
 							<executions>
 								<execution>
-									<id>build-std-rpm-installer</id>
-									<phase>package</phase>
-									<goals>
-										<goal>attached-rpm</goal>
-									</goals>
-									<configuration>
-										<requires>
-											<require>yurconf-server-std</require>
-										</requires>
-										<mappings>
-											<mapping>
-												<directory>${std.lib.dir}</directory>
-												<artifact>
-													<classifiers>
-														<classifier />
-														<classifier>${client.classifier}</classifier>
-													</classifiers>
-												</artifact>
-											</mapping>
-											<mapping>
-												<directory>${std.processors.dir}</directory>
-												<sources>
-													<softlinkSource>
-														<location>${std.lib.dir}/${project.build.finalName}.jar</location>
-														<destination>${processor.jar}</destination>
-													</softlinkSource>
-												</sources>
-											</mapping>
-											<mapping>
-												<directory>${std.lib.dir}</directory>
-												<sources>
-													<softlinkSource>
-														<location>${std.lib.dir}/${project.build.clientFinalName}.jar</location>
-														<destination>${client.jar}</destination>
-													</softlinkSource>
-												</sources>
-											</mapping>
-										</mappings>
-									</configuration>
-								</execution>
-								<execution>
 									<id>build-alt-rpm-installer</id>
-									<phase>package</phase>
-									<goals>
-										<goal>attached-rpm</goal>
-									</goals>
 									<configuration>
 										<requires>
 											<require>yurconf-server-alt</require>
@@ -183,7 +186,6 @@
 												<artifact>
 													<classifiers>
 														<classifier />
-														<classifier>${client.classifier}</classifier>
 													</classifiers>
 												</artifact>
 											</mapping>
@@ -195,6 +197,39 @@
 														<destination>${processor.jar}</destination>
 													</softlinkSource>
 												</sources>
+											</mapping>
+										</mappings>
+									</configuration>
+								</execution>
+								<execution>
+									<id>build-client-alt-rpm-installer</id>
+									<phase>package</phase>
+									<goals>
+										<goal>attached-rpm</goal>
+									</goals>
+									<configuration>
+										<name>${unix.client.package.name}</name>
+										<classifier>client-alt</classifier>
+										<provides combine.self="override">
+											<provide>${unix.client.package.name}-alt</provide>
+										</provides>
+										<requires combine.self="override">
+											<require>yurconf-om-alt</require>
+										</requires>
+										<conflicts combine.self="override">
+											<conflict>${unix.client.package.name}-std</conflict>
+										</conflicts>
+										<prefixes>
+											<prefix>${alt.home}</prefix>
+										</prefixes>
+										<mappings>
+											<mapping>
+												<directory>${alt.lib.dir}</directory>
+												<artifact>
+													<classifiers>
+														<classifier>${client.classifier}</classifier>
+													</classifiers>
+												</artifact>
 											</mapping>
 											<mapping>
 												<directory>${alt.lib.dir}</directory>
@@ -213,6 +248,97 @@
 					</plugins>
 				</pluginManagement>
 			</build>
+			<properties>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>StdLayout</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>rpm-maven-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>build-std-rpm-installer</id>
+									<configuration>
+										<requires>
+											<require>yurconf-server-std</require>
+										</requires>
+										<mappings>
+											<mapping>
+												<directory>${std.lib.dir}</directory>
+												<artifact>
+													<classifiers>
+														<classifier />
+													</classifiers>
+												</artifact>
+											</mapping>
+											<mapping>
+												<directory>${std.processors.dir}</directory>
+												<sources>
+													<softlinkSource>
+														<location>${std.lib.dir}/${project.build.finalName}.jar</location>
+														<destination>${processor.jar}</destination>
+													</softlinkSource>
+												</sources>
+											</mapping>
+										</mappings>
+									</configuration>
+								</execution>
+								<execution>
+									<id>build-client-std-rpm-installer</id>
+									<phase>package</phase>
+									<goals>
+										<goal>attached-rpm</goal>
+									</goals>
+									<configuration>
+										<name>${unix.client.package.name}</name>
+										<classifier>client-std</classifier>
+										<provides combine.self="override">
+											<provide>${unix.client.package.name}-std</provide>
+										</provides>
+										<requires combine.self="override">
+											<require>yurconf-om-std</require>
+										</requires>
+										<conflicts combine.self="override">
+											<conflict>${unix.client.package.name}-alt</conflict>
+										</conflicts>
+										<mappings>
+											<mapping>
+												<directory>${std.lib.dir}</directory>
+												<artifact>
+													<classifiers>
+														<classifier>${client.classifier}</classifier>
+													</classifiers>
+												</artifact>
+											</mapping>
+											<mapping>
+												<directory>${std.lib.dir}</directory>
+												<sources>
+													<softlinkSource>
+														<location>${std.lib.dir}/${project.build.clientFinalName}.jar</location>
+														<destination>${client.jar}</destination>
+													</softlinkSource>
+												</sources>
+											</mapping>
+										</mappings>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+			<properties>
+			</properties>
 		</profile>
 
 	</profiles>
@@ -234,10 +360,12 @@
 	</dependencies>
 
 	<properties>
+		<client.classifier>om</client.classifier>
+
 		<processor.jar>${project.artifactId}.jar</processor.jar>
 		<client.jar>${project.artifactId}-${client.classifier}.jar</client.jar>
 
-		<client.classifier>om</client.classifier>
+		<unix.client.package.name>${unix.package.name}-${client.classifier}</unix.client.package.name>
 
 		<project.build.clientFinalName>${project.build.finalName}-${client.classifier}</project.build.clientFinalName>
 
