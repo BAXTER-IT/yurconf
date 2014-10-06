@@ -13,12 +13,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -32,23 +32,26 @@ public class ProcessorsClassLoader extends URLClassLoader
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ProcessorsClassLoader.class);
 
-  public static ProcessorsClassLoader createInstance(final String location)
+  public static ProcessorsClassLoader createInstance(final List<File> locations)
   {
-	return new ProcessorsClassLoader(location);
+	return new ProcessorsClassLoader(locations);
   }
 
-  private ProcessorsClassLoader(final String location)
+  private ProcessorsClassLoader(final List<File> locations)
   {
 	super(new URL[0], AbstractProcessor.class.getClassLoader());
-	final Path path = FileSystems.getDefault().getPath(location);
-	try
+	for (File location : locations)
 	{
-	  LOGGER.trace("Walking file tree for {}", location);
-	  Files.walkFileTree(path, new JarFileVisitor());
-	}
-	catch (final IOException e)
-	{
-	  LOGGER.error("Failed to walk processors path {}", location, e);
+	  final Path path = location.toPath();
+	  try
+	  {
+		LOGGER.trace("Walking file tree for {}", location);
+		Files.walkFileTree(path, new JarFileVisitor());
+	  }
+	  catch (final IOException e)
+	  {
+		LOGGER.error("Failed to walk processors path {}", location, e);
+	  }
 	}
   }
 

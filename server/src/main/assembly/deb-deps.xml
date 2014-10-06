@@ -24,6 +24,7 @@
 				<exclude>org.eclipse.jetty:*</exclude>
 				<exclude>org.eclipse.jetty.orbit:*</exclude>
 				<exclude>org.slf4j:*</exclude>
+				<exclude>args4j:args4j</exclude>
 				<exclude>org.yurconf:yurconf-om</exclude>
 			</excludes>
 		</dependencySet>
