@@ -1,10 +1,10 @@
 /*
  * Yurconf Server
  * This software is distributed as is.
- * 
+ *
  * We do not care about any damages that could be caused
  * by this software directly or indirectly.
- * 
+ *
  * Join our team to help make it better.
  */
 package org.yurconf.servlet;
@@ -29,7 +29,7 @@ public class PingServlet extends HttpServlet
   protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException
   {
 	String origin = req.getParameter("origin");
-	resp.setContentType("texp/plain");
+	resp.setContentType("text/plain");
 	PrintWriter writer = resp.getWriter();
 	writer.format("Ping from %1$s arrived on %2$s", origin, System.currentTimeMillis());
 	writer.flush();
