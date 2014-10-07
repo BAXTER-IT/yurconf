@@ -1,10 +1,10 @@
 /*
  * Yurconf Server
  * This software is distributed as is.
- * 
+ *
  * We do not care about any damages that could be caused
  * by this software directly or indirectly.
- * 
+ *
  * Join our team to help make it better.
  */
 package org.yurconf.servlet;
@@ -32,13 +32,7 @@ import org.yurconf.repo.file.ProcessorFactoryImpl;
 public class ProcessorFactoryInitializer implements ServletContextListener
 {
 
-  private static final String REPOSITORY = "yurconf.repository";
-
   private static final String PROCESSOR_FACTORY = ProcessorFactory.class.getName();
-
-  private static final Path DEFAULT_REPO_PATH = FileSystems.getDefault().getPath(
-  // By default the repository is located under user's home
-	  System.getProperty("user.home"), ".yurconf", "repository");
 
   private static final ReadWriteLock LOCK = new ReentrantReadWriteLock();
 
@@ -49,9 +43,12 @@ public class ProcessorFactoryInitializer implements ServletContextListener
 
   private final ClassLoader processorsCL;
 
-  public ProcessorFactoryInitializer(final ClassLoader processorsCL)
+  private final Path repository;
+
+  public ProcessorFactoryInitializer(final ClassLoader processorsCL, final Path repository)
   {
 	this.processorsCL = processorsCL;
+	this.repository = repository;
   }
 
   @Override
@@ -62,24 +59,15 @@ public class ProcessorFactoryInitializer implements ServletContextListener
 	LOCK.writeLock().lock();
 	try
 	{
-	  final String repositorySystemProperty = System.getProperty(REPOSITORY);
-	  LOGGER.debug("System Property {} = {}", REPOSITORY, repositorySystemProperty);
-	  if (repositorySystemProperty == null)
+	  final String repositoryContextParam = servletContext.getInitParameter("yurconf.repository");
+	  LOGGER.debug("Context Parameter yurconf.repository = {}", repositoryContextParam);
+	  if (repositoryContextParam == null)
 	  {
-		final String repositoryContextParam = servletContext.getInitParameter(REPOSITORY);
-		LOGGER.debug("Context Parameter {} = {}", REPOSITORY, repositoryContextParam);
-		if (repositoryContextParam == null)
-		{
-		  registerProcessorFactory(servletContext, DEFAULT_REPO_PATH);
-		}
-		else
-		{
-		  registerProcessorFactory(servletContext, FileSystems.getDefault().getPath(repositoryContextParam));
-		}
+		registerProcessorFactory(servletContext, repository);
 	  }
 	  else
 	  {
-		registerProcessorFactory(servletContext, FileSystems.getDefault().getPath(repositorySystemProperty));
+		registerProcessorFactory(servletContext, FileSystems.getDefault().getPath(repositoryContextParam));
 	  }
 	}
 	catch (final ProcessorException e)
@@ -112,7 +100,7 @@ public class ProcessorFactoryInitializer implements ServletContextListener
 		throw new ProcessorException("Could not create repository directory");
 	  }
 	}
-	context.setAttribute(PROCESSOR_FACTORY, ProcessorFactoryImpl.getInstance(repositoryRoot,processorsCL));
+	context.setAttribute(PROCESSOR_FACTORY, ProcessorFactoryImpl.getInstance(repositoryRoot, processorsCL));
 	LOGGER.info("Registered ProcessorFactory in context");
   }
 

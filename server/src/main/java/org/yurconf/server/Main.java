@@ -46,7 +46,7 @@ public class Main
 
 	  final InetSocketAddress serverAddress = new InetSocketAddress(p.getHost(), p.getPort());
 	  final ProcessorsClassLoader classLoader = ProcessorsClassLoader.createInstance(p.getLocations());
-	  final Server server = new Server(serverAddress).configureContext(p.getContext(), classLoader);
+	  final Server server = new Server(serverAddress).configureContext(p.getContext(), classLoader, p.getRepository().toPath());
 
 	  LOGGER.info("Launching Yurconf Server");
 	  server.start();

@@ -19,20 +19,21 @@ fi
 # Configuration file that keeps server binding info
 CONFIG_FILE="${f.config}"
 
+ARGS=""
 # Listening host
 YURCONF_HOST="$(cat $CONFIG_FILE | grep "host=" |  cut -d= -f2)"
 if [ ! "x" = "x$YURCONF_HOST" ]; then
-    JAVA_OPTS="$JAVA_OPTS -Dyurconf.host=$YURCONF_HOST"
+    ARGS="$ARGS -h $YURCONF_HOST"
 fi
 
 # Listening port
 YURCONF_PORT="$(cat $CONFIG_FILE | grep "port=" |  cut -d= -f2)"
 if [ ! "x" = "x$YURCONF_PORT" ]; then
-    JAVA_OPTS="$JAVA_OPTS -Dyurconf.port=$YURCONF_PORT"
+    ARGS="$ARGS -p $YURCONF_PORT"
 fi
+ARGS="$ARGS -l ${f.processors}"
+ARGS="$ARGS -r ${f.repository}"
 
-JAVA_OPTS="$JAVA_OPTS -Dyurconf.repository=${f.repository}"
-JAVA_OPTS="$JAVA_OPTS -Dyurconf.processors=${f.processors}"
 JAVA_OPTS="$JAVA_OPTS -Dlogback.configurationFile=${f.log.config}"
 JAVA_OPTS="$JAVA_OPTS -Djava.net.preferIPv4Stack=true"
 
@@ -75,7 +76,7 @@ done
 
 echo "Reconstructred classpath: $YCP"
 
-PROGRAM="$JAVA $JAVA_OPTS -cp $YCP org.yurconf.server.Main"
+PROGRAM="$JAVA $JAVA_OPTS -cp $YCP org.yurconf.server.Main $ARGS"
 
 # Run in terminal or as a daemon?
 if $RUNASDAEMON ; then

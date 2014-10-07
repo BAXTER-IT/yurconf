@@ -10,6 +10,7 @@
 package org.yurconf.server;
 
 import java.net.InetSocketAddress;
+import java.nio.file.Path;
 
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.slf4j.Logger;
@@ -35,7 +36,7 @@ public class Server extends org.eclipse.jetty.server.Server
 	super(address);
   }
 
-  Server configureContext(final String path, final ClassLoader classLoader)
+  Server configureContext(final String path, final ClassLoader classLoader, final Path repository)
   {
 	final ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 	LOGGER.trace("Yurconf Server Context = {}", path);
@@ -44,7 +45,7 @@ public class Server extends org.eclipse.jetty.server.Server
 	context.addServlet(ViewerServlet.class, "/view/*");
 	context.addServlet(RestfulServlet.class, "/rest/*");
 	context.setClassLoader(classLoader);
-	context.addEventListener(new ProcessorFactoryInitializer(classLoader));
+	context.addEventListener(new ProcessorFactoryInitializer(classLoader, repository));
 	setHandler(context);
 	return this;
   }

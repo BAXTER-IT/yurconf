@@ -23,6 +23,9 @@ public class CmdParameters
   @Option(name = "-l", aliases = { "--location" }, metaVar = "LOCATION", required = false, usage = "Location of Configuration Processor Archives")
   private List<File> locations = new ArrayList<>();
 
+  @Option(name = "-r", aliases = { "--repository" }, metaVar = "REPOSITORY", required = false, usage = "Yurconf Repository Root")
+  private File repository = new File(new File(System.getProperty("user.home")), ".yurconf/repository");
+
   private final CmdLineParser parser = new CmdLineParser(this);
 
   private CmdParameters(final String[] args) throws CmdLineException
@@ -53,6 +56,11 @@ public class CmdParameters
   public List<File> getLocations()
   {
 	return locations;
+  }
+
+  public File getRepository()
+  {
+	return repository;
   }
 
 }
