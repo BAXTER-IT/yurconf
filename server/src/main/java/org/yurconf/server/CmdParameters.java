@@ -11,19 +11,19 @@ import org.kohsuke.args4j.Option;
 public class CmdParameters
 {
 
-  @Option(name = "-h", aliases = { "--host" }, metaVar = "HOST", required = false, usage = "Host name to bind Yurconf Server, default is 0.0.0.0")
+  @Option(name = "-h", aliases = { "--host" }, metaVar = "HOST", required = false, usage = "hostUsage")
   private String host = "0.0.0.0";
 
-  @Option(name = "-p", aliases = { "--port" }, metaVar = "PORT", required = false, usage = "Port to listen by Yurconf Server, default is 4040")
+  @Option(name = "-p", aliases = { "--port" }, metaVar = "PORT", required = false, usage = "portUsage")
   private int port = 4040;
 
-  @Option(name = "-c", aliases = { "--context" }, metaVar = "CTX", required = false, usage = "Yurconf Server context name, defauls to '/'")
+  @Option(name = "-c", aliases = { "--context" }, metaVar = "CTX", required = false, usage = "contextUsage")
   private String context = "/";
 
-  @Option(name = "-l", aliases = { "--location" }, metaVar = "LOCATION", required = false, usage = "Location of Configuration Processor Archives")
+  @Option(name = "-l", aliases = { "--location" }, metaVar = "LOCATION", required = false, usage = "locationUsage")
   private List<File> locations = new ArrayList<>();
 
-  @Option(name = "-r", aliases = { "--repository" }, metaVar = "REPOSITORY", required = false, usage = "Yurconf Repository Root")
+  @Option(name = "-r", aliases = { "--repository" }, metaVar = "REPOSITORY", required = false, usage = "repositoryUsage")
   private File repository = new File(new File(System.getProperty("user.home")), ".yurconf/repository");
 
   private final CmdLineParser parser = new CmdLineParser(this);
@@ -61,6 +61,11 @@ public class CmdParameters
   public File getRepository()
   {
 	return repository;
+  }
+
+  CmdLineParser getParser()
+  {
+	return parser;
   }
 
 }
