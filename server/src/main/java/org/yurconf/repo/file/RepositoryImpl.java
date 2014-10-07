@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -27,11 +26,11 @@ import org.yurconf.processor.ProcessorException;
 import org.yurconf.processor.ProcessorFactory;
 import org.yurconf.processor.desc.AbstractUpgradeFile;
 import org.yurconf.processor.desc.Descriptor;
+import org.yurconf.processor.desc.DescriptorException;
 import org.yurconf.processor.desc.Loader;
 import org.yurconf.processor.desc.Upgrade;
 import org.yurconf.processor.upgrade.CommandFactory;
 import org.yurconf.processor.upgrade.UpgradeContext;
-import org.yurconf.processor.util.UriLister;
 
 /**
  * The Configuration Repository manager.
@@ -177,7 +176,7 @@ final class RepositoryImpl implements ConfigurationRepository
 	  {
 		return Loader.getInstance().load(descriptorFile.toURI().toURL(), false);
 	  }
-	  catch (final MalformedURLException e)
+	  catch (final MalformedURLException | DescriptorException e)
 	  {
 		throw new ProcessorException(e);
 	  }

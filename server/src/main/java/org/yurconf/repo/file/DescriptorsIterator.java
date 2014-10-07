@@ -14,8 +14,8 @@ import java.net.URL;
 import java.util.Enumeration;
 import java.util.Iterator;
 
-import org.yurconf.processor.ProcessorException;
 import org.yurconf.processor.desc.Descriptor;
+import org.yurconf.processor.desc.DescriptorException;
 import org.yurconf.processor.desc.Loader;
 
 /**
@@ -53,7 +53,7 @@ class DescriptorsIterator implements Iterator<Descriptor>
 	{
 	  return Loader.getInstance().load(lastDescriptorResource, true);
 	}
-	catch (final ProcessorException e)
+	catch (final DescriptorException e)
 	{
 	  throw new IllegalStateException("Could not load descriptor for " + lastDescriptorResource, e);
 	}

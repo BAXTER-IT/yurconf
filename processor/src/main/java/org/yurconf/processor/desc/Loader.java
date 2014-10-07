@@ -19,7 +19,6 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yurconf.processor.ProcessorException;
 
 /**
  * Processor descriptor loader.
@@ -78,10 +77,10 @@ public final class Loader
    * @param url
    *          descriptor URL
    * @return loaded descriptor
-   * @throws ProcessorException
+   * @throws DescriptorException
    *           if cannot load the descriptor
    */
-  public Descriptor load(final URL url, final boolean setup) throws ProcessorException
+  public Descriptor load(final URL url, final boolean setup) throws DescriptorException
   {
 	try
 	{
@@ -100,7 +99,7 @@ public final class Loader
 		  catch (final URISyntaxException e)
 		  {
 			LOGGER.error("Cannot set descriptor URL", e);
-			throw new ProcessorException("Unable to setup descriptor", e);
+			throw new DescriptorException("Unable to setup descriptor", e);
 		  }
 		}
 		return descriptor;
@@ -108,12 +107,12 @@ public final class Loader
 	  else
 	  {
 		LOGGER.warn("Descriptor unmarshalled as {} ({})", o, o == null ? null : o.getClass());
-		throw new ProcessorException("Unexpected descriptor object " + o);
+		throw new DescriptorException("Unexpected descriptor object " + o);
 	  }
 	}
 	catch (final JAXBException e)
 	{
-	  throw new ProcessorException(e);
+	  throw new DescriptorException(e);
 	}
   }
 
