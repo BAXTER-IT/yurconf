@@ -75,7 +75,7 @@ waitForMarker() {
             if running $PIDFILE ; then
                 sleep 0.5
                 IDX=$(expr $IDX + 1)
-                if [ "x" = "x$(netstat -pan | grep $YURCONF_PORT)" ]; then
+                if [ "x" != "x$(netstat -pan | grep $YURCONF_PORT)" ]; then
                     return 0
                 fi
             else
