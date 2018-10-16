@@ -1,297 +1,298 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.baxter</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.2.4</version>
-    </parent>
+	<parent>
+		<groupId>com.baxter</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.2.4</version>
+	</parent>
 
-    <groupId>com.baxter.config</groupId>
-    <artifactId>baxter-config</artifactId>
-    <version>1.4.2-SNAPSHOT</version>
-    <packaging>pom</packaging>
+	<groupId>com.baxter.config</groupId>
+	<artifactId>baxter-config</artifactId>
+	<version>1.4.2-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
-    <name>Baxter Configuration</name>
+	<name>Baxter Configuration</name>
 
-    <description>
+	<description>
 	  Baxter Configuration project.
 	  It consists of several modules, which are:
 	  Client API, Web Application and Products Connectors (Processors).
 	</description>
 
-    <url>https://repository-baxter.forge.cloudbees.com/private/sites/config/</url>
+	<url>https://repository-baxter.forge.cloudbees.com/private/sites/config/</url>
 
-    <inceptionYear>2011</inceptionYear>
+	<inceptionYear>2011</inceptionYear>
 
-    <scm>
-        <connection>scm:git:git//github.com/BAXTER-IT/config-server.git</connection>
-        <developerConnection>scm:git:git@github.com:BAXTER-IT/config-server.git</developerConnection>
-        <url>git@github.com:BAXTER-IT/config-server.git</url>
-        <tag>RELEASE--1.4</tag>
-    </scm>
+	<scm>
+		<connection>scm:git:git//github.com/BAXTER-IT/config-server.git</connection>
+		<developerConnection>scm:git:git@github.com:BAXTER-IT/config-server.git</developerConnection>
+		<url>git@github.com:BAXTER-IT/config-server.git</url>
+		<tag>RELEASE--1.4</tag>
+	</scm>
 
-    <issueManagement>
-        <system>JIRA</system>
-        <url>https://baxter-it.atlassian.net/browse/CFG</url>
-    </issueManagement>
+	<issueManagement>
+		<system>JIRA</system>
+		<url>https://baxter-it.atlassian.net/browse/CFG</url>
+	</issueManagement>
 
-    <licenses>
-        <license>
-            <name>Baxter</name>
-            <url>http://baxter.com/licenses/BAXTER-CONFIG-1.0.txt</url>
-            <comments>Some comments to a license</comments>
-            <distribution>manual</distribution>
-        </license>
-    </licenses>
+	<licenses>
+		<license>
+			<name>Baxter</name>
+			<url>http://baxter.com/licenses/BAXTER-CONFIG-1.0.txt</url>
+			<comments>Some comments to a license</comments>
+			<distribution>manual</distribution>
+		</license>
+	</licenses>
 
-    <developers>
+	<developers>
 
-        <developer>
-            <id>ykryshchuk</id>
-            <name>Yuriy Kryshchuk</name>
-            <timezone>+2</timezone>
-        </developer>
+		<developer>
+			<id>ykryshchuk</id>
+			<name>Yuriy Kryshchuk</name>
+			<timezone>+2</timezone>
+		</developer>
 
-    </developers>
+	</developers>
 
-    <build>
+	<build>
 
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <configuration>
-                        <reportPlugins combine.children="append">
-                            <plugin>
-                                <artifactId>maven-javadoc-plugin</artifactId>
-                                <reportSets>
-                                    <reportSet>
-                                        <id>prod-classes</id>
-                                        <configuration>
-                                            <show>package</show>
-                                        </configuration>
-                                        <reports>
-                                            <report>javadoc</report>
-                                        </reports>
-                                    </reportSet>
-                                </reportSets>
-                            </plugin>
-                        </reportPlugins>
-                    </configuration>
-                </plugin>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven
-                    build itself. -->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.codehaus.mojo</groupId>
-                                        <artifactId>jaxb2-maven-plugin</artifactId>
-                                        <versionRange>[1.5,)</versionRange>
-                                        <goals>
-                                            <goal>schemagen</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <execute />
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-dependency-plugin</artifactId>
-                                        <versionRange>[2.2,)</versionRange>
-                                        <goals>
-                                            <goal>unpack</goal>
-                                            <goal>copy-dependencies</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <execute />
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>jaxb2-maven-plugin</artifactId>
-                    <version>1.5</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<configuration>
+						<reportPlugins combine.children="append">
+							<plugin>
+								<artifactId>maven-javadoc-plugin</artifactId>
+								<reportSets>
+									<reportSet>
+										<id>prod-classes</id>
+										<configuration>
+											<show>package</show>
+										</configuration>
+										<reports>
+											<report>javadoc</report>
+										</reports>
+									</reportSet>
+								</reportSets>
+							</plugin>
+						</reportPlugins>
+					</configuration>
+				</plugin>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>jaxb2-maven-plugin</artifactId>
+										<versionRange>2.4</versionRange>
+										<goals>
+											<goal>schemagen</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[2.2,)</versionRange>
+										<goals>
+											<goal>unpack</goal>
+											<goal>copy-dependencies</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>jaxb2-maven-plugin</artifactId>
+					<version>2.4</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 
-    </build>
+	</build>
 
-    <modules>
-        <module>client</module>
-        <module>config-om</module>
-        <module>config-processor</module>
-        <module>server</module>
-        <module>processor-parent</module>
-    </modules>
+	<modules>
+		<module>client</module>
+		<module>config-om</module>
+		<module>config-processor</module>
+		<module>server</module>
+		<module>processor-parent</module>
+	</modules>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>baxter-config-om</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>baxter-config-processor</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>baxter-config-processor-demo</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>baxter-config-server</artifactId>
-                <classifier>deployable</classifier>
-                <type>war</type>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>2.5</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>2.0.1</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-beanutils</groupId>
-                <artifactId>commons-beanutils</artifactId>
-                <version>1.8.3</version>
-            </dependency>
-            <dependency>
-                <groupId>net.sf.saxon</groupId>
-                <artifactId>saxon</artifactId>
-                <version>${saxon.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.sf.saxon</groupId>
-                <artifactId>saxon-dom</artifactId>
-                <version>${saxon.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.sf.saxon</groupId>
-                <artifactId>saxon-xpath</artifactId>
-                <version>${saxon.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.powermock</groupId>
-                <artifactId>powermock-api-mockito</artifactId>
-                <version>1.4.9</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava-io</artifactId>
-                <version>r03</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baxter.log</groupId>
-                <artifactId>baxter-log-connector-bom</artifactId>
-                <type>pom</type>
-                <version>1.0.1</version>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>baxter-config-om</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>baxter-config-processor</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>baxter-config-processor-demo</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>baxter-config-server</artifactId>
+				<classifier>deployable</classifier>
+				<type>war</type>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>2.5</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>1.8.3</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.saxon</groupId>
+				<artifactId>saxon</artifactId>
+				<version>${saxon.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.saxon</groupId>
+				<artifactId>saxon-dom</artifactId>
+				<version>${saxon.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.saxon</groupId>
+				<artifactId>saxon-xpath</artifactId>
+				<version>${saxon.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-api-mockito</artifactId>
+				<version>1.4.9</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava-io</artifactId>
+				<version>r03</version>
+			</dependency>
+			<dependency>
+				<groupId>com.baxter.log</groupId>
+				<artifactId>baxter-log-connector-bom</artifactId>
+				<type>pom</type>
+				<version>1.0.1</version>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-api-mockito</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava-io</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava-io</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
-    <profiles>
+	<profiles>
 
-        <profile>
-            <id>Distribution-CloudBees</id>
-            <distributionManagement>
-                <site>
-                    <id>cloudbees-private-repository</id>
-                    <name>Baxter Configuration Site</name>
-                    <url>dav:https://repository-baxter.forge.cloudbees.com/private/sites/config/</url>
-                </site>
-            </distributionManagement>
-        </profile>
+		<profile>
+			<id>Distribution-CloudBees</id>
+			<distributionManagement>
+				<site>
+					<id>cloudbees-private-repository</id>
+					<name>Baxter Configuration Site</name>
+					<url>dav:https://repository-baxter.forge.cloudbees.com/private/sites/config/</url>
+				</site>
+			</distributionManagement>
+		</profile>
 
-        <profile>
-            <id>UnixInstaller</id>
-            <activation>
-                <os>
-                    <family>unix</family>
-                </os>
-            </activation>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <artifactId>maven-resources-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <!-- Filters the package control scripts -->
-                                    <id>filter-control-files</id>
-                                    <phase>prepare-package</phase>
-                                    <goals>
-                                        <goal>copy-resources</goal>
-                                    </goals>
-                                    <configuration>
-                                        <outputDirectory>${unix-maven-plugin.scripts.dir}</outputDirectory>
-                                        <resources>
-                                            <resource>
-                                                <directory>${unix-maven-plugin.scripts.src.dir}</directory>
-                                                <filtering>true</filtering>
-                                            </resource>
-                                        </resources>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
+		<profile>
+			<id>UnixInstaller</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<artifactId>maven-resources-plugin</artifactId>
+							<executions>
+								<execution>
+									<!-- Filters the package control scripts -->
+									<id>filter-control-files</id>
+									<phase>prepare-package</phase>
+									<goals>
+										<goal>copy-resources</goal>
+									</goals>
+									<configuration>
+										<outputDirectory>${unix-maven-plugin.scripts.dir}</outputDirectory>
+										<resources>
+											<resource>
+												<directory>${unix-maven-plugin.scripts.src.dir}</directory>
+												<filtering>true</filtering>
+											</resource>
+										</resources>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
 
-    </profiles>
+	</profiles>
 
-    <properties>
-        <!-- SITE PROPERTIES. We can reference these properties from the site sources -->
-        <!-- SITE PROPERTIES END -->
-        <unix.application.group.name>Config</unix.application.group.name>
-        <unix.config.dir>/etc/baxter</unix.config.dir>
-        <unix.service.dir>/etc/rc.d/init.d</unix.service.dir>
-        <saxon.version>8.9</saxon.version>
-        <!-- To be overriden in settings.xml -->
-        <alt.config-server.root>${unix.application.alt.root}/config-server</alt.config-server.root>
-        <alt.config.processors.lib.dir>${alt.config-server.root}/processors</alt.config.processors.lib.dir>
-        <!-- Standard installation directories -->
-        <config.processors.lib.dir>/usr/share/configuration-processors</config.processors.lib.dir>
-        <!-- Alternative installation directories -->
-        <config.processors.alt.lib.dir>/opt/baxter/config-server/processors</config.processors.alt.lib.dir>
-    </properties>
+	<properties>
+		<!-- SITE PROPERTIES. We can reference these properties from the site sources -->
+		<!-- SITE PROPERTIES END -->
+		<unix.application.group.name>Config</unix.application.group.name>
+		<unix.config.dir>/etc/baxter</unix.config.dir>
+		<unix.service.dir>/etc/rc.d/init.d</unix.service.dir>
+		<saxon.version>8.9</saxon.version>
+		<!-- To be overriden in settings.xml -->
+		<alt.config-server.root>${unix.application.alt.root}/config-server</alt.config-server.root>
+		<alt.config.processors.lib.dir>${alt.config-server.root}/processors</alt.config.processors.lib.dir>
+		<!-- Standard installation directories -->
+		<config.processors.lib.dir>/usr/share/configuration-processors</config.processors.lib.dir>
+		<!-- Alternative installation directories -->
+		<config.processors.alt.lib.dir>/opt/baxter/config-server/processors</config.processors.alt.lib.dir>
+	</properties>
 
 </project>
