@@ -245,9 +245,6 @@
 							<execution>
 								<id>build-std-rpm-installer</id>
 								<configuration>
-									<requires combine.children="append">
-										<require>baxter-log-connector-std</require>
-									</requires>
 									<filters>
 										<filter>${basedir}/src/main/unix/filter/default.properties</filter>
 									</filters>
@@ -325,9 +322,6 @@
 							<execution>
 								<id>build-alt-rpm-installer</id>
 								<configuration>
-									<requires combine.children="append">
-										<require>baxter-log-connector-alt</require>
-									</requires>
 									<filters>
 										<filter>${basedir}/src/main/unix/filter/rpm-alt.properties</filter>
 									</filters>
