@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -95,7 +96,7 @@
 									<pluginExecutionFilter>
 										<groupId>org.codehaus.mojo</groupId>
 										<artifactId>jaxb2-maven-plugin</artifactId>
-                                        <versionRange>2.4</versionRange>
+										<versionRange>2.4</versionRange>
 										<goals>
 											<goal>schemagen</goal>
 										</goals>
@@ -125,7 +126,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>jaxb2-maven-plugin</artifactId>
-                    <version>2.4</version>
+					<version>2.4</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -205,11 +206,19 @@
 				<version>r03</version>
 			</dependency>
 			<dependency>
-				<groupId>com.baxter.log</groupId>
-				<artifactId>baxter-log-connector-bom</artifactId>
-				<type>pom</type>
-				<version>1.0.1</version>
-				<scope>import</scope>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.5</version>
+			</dependency>
+			<dependency>
+				<artifactId>logback-classic</artifactId>
+				<groupId>ch.qos.logback</groupId>
+				<version>1.0.13</version>
+			</dependency>
+			<dependency>
+				<artifactId>logback-core</artifactId>
+				<groupId>ch.qos.logback</groupId>
+				<version>1.0.13</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

@@ -37,12 +37,6 @@
 			<fileMode>0664</fileMode>
 		</file>
 		<file>
-			<outputDirectory>etc</outputDirectory>
-			<source>src/main/resources/log4j.xml</source>
-			<destName>configuration-server-log-log4j.xml</destName>
-			<fileMode>0664</fileMode>
-		</file>
-		<file>
 			<outputDirectory>bin</outputDirectory>
 			<source>src/main/scripts/start-configuration-server-standalone.sh</source>
 			<destName>start-configuration-server</destName>

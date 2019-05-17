@@ -19,7 +19,7 @@
 			<p> The PoC shown by Yuriy was a working example with current price engine code. It's
 				content was:</p>
 			<ul>
-				<li>basic editor for properties.xml anf log4j.xml</li>
+				<li>basic editor for properties.xml and log4j.xml</li>
 				<li>basic versioning possibility</li>
 				<li>configuration file delivery to different nodes</li>
 			</ul>
