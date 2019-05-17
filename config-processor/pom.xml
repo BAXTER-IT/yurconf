@@ -105,6 +105,12 @@
 			<artifactId>saxon-dom</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava-io</artifactId>
+			<version>r03</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<properties>
