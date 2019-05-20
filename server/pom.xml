@@ -398,10 +398,10 @@
 											</dependency>
 											<sources>
 												<softlinkSource>
-													<location>/usr/share/java/commons-io.jar</location>
+													<location>/usr/share/configuration-server/java/commons-io.jar</location>
 												</softlinkSource>
 												<softlinkSource>
-													<location>/usr/share/java/commons-beanutil.jar</location>
+													<location>/usr/share/configuration-server/java/commons-beanutil.jar</location>
 												</softlinkSource>
 											</sources>
 										</mapping>
@@ -514,6 +514,7 @@
 		<unix.application.var.dir>/var/local/baxter/${unix.service.name}</unix.application.var.dir>
 		<unix.application.jetty.dir>${unix.application.var.dir}/jetty</unix.application.jetty.dir>
 		<unix.application.start.script>start-${unix.service.name}</unix.application.start.script>
+		<unix.application.lib.dir>/usr/share/java/configuration-server</unix.application.lib.dir>
 	</properties>
 
 </project>
