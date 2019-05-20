@@ -327,13 +327,13 @@
 									</filters>
 									<mappings>
 										<mapping>
-											<directory>${unix.application.alt.root}</directory>
+											<directory>${unix.application.alt.root}/configuration-server</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/etc</directory>
+											<directory>${unix.application.alt.root}/configuration-server/etc</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/etc</directory>
+											<directory>${unix.application.alt.root}/configuration-server/etc</directory>
 											<configuration>noreplace</configuration>
 											<sources>
 												<source>
@@ -353,10 +353,10 @@
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/bin</directory>
+											<directory>${unix.application.alt.root}/configuration-server/bin</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/bin</directory>
+											<directory>${unix.application.alt.root}/configuration-server/bin</directory>
 											<filemode>755</filemode>
 											<sources>
 												<source>
@@ -375,20 +375,20 @@
 											<directory>${alt.config.processors.lib.dir}</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/doc</directory>
+											<directory>${unix.application.alt.root}/configuration-server/doc</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/log</directory>
+											<directory>${unix.application.alt.root}/configuration-server/log</directory>
 										</mapping>
 										<mapping>
 											<configuration>noreplace</configuration>
 											<directory>${alt.config-server.root}/repository</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/lib</directory>
+											<directory>${unix.application.alt.root}/configuration-server/lib</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/lib</directory>
+											<directory>${unix.application.alt.root}/configuration-server/lib</directory>
 											<artifact>
 												<classifiers>
 													<classifier />
@@ -509,7 +509,7 @@
 		<jira.component>${project.artifactId}</jira.component>
 		<application.main.class>com.baxter.config.server.Main</application.main.class>
 		<unix.service.name>configuration-server</unix.service.name>
-		<unix.application.doc.dir>/usr/share/doc/baxter/${unix.service.name}</unix.application.doc.dir>
+		<unix.application.doc.dir>/usr/share/configuration-server/doc/baxter/${unix.service.name}</unix.application.doc.dir>
 		<unix.application.log.dir>/var/log/baxter/${unix.service.name}</unix.application.log.dir>
 		<unix.application.var.dir>/var/local/baxter/${unix.service.name}</unix.application.var.dir>
 		<unix.application.jetty.dir>${unix.application.var.dir}/jetty</unix.application.jetty.dir>
