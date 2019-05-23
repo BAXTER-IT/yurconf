@@ -285,7 +285,7 @@
 		<alt.config-server.root>${unix.application.alt.root}/configuration-server/config-server</alt.config-server.root>
 		<alt.config.processors.lib.dir>${alt.config-server.root}/processors</alt.config.processors.lib.dir>
 		<!-- Standard installation directories -->
-		<config.processors.lib.dir>/usr/share/configuration-server/configuration-processors</config.processors.lib.dir>
+		<config.processors.lib.dir>/usr/share/configuration-processors</config.processors.lib.dir>
 		<!-- Alternative installation directories -->
 		<config.processors.alt.lib.dir>/opt/baxter/configuration-server/config-server/processors</config.processors.alt.lib.dir>
 	</properties>

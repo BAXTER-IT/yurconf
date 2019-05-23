@@ -61,8 +61,7 @@
 							<Date>${maven.build.timestamp}</Date>
 							<Revision>${buildNumber}</Revision>
 							<Branch>${scmBranch}</Branch>
-							<Class-Path>commons-io.jar commons-beanutils.jar
-								commons-logging.jar</Class-Path>
+							<Class-Path>commons-io.jar commons-beanutils.jar commons-logging.jar</Class-Path>
 						</manifestEntries>
 					</archive>
 				</configuration>
