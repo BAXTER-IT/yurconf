@@ -327,6 +327,9 @@
 									</filters>
 									<mappings>
 										<mapping>
+											<directory>/opt/baxter</directory>
+										</mapping>
+										<mapping>
 											<directory>${unix.application.alt.root}/configuration-server</directory>
 										</mapping>
 										<mapping>
