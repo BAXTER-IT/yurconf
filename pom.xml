@@ -282,12 +282,12 @@
 		<unix.service.dir>/etc/rc.d/init.d</unix.service.dir>
 		<saxon.version>8.9</saxon.version>
 		<!-- To be overriden in settings.xml -->
-		<alt.config-server.root>${unix.application.alt.root}/configuration-server/config-server</alt.config-server.root>
+		<alt.config-server.root>${unix.application.alt.root}/config-server</alt.config-server.root>
 		<alt.config.processors.lib.dir>${alt.config-server.root}/processors</alt.config.processors.lib.dir>
 		<!-- Standard installation directories -->
 		<config.processors.lib.dir>/usr/share/configuration-processors</config.processors.lib.dir>
 		<!-- Alternative installation directories -->
-		<config.processors.alt.lib.dir>/opt/baxter/configuration-server/config-server/processors</config.processors.alt.lib.dir>
+		<config.processors.alt.lib.dir>/opt/baxter/config-server/processors</config.processors.alt.lib.dir>
 	</properties>
 
 </project>

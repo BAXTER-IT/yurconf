@@ -330,13 +330,13 @@
 											<directory>/opt/baxter</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/configuration-server</directory>
+											<directory>${unix.application.alt.root}</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/configuration-server/etc</directory>
+											<directory>${unix.application.alt.root}/etc</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/configuration-server/etc</directory>
+											<directory>${unix.application.alt.root}/etc</directory>
 											<configuration>noreplace</configuration>
 											<sources>
 												<source>
@@ -356,10 +356,10 @@
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/configuration-server/bin</directory>
+											<directory>${unix.application.alt.root}/bin</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/configuration-server/bin</directory>
+											<directory>${unix.application.alt.root}/bin</directory>
 											<filemode>755</filemode>
 											<sources>
 												<source>
@@ -378,20 +378,20 @@
 											<directory>${alt.config.processors.lib.dir}</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/configuration-server/doc</directory>
+											<directory>${unix.application.alt.root}/doc</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/configuration-server/log</directory>
+											<directory>${unix.application.alt.root}/log</directory>
 										</mapping>
 										<mapping>
 											<configuration>noreplace</configuration>
 											<directory>${alt.config-server.root}/repository</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/configuration-server/lib</directory>
+											<directory>${unix.application.alt.root}/lib</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/configuration-server/lib</directory>
+											<directory>${unix.application.alt.root}/lib</directory>
 											<artifact>
 												<classifiers>
 													<classifier />
