@@ -333,10 +333,13 @@
 											<directory>${unix.application.alt.root}</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/etc</directory>
+											<directory>${unix.application.alt.root}/cs</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/etc</directory>
+											<directory>${unix.application.alt.root}/cs/etc</directory>
+										</mapping>
+										<mapping>
+											<directory>${unix.application.alt.root}/cs/etc</directory>
 											<configuration>noreplace</configuration>
 											<sources>
 												<source>
@@ -356,10 +359,10 @@
 											</sources>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/bin</directory>
+											<directory>${unix.application.alt.root}/cs/bin</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/bin</directory>
+											<directory>${unix.application.alt.root}/cs/bin</directory>
 											<filemode>755</filemode>
 											<sources>
 												<source>
@@ -378,20 +381,20 @@
 											<directory>${alt.config.processors.lib.dir}</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/doc</directory>
+											<directory>${unix.application.alt.root}/cs/doc</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/log</directory>
+											<directory>${unix.application.alt.root}/cs/log</directory>
 										</mapping>
 										<mapping>
 											<configuration>noreplace</configuration>
 											<directory>${alt.config-server.root}/repository</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/lib</directory>
+											<directory>${unix.application.alt.root}/cs/lib</directory>
 										</mapping>
 										<mapping>
-											<directory>${unix.application.alt.root}/lib</directory>
+											<directory>${unix.application.alt.root}/cs/lib</directory>
 											<artifact>
 												<classifiers>
 													<classifier />
