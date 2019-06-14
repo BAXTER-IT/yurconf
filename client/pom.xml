@@ -244,10 +244,10 @@
                                             <directory>${unix.application.alt.root}</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${unix.application.alt.root}/etc</directory>
+                                            <directory>${unix.application.alt.root}/cs/etc</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${unix.application.alt.root}/etc</directory>
+                                            <directory>${unix.application.alt.root}/cs/etc</directory>
                                             <configuration>noreplace</configuration>
                                             <sources>
                                                 <source>
@@ -258,10 +258,10 @@
                                             </sources>
                                         </mapping>
                                         <mapping>
-                                            <directory>${unix.application.alt.root}/bin</directory>
+                                            <directory>${unix.application.alt.root}/cs/bin</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${unix.application.alt.root}/bin</directory>
+                                            <directory>${unix.application.alt.root}/cs/bin</directory>
                                             <filemode>755</filemode>
                                             <sources>
                                                 <source>
@@ -274,10 +274,10 @@
                                             </sources>
                                         </mapping>
                                         <mapping>
-                                            <directory>${unix.application.alt.root}/lib</directory>
+                                            <directory>${unix.application.alt.root}/cs/lib</directory>
                                         </mapping>
                                         <mapping>
-                                            <directory>${unix.application.alt.root}/lib</directory>
+                                            <directory>${unix.application.alt.root}/cs/lib</directory>
                                             <artifact>
                                                 <classifiers>
                                                     <classifier />
@@ -288,7 +288,7 @@
                                                     <location>${component.dependencies.dir}</location>
                                                 </source>
                                                 <softlinkSource>
-                                                    <location>${unix.application.alt.root}/lib/${project.build.finalName}.jar</location>
+                                                    <location>${unix.application.alt.root}/cs/lib/${project.build.finalName}.jar</location>
                                                     <destination>${project.artifactId}.jar</destination>
                                                 </softlinkSource>
                                             </sources>
