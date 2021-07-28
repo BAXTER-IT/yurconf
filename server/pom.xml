@@ -7,7 +7,7 @@
 	<parent>
 		<artifactId>baxter-config</artifactId>
 		<groupId>com.baxter.config</groupId>
-		<version>1.4.11-SNAPSHOT</version>
+		<version>1.4.11</version>
 	</parent>
 
 	<artifactId>baxter-config-server</artifactId>
