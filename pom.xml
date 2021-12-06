@@ -13,7 +13,7 @@
 
 	<groupId>com.baxter.config</groupId>
 	<artifactId>baxter-config</artifactId>
-	<version>1.4.14-SNAPSHOT</version>
+	<version>1.4.14</version>
 	<packaging>pom</packaging>
 
 	<name>Baxter Configuration</name>
