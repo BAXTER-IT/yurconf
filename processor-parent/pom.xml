@@ -208,14 +208,6 @@
                                         </requires>
                                         <mappings>
                                             <mapping>
-                                                <directory>${unix.application.lib.dir}</directory>
-                                                <artifact>
-                                                    <classifiers>
-                                                        <classifier />
-                                                    </classifiers>
-                                                </artifact>
-                                            </mapping>
-                                            <mapping>
                                                 <directory>${config.processors.lib.dir}</directory>
                                                 <sources>
                                                     <softlinkSource>
