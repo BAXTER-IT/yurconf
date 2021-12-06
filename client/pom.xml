@@ -201,6 +201,7 @@
                                             </sources>
                                         </mapping>
                                         <mapping>
+					    <directoryIncluded>false</directoryIncluded>
                                             <directory>${unix.application.bin.dir}</directory>
                                             <filemode>755</filemode>
                                             <sources>
