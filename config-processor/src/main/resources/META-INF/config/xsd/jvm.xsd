@@ -125,6 +125,7 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="logback" />
             <xs:enumeration value="log4j" />
+            <xs:enumeration value="log4j2" />
         </xs:restriction>
     </xs:simpleType>
 
