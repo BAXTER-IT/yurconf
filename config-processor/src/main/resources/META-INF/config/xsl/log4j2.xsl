@@ -12,8 +12,6 @@
 	<xsl:param name="configurationComponentId" />
 
 	<xsl:template match="/">
-		<xsl:message select="/" />
-		<!-- -->
 		<xsl:variable name="root">
 			<xsl:copy-of select="conf:configuration-source/conf:request" />
 			<xsl:apply-templates select="conf:configuration-source/conf:request"
@@ -24,9 +22,7 @@
 		<xsl:apply-templates select="$root/bcl:configuration" />
 	</xsl:template>
 	<xsl:template match="bcl:configuration">
-		<!-- <xsl:value-of select="$configurationComponentId" /> -->
-		<xsl:message select="/" />
-		<Configuration status="warn">
+		<Configuration status="info">
 			<xsl:variable name="refs"
 				select="bcl:logger[c:component[@id=$configurationComponentId]]/bcl:appender-ref/@ref" />
 			<Appenders>
@@ -166,10 +162,6 @@
 	<xsl:template name="timebased">
 		<xsl:param name="interval" />
 		<xsl:param name="modulate" />
-		<!-- <xsl:value-of select="not(empty($modulate))" /> -->
-		<!-- <xsl:value-of select="empty($modulate)" /> -->
-		<!-- <xsl:value-of select="$interval" /> -->
-		<!-- <xsl:value-of select="$modulate" /> -->
 		<xsl:choose>
 			<xsl:when test="not(empty($modulate))">
 				<TimeBasedTriggeringPolicy>
