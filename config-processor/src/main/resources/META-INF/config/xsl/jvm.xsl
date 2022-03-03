@@ -153,6 +153,8 @@
 				<xsl:text>-Dlog4j2.configuration=</xsl:text>
 				<xsl:apply-templates select="conf:reference" mode="url" />
 			</xsl:with-param>
+		</xsl:apply-templates>
+		<xsl:apply-templates select="/j:configuration" mode="append-opt">
 			<xsl:with-param name="opt">
 				<xsl:text>-Dlogging.config=</xsl:text>
 				<xsl:apply-templates select="conf:reference" mode="url" />
@@ -166,6 +168,8 @@
 				<xsl:text>-Dlogback.configurationFile=</xsl:text>
 				<xsl:apply-templates select="conf:reference" mode="url" />
 			</xsl:with-param>
+		</xsl:apply-templates>
+		<xsl:apply-templates select="/j:configuration" mode="append-opt">
 			<xsl:with-param name="opt">
 				<xsl:text>-Dlogging.config=</xsl:text>
 				<xsl:apply-templates select="conf:reference" mode="url" />
