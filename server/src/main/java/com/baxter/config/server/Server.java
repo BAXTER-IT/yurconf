@@ -12,6 +12,7 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,8 @@ public class Server extends org.eclipse.jetty.server.Server
 
   private final List<URL> jarUrls = new ArrayList<>();
 
-  Server() {
+  Server()
+  {
 	super(getServerSocketAddres());
 
 	ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -46,10 +48,19 @@ public class Server extends org.eclipse.jetty.server.Server
 	context.addServlet(ViewerServlet.class, "/view/*");
 	context.addEventListener(new ProcessorFactoryInitializer());
 	context.setClassLoader(getProcessorsClassLoader());
+
+	String resLocation = Server.class.getResource("/META-INF/view").toString();
+
+	final ResourceHandler resource_handler2 = new ResourceHandler();
+	resource_handler2.setDirectoriesListed(true);
+	resource_handler2.setResourceBase(resLocation);
+	context.setHandler(resource_handler2);
+
 	setHandler(context);
   }
 
-  private static InetSocketAddress getServerSocketAddres() {
+  private static InetSocketAddress getServerSocketAddres()
+  {
 	final String jettyPortString = System.getProperty("jetty.port");
 	LOGGER.debug("Jetty port value {}", jettyPortString);
 	final int jettyPort = jettyPortString == null ? DEFAULT_JETTY_PORT : Integer.parseInt(jettyPortString);

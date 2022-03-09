@@ -77,7 +77,7 @@ enum BaxterProtocol
 	  }
 	  catch (final FileNotFoundException e)
 	  {
-		LOGGER.debug("Failed to lookup the file in repository", e);
+		LOGGER.debug("Failed to lookup the file in repository");
 		LOGGER.warn("Could not resolve {} to repository file", uri);
 		throw new TransformerException(e);
 	  }
