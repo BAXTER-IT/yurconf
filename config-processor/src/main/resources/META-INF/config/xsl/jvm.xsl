@@ -150,7 +150,13 @@
 	<xsl:template match="j:logging[@framework='log4j2']">
 		<xsl:apply-templates select="/j:configuration" mode="append-opt">
 			<xsl:with-param name="opt">
-				<xsl:text>-Dlog4j2.configuration=</xsl:text>
+				<xsl:text>-Dlog4j2.Configuration.allowedProtocols=</xsl:text>
+				<xsl:value-of select="'http,file,https,url'" />
+			</xsl:with-param>
+		</xsl:apply-templates>
+		<xsl:apply-templates select="/j:configuration" mode="append-opt">
+			<xsl:with-param name="opt">
+				<xsl:text>-Dlog4j2.configurationFile=</xsl:text>
 				<xsl:apply-templates select="conf:reference" mode="url" />
 			</xsl:with-param>
 		</xsl:apply-templates>

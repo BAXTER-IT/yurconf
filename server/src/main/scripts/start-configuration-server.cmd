@@ -26,7 +26,6 @@ IF "" == "%JAVA_HOME%" (
 
 ECHO Java options: %JAVA_OPTS%
 
-echo maci
 echo %JAVACMD%
 echo %JAVA_OPTS%
 echo %YC_HOME%

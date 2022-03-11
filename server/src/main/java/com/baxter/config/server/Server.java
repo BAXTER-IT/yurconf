@@ -51,10 +51,9 @@ public class Server extends org.eclipse.jetty.server.Server
 
 	String resLocation = Server.class.getResource("/META-INF/view").toString();
 
-	final ResourceHandler resource_handler2 = new ResourceHandler();
-	resource_handler2.setDirectoriesListed(true);
-	resource_handler2.setResourceBase(resLocation);
-	context.setHandler(resource_handler2);
+	final ResourceHandler resourceHandler = new ResourceHandler();
+	resourceHandler.setResourceBase(resLocation);
+	context.setHandler(resourceHandler);
 
 	setHandler(context);
   }
