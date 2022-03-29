@@ -35,12 +35,13 @@
 			</Loggers>
 		</Configuration>
 	</xsl:template>
+
 	<xsl:template match="c:component" mode="deep-copy-generic">
 	</xsl:template>
 	<xsl:template match="*" mode="deep-copy-generic">
 		<xsl:param name="name" select="name()" />
 		<xsl:element name="{$name}">
-			<xsl:copy-of select="@*" />
+			<xsl:copy-of select="@*[name() != 'appenderType']" />
 			<xsl:apply-templates select="*" mode="deep-copy-generic" />
 			<xsl:if test="text()">
 				<xsl:value-of select="text()" />
@@ -54,7 +55,7 @@
 			<xsl:text>Use it on your own risk. </xsl:text>
 		</xsl:comment>
 		<xsl:apply-templates select="." mode="deep-copy-generic">
-			<xsl:with-param name="name" select="'appender'" />
+			<xsl:with-param name="name" select="@appenderType" />
 		</xsl:apply-templates>
 	</xsl:template>
 	<xsl:template match="bcl:logger[@name='ROOT']">
