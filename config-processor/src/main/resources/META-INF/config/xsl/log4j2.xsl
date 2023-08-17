@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:bcl="http://baxter-it.com/config/log" xmlns:c="http://baxter-it.com/config/component"
-	xmlns:conf="http://baxter-it.com/config" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:bcl="http://baxter-it.com/config/log"
+	xmlns:c="http://baxter-it.com/config/component"
+	xmlns:conf="http://baxter-it.com/config"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	exclude-result-prefixes="xs bcl c conf" version="2.0">
 
 	<xsl:import href="repo-base.xsl" />
@@ -13,13 +16,16 @@
 
 	<xsl:template match="/">
 		<xsl:variable name="root">
-			<xsl:copy-of select="conf:configuration-source/conf:request" />
-			<xsl:apply-templates select="conf:configuration-source/conf:request"
+			<xsl:copy-of
+				select="conf:configuration-source/conf:request" />
+			<xsl:apply-templates
+				select="conf:configuration-source/conf:request"
 				mode="load-document-with-variants">
 				<xsl:with-param name="prefix" select="'log'" />
 			</xsl:apply-templates>
 		</xsl:variable>
-		<xsl:apply-templates select="$root/bcl:configuration" />
+		<xsl:apply-templates
+			select="$root/bcl:configuration" />
 	</xsl:template>
 	<xsl:template match="bcl:configuration">
 		<Configuration status="info">
@@ -42,7 +48,8 @@
 		<xsl:param name="name" select="name()" />
 		<xsl:element name="{$name}">
 			<xsl:copy-of select="@*[name() != 'appenderType']" />
-			<xsl:apply-templates select="*" mode="deep-copy-generic" />
+			<xsl:apply-templates select="*"
+				mode="deep-copy-generic" />
 			<xsl:if test="text()">
 				<xsl:value-of select="text()" />
 			</xsl:if>
@@ -54,7 +61,8 @@
 			<xsl:text>This is not portable across the different logging frameworks. </xsl:text>
 			<xsl:text>Use it on your own risk. </xsl:text>
 		</xsl:comment>
-		<xsl:apply-templates select="." mode="deep-copy-generic">
+		<xsl:apply-templates select="."
+			mode="deep-copy-generic">
 			<xsl:with-param name="name" select="@appenderType" />
 		</xsl:apply-templates>
 	</xsl:template>
@@ -129,13 +137,18 @@
 		<RollingFile>
 			<xsl:apply-templates select="@name" />
 			<xsl:call-template name="log-file" />
-			<xsl:apply-templates select="@backupIndex" />
+			<xsl:call-template name="backupIndex">
+				<xsl:with-param name="file" select="@file" />
+				<xsl:with-param name="filePattern"
+					select="@filePattern" />
+			</xsl:call-template>
 			<xsl:call-template name="policies" />
 			<xsl:apply-templates />
 		</RollingFile>
 	</xsl:template>
 
-	<xsl:template match="bcl:file-appender/@name | bcl:rolling-file-appender/@name">
+	<xsl:template
+		match="bcl:file-appender/@name | bcl:rolling-file-appender/@name">
 		<xsl:attribute name="name">
 			<xsl:value-of select="." />
 		</xsl:attribute>
@@ -147,10 +160,6 @@
 			<xsl:choose>
 				<xsl:when test="not(empty(@interval))">
 					<xsl:apply-templates select="@minSize" />
-				</xsl:when>
-			</xsl:choose>
-			<xsl:choose>
-				<xsl:when test="not(empty(@interval))">
 					<xsl:call-template name="timebased">
 						<xsl:with-param name="interval" select="@interval" />
 						<xsl:with-param name="modulate" select="@modulate" />
@@ -200,12 +209,24 @@
 		</OnStartupTriggeringPolicy>
 	</xsl:template>
 
-	<xsl:template match="bcl:rolling-file-appender/@backupIndex">
+	<xsl:template name="backupIndex">
+		<xsl:param name="file" />
+		<xsl:param name="filePattern" />
 		<xsl:attribute name="filePattern">
-			<xsl:call-template name="build-log-file-path">
-				<xsl:with-param name="file" select="../@file" />
-			</xsl:call-template>
-			<xsl:text>-%i</xsl:text>
+		<xsl:choose>
+			<xsl:when test="not(empty($filePattern))">
+				<xsl:call-template name="build-log-file-path">
+					<xsl:with-param name="file"
+			select="../$filePattern" />
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="build-log-file-path">
+					<xsl:with-param name="file" select="../$file" />
+				</xsl:call-template>
+				<xsl:text>-%i</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
 		</xsl:attribute>
 		<DefaultRolloverStrategy>
 			<xsl:attribute name="max">
