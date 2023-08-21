@@ -139,8 +139,8 @@
 			<xsl:call-template name="log-file" />
 			<xsl:call-template name="backupIndex">
 				<xsl:with-param name="file" select="@file" />
-				<xsl:with-param name="filePattern"
-					select="@filePattern" />
+				<xsl:with-param name="filePattern" select="@filePattern" />
+				<xsl:with-param name="max" select="@backupIndex" />
 			</xsl:call-template>
 			<xsl:call-template name="policies" />
 			<xsl:apply-templates />
@@ -212,6 +212,7 @@
 	<xsl:template name="backupIndex">
 		<xsl:param name="file" />
 		<xsl:param name="filePattern" />
+		<xsl:param name="max" />
 		<xsl:attribute name="filePattern">
 		<xsl:choose>
 			<xsl:when test="not(empty($filePattern))">
@@ -230,7 +231,7 @@
 		</xsl:attribute>
 		<DefaultRolloverStrategy>
 			<xsl:attribute name="max">
-				<xsl:value-of select="." />
+				<xsl:value-of select="$max" />
 			</xsl:attribute>
 		</DefaultRolloverStrategy>
 	</xsl:template>
