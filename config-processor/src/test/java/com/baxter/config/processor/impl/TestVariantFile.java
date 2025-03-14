@@ -3,22 +3,23 @@
  */
 package com.baxter.config.processor.impl;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.File;
 
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author ykryshchuk
  * @since ${developmentVersion}
  */
-public class TestVariantFile
+class TestVariantFile
 {
 
   private final File ROOT = new File(".").getAbsoluteFile();
 
   @Test
-  public void checkNullVariant()
+  void checkNullVariant()
   {
 	final File f = new VariantFile(ROOT, "myfile.txt", null);
 	final File ef = new File(ROOT, "myfile.txt");
@@ -26,7 +27,7 @@ public class TestVariantFile
   }
 
   @Test
-  public void checkPathNullVariant()
+  void checkPathNullVariant()
   {
 	final File f = new VariantFile(ROOT, "dir/subdir/myfile.txt", null);
 	final File ef = new File(ROOT, "dir/subdir/myfile.txt");
@@ -34,7 +35,7 @@ public class TestVariantFile
   }
 
   @Test
-  public void checkVariant()
+  void checkVariant()
   {
 	final File f = new VariantFile(ROOT, "myfile.txt", "test");
 	final File ef = new File(ROOT, "myfile(test).txt");
@@ -42,7 +43,7 @@ public class TestVariantFile
   }
 
   @Test
-  public void checkVariantNoExt()
+  void checkVariantNoExt()
   {
 	final File f = new VariantFile(ROOT, "myfile", "test");
 	final File ef = new File(ROOT, "myfile(test)");
@@ -50,7 +51,7 @@ public class TestVariantFile
   }
 
   @Test
-  public void checkPathVariant()
+  void checkPathVariant()
   {
 	final File f = new VariantFile(ROOT, "dir/subdir/myfile.txt", "test");
 	final File ef = new File(ROOT, "dir/subdir/myfile(test).txt");
@@ -58,7 +59,7 @@ public class TestVariantFile
   }
 
   @Test
-  public void checkPathExtVariant()
+  void checkPathExtVariant()
   {
 	final File f = new VariantFile(ROOT, "dir/sub.dir/myfile.txt", "test");
 	final File ef = new File(ROOT, "dir/sub.dir/myfile(test).txt");
@@ -66,7 +67,7 @@ public class TestVariantFile
   }
 
   @Test
-  public void checkPathExtVariantNoExt()
+  void checkPathExtVariantNoExt()
   {
 	final File f = new VariantFile(ROOT, "dir/sub.dir/myfile", "test");
 	final File ef = new File(ROOT, "dir/sub.dir/myfile(test)");

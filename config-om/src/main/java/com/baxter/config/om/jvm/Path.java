@@ -5,7 +5,7 @@ package com.baxter.config.om.jvm;
 
 import java.net.URL;
 
-import javax.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.XmlValue;
 
 /**
  * @author ykryshchuk

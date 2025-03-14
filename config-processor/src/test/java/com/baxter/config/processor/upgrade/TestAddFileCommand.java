@@ -3,16 +3,16 @@
  */
 package com.baxter.config.processor.upgrade;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.baxter.config.processor.desc.FilenameProvider;
 
@@ -22,14 +22,14 @@ import com.baxter.config.processor.desc.FilenameProvider;
  * @author xpdev
  * @since ${developmentVersion}
  */
-public class TestAddFileCommand extends TestAbstractFileCommand
+class TestAddFileCommand extends TestAbstractFileCommand
 {
-  
+
   /**
    * 
    */
   @Test
-  public void check_addNewFileSingle() throws Exception
+  void check_addNewFileSingle() throws Exception
   {
 	final FilenameProvider fnProvider = mock(FilenameProvider.class);
 	when(fnProvider.getFileNameMask()).thenReturn("somedir/somefile.ext");
@@ -45,7 +45,7 @@ public class TestAddFileCommand extends TestAbstractFileCommand
    * 
    */
   @Test
-  public void check_addNewFileMask() throws Exception
+  void check_addNewFileMask() throws Exception
   {
 	final FilenameProvider fnProvider = mock(FilenameProvider.class);
 	when(fnProvider.getFileNameMask()).thenReturn("somedir/somefile.*");
@@ -61,7 +61,7 @@ public class TestAddFileCommand extends TestAbstractFileCommand
    * 
    */
   @Test
-  public void check_addNewFileMask2() throws Exception
+  void check_addNewFileMask2() throws Exception
   {
 	final FilenameProvider fnProvider = mock(FilenameProvider.class);
 	when(fnProvider.getFileNameMask()).thenReturn("*/*.ext");
@@ -77,7 +77,7 @@ public class TestAddFileCommand extends TestAbstractFileCommand
    * 
    */
   @Test
-  public void check_addNewFileRegexp() throws Exception
+  void check_addNewFileRegexp() throws Exception
   {
 	final FilenameProvider fnProvider = mock(FilenameProvider.class);
 	when(fnProvider.getFileNamePattern()).thenReturn("input1_[1-3]\\.txt");
@@ -92,9 +92,10 @@ public class TestAddFileCommand extends TestAbstractFileCommand
 	  assertTrue(new File(this.pseudoRoot, "input1_" + i + ".txt").isFile());
 	}
   }
-  
+
   @Test
-  public void check_addFileOverwrite() throws Exception {
+  void check_addFileOverwrite() throws Exception
+  {
 	final FilenameProvider fnProvider = mock(FilenameProvider.class);
 	when(fnProvider.getFileNameMask()).thenReturn("somedir/somefile.ext");
 	final AddFileCommand cmd = new AddFileCommand(fnProvider);

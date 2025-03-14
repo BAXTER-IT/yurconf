@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>com.baxter</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.11.3</version>
+		<version>2.1</version>
 	</parent>
 
 	<groupId>com.baxter.config</groupId>
@@ -16,9 +18,9 @@
 	<name>Baxter Configuration</name>
 
 	<description>
-	  Baxter Configuration project.
-	  It consists of several modules, which are:
-	  Client API, Web Application and Products Connectors (Processors).
+		Baxter Configuration project.
+		It consists of several modules, which are:
+		Client API, Web Application and Products Connectors (Processors).
 	</description>
 
 	<url>https://repository-baxter.forge.cloudbees.com/private/sites/config/</url>
@@ -164,15 +166,15 @@
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>4.13.2</version>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-api</artifactId>
+				<version>5.8.1</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.mockito</groupId>
-				<artifactId>mockito-all</artifactId>
-				<version>1.10.19</version>
+				<artifactId>mockito-core</artifactId>
+				<version>3.12.4</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -225,13 +227,13 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
+			<artifactId>mockito-core</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -277,7 +279,8 @@
 	</profiles>
 
 	<properties>
-		<!-- SITE PROPERTIES. We can reference these properties from the site sources -->
+		<!-- SITE PROPERTIES. We can reference these properties from the site
+		sources -->
 		<!-- SITE PROPERTIES END -->
 		<unix.application.group.name>Config</unix.application.group.name>
 		<unix.config.dir>/etc/baxter</unix.config.dir>
@@ -291,6 +294,7 @@
 		<!-- Alternative installation directories -->
 		<config.processors.alt.lib.dir>/opt/baxter/config-server/processors</config.processors.alt.lib.dir>
 
+		<java.version>17</java.version>
 		<logback.version>1.2.7</logback.version>
 		<slf4j.version>1.7.32</slf4j.version>
 	</properties>

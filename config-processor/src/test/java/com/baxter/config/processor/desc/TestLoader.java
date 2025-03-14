@@ -3,19 +3,21 @@
  */
 package com.baxter.config.processor.desc;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertEquals;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+
 
 /**
  * Test suite for Loader class.
@@ -23,11 +25,11 @@ import static org.junit.Assert.assertEquals;
  * @author ykryshchuk
  * @since ${developmentVersion}
  */
-public class TestLoader
+ class TestLoader
 {
 
   @Test
-  public void loadDescriptorFromResource1() throws Exception
+  void loadDescriptorFromResource1() throws Exception
   {
 	final URL url = getClass().getResource("data/test-descriptor-1.xml");
 	final Descriptor d = Loader.getInstance().load(url);
@@ -39,7 +41,7 @@ public class TestLoader
   }
 
   @Test
-  public void loadDescriptorFromUpgrade() throws Exception
+   void loadDescriptorFromUpgrade() throws Exception
   {
 	final URL url = getClass().getResource("data/test-descriptor-upgrade.xml");
 	final Descriptor d = Loader.getInstance().load(url);
@@ -62,7 +64,7 @@ public class TestLoader
   }
 
   @Test
-  public void marshalToXml() throws Exception
+   void marshalToXml() throws Exception
   {
 	final Descriptor d = new Descriptor();
 	d.setVersion("1.1");

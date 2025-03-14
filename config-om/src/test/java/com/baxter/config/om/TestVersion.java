@@ -3,11 +3,12 @@
  */
 package com.baxter.config.om;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for {@link Version} class.
@@ -15,19 +16,19 @@ import org.junit.Test;
  * @author ykryshchuk
  * @since ${developmentVersion}
  */
-public class TestVersion
+class TestVersion
 {
 
   @Test
-  public void testValueOf_100()
+  void testValueOf_100()
   {
 	final Version v = Version.valueOf("100");
 	assertEquals(1, v.getParts().length);
 	assertEquals(100, v.getParts()[0]);
   }
-  
+
   @Test
-  public void testValueOf_1_0()
+  void testValueOf_1_0()
   {
 	final Version v = Version.valueOf("1.0");
 	assertEquals(2, v.getParts().length);
@@ -36,7 +37,7 @@ public class TestVersion
   }
 
   @Test
-  public void testValueOf_1_5_3()
+  void testValueOf_1_5_3()
   {
 	final Version v = Version.valueOf("1.5.3");
 	assertEquals(3, v.getParts().length);
@@ -45,39 +46,41 @@ public class TestVersion
 	assertEquals(3, v.getParts()[2]);
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testValueOf_1_a()
+  @Test
+  void testValueOf_1_a()
   {
-	Version.valueOf("1.a");
+	assertThrows(IllegalArgumentException.class, () -> {
+	  Version.valueOf("1.a");
+	});
   }
 
   @Test
-  public void testValueOfToString_1_1_0()
+  void testValueOfToString_1_1_0()
   {
-	final Version v =  Version.valueOf("1.1.0");
+	final Version v = Version.valueOf("1.1.0");
 	assertEquals("1.1.0", v.toString());
   }
 
   @Test
-  public void testCompare_1_5_and_1_5()
+  void testCompare_1_5_and_1_5()
   {
 	assertTrue(Version.valueOf("1.5").compareTo(Version.valueOf("1.5")) == 0);
   }
 
   @Test
-  public void testCompare_1_5_and_1_6()
+  void testCompare_1_5_and_1_6()
   {
 	assertTrue(Version.valueOf("1.5").compareTo(Version.valueOf("1.6")) < 0);
   }
 
   @Test
-  public void testCompare_1_5_and_1_0()
+  void testCompare_1_5_and_1_0()
   {
 	assertTrue(Version.valueOf("1.5").compareTo(Version.valueOf("1.0")) > 0);
   }
 
   @Test
-  public void testValueOf_null()
+  void testValueOf_null()
   {
 	final Version v = Version.valueOf(null);
 	assertNull(v);

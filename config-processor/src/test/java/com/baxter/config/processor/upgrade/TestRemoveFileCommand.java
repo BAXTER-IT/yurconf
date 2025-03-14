@@ -1,22 +1,23 @@
 package com.baxter.config.processor.upgrade;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.baxter.config.processor.desc.FilenameProvider;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-public class TestRemoveFileCommand extends TestAbstractFileCommand
+ class TestRemoveFileCommand extends TestAbstractFileCommand
 {
 
   @Test
-  public void check_removeFileSingle() throws IOException, UpgradeException
+   void check_removeFileSingle() throws IOException, UpgradeException
   {
 	final File expectedFile = new File(this.pseudoRoot, "somedir/somefile.ext");
 	FileUtils.touch(expectedFile);
@@ -30,7 +31,7 @@ public class TestRemoveFileCommand extends TestAbstractFileCommand
   }
   
   @Test
-  public void check_removeFilesByWildCards() throws IOException, UpgradeException
+   void check_removeFilesByWildCards() throws IOException, UpgradeException
   {
 	installFileToRoot("input1_1.txt");
 	final File expectedFile1 = new File(this.pseudoRoot, "input1_1.txt");
@@ -52,7 +53,7 @@ public class TestRemoveFileCommand extends TestAbstractFileCommand
   }
   
   @Test
-  public void check_removeFilesByRegex() throws IOException, UpgradeException
+   void check_removeFilesByRegex() throws IOException, UpgradeException
   {
 	installFileToRoot("input1_1.txt");
 	final File expectedFile1 = new File(this.pseudoRoot, "input1_1.txt");
@@ -75,7 +76,7 @@ public class TestRemoveFileCommand extends TestAbstractFileCommand
   
   @Test
   //If there is nothing to delete don't need to do anything.
-  public void check_removeNonExistingFile() throws IOException, UpgradeException
+   void check_removeNonExistingFile() throws IOException, UpgradeException
   {
 	  final File expectedFile = new File(this.pseudoRoot, "somedir/somefile.ext");
 	  assertFalse(expectedFile.exists());

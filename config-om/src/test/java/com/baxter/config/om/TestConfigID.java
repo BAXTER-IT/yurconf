@@ -3,20 +3,21 @@
  */
 package com.baxter.config.om;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author ykryshchuk
  * 
  */
-public class TestConfigID
+class TestConfigID
 {
 
   @Test
-  public void testFromURLPath_valid_3parts()
+  void testFromURLPath_valid_3parts()
   {
 	final ConfigID cid = ConfigID.fromURLPath("/com.baxter.pe/price-engine-dbserber/log4j");
 	assertEquals("com.baxter.pe", cid.getProductId());
@@ -26,7 +27,7 @@ public class TestConfigID
   }
 
   @Test
-  public void testFromURLPath_valid_4parts()
+  void testFromURLPath_valid_4parts()
   {
 	final ConfigID cid = ConfigID.fromURLPath("/com.baxter.pe/price-engine-broadcast/sydney/log4j");
 	assertEquals("com.baxter.pe", cid.getProductId());
@@ -37,7 +38,7 @@ public class TestConfigID
   }
 
   @Test
-  public void testFromURLPath_valid_4parts_mulVariants()
+  void testFromURLPath_valid_4parts_mulVariants()
   {
 	final ConfigID cid = ConfigID.fromURLPath("/com.baxter.pe/price-engine-broadcast/sydney,ha/log4j");
 	assertEquals("com.baxter.pe", cid.getProductId());
@@ -48,34 +49,38 @@ public class TestConfigID
 	assertEquals("log4j", cid.getType());
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testFromURLPath_invalid_short()
+  @Test
+  void testFromURLPath_invalid_short()
   {
-	ConfigID.fromURLPath("/com.baxter.pe/price-engine-broadcast");
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void testFromURLPath_invalid_long()
-  {
-	ConfigID.fromURLPath("/com.baxter.pe/price-engine-broadcast/a/b/c/d");
+	assertThrows(IllegalArgumentException.class, () -> {
+	  ConfigID.fromURLPath("/com.baxter.pe/price-engine-broadcast");
+	});
   }
 
   @Test
-  public void testToURLPath_noVariants()
+  void testFromURLPath_invalid_long()
+  {
+	assertThrows(IllegalArgumentException.class, () -> {
+	  ConfigID.fromURLPath("/com.baxter.pe/price-engine-broadcast/a/b/c/d");
+	});
+  }
+
+  @Test
+  void testToURLPath_noVariants()
   {
 	final ConfigID cid = new ConfigID("prod", "comp", "t1");
 	assertEquals("/prod/comp/t1", cid.toURLPath());
   }
 
   @Test
-  public void testToURLPath_1Variant()
+  void testToURLPath_1Variant()
   {
 	final ConfigID cid = new ConfigID("prod", "comp", "t2", "test");
 	assertEquals("/prod/comp/test/t2", cid.toURLPath());
   }
 
   @Test
-  public void testToURLPath_3Variants()
+  void testToURLPath_3Variants()
   {
 	final ConfigID cid = new ConfigID("prod", "comp", "t3", "extra", "test", "dummy");
 	assertEquals("/prod/comp/extra,test,dummy/t3", cid.toURLPath());

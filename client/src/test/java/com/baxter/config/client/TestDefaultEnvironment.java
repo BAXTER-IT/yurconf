@@ -3,12 +3,12 @@
  */
 package com.baxter.config.client;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.util.Arrays;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.baxter.config.om.Version;
 
@@ -16,11 +16,11 @@ import com.baxter.config.om.Version;
  * @author ykryshchuk
  * 
  */
-public class TestDefaultEnvironment
+class TestDefaultEnvironment
 {
 
   @Test
-  public void checkSingleton()
+  void checkSingleton()
   {
 	final Environment env1 = DefaultEnvironment.getInstance();
 	final Environment env2 = DefaultEnvironment.getInstance();
@@ -29,7 +29,7 @@ public class TestDefaultEnvironment
   }
 
   @Test
-  public void checkDefaults()
+  void checkDefaults()
   {
 	final DefaultEnvironment env = DefaultEnvironment.getInstance();
 	assertEquals("com.baxter.config", env.getDefaultProductId());
@@ -39,7 +39,7 @@ public class TestDefaultEnvironment
   }
 
   @Test
-  public void checkOverwriteProduct()
+  void checkOverwriteProduct()
   {
 	final DefaultEnvironment env = DefaultEnvironment.getInstance();
 	final ConfigPropertyReplacer backup = new ConfigPropertyReplacer(DefaultEnvironment.PROP_PRODUCT_ID, "otherProduct");
@@ -54,7 +54,7 @@ public class TestDefaultEnvironment
   }
 
   @Test
-  public void checkOverwriteComponent()
+  void checkOverwriteComponent()
   {
 	final DefaultEnvironment env = DefaultEnvironment.getInstance();
 	final ConfigPropertyReplacer backup = new ConfigPropertyReplacer(DefaultEnvironment.PROP_COMPONENT_ID, "otherComponent");
@@ -69,7 +69,7 @@ public class TestDefaultEnvironment
   }
 
   @Test
-  public void checkOverwriteVersion()
+  void checkOverwriteVersion()
   {
 	final DefaultEnvironment env = DefaultEnvironment.getInstance();
 	final ConfigPropertyReplacer backup = new ConfigPropertyReplacer(DefaultEnvironment.PROP_VERSION, "2.0");
@@ -84,7 +84,7 @@ public class TestDefaultEnvironment
   }
 
   @Test
-  public void checkOverwriteVariants()
+  void checkOverwriteVariants()
   {
 	final DefaultEnvironment env = DefaultEnvironment.getInstance();
 	final ConfigPropertyReplacer backup = new ConfigPropertyReplacer(DefaultEnvironment.PROP_VARIANTS, "just,check");

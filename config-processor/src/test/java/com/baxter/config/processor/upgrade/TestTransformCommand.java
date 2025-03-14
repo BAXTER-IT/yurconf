@@ -1,7 +1,7 @@
 package com.baxter.config.processor.upgrade;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -10,7 +10,7 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -18,7 +18,7 @@ import org.w3c.dom.NodeList;
 
 import com.baxter.config.processor.desc.FilenameProvider;
 
-public class TestTransformCommand extends TestAbstractFileCommand
+ class TestTransformCommand extends TestAbstractFileCommand
 {
 
   /**
@@ -28,7 +28,7 @@ public class TestTransformCommand extends TestAbstractFileCommand
    * @throws Exception
    */
   @Test
-  public void check_renameListToItems() throws Exception
+   void check_renameListToItems() throws Exception
   {
 	installFileToRoot("structure1.xml");
 
@@ -58,7 +58,7 @@ public class TestTransformCommand extends TestAbstractFileCommand
   }
 
   @Test
-  public void check_moveTextToAttributeWithInput() throws Exception
+   void check_moveTextToAttributeWithInput() throws Exception
   {
 	installFileToRoot("catalogue/input.xml");
 	installFileToRoot("catalogue/input(1).xml");

@@ -3,32 +3,33 @@
  */
 package com.baxter.config.processor.upgrade;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.baxter.config.processor.desc.FilenameProvider;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * @author xpdev
  * @since ${developmentVersion}
  */
-public class TestMoveFileCommand extends TestAbstractFileCommand
+class TestMoveFileCommand extends TestAbstractFileCommand
 
 {
 
   @Test
-  public void testRenameWithRegExp()
+  void testRenameWithRegExp()
   {
 	final Pattern p = Pattern.compile("1");
 	final Matcher m = p.matcher("this in 1 line with 1 sample"); //this in one line with one sample 
@@ -42,7 +43,7 @@ public class TestMoveFileCommand extends TestAbstractFileCommand
   }
 
   @Test
-  public void testRenameWithRegExp2()
+  void testRenameWithRegExp2()
   {
 	// rename dir/* -> log2/*
 	final String str1 = "dir/(.*)";
@@ -56,7 +57,7 @@ public class TestMoveFileCommand extends TestAbstractFileCommand
   }
 
   @Test
-  public void testRenameWithRegExp3()
+  void testRenameWithRegExp3()
   {
 	// rename dir/* -> log2/*
 	final String str1 = "dir/([^\\.]*)\\.([^\\.]*)";
@@ -72,7 +73,7 @@ public class TestMoveFileCommand extends TestAbstractFileCommand
   }
 
   @Test
-  public void check_singleFileRename() throws IOException, UpgradeException
+  void check_singleFileRename() throws IOException, UpgradeException
   {
 	final File expectedFile = new File(this.pseudoRoot, "somedir/somefile.ext");
 	final File renamedFile = new File(this.pseudoRoot, "somedir/somefile2.ext");
@@ -89,7 +90,7 @@ public class TestMoveFileCommand extends TestAbstractFileCommand
   }
 
   @Test
-  public void check_singleFileReplace() throws IOException, UpgradeException
+  void check_singleFileReplace() throws IOException, UpgradeException
   {
 	final File expectedFile = new File(this.pseudoRoot, "somedir/somefile.ext");
 	final File renamedFile = new File(this.pseudoRoot, "otherdir/somefile.ext");
@@ -106,7 +107,7 @@ public class TestMoveFileCommand extends TestAbstractFileCommand
   }
 
   @Test
-  public void check_singleFileReplaceRename() throws IOException, UpgradeException
+  void check_singleFileReplaceRename() throws IOException, UpgradeException
   {
 	final File expectedFile = new File(this.pseudoRoot, "somedir/somefile.ext");
 	final File renamedFile = new File(this.pseudoRoot, "otherdir/somefile2.ext");
@@ -123,7 +124,7 @@ public class TestMoveFileCommand extends TestAbstractFileCommand
   }
 
   @Test
-  public void check_singleFileReplaceToExistingOne() throws IOException, UpgradeException
+  void check_singleFileReplaceToExistingOne() throws IOException, UpgradeException
   {
 	final File expectedFile = new File(this.pseudoRoot, "somedir/somefile.ext");
 	final File renamedFile = new File(this.pseudoRoot, "otherdir/somefile2.ext");
@@ -142,9 +143,9 @@ public class TestMoveFileCommand extends TestAbstractFileCommand
 	assertTrue(renamedFile.exists());
 	assertEquals(10, renamedFile.length());
   }
-  
+
   @Test
-  public void check_WildcardFileReplaceToDirectoryWithExistingFile() throws IOException, UpgradeException
+  void check_WildcardFileReplaceToDirectoryWithExistingFile() throws IOException, UpgradeException
   {
 	final File expectedFile = new File(this.pseudoRoot, "somedir/somefile.ext");
 	final File renamedFile = new File(this.pseudoRoot, "otherdir/somefile.ext");
@@ -164,8 +165,8 @@ public class TestMoveFileCommand extends TestAbstractFileCommand
 	assertEquals(10, renamedFile.length());
   }
 
-  @Test(expected=UpgradeException.class)
-  public void check_WildcardFileReplaceToFileInsteadofDirectory() throws IOException, UpgradeException
+  @Test
+  void check_WildcardFileReplaceToFileInsteadofDirectory() throws IOException
   {
 	final File expectedFile = new File(this.pseudoRoot, "somedir/somefile.ext");
 	final File renamedFile = new File(this.pseudoRoot, "otherdir/somefile.ext");
@@ -179,11 +180,13 @@ public class TestMoveFileCommand extends TestAbstractFileCommand
 	final FilenameProvider fnProvider = mock(FilenameProvider.class);
 	when(fnProvider.getFileNameMask()).thenReturn("somedir/*.ext");
 	final MoveFileCommand cmd = new MoveFileCommand(fnProvider, "otherdir/somefile.ext");
-	cmd.upgrade(this.upgradeContext);
+	assertThrows(UpgradeException.class, () -> {
+	  cmd.upgrade(this.upgradeContext);
+	});
   }
-  
+
   @Test
-  public void check_MaskSpecifiedFileReplace() throws IOException, UpgradeException
+  void check_MaskSpecifiedFileReplace() throws IOException, UpgradeException
   {
 	installFileToRoot("input1_1.txt");
 	installFileToRoot("input1_2.txt");
@@ -219,9 +222,9 @@ public class TestMoveFileCommand extends TestAbstractFileCommand
 	assertTrue(movedFile2.exists());
 	assertTrue(movedFile3.exists());
   }
-  
+
   @Test
-  public void check_regexSpecifiedFileReplace() throws IOException, UpgradeException
+  void check_regexSpecifiedFileReplace() throws IOException, UpgradeException
   {
 	installFileToRoot("input1_1.txt");
 	installFileToRoot("input1_2.txt");
